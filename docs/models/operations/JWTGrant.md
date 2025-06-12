@@ -1,0 +1,11 @@
+# JWTGrant
+
+JSON Web Token (JWT) Grant is an OAuth 2.0 flow that is used to grant an access token to service integrations
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          | Example                                                                                              |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `grantType`                                                                                          | [Optional\<GetTokenFromJWTGrantGrantType>](../../models/operations/GetTokenFromJWTGrantGrantType.md) | :heavy_minus_sign:                                                                                   | The grant type.                                                                                      | urn:ietf:params:oauth:grant-type:jwt-bearer                                                          |
+| `assertion`                                                                                          | *String*                                                                                             | :heavy_check_mark:                                                                                   | Your JWT                                                                                             | YOUR_JSON_WEB_TOKEN                                                                                  |
