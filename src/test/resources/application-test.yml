@@ -1,0 +1,26 @@
+# variables will be substituted by values from the environment
+docusign:
+  oauthBasePath: ${DOCUSIGN_OAUTH_BASE_PATH}
+# uncomment following if required
+#  apiBasePath: ${DOCUSIGN_API_BASE_PATH}
+  accountId: ${DOCUSIGN_ACCOUNT_ID}
+#  redirectUri: ${DOCUSIGN_REDIRECT_URI}
+  jwt:
+    clientId: ${DOCUSIGN_JWT_CLIENT_ID}
+    userId: ${DOCUSIGN_JWT_USER_ID}
+    privateKey: "${DOCUSIGN_JWT_PRIVATE_KEY}"
+
+# Enable confidential or public flow variables loading by uncommenting the respective section
+
+#  confidential:
+#    clientId: ${DOCUSIGN_CONFIDENTIAL_CLIENT_ID}
+#    secretKey: ${DOCUSIGN_CONFIDENTIAL_SECRET_KEY}
+#    expiresIn: ${DOCUSIGN_CONFIDENTIAL_EXPIRES_IN}
+#    accessToken: ${DOCUSIGN_CONFIDENTIAL_ACCESS_TOKEN}
+#    refreshToken: ${DOCUSIGN_CONFIDENTIAL_REFRESH_TOKEN}
+
+#  publicConfig:
+#    clientId: ${DOCUSIGN_PUBLIC_CLIENT_ID}
+#    expiresIn: ${DOCUSIGN_PUBLIC_EXPIRES_IN}
+#    accessToken: ${DOCUSIGN_PUBLIC_ACCESS_TOKEN}
+#    refreshToken: ${DOCUSIGN_PUBLIC_REFRESH_TOKEN}

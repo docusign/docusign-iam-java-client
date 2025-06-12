@@ -1,0 +1,28 @@
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+        exceptionFormat = "full"
+        showExceptions = true
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = true
+
+        afterSuite { desc, result ->
+            if (!desc.parent) {
+                println "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+            }
+        }
+    }
+    // uncomment following to debug using a remote debugger process
+    //jvmArgs "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005"
+}
+
+dependencies {
+    implementation("com.nimbusds:nimbus-jose-jwt:10.2")
+    implementation 'org.bouncycastle:bcprov-jdk15on:1.70'
+    implementation 'org.bouncycastle:bcpkix-jdk15on:1.70'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    testImplementation 'org.mockito:mockito-core:5.17.0'
+    testImplementation 'org.yaml:snakeyaml:2.4'
+}
