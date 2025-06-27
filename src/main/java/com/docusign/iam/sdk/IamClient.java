@@ -5,6 +5,7 @@ package com.docusign.iam.sdk;
 
 import com.docusign.iam.sdk.utils.HTTPClient;
 import com.docusign.iam.sdk.utils.RetryConfig;
+import com.docusign.iam.sdk.utils.SpeakeasyHTTPClient;
 import com.docusign.iam.sdk.utils.Utils;
 import java.lang.String;
 import java.lang.SuppressWarnings;
@@ -18,7 +19,6 @@ import java.util.function.Consumer;
  */
 public class IamClient {
 
-  
     /**
      * AvailableServers contains identifiers for the servers available to the SDK.
      */
@@ -52,9 +52,11 @@ public class IamClient {
      */
     @SuppressWarnings("serial")
     public static final Map<AvailableServers, String> SERVERS = new HashMap<>() { {
-    put(AvailableServers.DEMO, "https://api-d.docusign.com/v1");
-    put(AvailableServers.PROD, "https://api.docusign.com/v1");
+    put(AvailableServers.DEMO, "https://api-d.docusign.com");
+    put(AvailableServers.PROD, "https://api.docusign.com");
     }};
+
+    
 
     private final Auth auth;
 
@@ -79,7 +81,6 @@ public class IamClient {
     public ConnectedFields connectedFields() {
         return connectedFields;
     }
-
     private SDKConfiguration sdkConfiguration;
 
     /**
@@ -175,6 +176,21 @@ public class IamClient {
             this.sdkConfiguration.setRetryConfig(Optional.of(retryConfig));
             return this;
         }
+
+        /**
+         * Enables debug logging for HTTP requests and responses, including JSON body content.
+         *
+         * Convenience method that calls {@link HTTPClient#enableDebugging(boolean)}.
+         * {@link SpeakeasyHTTPClient} honors this setting. If you are using a custom HTTP client,
+         * it is up to the custom client to honor this setting.
+         *
+         * @return The builder instance.
+         */
+        public Builder enableHTTPDebugLogging(boolean enabled) {
+            this.sdkConfiguration.client().enableDebugging(enabled);
+            return this;
+        }
+
         // Visible for testing, may be accessed via reflection in tests
         Builder _hooks(com.docusign.iam.sdk.utils.Hooks hooks) {
             sdkConfiguration.setHooks(hooks);  

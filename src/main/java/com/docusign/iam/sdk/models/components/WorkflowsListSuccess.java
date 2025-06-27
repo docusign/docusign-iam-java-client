@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class WorkflowsListSuccess {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("data")
-    private Optional<? extends WorkflowList> data;
+    private Optional<? extends List<Workflow>> data;
 
     /**
      * Control information and metadata for the response.
@@ -38,7 +39,7 @@ public class WorkflowsListSuccess {
 
     @JsonCreator
     public WorkflowsListSuccess(
-            @JsonProperty("data") Optional<? extends WorkflowList> data,
+            @JsonProperty("data") Optional<? extends List<Workflow>> data,
             @JsonProperty("response_metadata") Optional<? extends ResponseMetadata> responseMetadata) {
         Utils.checkNotNull(data, "data");
         Utils.checkNotNull(responseMetadata, "responseMetadata");
@@ -55,8 +56,8 @@ public class WorkflowsListSuccess {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<WorkflowList> data() {
-        return (Optional<WorkflowList>) data;
+    public Optional<List<Workflow>> data() {
+        return (Optional<List<Workflow>>) data;
     }
 
     /**
@@ -75,7 +76,7 @@ public class WorkflowsListSuccess {
     /**
      * A list of workflows
      */
-    public WorkflowsListSuccess withData(WorkflowList data) {
+    public WorkflowsListSuccess withData(List<Workflow> data) {
         Utils.checkNotNull(data, "data");
         this.data = Optional.ofNullable(data);
         return this;
@@ -84,7 +85,7 @@ public class WorkflowsListSuccess {
     /**
      * A list of workflows
      */
-    public WorkflowsListSuccess withData(Optional<? extends WorkflowList> data) {
+    public WorkflowsListSuccess withData(Optional<? extends List<Workflow>> data) {
         Utils.checkNotNull(data, "data");
         this.data = data;
         return this;
@@ -139,7 +140,7 @@ public class WorkflowsListSuccess {
     
     public final static class Builder {
  
-        private Optional<? extends WorkflowList> data = Optional.empty();
+        private Optional<? extends List<Workflow>> data = Optional.empty();
  
         private Optional<? extends ResponseMetadata> responseMetadata = Optional.empty();
         
@@ -150,7 +151,7 @@ public class WorkflowsListSuccess {
         /**
          * A list of workflows
          */
-        public Builder data(WorkflowList data) {
+        public Builder data(List<Workflow> data) {
             Utils.checkNotNull(data, "data");
             this.data = Optional.ofNullable(data);
             return this;
@@ -159,7 +160,7 @@ public class WorkflowsListSuccess {
         /**
          * A list of workflows
          */
-        public Builder data(Optional<? extends WorkflowList> data) {
+        public Builder data(Optional<? extends List<Workflow>> data) {
             Utils.checkNotNull(data, "data");
             this.data = data;
             return this;

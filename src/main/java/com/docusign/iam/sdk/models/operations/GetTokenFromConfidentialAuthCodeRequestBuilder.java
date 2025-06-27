@@ -3,7 +3,11 @@
  */
 package com.docusign.iam.sdk.models.operations;
 
+import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
+
+import com.docusign.iam.sdk.SDKConfiguration;
 import com.docusign.iam.sdk.models.components.ConfidentialAuthCodeGrantRequestBody;
+import com.docusign.iam.sdk.operations.GetTokenFromConfidentialAuthCodeOperation;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -17,10 +21,10 @@ public class GetTokenFromConfidentialAuthCodeRequestBuilder {
     private GetTokenFromConfidentialAuthCodeSecurity security;
     private Optional<String> serverURL = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallGetTokenFromConfidentialAuthCode sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetTokenFromConfidentialAuthCodeRequestBuilder(SDKMethodInterfaces.MethodCallGetTokenFromConfidentialAuthCode sdk) {
-        this.sdk = sdk;
+    public GetTokenFromConfidentialAuthCodeRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetTokenFromConfidentialAuthCodeRequestBuilder request(ConfidentialAuthCodeGrantRequestBody request) {
@@ -61,12 +65,16 @@ public class GetTokenFromConfidentialAuthCodeRequestBuilder {
 
     public GetTokenFromConfidentialAuthCodeResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.getTokenFromConfidentialAuthCode(
-            request,
-            security,
-            serverURL,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<ConfidentialAuthCodeGrantRequestBody, GetTokenFromConfidentialAuthCodeResponse> operation
+              = new GetTokenFromConfidentialAuthCodeOperation(
+                 sdkConfiguration,
+                 security,
+                 serverURL,
+                 options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

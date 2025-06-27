@@ -3,26 +3,23 @@
  */
 package com.docusign.iam.sdk.models.components;
 
-import com.docusign.iam.sdk.utils.LazySingletonValue;
 import com.docusign.iam.sdk.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Objects;
 import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 public class Workflow {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
-    private JsonNullable<String> id;
+    private Optional<String> id;
 
     /**
      * A user-provided name for this workflow
@@ -33,7 +30,7 @@ public class Workflow {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("account_id")
-    private JsonNullable<String> accountId;
+    private Optional<String> accountId;
 
     /**
      * Indicates the readiness and deployment status of a workflow
@@ -48,9 +45,9 @@ public class Workflow {
 
     @JsonCreator
     public Workflow(
-            @JsonProperty("id") JsonNullable<String> id,
+            @JsonProperty("id") Optional<String> id,
             @JsonProperty("name") Optional<String> name,
-            @JsonProperty("account_id") JsonNullable<String> accountId,
+            @JsonProperty("account_id") Optional<String> accountId,
             @JsonProperty("status") Optional<String> status,
             @JsonProperty("metadata") Optional<? extends ResourceMetadata> metadata) {
         Utils.checkNotNull(id, "id");
@@ -66,11 +63,11 @@ public class Workflow {
     }
     
     public Workflow() {
-        this(JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
-    public JsonNullable<String> id() {
+    public Optional<String> id() {
         return id;
     }
 
@@ -83,7 +80,7 @@ public class Workflow {
     }
 
     @JsonIgnore
-    public JsonNullable<String> accountId() {
+    public Optional<String> accountId() {
         return accountId;
     }
 
@@ -107,11 +104,11 @@ public class Workflow {
 
     public Workflow withId(String id) {
         Utils.checkNotNull(id, "id");
-        this.id = JsonNullable.of(id);
+        this.id = Optional.ofNullable(id);
         return this;
     }
 
-    public Workflow withId(JsonNullable<String> id) {
+    public Workflow withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
@@ -137,11 +134,11 @@ public class Workflow {
 
     public Workflow withAccountId(String accountId) {
         Utils.checkNotNull(accountId, "accountId");
-        this.accountId = JsonNullable.of(accountId);
+        this.accountId = Optional.ofNullable(accountId);
         return this;
     }
 
-    public Workflow withAccountId(JsonNullable<String> accountId) {
+    public Workflow withAccountId(Optional<String> accountId) {
         Utils.checkNotNull(accountId, "accountId");
         this.accountId = accountId;
         return this;
@@ -217,11 +214,11 @@ public class Workflow {
     
     public final static class Builder {
  
-        private JsonNullable<String> id;
+        private Optional<String> id = Optional.empty();
  
         private Optional<String> name = Optional.empty();
  
-        private JsonNullable<String> accountId;
+        private Optional<String> accountId = Optional.empty();
  
         private Optional<String> status = Optional.empty();
  
@@ -233,11 +230,11 @@ public class Workflow {
 
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
-            this.id = JsonNullable.of(id);
+            this.id = Optional.ofNullable(id);
             return this;
         }
 
-        public Builder id(JsonNullable<String> id) {
+        public Builder id(Optional<String> id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
@@ -263,11 +260,11 @@ public class Workflow {
 
         public Builder accountId(String accountId) {
             Utils.checkNotNull(accountId, "accountId");
-            this.accountId = JsonNullable.of(accountId);
+            this.accountId = Optional.ofNullable(accountId);
             return this;
         }
 
-        public Builder accountId(JsonNullable<String> accountId) {
+        public Builder accountId(Optional<String> accountId) {
             Utils.checkNotNull(accountId, "accountId");
             this.accountId = accountId;
             return this;
@@ -304,12 +301,6 @@ public class Workflow {
         }
         
         public Workflow build() {
-            if (id == null) {
-                id = _SINGLETON_VALUE_Id.value();
-            }
-            if (accountId == null) {
-                accountId = _SINGLETON_VALUE_AccountId.value();
-            }
             return new Workflow(
                 id,
                 name,
@@ -317,17 +308,5 @@ public class Workflow {
                 status,
                 metadata);
         }
-
-        private static final LazySingletonValue<JsonNullable<String>> _SINGLETON_VALUE_Id =
-                new LazySingletonValue<>(
-                        "id",
-                        "\"00000000-0000-0000-0000-000000000000\"",
-                        new TypeReference<JsonNullable<String>>() {});
-
-        private static final LazySingletonValue<JsonNullable<String>> _SINGLETON_VALUE_AccountId =
-                new LazySingletonValue<>(
-                        "account_id",
-                        "\"00000000-0000-0000-0000-000000000000\"",
-                        new TypeReference<JsonNullable<String>>() {});
     }
 }

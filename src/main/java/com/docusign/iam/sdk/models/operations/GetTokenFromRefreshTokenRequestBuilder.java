@@ -3,6 +3,10 @@
  */
 package com.docusign.iam.sdk.models.operations;
 
+import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
+
+import com.docusign.iam.sdk.SDKConfiguration;
+import com.docusign.iam.sdk.operations.GetTokenFromRefreshTokenOperation;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -16,10 +20,10 @@ public class GetTokenFromRefreshTokenRequestBuilder {
     private GetTokenFromRefreshTokenSecurity security;
     private Optional<String> serverURL = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallGetTokenFromRefreshToken sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetTokenFromRefreshTokenRequestBuilder(SDKMethodInterfaces.MethodCallGetTokenFromRefreshToken sdk) {
-        this.sdk = sdk;
+    public GetTokenFromRefreshTokenRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetTokenFromRefreshTokenRequestBuilder request(AuthorizationCodeGrant request) {
@@ -60,12 +64,16 @@ public class GetTokenFromRefreshTokenRequestBuilder {
 
     public GetTokenFromRefreshTokenResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.getTokenFromRefreshToken(
-            request,
-            security,
-            serverURL,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<AuthorizationCodeGrant, GetTokenFromRefreshTokenResponse> operation
+              = new GetTokenFromRefreshTokenOperation(
+                 sdkConfiguration,
+                 security,
+                 serverURL,
+                 options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

@@ -19,7 +19,7 @@ public enum ConfidentialAuthCodeGrantRequestBodyGrantType {
     @JsonValue
     private final String value;
 
-    private ConfidentialAuthCodeGrantRequestBodyGrantType(String value) {
+    ConfidentialAuthCodeGrantRequestBodyGrantType(String value) {
         this.value = value;
     }
     

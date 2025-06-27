@@ -90,7 +90,7 @@ publishing {
             // https://github.com/gradle/gradle/issues/18619
             groupId = "com.docusign"
             artifactId = "iam-sdk"
-            version = "1.0.0-beta.1"
+            version = "1.0.0-beta.2"
 
             from components.java
 

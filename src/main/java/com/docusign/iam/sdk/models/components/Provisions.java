@@ -18,7 +18,6 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.Optional;
@@ -27,8 +26,7 @@ import org.openapitools.jackson.nullable.JsonNullable;
 /**
  * Provisions
  * 
- * <p>"The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type. 
- * This set of provisions can change dynamically."
+ * <p>"The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type."
  */
 public class Provisions {
 
@@ -193,7 +191,7 @@ public class Provisions {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("renewal_process_owner")
-    private JsonNullable<String> renewalProcessOwner;
+    private Optional<String> renewalProcessOwner;
 
     /**
      * Additional information related to the renewal process.
@@ -222,21 +220,21 @@ public class Provisions {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("effective_date")
-    private JsonNullable<LocalDate> effectiveDate;
+    private JsonNullable<OffsetDateTime> effectiveDate;
 
     /**
      * The date when the agreement ends and is no longer valid or enforceable.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("expiration_date")
-    private JsonNullable<LocalDate> expirationDate;
+    private JsonNullable<OffsetDateTime> expirationDate;
 
     /**
      * The date when the agreement is signed by all parties, making it officially binding. This is not necessarily the same as the effective date.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("execution_date")
-    private JsonNullable<LocalDate> executionDate;
+    private JsonNullable<OffsetDateTime> executionDate;
 
     /**
      * Overall duration of the agreement.
@@ -271,13 +269,13 @@ public class Provisions {
             @JsonProperty("renewal_notice_date") JsonNullable<OffsetDateTime> renewalNoticeDate,
             @JsonProperty("auto_renewal_term_length") JsonNullable<String> autoRenewalTermLength,
             @JsonProperty("renewal_extension_period") JsonNullable<String> renewalExtensionPeriod,
-            @JsonProperty("renewal_process_owner") JsonNullable<String> renewalProcessOwner,
+            @JsonProperty("renewal_process_owner") Optional<String> renewalProcessOwner,
             @JsonProperty("renewal_additional_info") JsonNullable<String> renewalAdditionalInfo,
             @JsonProperty("termination_period_for_cause") JsonNullable<String> terminationPeriodForCause,
             @JsonProperty("termination_period_for_convenience") JsonNullable<String> terminationPeriodForConvenience,
-            @JsonProperty("effective_date") JsonNullable<LocalDate> effectiveDate,
-            @JsonProperty("expiration_date") JsonNullable<LocalDate> expirationDate,
-            @JsonProperty("execution_date") JsonNullable<LocalDate> executionDate,
+            @JsonProperty("effective_date") JsonNullable<OffsetDateTime> effectiveDate,
+            @JsonProperty("expiration_date") JsonNullable<OffsetDateTime> expirationDate,
+            @JsonProperty("execution_date") JsonNullable<OffsetDateTime> executionDate,
             @JsonProperty("term_length") JsonNullable<String> termLength) {
         Utils.checkNotNull(assignmentType, "assignmentType");
         Utils.checkNotNull(assignmentChangeOfControl, "assignmentChangeOfControl");
@@ -346,7 +344,7 @@ public class Provisions {
     }
     
     public Provisions() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -537,7 +535,7 @@ public class Provisions {
     }
 
     @JsonIgnore
-    public JsonNullable<String> renewalProcessOwner() {
+    public Optional<String> renewalProcessOwner() {
         return renewalProcessOwner;
     }
 
@@ -570,7 +568,7 @@ public class Provisions {
      * The date when the terms of the agreement start to apply and become legally binding.
      */
     @JsonIgnore
-    public JsonNullable<LocalDate> effectiveDate() {
+    public JsonNullable<OffsetDateTime> effectiveDate() {
         return effectiveDate;
     }
 
@@ -578,7 +576,7 @@ public class Provisions {
      * The date when the agreement ends and is no longer valid or enforceable.
      */
     @JsonIgnore
-    public JsonNullable<LocalDate> expirationDate() {
+    public JsonNullable<OffsetDateTime> expirationDate() {
         return expirationDate;
     }
 
@@ -586,7 +584,7 @@ public class Provisions {
      * The date when the agreement is signed by all parties, making it officially binding. This is not necessarily the same as the effective date.
      */
     @JsonIgnore
-    public JsonNullable<LocalDate> executionDate() {
+    public JsonNullable<OffsetDateTime> executionDate() {
         return executionDate;
     }
 
@@ -1018,11 +1016,11 @@ public class Provisions {
 
     public Provisions withRenewalProcessOwner(String renewalProcessOwner) {
         Utils.checkNotNull(renewalProcessOwner, "renewalProcessOwner");
-        this.renewalProcessOwner = JsonNullable.of(renewalProcessOwner);
+        this.renewalProcessOwner = Optional.ofNullable(renewalProcessOwner);
         return this;
     }
 
-    public Provisions withRenewalProcessOwner(JsonNullable<String> renewalProcessOwner) {
+    public Provisions withRenewalProcessOwner(Optional<String> renewalProcessOwner) {
         Utils.checkNotNull(renewalProcessOwner, "renewalProcessOwner");
         this.renewalProcessOwner = renewalProcessOwner;
         return this;
@@ -1087,7 +1085,7 @@ public class Provisions {
     /**
      * The date when the terms of the agreement start to apply and become legally binding.
      */
-    public Provisions withEffectiveDate(LocalDate effectiveDate) {
+    public Provisions withEffectiveDate(OffsetDateTime effectiveDate) {
         Utils.checkNotNull(effectiveDate, "effectiveDate");
         this.effectiveDate = JsonNullable.of(effectiveDate);
         return this;
@@ -1096,7 +1094,7 @@ public class Provisions {
     /**
      * The date when the terms of the agreement start to apply and become legally binding.
      */
-    public Provisions withEffectiveDate(JsonNullable<LocalDate> effectiveDate) {
+    public Provisions withEffectiveDate(JsonNullable<OffsetDateTime> effectiveDate) {
         Utils.checkNotNull(effectiveDate, "effectiveDate");
         this.effectiveDate = effectiveDate;
         return this;
@@ -1105,7 +1103,7 @@ public class Provisions {
     /**
      * The date when the agreement ends and is no longer valid or enforceable.
      */
-    public Provisions withExpirationDate(LocalDate expirationDate) {
+    public Provisions withExpirationDate(OffsetDateTime expirationDate) {
         Utils.checkNotNull(expirationDate, "expirationDate");
         this.expirationDate = JsonNullable.of(expirationDate);
         return this;
@@ -1114,7 +1112,7 @@ public class Provisions {
     /**
      * The date when the agreement ends and is no longer valid or enforceable.
      */
-    public Provisions withExpirationDate(JsonNullable<LocalDate> expirationDate) {
+    public Provisions withExpirationDate(JsonNullable<OffsetDateTime> expirationDate) {
         Utils.checkNotNull(expirationDate, "expirationDate");
         this.expirationDate = expirationDate;
         return this;
@@ -1123,7 +1121,7 @@ public class Provisions {
     /**
      * The date when the agreement is signed by all parties, making it officially binding. This is not necessarily the same as the effective date.
      */
-    public Provisions withExecutionDate(LocalDate executionDate) {
+    public Provisions withExecutionDate(OffsetDateTime executionDate) {
         Utils.checkNotNull(executionDate, "executionDate");
         this.executionDate = JsonNullable.of(executionDate);
         return this;
@@ -1132,7 +1130,7 @@ public class Provisions {
     /**
      * The date when the agreement is signed by all parties, making it officially binding. This is not necessarily the same as the effective date.
      */
-    public Provisions withExecutionDate(JsonNullable<LocalDate> executionDate) {
+    public Provisions withExecutionDate(JsonNullable<OffsetDateTime> executionDate) {
         Utils.checkNotNull(executionDate, "executionDate");
         this.executionDate = executionDate;
         return this;
@@ -1325,7 +1323,7 @@ public class Provisions {
  
         private JsonNullable<String> renewalExtensionPeriod = JsonNullable.undefined();
  
-        private JsonNullable<String> renewalProcessOwner = JsonNullable.undefined();
+        private Optional<String> renewalProcessOwner = Optional.empty();
  
         private JsonNullable<String> renewalAdditionalInfo = JsonNullable.undefined();
  
@@ -1333,11 +1331,11 @@ public class Provisions {
  
         private JsonNullable<String> terminationPeriodForConvenience = JsonNullable.undefined();
  
-        private JsonNullable<LocalDate> effectiveDate = JsonNullable.undefined();
+        private JsonNullable<OffsetDateTime> effectiveDate = JsonNullable.undefined();
  
-        private JsonNullable<LocalDate> expirationDate = JsonNullable.undefined();
+        private JsonNullable<OffsetDateTime> expirationDate = JsonNullable.undefined();
  
-        private JsonNullable<LocalDate> executionDate = JsonNullable.undefined();
+        private JsonNullable<OffsetDateTime> executionDate = JsonNullable.undefined();
  
         private JsonNullable<String> termLength = JsonNullable.undefined();
         
@@ -1761,11 +1759,11 @@ public class Provisions {
 
         public Builder renewalProcessOwner(String renewalProcessOwner) {
             Utils.checkNotNull(renewalProcessOwner, "renewalProcessOwner");
-            this.renewalProcessOwner = JsonNullable.of(renewalProcessOwner);
+            this.renewalProcessOwner = Optional.ofNullable(renewalProcessOwner);
             return this;
         }
 
-        public Builder renewalProcessOwner(JsonNullable<String> renewalProcessOwner) {
+        public Builder renewalProcessOwner(Optional<String> renewalProcessOwner) {
             Utils.checkNotNull(renewalProcessOwner, "renewalProcessOwner");
             this.renewalProcessOwner = renewalProcessOwner;
             return this;
@@ -1830,7 +1828,7 @@ public class Provisions {
         /**
          * The date when the terms of the agreement start to apply and become legally binding.
          */
-        public Builder effectiveDate(LocalDate effectiveDate) {
+        public Builder effectiveDate(OffsetDateTime effectiveDate) {
             Utils.checkNotNull(effectiveDate, "effectiveDate");
             this.effectiveDate = JsonNullable.of(effectiveDate);
             return this;
@@ -1839,7 +1837,7 @@ public class Provisions {
         /**
          * The date when the terms of the agreement start to apply and become legally binding.
          */
-        public Builder effectiveDate(JsonNullable<LocalDate> effectiveDate) {
+        public Builder effectiveDate(JsonNullable<OffsetDateTime> effectiveDate) {
             Utils.checkNotNull(effectiveDate, "effectiveDate");
             this.effectiveDate = effectiveDate;
             return this;
@@ -1848,7 +1846,7 @@ public class Provisions {
         /**
          * The date when the agreement ends and is no longer valid or enforceable.
          */
-        public Builder expirationDate(LocalDate expirationDate) {
+        public Builder expirationDate(OffsetDateTime expirationDate) {
             Utils.checkNotNull(expirationDate, "expirationDate");
             this.expirationDate = JsonNullable.of(expirationDate);
             return this;
@@ -1857,7 +1855,7 @@ public class Provisions {
         /**
          * The date when the agreement ends and is no longer valid or enforceable.
          */
-        public Builder expirationDate(JsonNullable<LocalDate> expirationDate) {
+        public Builder expirationDate(JsonNullable<OffsetDateTime> expirationDate) {
             Utils.checkNotNull(expirationDate, "expirationDate");
             this.expirationDate = expirationDate;
             return this;
@@ -1866,7 +1864,7 @@ public class Provisions {
         /**
          * The date when the agreement is signed by all parties, making it officially binding. This is not necessarily the same as the effective date.
          */
-        public Builder executionDate(LocalDate executionDate) {
+        public Builder executionDate(OffsetDateTime executionDate) {
             Utils.checkNotNull(executionDate, "executionDate");
             this.executionDate = JsonNullable.of(executionDate);
             return this;
@@ -1875,7 +1873,7 @@ public class Provisions {
         /**
          * The date when the agreement is signed by all parties, making it officially binding. This is not necessarily the same as the effective date.
          */
-        public Builder executionDate(JsonNullable<LocalDate> executionDate) {
+        public Builder executionDate(JsonNullable<OffsetDateTime> executionDate) {
             Utils.checkNotNull(executionDate, "executionDate");
             this.executionDate = executionDate;
             return this;

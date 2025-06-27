@@ -3,53 +3,38 @@
  */
 package com.docusign.iam.sdk;
 
+import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
+
 import com.docusign.iam.sdk.models.components.TriggerWorkflow;
-import com.docusign.iam.sdk.models.components.TriggerWorkflowSuccess;
-import com.docusign.iam.sdk.models.components.WorkflowTriggerRequirementsSuccess;
-import com.docusign.iam.sdk.models.components.WorkflowsListSuccess;
-import com.docusign.iam.sdk.models.errors.APIException;
-import com.docusign.iam.sdk.models.errors.Error;
 import com.docusign.iam.sdk.models.operations.GetWorkflowTriggerRequirementsRequest;
 import com.docusign.iam.sdk.models.operations.GetWorkflowTriggerRequirementsRequestBuilder;
 import com.docusign.iam.sdk.models.operations.GetWorkflowTriggerRequirementsResponse;
 import com.docusign.iam.sdk.models.operations.GetWorkflowsListRequest;
 import com.docusign.iam.sdk.models.operations.GetWorkflowsListRequestBuilder;
 import com.docusign.iam.sdk.models.operations.GetWorkflowsListResponse;
-import com.docusign.iam.sdk.models.operations.SDKMethodInterfaces.*;
+import com.docusign.iam.sdk.models.operations.PauseNewWorkflowInstancesRequest;
+import com.docusign.iam.sdk.models.operations.PauseNewWorkflowInstancesRequestBuilder;
+import com.docusign.iam.sdk.models.operations.PauseNewWorkflowInstancesResponse;
+import com.docusign.iam.sdk.models.operations.ResumePausedWorkflowRequest;
+import com.docusign.iam.sdk.models.operations.ResumePausedWorkflowRequestBuilder;
+import com.docusign.iam.sdk.models.operations.ResumePausedWorkflowResponse;
+import com.docusign.iam.sdk.models.operations.Status;
 import com.docusign.iam.sdk.models.operations.TriggerWorkflowRequest;
 import com.docusign.iam.sdk.models.operations.TriggerWorkflowRequestBuilder;
 import com.docusign.iam.sdk.models.operations.TriggerWorkflowResponse;
-import com.docusign.iam.sdk.utils.BackoffStrategy;
-import com.docusign.iam.sdk.utils.HTTPClient;
-import com.docusign.iam.sdk.utils.HTTPRequest;
-import com.docusign.iam.sdk.utils.Hook.AfterErrorContextImpl;
-import com.docusign.iam.sdk.utils.Hook.AfterSuccessContextImpl;
-import com.docusign.iam.sdk.utils.Hook.BeforeRequestContextImpl;
+import com.docusign.iam.sdk.operations.GetWorkflowTriggerRequirementsOperation;
+import com.docusign.iam.sdk.operations.GetWorkflowsListOperation;
+import com.docusign.iam.sdk.operations.PauseNewWorkflowInstancesOperation;
+import com.docusign.iam.sdk.operations.ResumePausedWorkflowOperation;
+import com.docusign.iam.sdk.operations.TriggerWorkflowOperation;
 import com.docusign.iam.sdk.utils.Options;
-import com.docusign.iam.sdk.utils.Retries.NonRetryableException;
-import com.docusign.iam.sdk.utils.Retries;
-import com.docusign.iam.sdk.utils.RetryConfig;
-import com.docusign.iam.sdk.utils.SerializedBody;
-import com.docusign.iam.sdk.utils.Utils.JsonShape;
-import com.docusign.iam.sdk.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
 import java.lang.Exception;
-import java.lang.Object;
 import java.lang.String;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
-public class Workflows implements
-            MethodCallGetWorkflowsList,
-            MethodCallGetWorkflowTriggerRequirements,
-            MethodCallTriggerWorkflow {
 
+public class Workflows {
     private final SDKConfiguration sdkConfiguration;
 
     Workflows(SDKConfiguration sdkConfiguration) {
@@ -93,7 +78,7 @@ public class Workflows implements
      * @return The call builder
      */
     public GetWorkflowsListRequestBuilder getWorkflowsList() {
-        return new GetWorkflowsListRequestBuilder(this);
+        return new GetWorkflowsListRequestBuilder(sdkConfiguration);
     }
 
     /**
@@ -134,11 +119,10 @@ public class Workflows implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetWorkflowsListResponse getWorkflowsList(
-            String accountId) throws Exception {
-        return getWorkflowsList(accountId, Optional.empty());
+    public GetWorkflowsListResponse getWorkflowsList(String accountId) throws Exception {
+        return getWorkflowsList(accountId, Optional.empty(), Optional.empty());
     }
-    
+
     /**
      * Retrieve a list of available Maestro workflows
      * 
@@ -174,179 +158,33 @@ public class Workflows implements
      * <p>  or the platform grows, ensuring scalability in the workflow management process.
      * 
      * @param accountId The unique identifier of the account.
+     * @param status Filter workflows by their status. If provided, only workflows with the specified status will be returned.
+     *         - `active`: Returns only active workflows.
+     *         - `inactive`: Returns only inactive workflows.
+     *         - `publishing`: Returns workflows currently being published.
+     *         - `unpublishing`: Returns workflows currently being unpublished.
+     *         - `archived`: Returns workflows that have been archived.
+     *         - `archiving`: Returns workflows currently being archived.        
+     *         
      * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
     public GetWorkflowsListResponse getWorkflowsList(
             String accountId,
+            Optional<? extends Status> status,
             Optional<Options> options) throws Exception {
-
-        if (options.isPresent()) {
-          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
-        }
         GetWorkflowsListRequest request =
             GetWorkflowsListRequest
                 .builder()
                 .accountId(accountId)
+                .status(status)
                 .build();
-        
-        String _baseUrl = this.sdkConfiguration.serverUrl();
-        String _url = Utils.generateURL(
-                GetWorkflowsListRequest.class,
-                _baseUrl,
-                "/accounts/{accountId}/workflows",
-                request, null);
-        
-        HTTPRequest _req = new HTTPRequest(_url, "GET");
-        _req.addHeader("Accept", "application/json")
-            .addHeader("user-agent", 
-                SDKConfiguration.USER_AGENT);
-        
-        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
-        Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource().getSecurity());
-        HTTPClient _client = this.sdkConfiguration.client();
-        HTTPRequest _finalReq = _req;
-        RetryConfig _retryConfig;
-        if (options.isPresent() && options.get().retryConfig().isPresent()) {
-            _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig().get();
-        } else {
-            _retryConfig = RetryConfig.builder()
-                .backoff(BackoffStrategy.builder()
-                            .initialInterval(500, TimeUnit.MILLISECONDS)
-                            .maxInterval(5000, TimeUnit.MILLISECONDS)
-                            .baseFactor((double)(1.5))
-                            .maxElapsedTime(30000, TimeUnit.MILLISECONDS)
-                            .retryConnectError(true)
-                            .build())
-                .build();
-        }
-        List<String> _statusCodes = new ArrayList<>();
-        _statusCodes.add("5XX");
-        _statusCodes.add("429");
-        Retries _retries = Retries.builder()
-            .action(() -> {
-                HttpRequest _r = null;
-                try {
-                    _r = sdkConfiguration.hooks()
-                        .beforeRequest(
-                            new BeforeRequestContextImpl(
-                                this.sdkConfiguration,
-                                _baseUrl,
-                                "GetWorkflowsList", 
-                                Optional.of(List.of()), 
-                                _hookSecuritySource),
-                            _finalReq.build());
-                } catch (Exception _e) {
-                    throw new NonRetryableException(_e);
-                }
-                try {
-                    return _client.send(_r);
-                } catch (Exception _e) {
-                    return sdkConfiguration.hooks()
-                        .afterError(
-                            new AfterErrorContextImpl(
-                                this.sdkConfiguration,
-                                _baseUrl,
-                                "GetWorkflowsList",
-                                 Optional.of(List.of()),
-                                 _hookSecuritySource), 
-                            Optional.empty(),
-                            Optional.of(_e));
-                }
-            })
-            .retryConfig(_retryConfig)
-            .statusCodes(_statusCodes)
-            .build();
-        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
-                 .afterSuccess(
-                     new AfterSuccessContextImpl(
-                         this.sdkConfiguration,
-                         _baseUrl,
-                         "GetWorkflowsList", 
-                         Optional.of(List.of()), 
-                         _hookSecuritySource),
-                     _retries.run());
-        String _contentType = _httpRes
-            .headers()
-            .firstValue("Content-Type")
-            .orElse("application/octet-stream");
-        GetWorkflowsListResponse.Builder _resBuilder = 
-            GetWorkflowsListResponse
-                .builder()
-                .contentType(_contentType)
-                .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes);
-
-        GetWorkflowsListResponse _res = _resBuilder.build();
-        
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                WorkflowsListSuccess _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<WorkflowsListSuccess>() {});
-                _res.withWorkflowsListSuccess(Optional.ofNullable(_out));
-                return _res;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "404")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                Error _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<Error>() {});
-                throw _out;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "500")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                Error _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<Error>() {});
-                throw _out;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        throw new APIException(
-            _httpRes, 
-            _httpRes.statusCode(), 
-            "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.extractByteArrayFromBody(_httpRes));
+        RequestOperation<GetWorkflowsListRequest, GetWorkflowsListResponse> operation
+              = new GetWorkflowsListOperation(
+                 sdkConfiguration,
+                 options);
+        return operation.handleResponse(operation.doRequest(request));
     }
 
 
@@ -381,7 +219,7 @@ public class Workflows implements
      * @return The call builder
      */
     public GetWorkflowTriggerRequirementsRequestBuilder getWorkflowTriggerRequirements() {
-        return new GetWorkflowTriggerRequirementsRequestBuilder(this);
+        return new GetWorkflowTriggerRequirementsRequestBuilder(sdkConfiguration);
     }
 
     /**
@@ -413,7 +251,7 @@ public class Workflows implements
      * <p>  in how workflows can be triggered according to system needs.
      * 
      * @param accountId The unique identifier of the account.
-     * @param workflowId The unique identifier of the workflow.
+     * @param workflowId 
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -422,7 +260,7 @@ public class Workflows implements
             String workflowId) throws Exception {
         return getWorkflowTriggerRequirements(accountId, workflowId, Optional.empty());
     }
-    
+
     /**
      * Retrieve trigger requirements for a specific Maestro workflow
      * 
@@ -452,7 +290,7 @@ public class Workflows implements
      * <p>  in how workflows can be triggered according to system needs.
      * 
      * @param accountId The unique identifier of the account.
-     * @param workflowId The unique identifier of the workflow.
+     * @param workflowId 
      * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -461,173 +299,17 @@ public class Workflows implements
             String accountId,
             String workflowId,
             Optional<Options> options) throws Exception {
-
-        if (options.isPresent()) {
-          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
-        }
         GetWorkflowTriggerRequirementsRequest request =
             GetWorkflowTriggerRequirementsRequest
                 .builder()
                 .accountId(accountId)
                 .workflowId(workflowId)
                 .build();
-        
-        String _baseUrl = this.sdkConfiguration.serverUrl();
-        String _url = Utils.generateURL(
-                GetWorkflowTriggerRequirementsRequest.class,
-                _baseUrl,
-                "/accounts/{accountId}/workflows/{workflowId}/trigger-requirements",
-                request, null);
-        
-        HTTPRequest _req = new HTTPRequest(_url, "GET");
-        _req.addHeader("Accept", "application/json")
-            .addHeader("user-agent", 
-                SDKConfiguration.USER_AGENT);
-        
-        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
-        Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource().getSecurity());
-        HTTPClient _client = this.sdkConfiguration.client();
-        HTTPRequest _finalReq = _req;
-        RetryConfig _retryConfig;
-        if (options.isPresent() && options.get().retryConfig().isPresent()) {
-            _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig().get();
-        } else {
-            _retryConfig = RetryConfig.builder()
-                .backoff(BackoffStrategy.builder()
-                            .initialInterval(500, TimeUnit.MILLISECONDS)
-                            .maxInterval(5000, TimeUnit.MILLISECONDS)
-                            .baseFactor((double)(1.5))
-                            .maxElapsedTime(30000, TimeUnit.MILLISECONDS)
-                            .retryConnectError(true)
-                            .build())
-                .build();
-        }
-        List<String> _statusCodes = new ArrayList<>();
-        _statusCodes.add("5XX");
-        _statusCodes.add("429");
-        Retries _retries = Retries.builder()
-            .action(() -> {
-                HttpRequest _r = null;
-                try {
-                    _r = sdkConfiguration.hooks()
-                        .beforeRequest(
-                            new BeforeRequestContextImpl(
-                                this.sdkConfiguration,
-                                _baseUrl,
-                                "GetWorkflowTriggerRequirements", 
-                                Optional.of(List.of()), 
-                                _hookSecuritySource),
-                            _finalReq.build());
-                } catch (Exception _e) {
-                    throw new NonRetryableException(_e);
-                }
-                try {
-                    return _client.send(_r);
-                } catch (Exception _e) {
-                    return sdkConfiguration.hooks()
-                        .afterError(
-                            new AfterErrorContextImpl(
-                                this.sdkConfiguration,
-                                _baseUrl,
-                                "GetWorkflowTriggerRequirements",
-                                 Optional.of(List.of()),
-                                 _hookSecuritySource), 
-                            Optional.empty(),
-                            Optional.of(_e));
-                }
-            })
-            .retryConfig(_retryConfig)
-            .statusCodes(_statusCodes)
-            .build();
-        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
-                 .afterSuccess(
-                     new AfterSuccessContextImpl(
-                         this.sdkConfiguration,
-                         _baseUrl,
-                         "GetWorkflowTriggerRequirements", 
-                         Optional.of(List.of()), 
-                         _hookSecuritySource),
-                     _retries.run());
-        String _contentType = _httpRes
-            .headers()
-            .firstValue("Content-Type")
-            .orElse("application/octet-stream");
-        GetWorkflowTriggerRequirementsResponse.Builder _resBuilder = 
-            GetWorkflowTriggerRequirementsResponse
-                .builder()
-                .contentType(_contentType)
-                .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes);
-
-        GetWorkflowTriggerRequirementsResponse _res = _resBuilder.build();
-        
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                WorkflowTriggerRequirementsSuccess _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<WorkflowTriggerRequirementsSuccess>() {});
-                _res.withWorkflowTriggerRequirementsSuccess(Optional.ofNullable(_out));
-                return _res;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "404")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                Error _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<Error>() {});
-                throw _out;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "500")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                Error _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<Error>() {});
-                throw _out;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        throw new APIException(
-            _httpRes, 
-            _httpRes.statusCode(), 
-            "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.extractByteArrayFromBody(_httpRes));
+        RequestOperation<GetWorkflowTriggerRequirementsRequest, GetWorkflowTriggerRequirementsResponse> operation
+              = new GetWorkflowTriggerRequirementsOperation(
+                 sdkConfiguration,
+                 options);
+        return operation.handleResponse(operation.doRequest(request));
     }
 
 
@@ -670,7 +352,7 @@ public class Workflows implements
      * @return The call builder
      */
     public TriggerWorkflowRequestBuilder triggerWorkflow() {
-        return new TriggerWorkflowRequestBuilder(this);
+        return new TriggerWorkflowRequestBuilder(sdkConfiguration);
     }
 
     /**
@@ -710,7 +392,7 @@ public class Workflows implements
      * <p>  of the workflow instance or take further actions while it runs.
      * 
      * @param accountId The unique identifier of the account.
-     * @param workflowId The unique identifier of the workflow.
+     * @param workflowId 
      * @param triggerWorkflow The input information needed to trigger a new instance of a Maestro workflow.
      *         This request body contains the metadata to describe the instance being created,
      *         along with the input data required to trigger the workflow.
@@ -727,7 +409,7 @@ public class Workflows implements
             TriggerWorkflow triggerWorkflow) throws Exception {
         return triggerWorkflow(accountId, workflowId, triggerWorkflow, Optional.empty());
     }
-    
+
     /**
      * Trigger a new instance of a Maestro workflow
      * 
@@ -765,7 +447,7 @@ public class Workflows implements
      * <p>  of the workflow instance or take further actions while it runs.
      * 
      * @param accountId The unique identifier of the account.
-     * @param workflowId The unique identifier of the workflow.
+     * @param workflowId 
      * @param triggerWorkflow The input information needed to trigger a new instance of a Maestro workflow.
      *         This request body contains the metadata to describe the instance being created,
      *         along with the input data required to trigger the workflow.
@@ -782,10 +464,6 @@ public class Workflows implements
             String workflowId,
             TriggerWorkflow triggerWorkflow,
             Optional<Options> options) throws Exception {
-
-        if (options.isPresent()) {
-          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
-        }
         TriggerWorkflowRequest request =
             TriggerWorkflowRequest
                 .builder()
@@ -793,176 +471,123 @@ public class Workflows implements
                 .workflowId(workflowId)
                 .triggerWorkflow(triggerWorkflow)
                 .build();
-        
-        String _baseUrl = this.sdkConfiguration.serverUrl();
-        String _url = Utils.generateURL(
-                TriggerWorkflowRequest.class,
-                _baseUrl,
-                "/accounts/{accountId}/workflows/{workflowId}/actions/trigger",
-                request, null);
-        
-        HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(
-                request, 
-                JsonShape.DEFAULT,
-                new TypeReference<Object>() {});
-        SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, 
-                "triggerWorkflow",
-                "json",
-                false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
-        _req.setBody(Optional.ofNullable(_serializedRequestBody));
-        _req.addHeader("Accept", "application/json")
-            .addHeader("user-agent", 
-                SDKConfiguration.USER_AGENT);
-        
-        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
-        Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource().getSecurity());
-        HTTPClient _client = this.sdkConfiguration.client();
-        HTTPRequest _finalReq = _req;
-        RetryConfig _retryConfig;
-        if (options.isPresent() && options.get().retryConfig().isPresent()) {
-            _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig().get();
-        } else {
-            _retryConfig = RetryConfig.builder()
-                .backoff(BackoffStrategy.builder()
-                            .initialInterval(500, TimeUnit.MILLISECONDS)
-                            .maxInterval(5000, TimeUnit.MILLISECONDS)
-                            .baseFactor((double)(1.5))
-                            .maxElapsedTime(30000, TimeUnit.MILLISECONDS)
-                            .retryConnectError(true)
-                            .build())
-                .build();
-        }
-        List<String> _statusCodes = new ArrayList<>();
-        _statusCodes.add("5XX");
-        _statusCodes.add("429");
-        Retries _retries = Retries.builder()
-            .action(() -> {
-                HttpRequest _r = null;
-                try {
-                    _r = sdkConfiguration.hooks()
-                        .beforeRequest(
-                            new BeforeRequestContextImpl(
-                                this.sdkConfiguration,
-                                _baseUrl,
-                                "TriggerWorkflow", 
-                                Optional.of(List.of()), 
-                                _hookSecuritySource),
-                            _finalReq.build());
-                } catch (Exception _e) {
-                    throw new NonRetryableException(_e);
-                }
-                try {
-                    return _client.send(_r);
-                } catch (Exception _e) {
-                    return sdkConfiguration.hooks()
-                        .afterError(
-                            new AfterErrorContextImpl(
-                                this.sdkConfiguration,
-                                _baseUrl,
-                                "TriggerWorkflow",
-                                 Optional.of(List.of()),
-                                 _hookSecuritySource), 
-                            Optional.empty(),
-                            Optional.of(_e));
-                }
-            })
-            .retryConfig(_retryConfig)
-            .statusCodes(_statusCodes)
-            .build();
-        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
-                 .afterSuccess(
-                     new AfterSuccessContextImpl(
-                         this.sdkConfiguration,
-                         _baseUrl,
-                         "TriggerWorkflow", 
-                         Optional.of(List.of()), 
-                         _hookSecuritySource),
-                     _retries.run());
-        String _contentType = _httpRes
-            .headers()
-            .firstValue("Content-Type")
-            .orElse("application/octet-stream");
-        TriggerWorkflowResponse.Builder _resBuilder = 
-            TriggerWorkflowResponse
-                .builder()
-                .contentType(_contentType)
-                .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes);
+        RequestOperation<TriggerWorkflowRequest, TriggerWorkflowResponse> operation
+              = new TriggerWorkflowOperation(
+                 sdkConfiguration,
+                 options);
+        return operation.handleResponse(operation.doRequest(request));
+    }
 
-        TriggerWorkflowResponse _res = _resBuilder.build();
-        
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "201")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                TriggerWorkflowSuccess _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<TriggerWorkflowSuccess>() {});
-                _res.withTriggerWorkflowSuccess(Optional.ofNullable(_out));
-                return _res;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "403", "404")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                Error _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<Error>() {});
-                throw _out;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "500")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                Error _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<Error>() {});
-                throw _out;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        throw new APIException(
-            _httpRes, 
-            _httpRes.statusCode(), 
-            "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.extractByteArrayFromBody(_httpRes));
+
+    /**
+     * Pause an Active Workflow
+     * 
+     * <p>This operation pauses new workflow instances from being created. Any running workflows instances will be unaffected.
+     * 
+     * @return The call builder
+     */
+    public PauseNewWorkflowInstancesRequestBuilder pauseNewWorkflowInstances() {
+        return new PauseNewWorkflowInstancesRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Pause an Active Workflow
+     * 
+     * <p>This operation pauses new workflow instances from being created. Any running workflows instances will be unaffected.
+     * 
+     * @param accountId The unique identifier of the account.
+     * @param workflowId 
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public PauseNewWorkflowInstancesResponse pauseNewWorkflowInstances(
+            String accountId,
+            String workflowId) throws Exception {
+        return pauseNewWorkflowInstances(accountId, workflowId, Optional.empty());
+    }
+
+    /**
+     * Pause an Active Workflow
+     * 
+     * <p>This operation pauses new workflow instances from being created. Any running workflows instances will be unaffected.
+     * 
+     * @param accountId The unique identifier of the account.
+     * @param workflowId 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public PauseNewWorkflowInstancesResponse pauseNewWorkflowInstances(
+            String accountId,
+            String workflowId,
+            Optional<Options> options) throws Exception {
+        PauseNewWorkflowInstancesRequest request =
+            PauseNewWorkflowInstancesRequest
+                .builder()
+                .accountId(accountId)
+                .workflowId(workflowId)
+                .build();
+        RequestOperation<PauseNewWorkflowInstancesRequest, PauseNewWorkflowInstancesResponse> operation
+              = new PauseNewWorkflowInstancesOperation(
+                 sdkConfiguration,
+                 options);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+
+    /**
+     * Resume a Paused Workflow
+     * 
+     * <p>This operation enables new workflow instances to be created
+     * 
+     * @return The call builder
+     */
+    public ResumePausedWorkflowRequestBuilder resumePausedWorkflow() {
+        return new ResumePausedWorkflowRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Resume a Paused Workflow
+     * 
+     * <p>This operation enables new workflow instances to be created
+     * 
+     * @param accountId The unique identifier of the account.
+     * @param workflowId 
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public ResumePausedWorkflowResponse resumePausedWorkflow(
+            String accountId,
+            String workflowId) throws Exception {
+        return resumePausedWorkflow(accountId, workflowId, Optional.empty());
+    }
+
+    /**
+     * Resume a Paused Workflow
+     * 
+     * <p>This operation enables new workflow instances to be created
+     * 
+     * @param accountId The unique identifier of the account.
+     * @param workflowId 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public ResumePausedWorkflowResponse resumePausedWorkflow(
+            String accountId,
+            String workflowId,
+            Optional<Options> options) throws Exception {
+        ResumePausedWorkflowRequest request =
+            ResumePausedWorkflowRequest
+                .builder()
+                .accountId(accountId)
+                .workflowId(workflowId)
+                .build();
+        RequestOperation<ResumePausedWorkflowRequest, ResumePausedWorkflowResponse> operation
+              = new ResumePausedWorkflowOperation(
+                 sdkConfiguration,
+                 options);
+        return operation.handleResponse(operation.doRequest(request));
     }
 
 }

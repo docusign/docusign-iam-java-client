@@ -3,65 +3,29 @@
  */
 package com.docusign.iam.sdk.models.operations;
 
-import com.docusign.iam.sdk.utils.LazySingletonValue;
+import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
+
+import com.docusign.iam.sdk.SDKConfiguration;
+import com.docusign.iam.sdk.operations.GetAgreementsListOperation;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Exception;
-import java.lang.Integer;
-import java.lang.String;
 import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 public class GetAgreementsListRequestBuilder {
 
-    private Optional<String> accountId = Utils.readDefaultOrConstValue(
-                            "accountId",
-                            "\"00000000-0000-0000-0000-000000000000\"",
-                            new TypeReference<Optional<String>>() {});
-    private JsonNullable<Integer> limit = JsonNullable.undefined();
-    private JsonNullable<String> ctoken = JsonNullable.undefined();
+    private GetAgreementsListRequest request;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallGetAgreementsList sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetAgreementsListRequestBuilder(SDKMethodInterfaces.MethodCallGetAgreementsList sdk) {
-        this.sdk = sdk;
-    }
-                
-    public GetAgreementsListRequestBuilder accountId(String accountId) {
-        Utils.checkNotNull(accountId, "accountId");
-        this.accountId = Optional.of(accountId);
-        return this;
+    public GetAgreementsListRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
-    public GetAgreementsListRequestBuilder accountId(Optional<String> accountId) {
-        Utils.checkNotNull(accountId, "accountId");
-        this.accountId = accountId;
-        return this;
-    }
-
-    public GetAgreementsListRequestBuilder limit(int limit) {
-        Utils.checkNotNull(limit, "limit");
-        this.limit = JsonNullable.of(limit);
-        return this;
-    }
-
-    public GetAgreementsListRequestBuilder limit(JsonNullable<Integer> limit) {
-        Utils.checkNotNull(limit, "limit");
-        this.limit = limit;
-        return this;
-    }
-
-    public GetAgreementsListRequestBuilder ctoken(String ctoken) {
-        Utils.checkNotNull(ctoken, "ctoken");
-        this.ctoken = JsonNullable.of(ctoken);
-        return this;
-    }
-
-    public GetAgreementsListRequestBuilder ctoken(JsonNullable<String> ctoken) {
-        Utils.checkNotNull(ctoken, "ctoken");
-        this.ctoken = ctoken;
+    public GetAgreementsListRequestBuilder request(GetAgreementsListRequest request) {
+        Utils.checkNotNull(request, "request");
+        this.request = request;
         return this;
     }
                 
@@ -78,21 +42,15 @@ public class GetAgreementsListRequestBuilder {
     }
 
     public GetAgreementsListResponse call() throws Exception {
-        if (accountId == null) {
-            accountId = _SINGLETON_VALUE_AccountId.value();
-        }        Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.getAgreementsList(
-            accountId,
-            limit,
-            ctoken,
-            options);
-    }
+        Optional<Options> options = Optional.of(Options.builder()
+            .retryConfig(retryConfig)
+            .build());
 
-    private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_AccountId =
-            new LazySingletonValue<>(
-                    "accountId",
-                    "\"00000000-0000-0000-0000-000000000000\"",
-                    new TypeReference<Optional<String>>() {});
+        RequestOperation<GetAgreementsListRequest, GetAgreementsListResponse> operation
+              = new GetAgreementsListOperation(
+                 sdkConfiguration,
+                 options);
+
+        return operation.handleResponse(operation.doRequest(request));
+    }
 }

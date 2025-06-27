@@ -19,7 +19,7 @@ public enum GetTokenFromJWTGrantGrantType {
     @JsonValue
     private final String value;
 
-    private GetTokenFromJWTGrantGrantType(String value) {
+    GetTokenFromJWTGrantGrantType(String value) {
         this.value = value;
     }
     

@@ -3,13 +3,11 @@
  */
 package com.docusign.iam.sdk;
 
-import com.docusign.iam.sdk.models.components.AuthorizationCodeGrantResponse;
+import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
+import static com.docusign.iam.sdk.operations.Operations.RequestlessOperation;
+
 import com.docusign.iam.sdk.models.components.ConfidentialAuthCodeGrantRequestBody;
-import com.docusign.iam.sdk.models.components.JWTGrantResponse;
 import com.docusign.iam.sdk.models.components.PublicAuthCodeGrantRequestBody;
-import com.docusign.iam.sdk.models.components.UserInfo;
-import com.docusign.iam.sdk.models.errors.APIException;
-import com.docusign.iam.sdk.models.errors.OAuthErrorResponse;
 import com.docusign.iam.sdk.models.operations.AuthorizationCodeGrant;
 import com.docusign.iam.sdk.models.operations.GetTokenFromConfidentialAuthCodeRequestBuilder;
 import com.docusign.iam.sdk.models.operations.GetTokenFromConfidentialAuthCodeResponse;
@@ -20,116 +18,23 @@ import com.docusign.iam.sdk.models.operations.GetTokenFromPublicAuthCodeRequestB
 import com.docusign.iam.sdk.models.operations.GetTokenFromPublicAuthCodeResponse;
 import com.docusign.iam.sdk.models.operations.GetTokenFromRefreshTokenRequestBuilder;
 import com.docusign.iam.sdk.models.operations.GetTokenFromRefreshTokenResponse;
-import com.docusign.iam.sdk.models.operations.GetTokenFromRefreshTokenResponseBody;
 import com.docusign.iam.sdk.models.operations.GetTokenFromRefreshTokenSecurity;
 import com.docusign.iam.sdk.models.operations.GetUserInfoRequestBuilder;
 import com.docusign.iam.sdk.models.operations.GetUserInfoResponse;
 import com.docusign.iam.sdk.models.operations.JWTGrant;
-import com.docusign.iam.sdk.models.operations.SDKMethodInterfaces.*;
-import com.docusign.iam.sdk.utils.BackoffStrategy;
-import com.docusign.iam.sdk.utils.HTTPClient;
-import com.docusign.iam.sdk.utils.HTTPRequest;
-import com.docusign.iam.sdk.utils.Hook.AfterErrorContextImpl;
-import com.docusign.iam.sdk.utils.Hook.AfterSuccessContextImpl;
-import com.docusign.iam.sdk.utils.Hook.BeforeRequestContextImpl;
+import com.docusign.iam.sdk.operations.GetTokenFromConfidentialAuthCodeOperation;
+import com.docusign.iam.sdk.operations.GetTokenFromJWTGrantOperation;
+import com.docusign.iam.sdk.operations.GetTokenFromPublicAuthCodeOperation;
+import com.docusign.iam.sdk.operations.GetTokenFromRefreshTokenOperation;
+import com.docusign.iam.sdk.operations.GetUserInfoOperation;
 import com.docusign.iam.sdk.utils.Options;
-import com.docusign.iam.sdk.utils.Retries.NonRetryableException;
-import com.docusign.iam.sdk.utils.Retries;
-import com.docusign.iam.sdk.utils.RetryConfig;
-import com.docusign.iam.sdk.utils.SerializedBody;
-import com.docusign.iam.sdk.utils.Utils.JsonShape;
-import com.docusign.iam.sdk.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
 import java.lang.Exception;
-import java.lang.Object;
 import java.lang.String;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
-public class Auth implements
-            MethodCallGetTokenFromConfidentialAuthCode,
-            MethodCallGetTokenFromPublicAuthCode,
-            MethodCallGetTokenFromJWTGrant,
-            MethodCallGetTokenFromRefreshToken,
-            MethodCallGetUserInfo {
-    
-    /**
-     * GET_TOKEN_FROM_CONFIDENTIAL_AUTH_CODE_SERVERS contains the list of server urls available to the SDK.
-     */
-    public static final String[] GET_TOKEN_FROM_CONFIDENTIAL_AUTH_CODE_SERVERS = {
-        /**
-         * For the developer environment, the URI is https://account-d.docusign.com/oauth/token
-         */
-        "https://account-d.docusign.com",
-        /**
-         * For the production environment, the URI is https://account.docusign.com/oauth/token
-         */
-        "https://account.docusign.com",
-    };
-    
-    /**
-     * GET_TOKEN_FROM_PUBLIC_AUTH_CODE_SERVERS contains the list of server urls available to the SDK.
-     */
-    public static final String[] GET_TOKEN_FROM_PUBLIC_AUTH_CODE_SERVERS = {
-        /**
-         * For the developer environment, the URI is https://account-d.docusign.com/oauth/token
-         */
-        "https://account-d.docusign.com",
-        /**
-         * For the production environment, the URI is https://account.docusign.com/oauth/token
-         */
-        "https://account.docusign.com",
-    };
-    
-    /**
-     * GET_TOKEN_FROM_JWT_GRANT_SERVERS contains the list of server urls available to the SDK.
-     */
-    public static final String[] GET_TOKEN_FROM_JWT_GRANT_SERVERS = {
-        /**
-         * For the developer environment, the URI is https://account-d.docusign.com/oauth/token
-         */
-        "https://account-d.docusign.com",
-        /**
-         * For the production environment, the URI is https://account.docusign.com/oauth/token
-         */
-        "https://account.docusign.com",
-    };
-    
-    /**
-     * GET_TOKEN_FROM_REFRESH_TOKEN_SERVERS contains the list of server urls available to the SDK.
-     */
-    public static final String[] GET_TOKEN_FROM_REFRESH_TOKEN_SERVERS = {
-        /**
-         * For the developer environment, the URI is https://account-d.docusign.com/oauth/token
-         */
-        "https://account-d.docusign.com",
-        /**
-         * For the production environment, the URI is https://account.docusign.com/oauth/token
-         */
-        "https://account.docusign.com",
-    };
-    
-    /**
-     * GET_USER_INFO_SERVERS contains the list of server urls available to the SDK.
-     */
-    public static final String[] GET_USER_INFO_SERVERS = {
-        /**
-         * For the developer environment, the URI is https://account-d.docusign.com/oauth/token
-         */
-        "https://account-d.docusign.com",
-        /**
-         * For the production environment, the URI is https://account.docusign.com/oauth/token
-         */
-        "https://account.docusign.com",
-    };
 
+public class Auth {
     private final SDKConfiguration sdkConfiguration;
 
     Auth(SDKConfiguration sdkConfiguration) {
@@ -147,7 +52,7 @@ public class Auth implements
      * @return The call builder
      */
     public GetTokenFromConfidentialAuthCodeRequestBuilder getTokenFromConfidentialAuthCode() {
-        return new GetTokenFromConfidentialAuthCodeRequestBuilder(this);
+        return new GetTokenFromConfidentialAuthCodeRequestBuilder(sdkConfiguration);
     }
 
     /**
@@ -158,7 +63,7 @@ public class Auth implements
      * For the production environment, the URI is https://account.docusign.com/oauth/token
      * You do not need an integration key to obtain an access token.
      * 
-     * @param request The request object containing all of the parameters for the API call.
+     * @param request The request object containing all the parameters for the API call.
      * @param security The security details to use for authentication.
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -168,7 +73,7 @@ public class Auth implements
             GetTokenFromConfidentialAuthCodeSecurity security) throws Exception {
         return getTokenFromConfidentialAuthCode(request, security, Optional.empty(), Optional.empty());
     }
-    
+
     /**
      * Obtains an access token from the Docusign API using an authorization code.
      * 
@@ -177,7 +82,7 @@ public class Auth implements
      * For the production environment, the URI is https://account.docusign.com/oauth/token
      * You do not need an integration key to obtain an access token.
      * 
-     * @param request The request object containing all of the parameters for the API call.
+     * @param request The request object containing all the parameters for the API call.
      * @param security The security details to use for authentication.
      * @param serverURL Overrides the server URL.
      * @param options additional options
@@ -189,168 +94,13 @@ public class Auth implements
             GetTokenFromConfidentialAuthCodeSecurity security,
             Optional<String> serverURL,
             Optional<Options> options) throws Exception {
-
-        if (options.isPresent()) {
-          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
-        }
-        final String _baseUrl;
-        if (serverURL.isPresent() && !serverURL.get().isBlank()) {
-            _baseUrl = serverURL.get();
-        } else {
-            _baseUrl = Utils.templateUrl(GET_TOKEN_FROM_CONFIDENTIAL_AUTH_CODE_SERVERS[0], new HashMap<String, String>());
-        }
-        String _url = Utils.generateURL(
-                _baseUrl,
-                "/oauth/token#FromConfidentialAuthCode");
-        
-        HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(
-                request, 
-                JsonShape.DEFAULT,
-                new TypeReference<ConfidentialAuthCodeGrantRequestBody>() {});
-        SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, 
-                "request",
-                "form",
-                false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
-        _req.setBody(Optional.ofNullable(_serializedRequestBody));
-        _req.addHeader("Accept", "application/json")
-            .addHeader("user-agent", 
-                SDKConfiguration.USER_AGENT);
-
-        // hooks will be passed method level security only
-        Optional<SecuritySource> _hookSecuritySource = Optional.of(SecuritySource.of(security));
-        Utils.configureSecurity(_req, security);
-        HTTPClient _client = this.sdkConfiguration.client();
-        HTTPRequest _finalReq = _req;
-        RetryConfig _retryConfig;
-        if (options.isPresent() && options.get().retryConfig().isPresent()) {
-            _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig().get();
-        } else {
-            _retryConfig = RetryConfig.builder()
-                .backoff(BackoffStrategy.builder()
-                            .initialInterval(500, TimeUnit.MILLISECONDS)
-                            .maxInterval(5000, TimeUnit.MILLISECONDS)
-                            .baseFactor((double)(1.5))
-                            .maxElapsedTime(30000, TimeUnit.MILLISECONDS)
-                            .retryConnectError(true)
-                            .build())
-                .build();
-        }
-        List<String> _statusCodes = new ArrayList<>();
-        _statusCodes.add("5XX");
-        _statusCodes.add("429");
-        Retries _retries = Retries.builder()
-            .action(() -> {
-                HttpRequest _r = null;
-                try {
-                    _r = sdkConfiguration.hooks()
-                        .beforeRequest(
-                            new BeforeRequestContextImpl(
-                                this.sdkConfiguration,
-                                _baseUrl,
-                                "GetTokenFromConfidentialAuthCode", 
-                                Optional.empty(), 
-                                _hookSecuritySource),
-                            _finalReq.build());
-                } catch (Exception _e) {
-                    throw new NonRetryableException(_e);
-                }
-                try {
-                    return _client.send(_r);
-                } catch (Exception _e) {
-                    return sdkConfiguration.hooks()
-                        .afterError(
-                            new AfterErrorContextImpl(
-                                this.sdkConfiguration,
-                                _baseUrl,
-                                "GetTokenFromConfidentialAuthCode",
-                                 Optional.empty(),
-                                 _hookSecuritySource), 
-                            Optional.empty(),
-                            Optional.of(_e));
-                }
-            })
-            .retryConfig(_retryConfig)
-            .statusCodes(_statusCodes)
-            .build();
-        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
-                 .afterSuccess(
-                     new AfterSuccessContextImpl(
-                         this.sdkConfiguration,
-                         _baseUrl,
-                         "GetTokenFromConfidentialAuthCode", 
-                         Optional.empty(), 
-                         _hookSecuritySource),
-                     _retries.run());
-        String _contentType = _httpRes
-            .headers()
-            .firstValue("Content-Type")
-            .orElse("application/octet-stream");
-        GetTokenFromConfidentialAuthCodeResponse.Builder _resBuilder = 
-            GetTokenFromConfidentialAuthCodeResponse
-                .builder()
-                .contentType(_contentType)
-                .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes);
-
-        GetTokenFromConfidentialAuthCodeResponse _res = _resBuilder.build();
-        
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                AuthorizationCodeGrantResponse _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<AuthorizationCodeGrantResponse>() {});
-                _res.withAuthorizationCodeGrantResponse(Optional.ofNullable(_out));
-                return _res;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                OAuthErrorResponse _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<OAuthErrorResponse>() {});
-                throw _out;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        throw new APIException(
-            _httpRes, 
-            _httpRes.statusCode(), 
-            "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.extractByteArrayFromBody(_httpRes));
+        RequestOperation<ConfidentialAuthCodeGrantRequestBody, GetTokenFromConfidentialAuthCodeResponse> operation
+              = new GetTokenFromConfidentialAuthCodeOperation(
+                 sdkConfiguration,
+                 security,
+                 serverURL,
+                 options);
+        return operation.handleResponse(operation.doRequest(request));
     }
 
 
@@ -365,7 +115,7 @@ public class Auth implements
      * @return The call builder
      */
     public GetTokenFromPublicAuthCodeRequestBuilder getTokenFromPublicAuthCode() {
-        return new GetTokenFromPublicAuthCodeRequestBuilder(this);
+        return new GetTokenFromPublicAuthCodeRequestBuilder(sdkConfiguration);
     }
 
     /**
@@ -376,15 +126,14 @@ public class Auth implements
      * For the production environment, the URI is https://account.docusign.com/oauth/token
      * You do not need an integration key to obtain an access token.
      * 
-     * @param request The request object containing all of the parameters for the API call.
+     * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetTokenFromPublicAuthCodeResponse getTokenFromPublicAuthCode(
-            PublicAuthCodeGrantRequestBody request) throws Exception {
+    public GetTokenFromPublicAuthCodeResponse getTokenFromPublicAuthCode(PublicAuthCodeGrantRequestBody request) throws Exception {
         return getTokenFromPublicAuthCode(request, Optional.empty(), Optional.empty());
     }
-    
+
     /**
      * Obtains an access token from the Docusign API using an authorization code.
      * 
@@ -393,7 +142,7 @@ public class Auth implements
      * For the production environment, the URI is https://account.docusign.com/oauth/token
      * You do not need an integration key to obtain an access token.
      * 
-     * @param request The request object containing all of the parameters for the API call.
+     * @param request The request object containing all the parameters for the API call.
      * @param serverURL Overrides the server URL.
      * @param options additional options
      * @return The response from the API call
@@ -403,168 +152,12 @@ public class Auth implements
             PublicAuthCodeGrantRequestBody request,
             Optional<String> serverURL,
             Optional<Options> options) throws Exception {
-
-        if (options.isPresent()) {
-          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
-        }
-        final String _baseUrl;
-        if (serverURL.isPresent() && !serverURL.get().isBlank()) {
-            _baseUrl = serverURL.get();
-        } else {
-            _baseUrl = Utils.templateUrl(GET_TOKEN_FROM_PUBLIC_AUTH_CODE_SERVERS[0], new HashMap<String, String>());
-        }
-        String _url = Utils.generateURL(
-                _baseUrl,
-                "/oauth/token#FromPublicAuthCode");
-        
-        HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(
-                request, 
-                JsonShape.DEFAULT,
-                new TypeReference<PublicAuthCodeGrantRequestBody>() {});
-        SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, 
-                "request",
-                "form",
-                false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
-        _req.setBody(Optional.ofNullable(_serializedRequestBody));
-        _req.addHeader("Accept", "application/json")
-            .addHeader("user-agent", 
-                SDKConfiguration.USER_AGENT);
-        
-        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
-        Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource().getSecurity());
-        HTTPClient _client = this.sdkConfiguration.client();
-        HTTPRequest _finalReq = _req;
-        RetryConfig _retryConfig;
-        if (options.isPresent() && options.get().retryConfig().isPresent()) {
-            _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig().get();
-        } else {
-            _retryConfig = RetryConfig.builder()
-                .backoff(BackoffStrategy.builder()
-                            .initialInterval(500, TimeUnit.MILLISECONDS)
-                            .maxInterval(5000, TimeUnit.MILLISECONDS)
-                            .baseFactor((double)(1.5))
-                            .maxElapsedTime(30000, TimeUnit.MILLISECONDS)
-                            .retryConnectError(true)
-                            .build())
-                .build();
-        }
-        List<String> _statusCodes = new ArrayList<>();
-        _statusCodes.add("5XX");
-        _statusCodes.add("429");
-        Retries _retries = Retries.builder()
-            .action(() -> {
-                HttpRequest _r = null;
-                try {
-                    _r = sdkConfiguration.hooks()
-                        .beforeRequest(
-                            new BeforeRequestContextImpl(
-                                this.sdkConfiguration,
-                                _baseUrl,
-                                "GetTokenFromPublicAuthCode", 
-                                Optional.of(List.of()), 
-                                _hookSecuritySource),
-                            _finalReq.build());
-                } catch (Exception _e) {
-                    throw new NonRetryableException(_e);
-                }
-                try {
-                    return _client.send(_r);
-                } catch (Exception _e) {
-                    return sdkConfiguration.hooks()
-                        .afterError(
-                            new AfterErrorContextImpl(
-                                this.sdkConfiguration,
-                                _baseUrl,
-                                "GetTokenFromPublicAuthCode",
-                                 Optional.of(List.of()),
-                                 _hookSecuritySource), 
-                            Optional.empty(),
-                            Optional.of(_e));
-                }
-            })
-            .retryConfig(_retryConfig)
-            .statusCodes(_statusCodes)
-            .build();
-        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
-                 .afterSuccess(
-                     new AfterSuccessContextImpl(
-                         this.sdkConfiguration,
-                         _baseUrl,
-                         "GetTokenFromPublicAuthCode", 
-                         Optional.of(List.of()), 
-                         _hookSecuritySource),
-                     _retries.run());
-        String _contentType = _httpRes
-            .headers()
-            .firstValue("Content-Type")
-            .orElse("application/octet-stream");
-        GetTokenFromPublicAuthCodeResponse.Builder _resBuilder = 
-            GetTokenFromPublicAuthCodeResponse
-                .builder()
-                .contentType(_contentType)
-                .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes);
-
-        GetTokenFromPublicAuthCodeResponse _res = _resBuilder.build();
-        
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                AuthorizationCodeGrantResponse _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<AuthorizationCodeGrantResponse>() {});
-                _res.withAuthorizationCodeGrantResponse(Optional.ofNullable(_out));
-                return _res;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                OAuthErrorResponse _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<OAuthErrorResponse>() {});
-                throw _out;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        throw new APIException(
-            _httpRes, 
-            _httpRes.statusCode(), 
-            "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.extractByteArrayFromBody(_httpRes));
+        RequestOperation<PublicAuthCodeGrantRequestBody, GetTokenFromPublicAuthCodeResponse> operation
+              = new GetTokenFromPublicAuthCodeOperation(
+                 sdkConfiguration,
+                 serverURL,
+                 options);
+        return operation.handleResponse(operation.doRequest(request));
     }
 
 
@@ -582,7 +175,7 @@ public class Auth implements
      * @return The call builder
      */
     public GetTokenFromJWTGrantRequestBuilder getTokenFromJwtGrant() {
-        return new GetTokenFromJWTGrantRequestBuilder(this);
+        return new GetTokenFromJWTGrantRequestBuilder(sdkConfiguration);
     }
 
     /**
@@ -596,15 +189,14 @@ public class Auth implements
      * 
      * <p>You do not need an integration key to obtain an access token.
      * 
-     * @param request The request object containing all of the parameters for the API call.
+     * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetTokenFromJWTGrantResponse getTokenFromJwtGrant(
-            JWTGrant request) throws Exception {
+    public GetTokenFromJWTGrantResponse getTokenFromJwtGrant(JWTGrant request) throws Exception {
         return getTokenFromJwtGrant(request, Optional.empty(), Optional.empty());
     }
-    
+
     /**
      * Obtains an access token from the Docusign API using a JWT grant.
      * 
@@ -616,7 +208,7 @@ public class Auth implements
      * 
      * <p>You do not need an integration key to obtain an access token.
      * 
-     * @param request The request object containing all of the parameters for the API call.
+     * @param request The request object containing all the parameters for the API call.
      * @param serverURL Overrides the server URL.
      * @param options additional options
      * @return The response from the API call
@@ -626,168 +218,12 @@ public class Auth implements
             JWTGrant request,
             Optional<String> serverURL,
             Optional<Options> options) throws Exception {
-
-        if (options.isPresent()) {
-          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
-        }
-        final String _baseUrl;
-        if (serverURL.isPresent() && !serverURL.get().isBlank()) {
-            _baseUrl = serverURL.get();
-        } else {
-            _baseUrl = Utils.templateUrl(GET_TOKEN_FROM_JWT_GRANT_SERVERS[0], new HashMap<String, String>());
-        }
-        String _url = Utils.generateURL(
-                _baseUrl,
-                "/oauth/token#FromJWTGrant");
-        
-        HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(
-                request, 
-                JsonShape.DEFAULT,
-                new TypeReference<JWTGrant>() {});
-        SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, 
-                "request",
-                "form",
-                false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
-        _req.setBody(Optional.ofNullable(_serializedRequestBody));
-        _req.addHeader("Accept", "application/json")
-            .addHeader("user-agent", 
-                SDKConfiguration.USER_AGENT);
-        
-        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
-        Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource().getSecurity());
-        HTTPClient _client = this.sdkConfiguration.client();
-        HTTPRequest _finalReq = _req;
-        RetryConfig _retryConfig;
-        if (options.isPresent() && options.get().retryConfig().isPresent()) {
-            _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig().get();
-        } else {
-            _retryConfig = RetryConfig.builder()
-                .backoff(BackoffStrategy.builder()
-                            .initialInterval(500, TimeUnit.MILLISECONDS)
-                            .maxInterval(5000, TimeUnit.MILLISECONDS)
-                            .baseFactor((double)(1.5))
-                            .maxElapsedTime(30000, TimeUnit.MILLISECONDS)
-                            .retryConnectError(true)
-                            .build())
-                .build();
-        }
-        List<String> _statusCodes = new ArrayList<>();
-        _statusCodes.add("5XX");
-        _statusCodes.add("429");
-        Retries _retries = Retries.builder()
-            .action(() -> {
-                HttpRequest _r = null;
-                try {
-                    _r = sdkConfiguration.hooks()
-                        .beforeRequest(
-                            new BeforeRequestContextImpl(
-                                this.sdkConfiguration,
-                                _baseUrl,
-                                "GetTokenFromJWTGrant", 
-                                Optional.of(List.of()), 
-                                _hookSecuritySource),
-                            _finalReq.build());
-                } catch (Exception _e) {
-                    throw new NonRetryableException(_e);
-                }
-                try {
-                    return _client.send(_r);
-                } catch (Exception _e) {
-                    return sdkConfiguration.hooks()
-                        .afterError(
-                            new AfterErrorContextImpl(
-                                this.sdkConfiguration,
-                                _baseUrl,
-                                "GetTokenFromJWTGrant",
-                                 Optional.of(List.of()),
-                                 _hookSecuritySource), 
-                            Optional.empty(),
-                            Optional.of(_e));
-                }
-            })
-            .retryConfig(_retryConfig)
-            .statusCodes(_statusCodes)
-            .build();
-        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
-                 .afterSuccess(
-                     new AfterSuccessContextImpl(
-                         this.sdkConfiguration,
-                         _baseUrl,
-                         "GetTokenFromJWTGrant", 
-                         Optional.of(List.of()), 
-                         _hookSecuritySource),
-                     _retries.run());
-        String _contentType = _httpRes
-            .headers()
-            .firstValue("Content-Type")
-            .orElse("application/octet-stream");
-        GetTokenFromJWTGrantResponse.Builder _resBuilder = 
-            GetTokenFromJWTGrantResponse
-                .builder()
-                .contentType(_contentType)
-                .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes);
-
-        GetTokenFromJWTGrantResponse _res = _resBuilder.build();
-        
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                JWTGrantResponse _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<JWTGrantResponse>() {});
-                _res.withJWTGrantResponse(Optional.ofNullable(_out));
-                return _res;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                OAuthErrorResponse _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<OAuthErrorResponse>() {});
-                throw _out;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        throw new APIException(
-            _httpRes, 
-            _httpRes.statusCode(), 
-            "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.extractByteArrayFromBody(_httpRes));
+        RequestOperation<JWTGrant, GetTokenFromJWTGrantResponse> operation
+              = new GetTokenFromJWTGrantOperation(
+                 sdkConfiguration,
+                 serverURL,
+                 options);
+        return operation.handleResponse(operation.doRequest(request));
     }
 
 
@@ -803,7 +239,7 @@ public class Auth implements
      * @return The call builder
      */
     public GetTokenFromRefreshTokenRequestBuilder getTokenFromRefreshToken() {
-        return new GetTokenFromRefreshTokenRequestBuilder(this);
+        return new GetTokenFromRefreshTokenRequestBuilder(sdkConfiguration);
     }
 
     /**
@@ -815,7 +251,7 @@ public class Auth implements
      * 
      * <p>You do not need an integration key to obtain an access token.
      * 
-     * @param request The request object containing all of the parameters for the API call.
+     * @param request The request object containing all the parameters for the API call.
      * @param security The security details to use for authentication.
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -825,7 +261,7 @@ public class Auth implements
             GetTokenFromRefreshTokenSecurity security) throws Exception {
         return getTokenFromRefreshToken(request, security, Optional.empty(), Optional.empty());
     }
-    
+
     /**
      * Obtains an access token from the Docusign API using an authorization code.
      * 
@@ -835,7 +271,7 @@ public class Auth implements
      * 
      * <p>You do not need an integration key to obtain an access token.
      * 
-     * @param request The request object containing all of the parameters for the API call.
+     * @param request The request object containing all the parameters for the API call.
      * @param security The security details to use for authentication.
      * @param serverURL Overrides the server URL.
      * @param options additional options
@@ -847,168 +283,13 @@ public class Auth implements
             GetTokenFromRefreshTokenSecurity security,
             Optional<String> serverURL,
             Optional<Options> options) throws Exception {
-
-        if (options.isPresent()) {
-          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
-        }
-        final String _baseUrl;
-        if (serverURL.isPresent() && !serverURL.get().isBlank()) {
-            _baseUrl = serverURL.get();
-        } else {
-            _baseUrl = Utils.templateUrl(GET_TOKEN_FROM_REFRESH_TOKEN_SERVERS[0], new HashMap<String, String>());
-        }
-        String _url = Utils.generateURL(
-                _baseUrl,
-                "/oauth/token#FromRefreshToken");
-        
-        HTTPRequest _req = new HTTPRequest(_url, "POST");
-        Object _convertedRequest = Utils.convertToShape(
-                request, 
-                JsonShape.DEFAULT,
-                new TypeReference<AuthorizationCodeGrant>() {});
-        SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
-                _convertedRequest, 
-                "request",
-                "form",
-                false);
-        if (_serializedRequestBody == null) {
-            throw new Exception("Request body is required");
-        }
-        _req.setBody(Optional.ofNullable(_serializedRequestBody));
-        _req.addHeader("Accept", "application/json")
-            .addHeader("user-agent", 
-                SDKConfiguration.USER_AGENT);
-
-        // hooks will be passed method level security only
-        Optional<SecuritySource> _hookSecuritySource = Optional.of(SecuritySource.of(security));
-        Utils.configureSecurity(_req, security);
-        HTTPClient _client = this.sdkConfiguration.client();
-        HTTPRequest _finalReq = _req;
-        RetryConfig _retryConfig;
-        if (options.isPresent() && options.get().retryConfig().isPresent()) {
-            _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig().get();
-        } else {
-            _retryConfig = RetryConfig.builder()
-                .backoff(BackoffStrategy.builder()
-                            .initialInterval(500, TimeUnit.MILLISECONDS)
-                            .maxInterval(5000, TimeUnit.MILLISECONDS)
-                            .baseFactor((double)(1.5))
-                            .maxElapsedTime(30000, TimeUnit.MILLISECONDS)
-                            .retryConnectError(true)
-                            .build())
-                .build();
-        }
-        List<String> _statusCodes = new ArrayList<>();
-        _statusCodes.add("5XX");
-        _statusCodes.add("429");
-        Retries _retries = Retries.builder()
-            .action(() -> {
-                HttpRequest _r = null;
-                try {
-                    _r = sdkConfiguration.hooks()
-                        .beforeRequest(
-                            new BeforeRequestContextImpl(
-                                this.sdkConfiguration,
-                                _baseUrl,
-                                "GetTokenFromRefreshToken", 
-                                Optional.empty(), 
-                                _hookSecuritySource),
-                            _finalReq.build());
-                } catch (Exception _e) {
-                    throw new NonRetryableException(_e);
-                }
-                try {
-                    return _client.send(_r);
-                } catch (Exception _e) {
-                    return sdkConfiguration.hooks()
-                        .afterError(
-                            new AfterErrorContextImpl(
-                                this.sdkConfiguration,
-                                _baseUrl,
-                                "GetTokenFromRefreshToken",
-                                 Optional.empty(),
-                                 _hookSecuritySource), 
-                            Optional.empty(),
-                            Optional.of(_e));
-                }
-            })
-            .retryConfig(_retryConfig)
-            .statusCodes(_statusCodes)
-            .build();
-        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
-                 .afterSuccess(
-                     new AfterSuccessContextImpl(
-                         this.sdkConfiguration,
-                         _baseUrl,
-                         "GetTokenFromRefreshToken", 
-                         Optional.empty(), 
-                         _hookSecuritySource),
-                     _retries.run());
-        String _contentType = _httpRes
-            .headers()
-            .firstValue("Content-Type")
-            .orElse("application/octet-stream");
-        GetTokenFromRefreshTokenResponse.Builder _resBuilder = 
-            GetTokenFromRefreshTokenResponse
-                .builder()
-                .contentType(_contentType)
-                .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes);
-
-        GetTokenFromRefreshTokenResponse _res = _resBuilder.build();
-        
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                GetTokenFromRefreshTokenResponseBody _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<GetTokenFromRefreshTokenResponseBody>() {});
-                _res.withObject(Optional.ofNullable(_out));
-                return _res;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                OAuthErrorResponse _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<OAuthErrorResponse>() {});
-                throw _out;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        throw new APIException(
-            _httpRes, 
-            _httpRes.statusCode(), 
-            "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.extractByteArrayFromBody(_httpRes));
+        RequestOperation<AuthorizationCodeGrant, GetTokenFromRefreshTokenResponse> operation
+              = new GetTokenFromRefreshTokenOperation(
+                 sdkConfiguration,
+                 security,
+                 serverURL,
+                 options);
+        return operation.handleResponse(operation.doRequest(request));
     }
 
 
@@ -1022,7 +303,7 @@ public class Auth implements
      * @return The call builder
      */
     public GetUserInfoRequestBuilder getUserInfo() {
-        return new GetUserInfoRequestBuilder(this);
+        return new GetUserInfoRequestBuilder(sdkConfiguration);
     }
 
     /**
@@ -1038,7 +319,7 @@ public class Auth implements
     public GetUserInfoResponse getUserInfoDirect() throws Exception {
         return getUserInfo(Optional.empty(), Optional.empty());
     }
-    
+
     /**
      * Get user information
      * 
@@ -1054,155 +335,12 @@ public class Auth implements
     public GetUserInfoResponse getUserInfo(
             Optional<String> serverURL,
             Optional<Options> options) throws Exception {
-
-        if (options.isPresent()) {
-          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
-        }
-        final String _baseUrl;
-        if (serverURL.isPresent() && !serverURL.get().isBlank()) {
-            _baseUrl = serverURL.get();
-        } else {
-            _baseUrl = Utils.templateUrl(GET_USER_INFO_SERVERS[0], new HashMap<String, String>());
-        }
-        String _url = Utils.generateURL(
-                _baseUrl,
-                "/oauth/userinfo");
-        
-        HTTPRequest _req = new HTTPRequest(_url, "GET");
-        _req.addHeader("Accept", "application/json")
-            .addHeader("user-agent", 
-                SDKConfiguration.USER_AGENT);
-        
-        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
-        Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource().getSecurity());
-        HTTPClient _client = this.sdkConfiguration.client();
-        HTTPRequest _finalReq = _req;
-        RetryConfig _retryConfig;
-        if (options.isPresent() && options.get().retryConfig().isPresent()) {
-            _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig().get();
-        } else {
-            _retryConfig = RetryConfig.builder()
-                .backoff(BackoffStrategy.builder()
-                            .initialInterval(500, TimeUnit.MILLISECONDS)
-                            .maxInterval(5000, TimeUnit.MILLISECONDS)
-                            .baseFactor((double)(1.5))
-                            .maxElapsedTime(30000, TimeUnit.MILLISECONDS)
-                            .retryConnectError(true)
-                            .build())
-                .build();
-        }
-        List<String> _statusCodes = new ArrayList<>();
-        _statusCodes.add("5XX");
-        _statusCodes.add("429");
-        Retries _retries = Retries.builder()
-            .action(() -> {
-                HttpRequest _r = null;
-                try {
-                    _r = sdkConfiguration.hooks()
-                        .beforeRequest(
-                            new BeforeRequestContextImpl(
-                                this.sdkConfiguration,
-                                _baseUrl,
-                                "GetUserInfo", 
-                                Optional.of(List.of()), 
-                                _hookSecuritySource),
-                            _finalReq.build());
-                } catch (Exception _e) {
-                    throw new NonRetryableException(_e);
-                }
-                try {
-                    return _client.send(_r);
-                } catch (Exception _e) {
-                    return sdkConfiguration.hooks()
-                        .afterError(
-                            new AfterErrorContextImpl(
-                                this.sdkConfiguration,
-                                _baseUrl,
-                                "GetUserInfo",
-                                 Optional.of(List.of()),
-                                 _hookSecuritySource), 
-                            Optional.empty(),
-                            Optional.of(_e));
-                }
-            })
-            .retryConfig(_retryConfig)
-            .statusCodes(_statusCodes)
-            .build();
-        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
-                 .afterSuccess(
-                     new AfterSuccessContextImpl(
-                         this.sdkConfiguration,
-                         _baseUrl,
-                         "GetUserInfo", 
-                         Optional.of(List.of()), 
-                         _hookSecuritySource),
-                     _retries.run());
-        String _contentType = _httpRes
-            .headers()
-            .firstValue("Content-Type")
-            .orElse("application/octet-stream");
-        GetUserInfoResponse.Builder _resBuilder = 
-            GetUserInfoResponse
-                .builder()
-                .contentType(_contentType)
-                .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes);
-
-        GetUserInfoResponse _res = _resBuilder.build();
-        
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                UserInfo _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<UserInfo>() {});
-                _res.withUserInfo(Optional.ofNullable(_out));
-                return _res;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                OAuthErrorResponse _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<OAuthErrorResponse>() {});
-                throw _out;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        throw new APIException(
-            _httpRes, 
-            _httpRes.statusCode(), 
-            "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.extractByteArrayFromBody(_httpRes));
+        RequestlessOperation<GetUserInfoResponse> operation
+            = new GetUserInfoOperation(
+                 sdkConfiguration,
+                 serverURL,
+                 options);
+        return operation.handleResponse(operation.doRequest());
     }
 
 }

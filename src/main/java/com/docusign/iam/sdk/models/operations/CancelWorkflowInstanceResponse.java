@@ -34,7 +34,7 @@ public class CancelWorkflowInstanceResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Successful response confirming the workflow instance was canceled
+     * A message confirming the instance was canceled, including the instance and workflow IDs
      */
     private Optional<? extends com.docusign.iam.sdk.models.components.CancelWorkflowInstanceResponse> cancelWorkflowInstanceResponse;
 
@@ -86,7 +86,7 @@ public class CancelWorkflowInstanceResponse implements Response {
     }
 
     /**
-     * Successful response confirming the workflow instance was canceled
+     * A message confirming the instance was canceled, including the instance and workflow IDs
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -126,7 +126,7 @@ public class CancelWorkflowInstanceResponse implements Response {
     }
 
     /**
-     * Successful response confirming the workflow instance was canceled
+     * A message confirming the instance was canceled, including the instance and workflow IDs
      */
     public CancelWorkflowInstanceResponse withCancelWorkflowInstanceResponse(com.docusign.iam.sdk.models.components.CancelWorkflowInstanceResponse cancelWorkflowInstanceResponse) {
         Utils.checkNotNull(cancelWorkflowInstanceResponse, "cancelWorkflowInstanceResponse");
@@ -135,7 +135,7 @@ public class CancelWorkflowInstanceResponse implements Response {
     }
 
     /**
-     * Successful response confirming the workflow instance was canceled
+     * A message confirming the instance was canceled, including the instance and workflow IDs
      */
     public CancelWorkflowInstanceResponse withCancelWorkflowInstanceResponse(Optional<? extends com.docusign.iam.sdk.models.components.CancelWorkflowInstanceResponse> cancelWorkflowInstanceResponse) {
         Utils.checkNotNull(cancelWorkflowInstanceResponse, "cancelWorkflowInstanceResponse");
@@ -220,7 +220,7 @@ public class CancelWorkflowInstanceResponse implements Response {
         }
 
         /**
-         * Successful response confirming the workflow instance was canceled
+         * A message confirming the instance was canceled, including the instance and workflow IDs
          */
         public Builder cancelWorkflowInstanceResponse(com.docusign.iam.sdk.models.components.CancelWorkflowInstanceResponse cancelWorkflowInstanceResponse) {
             Utils.checkNotNull(cancelWorkflowInstanceResponse, "cancelWorkflowInstanceResponse");
@@ -229,7 +229,7 @@ public class CancelWorkflowInstanceResponse implements Response {
         }
 
         /**
-         * Successful response confirming the workflow instance was canceled
+         * A message confirming the instance was canceled, including the instance and workflow IDs
          */
         public Builder cancelWorkflowInstanceResponse(Optional<? extends com.docusign.iam.sdk.models.components.CancelWorkflowInstanceResponse> cancelWorkflowInstanceResponse) {
             Utils.checkNotNull(cancelWorkflowInstanceResponse, "cancelWorkflowInstanceResponse");

@@ -3,6 +3,10 @@
  */
 package com.docusign.iam.sdk.models.operations;
 
+import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
+
+import com.docusign.iam.sdk.SDKConfiguration;
+import com.docusign.iam.sdk.operations.ConnectedFieldsApiGetTabGroupsOperation;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -15,10 +19,10 @@ public class ConnectedFieldsApiGetTabGroupsRequestBuilder {
     private String accountId;
     private Optional<String> appId = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallConnectedFieldsApiGetTabGroups sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public ConnectedFieldsApiGetTabGroupsRequestBuilder(SDKMethodInterfaces.MethodCallConnectedFieldsApiGetTabGroups sdk) {
-        this.sdk = sdk;
+    public ConnectedFieldsApiGetTabGroupsRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public ConnectedFieldsApiGetTabGroupsRequestBuilder accountId(String accountId) {
@@ -51,13 +55,26 @@ public class ConnectedFieldsApiGetTabGroupsRequestBuilder {
         return this;
     }
 
+
+    private ConnectedFieldsApiGetTabGroupsRequest buildRequest() {
+
+        ConnectedFieldsApiGetTabGroupsRequest request = new ConnectedFieldsApiGetTabGroupsRequest(accountId,
+            appId);
+
+        return request;
+    }
+
     public ConnectedFieldsApiGetTabGroupsResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.getConnectedFieldsTabGroups(
-            accountId,
-            appId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<ConnectedFieldsApiGetTabGroupsRequest, ConnectedFieldsApiGetTabGroupsResponse> operation
+              = new ConnectedFieldsApiGetTabGroupsOperation(
+                 sdkConfiguration,
+                 options);
+        ConnectedFieldsApiGetTabGroupsRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

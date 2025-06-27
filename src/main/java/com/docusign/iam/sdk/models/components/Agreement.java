@@ -3,14 +3,12 @@
  */
 package com.docusign.iam.sdk.models.components;
 
-import com.docusign.iam.sdk.utils.LazySingletonValue;
 import com.docusign.iam.sdk.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
@@ -30,9 +28,8 @@ import org.openapitools.jackson.nullable.JsonNullable;
  */
 public class Agreement {
 
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
-    private JsonNullable<String> id;
+    private String id;
 
     /**
      * Title of the agreement document, summarizing its purpose.
@@ -84,12 +81,18 @@ public class Agreement {
     private JsonNullable<? extends List<Party>> parties;
 
     /**
-     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type. 
-     * This set of provisions can change dynamically."
+     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type."
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("provisions")
     private JsonNullable<? extends Provisions> provisions;
+
+    /**
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("custom_provisions")
+    private JsonNullable<? extends Map<String, CustomProperty>> customProvisions;
 
     /**
      * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
@@ -150,7 +153,7 @@ public class Agreement {
 
     @JsonCreator
     public Agreement(
-            @JsonProperty("id") JsonNullable<String> id,
+            @JsonProperty("id") String id,
             @JsonProperty("title") JsonNullable<String> title,
             @JsonProperty("file_name") JsonNullable<String> fileName,
             @JsonProperty("type") JsonNullable<String> type,
@@ -159,6 +162,7 @@ public class Agreement {
             @JsonProperty("status") JsonNullable<String> status,
             @JsonProperty("parties") JsonNullable<? extends List<Party>> parties,
             @JsonProperty("provisions") JsonNullable<? extends Provisions> provisions,
+            @JsonProperty("custom_provisions") JsonNullable<? extends Map<String, CustomProperty>> customProvisions,
             @JsonProperty("additional_user_defined_data") JsonNullable<? extends Map<String, CustomProperty>> additionalUserDefinedData,
             @JsonProperty("additional_custom_clm_data") JsonNullable<? extends Map<String, CustomProperty>> additionalCustomClmData,
             @JsonProperty("additional_custom_esign_data") JsonNullable<? extends Map<String, CustomProperty>> additionalCustomEsignData,
@@ -177,6 +181,7 @@ public class Agreement {
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(parties, "parties");
         Utils.checkNotNull(provisions, "provisions");
+        Utils.checkNotNull(customProvisions, "customProvisions");
         Utils.checkNotNull(additionalUserDefinedData, "additionalUserDefinedData");
         Utils.checkNotNull(additionalCustomClmData, "additionalCustomClmData");
         Utils.checkNotNull(additionalCustomEsignData, "additionalCustomEsignData");
@@ -195,6 +200,7 @@ public class Agreement {
         this.status = status;
         this.parties = parties;
         this.provisions = provisions;
+        this.customProvisions = customProvisions;
         this.additionalUserDefinedData = additionalUserDefinedData;
         this.additionalCustomClmData = additionalCustomClmData;
         this.additionalCustomEsignData = additionalCustomEsignData;
@@ -206,12 +212,13 @@ public class Agreement {
         this.metadata = metadata;
     }
     
-    public Agreement() {
-        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty());
+    public Agreement(
+            String id) {
+        this(id, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty());
     }
 
     @JsonIgnore
-    public JsonNullable<String> id() {
+    public String id() {
         return id;
     }
 
@@ -273,13 +280,21 @@ public class Agreement {
     }
 
     /**
-     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type. 
-     * This set of provisions can change dynamically."
+     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type."
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
     public JsonNullable<Provisions> provisions() {
         return (JsonNullable<Provisions>) provisions;
+    }
+
+    /**
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<Map<String, CustomProperty>> customProvisions() {
+        return (JsonNullable<Map<String, CustomProperty>>) customProvisions;
     }
 
     /**
@@ -359,12 +374,6 @@ public class Agreement {
     }    
 
     public Agreement withId(String id) {
-        Utils.checkNotNull(id, "id");
-        this.id = JsonNullable.of(id);
-        return this;
-    }
-
-    public Agreement withId(JsonNullable<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
@@ -497,8 +506,7 @@ public class Agreement {
     }
 
     /**
-     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type. 
-     * This set of provisions can change dynamically."
+     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type."
      */
     public Agreement withProvisions(Provisions provisions) {
         Utils.checkNotNull(provisions, "provisions");
@@ -507,12 +515,29 @@ public class Agreement {
     }
 
     /**
-     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type. 
-     * This set of provisions can change dynamically."
+     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type."
      */
     public Agreement withProvisions(JsonNullable<? extends Provisions> provisions) {
         Utils.checkNotNull(provisions, "provisions");
         this.provisions = provisions;
+        return this;
+    }
+
+    /**
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+     */
+    public Agreement withCustomProvisions(Map<String, CustomProperty> customProvisions) {
+        Utils.checkNotNull(customProvisions, "customProvisions");
+        this.customProvisions = JsonNullable.of(customProvisions);
+        return this;
+    }
+
+    /**
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+     */
+    public Agreement withCustomProvisions(JsonNullable<? extends Map<String, CustomProperty>> customProvisions) {
+        Utils.checkNotNull(customProvisions, "customProvisions");
+        this.customProvisions = customProvisions;
         return this;
     }
 
@@ -686,6 +711,7 @@ public class Agreement {
             Objects.deepEquals(this.status, other.status) &&
             Objects.deepEquals(this.parties, other.parties) &&
             Objects.deepEquals(this.provisions, other.provisions) &&
+            Objects.deepEquals(this.customProvisions, other.customProvisions) &&
             Objects.deepEquals(this.additionalUserDefinedData, other.additionalUserDefinedData) &&
             Objects.deepEquals(this.additionalCustomClmData, other.additionalCustomClmData) &&
             Objects.deepEquals(this.additionalCustomEsignData, other.additionalCustomEsignData) &&
@@ -709,6 +735,7 @@ public class Agreement {
             status,
             parties,
             provisions,
+            customProvisions,
             additionalUserDefinedData,
             additionalCustomClmData,
             additionalCustomEsignData,
@@ -732,6 +759,7 @@ public class Agreement {
                 "status", status,
                 "parties", parties,
                 "provisions", provisions,
+                "customProvisions", customProvisions,
                 "additionalUserDefinedData", additionalUserDefinedData,
                 "additionalCustomClmData", additionalCustomClmData,
                 "additionalCustomEsignData", additionalCustomEsignData,
@@ -745,7 +773,7 @@ public class Agreement {
     
     public final static class Builder {
  
-        private JsonNullable<String> id;
+        private String id;
  
         private JsonNullable<String> title = JsonNullable.undefined();
  
@@ -762,6 +790,8 @@ public class Agreement {
         private JsonNullable<? extends List<Party>> parties = JsonNullable.undefined();
  
         private JsonNullable<? extends Provisions> provisions = JsonNullable.undefined();
+ 
+        private JsonNullable<? extends Map<String, CustomProperty>> customProvisions = JsonNullable.undefined();
  
         private JsonNullable<? extends Map<String, CustomProperty>> additionalUserDefinedData = JsonNullable.undefined();
  
@@ -786,12 +816,6 @@ public class Agreement {
         }
 
         public Builder id(String id) {
-            Utils.checkNotNull(id, "id");
-            this.id = JsonNullable.of(id);
-            return this;
-        }
-
-        public Builder id(JsonNullable<String> id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
@@ -924,8 +948,7 @@ public class Agreement {
         }
 
         /**
-         * "The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type. 
-         * This set of provisions can change dynamically."
+         * "The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type."
          */
         public Builder provisions(Provisions provisions) {
             Utils.checkNotNull(provisions, "provisions");
@@ -934,12 +957,29 @@ public class Agreement {
         }
 
         /**
-         * "The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type. 
-         * This set of provisions can change dynamically."
+         * "The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type."
          */
         public Builder provisions(JsonNullable<? extends Provisions> provisions) {
             Utils.checkNotNull(provisions, "provisions");
             this.provisions = provisions;
+            return this;
+        }
+
+        /**
+         * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+         */
+        public Builder customProvisions(Map<String, CustomProperty> customProvisions) {
+            Utils.checkNotNull(customProvisions, "customProvisions");
+            this.customProvisions = JsonNullable.of(customProvisions);
+            return this;
+        }
+
+        /**
+         * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+         */
+        public Builder customProvisions(JsonNullable<? extends Map<String, CustomProperty>> customProvisions) {
+            Utils.checkNotNull(customProvisions, "customProvisions");
+            this.customProvisions = customProvisions;
             return this;
         }
 
@@ -1094,9 +1134,6 @@ public class Agreement {
         }
         
         public Agreement build() {
-            if (id == null) {
-                id = _SINGLETON_VALUE_Id.value();
-            }
             return new Agreement(
                 id,
                 title,
@@ -1107,6 +1144,7 @@ public class Agreement {
                 status,
                 parties,
                 provisions,
+                customProvisions,
                 additionalUserDefinedData,
                 additionalCustomClmData,
                 additionalCustomEsignData,
@@ -1117,11 +1155,5 @@ public class Agreement {
                 sourceAccountId,
                 metadata);
         }
-
-        private static final LazySingletonValue<JsonNullable<String>> _SINGLETON_VALUE_Id =
-                new LazySingletonValue<>(
-                        "id",
-                        "\"00000000-0000-0000-0000-000000000000\"",
-                        new TypeReference<JsonNullable<String>>() {});
     }
 }

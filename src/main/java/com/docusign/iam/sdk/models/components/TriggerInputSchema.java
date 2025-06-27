@@ -37,7 +37,7 @@ public class TriggerInputSchema {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("field_data_type")
-    private Optional<? extends FieldDataType> fieldDataType;
+    private Optional<String> fieldDataType;
 
     /**
      * The default value for the input field if one is provided. This can be a string, number,
@@ -51,7 +51,7 @@ public class TriggerInputSchema {
     @JsonCreator
     public TriggerInputSchema(
             @JsonProperty("field_name") Optional<String> fieldName,
-            @JsonProperty("field_data_type") Optional<? extends FieldDataType> fieldDataType,
+            @JsonProperty("field_data_type") Optional<String> fieldDataType,
             @JsonProperty("default_value") Optional<? extends DefaultValue> defaultValue) {
         Utils.checkNotNull(fieldName, "fieldName");
         Utils.checkNotNull(fieldDataType, "fieldDataType");
@@ -79,10 +79,9 @@ public class TriggerInputSchema {
      * be a string, number, boolean, object, or array, ensuring the data is passed in the
      * correct format.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<FieldDataType> fieldDataType() {
-        return (Optional<FieldDataType>) fieldDataType;
+    public Optional<String> fieldDataType() {
+        return fieldDataType;
     }
 
     /**
@@ -125,7 +124,7 @@ public class TriggerInputSchema {
      * be a string, number, boolean, object, or array, ensuring the data is passed in the
      * correct format.
      */
-    public TriggerInputSchema withFieldDataType(FieldDataType fieldDataType) {
+    public TriggerInputSchema withFieldDataType(String fieldDataType) {
         Utils.checkNotNull(fieldDataType, "fieldDataType");
         this.fieldDataType = Optional.ofNullable(fieldDataType);
         return this;
@@ -136,7 +135,7 @@ public class TriggerInputSchema {
      * be a string, number, boolean, object, or array, ensuring the data is passed in the
      * correct format.
      */
-    public TriggerInputSchema withFieldDataType(Optional<? extends FieldDataType> fieldDataType) {
+    public TriggerInputSchema withFieldDataType(Optional<String> fieldDataType) {
         Utils.checkNotNull(fieldDataType, "fieldDataType");
         this.fieldDataType = fieldDataType;
         return this;
@@ -200,7 +199,7 @@ public class TriggerInputSchema {
  
         private Optional<String> fieldName = Optional.empty();
  
-        private Optional<? extends FieldDataType> fieldDataType = Optional.empty();
+        private Optional<String> fieldDataType = Optional.empty();
  
         private Optional<? extends DefaultValue> defaultValue = Optional.empty();
         
@@ -233,7 +232,7 @@ public class TriggerInputSchema {
          * be a string, number, boolean, object, or array, ensuring the data is passed in the
          * correct format.
          */
-        public Builder fieldDataType(FieldDataType fieldDataType) {
+        public Builder fieldDataType(String fieldDataType) {
             Utils.checkNotNull(fieldDataType, "fieldDataType");
             this.fieldDataType = Optional.ofNullable(fieldDataType);
             return this;
@@ -244,7 +243,7 @@ public class TriggerInputSchema {
          * be a string, number, boolean, object, or array, ensuring the data is passed in the
          * correct format.
          */
-        public Builder fieldDataType(Optional<? extends FieldDataType> fieldDataType) {
+        public Builder fieldDataType(Optional<String> fieldDataType) {
             Utils.checkNotNull(fieldDataType, "fieldDataType");
             this.fieldDataType = fieldDataType;
             return this;

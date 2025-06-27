@@ -8,6 +8,8 @@
 * [getWorkflowsList](#getworkflowslist) - Retrieve a list of available Maestro workflows
 * [getWorkflowTriggerRequirements](#getworkflowtriggerrequirements) - Retrieve trigger requirements for a specific Maestro workflow
 * [triggerWorkflow](#triggerworkflow) - Trigger a new instance of a Maestro workflow
+* [pauseNewWorkflowInstances](#pausenewworkflowinstances) - Pause an Active Workflow
+* [resumePausedWorkflow](#resumepausedworkflow) - Resume a Paused Workflow
 
 ## getWorkflowsList
 
@@ -79,6 +81,7 @@ package hello.world;
 import com.docusign.iam.sdk.IamClient;
 import com.docusign.iam.sdk.models.errors.Error;
 import com.docusign.iam.sdk.models.operations.GetWorkflowsListResponse;
+import com.docusign.iam.sdk.models.operations.Status;
 import java.lang.Exception;
 
 public class Application {
@@ -91,6 +94,7 @@ public class Application {
 
         GetWorkflowsListResponse res = sdk.maestro().workflows().getWorkflowsList()
                 .accountId("ae232f1f-8efc-4b8c-bb08-626847fad8bb")
+                .status(Status.ACTIVE)
                 .call();
 
         if (res.workflowsListSuccess().isPresent()) {
@@ -102,9 +106,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                             | Type                                  | Required                              | Description                           | Example                               |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| `accountId`                           | *String*                              | :heavy_check_mark:                    | The unique identifier of the account. | ae232f1f-8efc-4b8c-bb08-626847fad8bb  |
+| Parameter                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Required                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Example                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accountId`                                                                                                                                                                                                                                                                                                                                                                                                                                                    | *String*                                                                                                                                                                                                                                                                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                                                                             | The unique identifier of the account.                                                                                                                                                                                                                                                                                                                                                                                                                          | ae232f1f-8efc-4b8c-bb08-626847fad8bb                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `status`                                                                                                                                                                                                                                                                                                                                                                                                                                                       | [Optional\<Status>](../../models/operations/Status.md)                                                                                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                                                                             | Filter workflows by their status. If provided, only workflows with the specified status will be returned.<br/>- `active`: Returns only active workflows.<br/>- `inactive`: Returns only inactive workflows.<br/>- `publishing`: Returns workflows currently being published.<br/>- `unpublishing`: Returns workflows currently being unpublished.<br/>- `archived`: Returns workflows that have been archived.<br/>- `archiving`: Returns workflows currently being archived.        <br/> | active                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 
 ### Response
 
@@ -114,7 +119,7 @@ public class Application {
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models/errors/Error        | 400, 401, 403, 404         | application/json           |
+| models/errors/Error        | 400, 403, 404              | application/json           |
 | models/errors/Error        | 500                        | application/json           |
 | models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
 
@@ -199,10 +204,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                              | Type                                   | Required                               | Description                            | Example                                |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| `accountId`                            | *String*                               | :heavy_check_mark:                     | The unique identifier of the account.  | ae232f1f-8efc-4b8c-bb08-626847fad8bb   |
-| `workflowId`                           | *String*                               | :heavy_check_mark:                     | The unique identifier of the workflow. | ae232f1f-8efc-4b8c-bb08-626847fad8bb   |
+| Parameter                             | Type                                  | Required                              | Description                           | Example                               |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| `accountId`                           | *String*                              | :heavy_check_mark:                    | The unique identifier of the account. | ae232f1f-8efc-4b8c-bb08-626847fad8bb  |
+| `workflowId`                          | *String*                              | :heavy_check_mark:                    | N/A                                   |                                       |
 
 ### Response
 
@@ -212,7 +217,7 @@ public class Application {
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models/errors/Error        | 400, 401, 403, 404         | application/json           |
+| models/errors/Error        | 400, 403, 404              | application/json           |
 | models/errors/Error        | 500                        | application/json           |
 | models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
 
@@ -317,7 +322,7 @@ public class Application {
 | Parameter                                                                                                | Type                                                                                                     | Required                                                                                                 | Description                                                                                              | Example                                                                                                  |
 | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
 | `accountId`                                                                                              | *String*                                                                                                 | :heavy_check_mark:                                                                                       | The unique identifier of the account.                                                                    | ae232f1f-8efc-4b8c-bb08-626847fad8bb                                                                     |
-| `workflowId`                                                                                             | *String*                                                                                                 | :heavy_check_mark:                                                                                       | The unique identifier of the workflow.                                                                   | ae232f1f-8efc-4b8c-bb08-626847fad8bb                                                                     |
+| `workflowId`                                                                                             | *String*                                                                                                 | :heavy_check_mark:                                                                                       | N/A                                                                                                      |                                                                                                          |
 | `triggerWorkflow`                                                                                        | [TriggerWorkflow](../../models/components/TriggerWorkflow.md)                                            | :heavy_check_mark:                                                                                       | N/A                                                                                                      | {<br/>"instance_name": "My Instance",<br/>"trigger_inputs": {<br/>"name": "Jon Doe",<br/>"email": "jdoe@example.com"<br/>}<br/>} |
 
 ### Response
@@ -328,6 +333,114 @@ public class Application {
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models/errors/Error        | 400, 401, 403, 404         | application/json           |
+| models/errors/Error        | 400, 403, 404              | application/json           |
+| models/errors/Error        | 500                        | application/json           |
+| models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
+
+## pauseNewWorkflowInstances
+
+This operation pauses new workflow instances from being created. Any running workflows instances will be unaffected.
+
+
+### Example Usage
+
+```java
+package hello.world;
+
+import com.docusign.iam.sdk.IamClient;
+import com.docusign.iam.sdk.models.errors.Error;
+import com.docusign.iam.sdk.models.operations.PauseNewWorkflowInstancesResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws Error, Error, Exception {
+
+        IamClient sdk = IamClient.builder()
+                .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
+            .build();
+
+        PauseNewWorkflowInstancesResponse res = sdk.maestro().workflows().pauseNewWorkflowInstances()
+                .accountId("<id>")
+                .workflowId("<id>")
+                .call();
+
+        if (res.pauseNewWorkflowInstancesSuccess().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                             | Type                                  | Required                              | Description                           |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| `accountId`                           | *String*                              | :heavy_check_mark:                    | The unique identifier of the account. |
+| `workflowId`                          | *String*                              | :heavy_check_mark:                    | N/A                                   |
+
+### Response
+
+**[PauseNewWorkflowInstancesResponse](../../models/operations/PauseNewWorkflowInstancesResponse.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models/errors/Error        | 400, 403, 404, 409         | application/json           |
+| models/errors/Error        | 500                        | application/json           |
+| models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
+
+## resumePausedWorkflow
+
+This operation enables new workflow instances to be created
+
+
+### Example Usage
+
+```java
+package hello.world;
+
+import com.docusign.iam.sdk.IamClient;
+import com.docusign.iam.sdk.models.errors.Error;
+import com.docusign.iam.sdk.models.operations.ResumePausedWorkflowResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws Error, Error, Exception {
+
+        IamClient sdk = IamClient.builder()
+                .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
+            .build();
+
+        ResumePausedWorkflowResponse res = sdk.maestro().workflows().resumePausedWorkflow()
+                .accountId("<id>")
+                .workflowId("<id>")
+                .call();
+
+        if (res.resumeNewWorkflowInstancesSuccess().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                             | Type                                  | Required                              | Description                           |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| `accountId`                           | *String*                              | :heavy_check_mark:                    | The unique identifier of the account. |
+| `workflowId`                          | *String*                              | :heavy_check_mark:                    | N/A                                   |
+
+### Response
+
+**[ResumePausedWorkflowResponse](../../models/operations/ResumePausedWorkflowResponse.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models/errors/Error        | 400, 403, 404, 409         | application/json           |
 | models/errors/Error        | 500                        | application/json           |
 | models/errors/APIException | 4XX, 5XX                   | \*/\*                      |

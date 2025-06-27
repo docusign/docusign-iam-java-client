@@ -3,6 +3,10 @@
  */
 package com.docusign.iam.sdk.models.operations;
 
+import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
+
+import com.docusign.iam.sdk.SDKConfiguration;
+import com.docusign.iam.sdk.operations.GetWorkflowsListOperation;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -13,16 +17,29 @@ import java.util.Optional;
 public class GetWorkflowsListRequestBuilder {
 
     private String accountId;
+    private Optional<? extends Status> status = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallGetWorkflowsList sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetWorkflowsListRequestBuilder(SDKMethodInterfaces.MethodCallGetWorkflowsList sdk) {
-        this.sdk = sdk;
+    public GetWorkflowsListRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetWorkflowsListRequestBuilder accountId(String accountId) {
         Utils.checkNotNull(accountId, "accountId");
         this.accountId = accountId;
+        return this;
+    }
+                
+    public GetWorkflowsListRequestBuilder status(Status status) {
+        Utils.checkNotNull(status, "status");
+        this.status = Optional.of(status);
+        return this;
+    }
+
+    public GetWorkflowsListRequestBuilder status(Optional<? extends Status> status) {
+        Utils.checkNotNull(status, "status");
+        this.status = status;
         return this;
     }
                 
@@ -38,12 +55,26 @@ public class GetWorkflowsListRequestBuilder {
         return this;
     }
 
+
+    private GetWorkflowsListRequest buildRequest() {
+
+        GetWorkflowsListRequest request = new GetWorkflowsListRequest(accountId,
+            status);
+
+        return request;
+    }
+
     public GetWorkflowsListResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.getWorkflowsList(
-            accountId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<GetWorkflowsListRequest, GetWorkflowsListResponse> operation
+              = new GetWorkflowsListOperation(
+                 sdkConfiguration,
+                 options);
+        GetWorkflowsListRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

@@ -40,6 +40,7 @@ package hello.world;
 
 import com.docusign.iam.sdk.IamClient;
 import com.docusign.iam.sdk.models.errors.Error;
+import com.docusign.iam.sdk.models.operations.GetAgreementsListRequest;
 import com.docusign.iam.sdk.models.operations.GetAgreementsListResponse;
 import java.lang.Exception;
 
@@ -51,10 +52,14 @@ public class Application {
                 .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
             .build();
 
-        GetAgreementsListResponse res = sdk.navigator().agreements().getAgreementsList()
+        GetAgreementsListRequest req = GetAgreementsListRequest.builder()
                 .accountId("00000000-0000-0000-0000-000000000000")
                 .limit(10)
                 .ctoken("abc123")
+                .build();
+
+        GetAgreementsListResponse res = sdk.navigator().agreements().getAgreementsList()
+                .request(req)
                 .call();
 
         if (res.agreementsResponse().isPresent()) {
@@ -66,11 +71,9 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                          | Type                                                               | Required                                                           | Description                                                        | Example                                                            |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
-| `accountId`                                                        | *Optional\<String>*                                                | :heavy_check_mark:                                                 | N/A                                                                |                                                                    |
-| `limit`                                                            | *JsonNullable\<Integer>*                                           | :heavy_minus_sign:                                                 | The maximum number of items that can be returned in a single page. | 10                                                                 |
-| `ctoken`                                                           | *JsonNullable\<String>*                                            | :heavy_minus_sign:                                                 | An opaque token that helps retrieve the a page of data.            | abc123                                                             |
+| Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `request`                                                                       | [GetAgreementsListRequest](../../models/operations/GetAgreementsListRequest.md) | :heavy_check_mark:                                                              | The request object to use for the request.                                      |
 
 ### Response
 
@@ -80,7 +83,7 @@ public class Application {
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models/errors/Error        | 400, 401, 403, 404         | application/json           |
+| models/errors/Error        | 400, 403, 404              | application/json           |
 | models/errors/Error        | 500                        | application/json           |
 | models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
 
@@ -105,7 +108,7 @@ The operation is essential for retrieving the full context of an agreement, enab
 - **Provisions for Legal, Financial, and Lifecycle Conditions**: Includes the full set of provisions that define the terms and conditions of the agreement, making it ideal for compliance and auditing purposes.
 - **Metadata and History**: Tracks the agreement’s history through metadata such as creation and modification dates and user-defined fields.
 - **Data Source for AI Applications**: Enables LLM-based applications to access granular agreement data, providing AI/ML-based solutions (such as Copilots) with the necessary context to answer detailed queries about an agreement.
-- **Involved Parties and Related Agreements**: Lists all parties involved and related agreements, allowing users to see all associated legal documents and relationships between agreements.
+- **Involved Parties and Related Agreements**: Lists all parties involved and related agreements, allowing users to see all associated legal documents and relationships between agreements.   
 
 
 ### Example Usage
@@ -140,10 +143,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter           | Type                | Required            | Description         |
-| ------------------- | ------------------- | ------------------- | ------------------- |
-| `accountId`         | *Optional\<String>* | :heavy_check_mark:  | N/A                 |
-| `agreementId`       | *Optional\<String>* | :heavy_check_mark:  | N/A                 |
+| Parameter          | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `accountId`        | *String*           | :heavy_check_mark: | N/A                |
+| `agreementId`      | *String*           | :heavy_check_mark: | N/A                |
 
 ### Response
 
@@ -153,7 +156,7 @@ public class Application {
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models/errors/Error        | 400, 401, 403, 404         | application/json           |
+| models/errors/Error        | 400, 403, 404              | application/json           |
 | models/errors/Error        | 500                        | application/json           |
 | models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
 
@@ -192,10 +195,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter           | Type                | Required            | Description         |
-| ------------------- | ------------------- | ------------------- | ------------------- |
-| `accountId`         | *Optional\<String>* | :heavy_check_mark:  | N/A                 |
-| `agreementId`       | *Optional\<String>* | :heavy_check_mark:  | N/A                 |
+| Parameter          | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `accountId`        | *String*           | :heavy_check_mark: | N/A                |
+| `agreementId`      | *String*           | :heavy_check_mark: | N/A                |
 
 ### Response
 
@@ -205,7 +208,7 @@ public class Application {
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models/errors/Error        | 400, 401, 403, 404         | application/json           |
+| models/errors/Error        | 400, 403, 404              | application/json           |
 | models/errors/Error        | 500                        | application/json           |
 | models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
 
@@ -252,10 +255,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter           | Type                | Required            | Description         |
-| ------------------- | ------------------- | ------------------- | ------------------- |
-| `accountId`         | *Optional\<String>* | :heavy_check_mark:  | N/A                 |
-| `agreementId`       | *Optional\<String>* | :heavy_check_mark:  | N/A                 |
+| Parameter          | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `accountId`        | *String*           | :heavy_check_mark: | N/A                |
+| `agreementId`      | *String*           | :heavy_check_mark: | N/A                |
 
 ### Response
 
@@ -265,6 +268,6 @@ public class Application {
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models/errors/Error        | 400, 401, 403, 404         | application/json           |
+| models/errors/Error        | 400, 403, 404              | application/json           |
 | models/errors/Error        | 500                        | application/json           |
 | models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
