@@ -19,7 +19,7 @@ public enum SupportedOperation {
     @JsonValue
     private final String value;
 
-    private SupportedOperation(String value) {
+    SupportedOperation(String value) {
         this.value = value;
     }
     

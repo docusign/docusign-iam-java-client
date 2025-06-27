@@ -3,6 +3,10 @@
  */
 package com.docusign.iam.sdk.models.operations;
 
+import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
+
+import com.docusign.iam.sdk.SDKConfiguration;
+import com.docusign.iam.sdk.operations.GetWorkflowTriggerRequirementsOperation;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -15,10 +19,10 @@ public class GetWorkflowTriggerRequirementsRequestBuilder {
     private String accountId;
     private String workflowId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallGetWorkflowTriggerRequirements sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetWorkflowTriggerRequirementsRequestBuilder(SDKMethodInterfaces.MethodCallGetWorkflowTriggerRequirements sdk) {
-        this.sdk = sdk;
+    public GetWorkflowTriggerRequirementsRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetWorkflowTriggerRequirementsRequestBuilder accountId(String accountId) {
@@ -45,13 +49,26 @@ public class GetWorkflowTriggerRequirementsRequestBuilder {
         return this;
     }
 
+
+    private GetWorkflowTriggerRequirementsRequest buildRequest() {
+
+        GetWorkflowTriggerRequirementsRequest request = new GetWorkflowTriggerRequirementsRequest(accountId,
+            workflowId);
+
+        return request;
+    }
+
     public GetWorkflowTriggerRequirementsResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.getWorkflowTriggerRequirements(
-            accountId,
-            workflowId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<GetWorkflowTriggerRequirementsRequest, GetWorkflowTriggerRequirementsResponse> operation
+              = new GetWorkflowTriggerRequirementsOperation(
+                 sdkConfiguration,
+                 options);
+        GetWorkflowTriggerRequirementsRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

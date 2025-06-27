@@ -52,7 +52,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.docusign:iam-sdk:1.0.0-beta.1'
+implementation 'com.docusign:iam-sdk:1.0.0-beta.2'
 ```
 
 Maven:
@@ -60,7 +60,7 @@ Maven:
 <dependency>
     <groupId>com.docusign</groupId>
     <artifactId>iam-sdk</artifactId>
-    <version>1.0.0-beta.1</version>
+    <version>1.0.0-beta.2</version>
 </dependency>
 ```
 
@@ -81,9 +81,11 @@ gradlew.bat publishToMavenLocal -Pskip.signing
 ### Logging
 A logging framework/facade has not yet been adopted but is under consideration.
 
-For request and response logging (especially json bodies) use:
+For request and response logging (especially json bodies), call `enableHTTPDebugLogging(boolean)` on the SDK builder like so:
 ```java
-SpeakeasyHTTPClient.setDebugLogging(true); // experimental API only (may change without warning)
+SDK.builder()
+    .enableHTTPDebugLogging(true)
+    .build();
 ```
 Example output:
 ```
@@ -97,7 +99,9 @@ Response body:
   "token": "global"
 }
 ```
-WARNING: This should only used for temporary debugging purposes. Leaving this option on in a production system could expose credentials/secrets in logs. <i>Authorization</i> headers are redacted by default and there is the ability to specify redacted header names via `SpeakeasyHTTPClient.setRedactedHeaders`.
+__WARNING__: This should only used for temporary debugging purposes. Leaving this option on in a production system could expose credentials/secrets in logs. <i>Authorization</i> headers are redacted by default and there is the ability to specify redacted header names via `SpeakeasyHTTPClient.setRedactedHeaders`.
+
+__NOTE__: This is a convenience method that calls `HTTPClient.enableDebugLogging()`. The `SpeakeasyHTTPClient` honors this setting. If you are using a custom HTTP client, it is up to the custom client to honor this setting.
 
 Another option is to set the System property `-Djdk.httpclient.HttpClient.log=all`. However, this second option does not log bodies.
 <!-- End SDK Installation [installation] -->
@@ -330,6 +334,8 @@ var res = sdk.auth().getUserInfo().call();
 * [getWorkflowsList](docs/sdks/workflows/README.md#getworkflowslist) - Retrieve a list of available Maestro workflows
 * [getWorkflowTriggerRequirements](docs/sdks/workflows/README.md#getworkflowtriggerrequirements) - Retrieve trigger requirements for a specific Maestro workflow
 * [triggerWorkflow](docs/sdks/workflows/README.md#triggerworkflow) - Trigger a new instance of a Maestro workflow
+* [pauseNewWorkflowInstances](docs/sdks/workflows/README.md#pausenewworkflowinstances) - Pause an Active Workflow
+* [resumePausedWorkflow](docs/sdks/workflows/README.md#resumepausedworkflow) - Resume a Paused Workflow
 
 ### [navigator()](docs/sdks/navigator/README.md)
 
@@ -508,10 +514,10 @@ public class Application {
 
 You can override the default server globally using the `.server(AvailableServers server)` builder method when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the names associated with the available servers:
 
-| Name   | Server                          | Description |
-| ------ | ------------------------------- | ----------- |
-| `demo` | `https://api-d.docusign.com/v1` | Demo        |
-| `prod` | `https://api.docusign.com/v1`   | Production  |
+| Name   | Server                       | Description |
+| ------ | ---------------------------- | ----------- |
+| `demo` | `https://api-d.docusign.com` | Demo        |
+| `prod` | `https://api.docusign.com`   | Production  |
 
 #### Example
 
@@ -570,7 +576,7 @@ public class Application {
     public static void main(String[] args) throws OAuthErrorResponse, Exception {
 
         IamClient sdk = IamClient.builder()
-                .serverURL("https://api-d.docusign.com/v1")
+                .serverURL("https://api-d.docusign.com")
             .build();
 
         ConfidentialAuthCodeGrantRequestBody req = ConfidentialAuthCodeGrantRequestBody.builder()

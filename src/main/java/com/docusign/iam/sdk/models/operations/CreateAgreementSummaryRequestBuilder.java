@@ -3,51 +3,35 @@
  */
 package com.docusign.iam.sdk.models.operations;
 
-import com.docusign.iam.sdk.utils.LazySingletonValue;
+import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
+
+import com.docusign.iam.sdk.SDKConfiguration;
+import com.docusign.iam.sdk.operations.CreateAgreementSummaryOperation;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
 public class CreateAgreementSummaryRequestBuilder {
 
-    private Optional<String> accountId = Utils.readDefaultOrConstValue(
-                            "accountId",
-                            "\"00000000-0000-0000-0000-000000000000\"",
-                            new TypeReference<Optional<String>>() {});
-    private Optional<String> agreementId = Utils.readDefaultOrConstValue(
-                            "agreementId",
-                            "\"00000000-0000-0000-0000-000000000000\"",
-                            new TypeReference<Optional<String>>() {});
+    private String accountId;
+    private String agreementId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallCreateAgreementSummary sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public CreateAgreementSummaryRequestBuilder(SDKMethodInterfaces.MethodCallCreateAgreementSummary sdk) {
-        this.sdk = sdk;
+    public CreateAgreementSummaryRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
-                
+
     public CreateAgreementSummaryRequestBuilder accountId(String accountId) {
-        Utils.checkNotNull(accountId, "accountId");
-        this.accountId = Optional.of(accountId);
-        return this;
-    }
-
-    public CreateAgreementSummaryRequestBuilder accountId(Optional<String> accountId) {
         Utils.checkNotNull(accountId, "accountId");
         this.accountId = accountId;
         return this;
     }
-                
-    public CreateAgreementSummaryRequestBuilder agreementId(String agreementId) {
-        Utils.checkNotNull(agreementId, "agreementId");
-        this.agreementId = Optional.of(agreementId);
-        return this;
-    }
 
-    public CreateAgreementSummaryRequestBuilder agreementId(Optional<String> agreementId) {
+    public CreateAgreementSummaryRequestBuilder agreementId(String agreementId) {
         Utils.checkNotNull(agreementId, "agreementId");
         this.agreementId = agreementId;
         return this;
@@ -65,30 +49,26 @@ public class CreateAgreementSummaryRequestBuilder {
         return this;
     }
 
-    public CreateAgreementSummaryResponse call() throws Exception {
-        if (accountId == null) {
-            accountId = _SINGLETON_VALUE_AccountId.value();
-        }
-        if (agreementId == null) {
-            agreementId = _SINGLETON_VALUE_AgreementId.value();
-        }        Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.createAgreementSummary(
-            accountId,
-            agreementId,
-            options);
+
+    private CreateAgreementSummaryRequest buildRequest() {
+
+        CreateAgreementSummaryRequest request = new CreateAgreementSummaryRequest(accountId,
+            agreementId);
+
+        return request;
     }
 
-    private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_AccountId =
-            new LazySingletonValue<>(
-                    "accountId",
-                    "\"00000000-0000-0000-0000-000000000000\"",
-                    new TypeReference<Optional<String>>() {});
+    public CreateAgreementSummaryResponse call() throws Exception {
+        Optional<Options> options = Optional.of(Options.builder()
+            .retryConfig(retryConfig)
+            .build());
 
-    private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_AgreementId =
-            new LazySingletonValue<>(
-                    "agreementId",
-                    "\"00000000-0000-0000-0000-000000000000\"",
-                    new TypeReference<Optional<String>>() {});
+        RequestOperation<CreateAgreementSummaryRequest, CreateAgreementSummaryResponse> operation
+              = new CreateAgreementSummaryOperation(
+                 sdkConfiguration,
+                 options);
+        CreateAgreementSummaryRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
+    }
 }

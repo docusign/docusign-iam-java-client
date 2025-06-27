@@ -3,7 +3,11 @@
  */
 package com.docusign.iam.sdk.models.operations;
 
+import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
+
+import com.docusign.iam.sdk.SDKConfiguration;
 import com.docusign.iam.sdk.models.components.PublicAuthCodeGrantRequestBody;
+import com.docusign.iam.sdk.operations.GetTokenFromPublicAuthCodeOperation;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -16,10 +20,10 @@ public class GetTokenFromPublicAuthCodeRequestBuilder {
     private PublicAuthCodeGrantRequestBody request;
     private Optional<String> serverURL = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallGetTokenFromPublicAuthCode sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetTokenFromPublicAuthCodeRequestBuilder(SDKMethodInterfaces.MethodCallGetTokenFromPublicAuthCode sdk) {
-        this.sdk = sdk;
+    public GetTokenFromPublicAuthCodeRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetTokenFromPublicAuthCodeRequestBuilder request(PublicAuthCodeGrantRequestBody request) {
@@ -54,11 +58,15 @@ public class GetTokenFromPublicAuthCodeRequestBuilder {
 
     public GetTokenFromPublicAuthCodeResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.getTokenFromPublicAuthCode(
-            request,
-            serverURL,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<PublicAuthCodeGrantRequestBody, GetTokenFromPublicAuthCodeResponse> operation
+              = new GetTokenFromPublicAuthCodeOperation(
+                 sdkConfiguration,
+                 serverURL,
+                 options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

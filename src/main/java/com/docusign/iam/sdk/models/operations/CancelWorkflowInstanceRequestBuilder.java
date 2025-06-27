@@ -3,6 +3,10 @@
  */
 package com.docusign.iam.sdk.models.operations;
 
+import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
+
+import com.docusign.iam.sdk.SDKConfiguration;
+import com.docusign.iam.sdk.operations.CancelWorkflowInstanceOperation;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -16,10 +20,10 @@ public class CancelWorkflowInstanceRequestBuilder {
     private String workflowId;
     private String instanceId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallCancelWorkflowInstance sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public CancelWorkflowInstanceRequestBuilder(SDKMethodInterfaces.MethodCallCancelWorkflowInstance sdk) {
-        this.sdk = sdk;
+    public CancelWorkflowInstanceRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public CancelWorkflowInstanceRequestBuilder accountId(String accountId) {
@@ -52,14 +56,27 @@ public class CancelWorkflowInstanceRequestBuilder {
         return this;
     }
 
+
+    private CancelWorkflowInstanceRequest buildRequest() {
+
+        CancelWorkflowInstanceRequest request = new CancelWorkflowInstanceRequest(accountId,
+            workflowId,
+            instanceId);
+
+        return request;
+    }
+
     public CancelWorkflowInstanceResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.cancelWorkflowInstance(
-            accountId,
-            workflowId,
-            instanceId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<CancelWorkflowInstanceRequest, CancelWorkflowInstanceResponse> operation
+              = new CancelWorkflowInstanceOperation(
+                 sdkConfiguration,
+                 options);
+        CancelWorkflowInstanceRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

@@ -3,37 +3,20 @@
  */
 package com.docusign.iam.sdk;
 
-import com.docusign.iam.sdk.models.errors.APIException;
+import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
+
 import com.docusign.iam.sdk.models.operations.ConnectedFieldsApiGetTabGroupsRequest;
 import com.docusign.iam.sdk.models.operations.ConnectedFieldsApiGetTabGroupsRequestBuilder;
 import com.docusign.iam.sdk.models.operations.ConnectedFieldsApiGetTabGroupsResponse;
-import com.docusign.iam.sdk.models.operations.SDKMethodInterfaces.*;
-import com.docusign.iam.sdk.utils.BackoffStrategy;
-import com.docusign.iam.sdk.utils.HTTPClient;
-import com.docusign.iam.sdk.utils.HTTPRequest;
-import com.docusign.iam.sdk.utils.Hook.AfterErrorContextImpl;
-import com.docusign.iam.sdk.utils.Hook.AfterSuccessContextImpl;
-import com.docusign.iam.sdk.utils.Hook.BeforeRequestContextImpl;
+import com.docusign.iam.sdk.operations.ConnectedFieldsApiGetTabGroupsOperation;
 import com.docusign.iam.sdk.utils.Options;
-import com.docusign.iam.sdk.utils.Retries.NonRetryableException;
-import com.docusign.iam.sdk.utils.Retries;
-import com.docusign.iam.sdk.utils.RetryConfig;
-import com.docusign.iam.sdk.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.io.InputStream;
 import java.lang.Exception;
 import java.lang.String;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
-public class TabInfo implements
-            MethodCallConnectedFieldsApiGetTabGroups {
 
+public class TabInfo {
     private final SDKConfiguration sdkConfiguration;
 
     TabInfo(SDKConfiguration sdkConfiguration) {
@@ -50,7 +33,7 @@ public class TabInfo implements
      * @return The call builder
      */
     public ConnectedFieldsApiGetTabGroupsRequestBuilder getConnectedFieldsTabGroups() {
-        return new ConnectedFieldsApiGetTabGroupsRequestBuilder(this);
+        return new ConnectedFieldsApiGetTabGroupsRequestBuilder(sdkConfiguration);
     }
 
     /**
@@ -64,11 +47,10 @@ public class TabInfo implements
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public ConnectedFieldsApiGetTabGroupsResponse getConnectedFieldsTabGroups(
-            String accountId) throws Exception {
+    public ConnectedFieldsApiGetTabGroupsResponse getConnectedFieldsTabGroups(String accountId) throws Exception {
         return getConnectedFieldsTabGroups(accountId, Optional.empty(), Optional.empty());
     }
-    
+
     /**
      * Returns all tabs associated with the given account
      * 
@@ -86,150 +68,17 @@ public class TabInfo implements
             String accountId,
             Optional<String> appId,
             Optional<Options> options) throws Exception {
-
-        if (options.isPresent()) {
-          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
-        }
         ConnectedFieldsApiGetTabGroupsRequest request =
             ConnectedFieldsApiGetTabGroupsRequest
                 .builder()
                 .accountId(accountId)
                 .appId(appId)
                 .build();
-        
-        String _baseUrl = this.sdkConfiguration.serverUrl();
-        String _url = Utils.generateURL(
-                ConnectedFieldsApiGetTabGroupsRequest.class,
-                _baseUrl,
-                "/accounts/{accountId}/connected-fields/tab-groups",
-                request, null);
-        
-        HTTPRequest _req = new HTTPRequest(_url, "GET");
-        _req.addHeader("Accept", "application/json")
-            .addHeader("user-agent", 
-                SDKConfiguration.USER_AGENT);
-
-        _req.addQueryParams(Utils.getQueryParams(
-                ConnectedFieldsApiGetTabGroupsRequest.class,
-                request, 
-                null));
-        
-        Optional<SecuritySource> _hookSecuritySource = Optional.of(this.sdkConfiguration.securitySource());
-        Utils.configureSecurity(_req,  
-                this.sdkConfiguration.securitySource().getSecurity());
-        HTTPClient _client = this.sdkConfiguration.client();
-        HTTPRequest _finalReq = _req;
-        RetryConfig _retryConfig;
-        if (options.isPresent() && options.get().retryConfig().isPresent()) {
-            _retryConfig = options.get().retryConfig().get();
-        } else if (this.sdkConfiguration.retryConfig().isPresent()) {
-            _retryConfig = this.sdkConfiguration.retryConfig().get();
-        } else {
-            _retryConfig = RetryConfig.builder()
-                .backoff(BackoffStrategy.builder()
-                            .initialInterval(500, TimeUnit.MILLISECONDS)
-                            .maxInterval(5000, TimeUnit.MILLISECONDS)
-                            .baseFactor((double)(1.5))
-                            .maxElapsedTime(30000, TimeUnit.MILLISECONDS)
-                            .retryConnectError(true)
-                            .build())
-                .build();
-        }
-        List<String> _statusCodes = new ArrayList<>();
-        _statusCodes.add("5XX");
-        _statusCodes.add("429");
-        Retries _retries = Retries.builder()
-            .action(() -> {
-                HttpRequest _r = null;
-                try {
-                    _r = sdkConfiguration.hooks()
-                        .beforeRequest(
-                            new BeforeRequestContextImpl(
-                                this.sdkConfiguration,
-                                _baseUrl,
-                                "ConnectedFieldsApi_GetTabGroups", 
-                                Optional.of(List.of()), 
-                                _hookSecuritySource),
-                            _finalReq.build());
-                } catch (Exception _e) {
-                    throw new NonRetryableException(_e);
-                }
-                try {
-                    return _client.send(_r);
-                } catch (Exception _e) {
-                    return sdkConfiguration.hooks()
-                        .afterError(
-                            new AfterErrorContextImpl(
-                                this.sdkConfiguration,
-                                _baseUrl,
-                                "ConnectedFieldsApi_GetTabGroups",
-                                 Optional.of(List.of()),
-                                 _hookSecuritySource), 
-                            Optional.empty(),
-                            Optional.of(_e));
-                }
-            })
-            .retryConfig(_retryConfig)
-            .statusCodes(_statusCodes)
-            .build();
-        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
-                 .afterSuccess(
-                     new AfterSuccessContextImpl(
-                         this.sdkConfiguration,
-                         _baseUrl,
-                         "ConnectedFieldsApi_GetTabGroups", 
-                         Optional.of(List.of()), 
-                         _hookSecuritySource),
-                     _retries.run());
-        String _contentType = _httpRes
-            .headers()
-            .firstValue("Content-Type")
-            .orElse("application/octet-stream");
-        ConnectedFieldsApiGetTabGroupsResponse.Builder _resBuilder = 
-            ConnectedFieldsApiGetTabGroupsResponse
-                .builder()
-                .contentType(_contentType)
-                .statusCode(_httpRes.statusCode())
-                .rawResponse(_httpRes);
-
-        ConnectedFieldsApiGetTabGroupsResponse _res = _resBuilder.build();
-        
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
-            if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                List<com.docusign.iam.sdk.models.components.TabInfo> _out = Utils.mapper().readValue(
-                    Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<List<com.docusign.iam.sdk.models.components.TabInfo>>() {});
-                _res.withTabInfos(Optional.ofNullable(_out));
-                return _res;
-            } else {
-                throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "Unexpected content-type received: " + _contentType, 
-                    Utils.extractByteArrayFromBody(_httpRes));
-            }
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "4XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "5XX")) {
-            // no content 
-            throw new APIException(
-                    _httpRes, 
-                    _httpRes.statusCode(), 
-                    "API error occurred", 
-                    Utils.extractByteArrayFromBody(_httpRes));
-        }
-        throw new APIException(
-            _httpRes, 
-            _httpRes.statusCode(), 
-            "Unexpected status code received: " + _httpRes.statusCode(), 
-            Utils.extractByteArrayFromBody(_httpRes));
+        RequestOperation<ConnectedFieldsApiGetTabGroupsRequest, ConnectedFieldsApiGetTabGroupsResponse> operation
+              = new ConnectedFieldsApiGetTabGroupsOperation(
+                 sdkConfiguration,
+                 options);
+        return operation.handleResponse(operation.doRequest(request));
     }
 
 }

@@ -14,7 +14,7 @@ public enum Flow {
     @JsonValue
     private final String value;
 
-    private Flow(String value) {
+    Flow(String value) {
         this.value = value;
     }
     

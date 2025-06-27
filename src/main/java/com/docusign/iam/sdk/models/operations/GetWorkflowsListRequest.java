@@ -9,7 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.Objects;
+import java.util.Optional;
 
 public class GetWorkflowsListRequest {
 
@@ -19,11 +21,31 @@ public class GetWorkflowsListRequest {
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=accountId")
     private String accountId;
 
+    /**
+     * Filter workflows by their status. If provided, only workflows with the specified status will be returned.
+     * - `active`: Returns only active workflows.
+     * - `inactive`: Returns only inactive workflows.
+     * - `publishing`: Returns workflows currently being published.
+     * - `unpublishing`: Returns workflows currently being unpublished.
+     * - `archived`: Returns workflows that have been archived.
+     * - `archiving`: Returns workflows currently being archived.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=status")
+    private Optional<? extends Status> status;
+
     @JsonCreator
     public GetWorkflowsListRequest(
-            String accountId) {
+            String accountId,
+            Optional<? extends Status> status) {
         Utils.checkNotNull(accountId, "accountId");
+        Utils.checkNotNull(status, "status");
         this.accountId = accountId;
+        this.status = status;
+    }
+    
+    public GetWorkflowsListRequest(
+            String accountId) {
+        this(accountId, Optional.empty());
     }
 
     /**
@@ -32,6 +54,21 @@ public class GetWorkflowsListRequest {
     @JsonIgnore
     public String accountId() {
         return accountId;
+    }
+
+    /**
+     * Filter workflows by their status. If provided, only workflows with the specified status will be returned.
+     * - `active`: Returns only active workflows.
+     * - `inactive`: Returns only inactive workflows.
+     * - `publishing`: Returns workflows currently being published.
+     * - `unpublishing`: Returns workflows currently being unpublished.
+     * - `archived`: Returns workflows that have been archived.
+     * - `archiving`: Returns workflows currently being archived.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<Status> status() {
+        return (Optional<Status>) status;
     }
 
     public final static Builder builder() {
@@ -47,6 +84,36 @@ public class GetWorkflowsListRequest {
         return this;
     }
 
+    /**
+     * Filter workflows by their status. If provided, only workflows with the specified status will be returned.
+     * - `active`: Returns only active workflows.
+     * - `inactive`: Returns only inactive workflows.
+     * - `publishing`: Returns workflows currently being published.
+     * - `unpublishing`: Returns workflows currently being unpublished.
+     * - `archived`: Returns workflows that have been archived.
+     * - `archiving`: Returns workflows currently being archived.
+     */
+    public GetWorkflowsListRequest withStatus(Status status) {
+        Utils.checkNotNull(status, "status");
+        this.status = Optional.ofNullable(status);
+        return this;
+    }
+
+    /**
+     * Filter workflows by their status. If provided, only workflows with the specified status will be returned.
+     * - `active`: Returns only active workflows.
+     * - `inactive`: Returns only inactive workflows.
+     * - `publishing`: Returns workflows currently being published.
+     * - `unpublishing`: Returns workflows currently being unpublished.
+     * - `archived`: Returns workflows that have been archived.
+     * - `archiving`: Returns workflows currently being archived.
+     */
+    public GetWorkflowsListRequest withStatus(Optional<? extends Status> status) {
+        Utils.checkNotNull(status, "status");
+        this.status = status;
+        return this;
+    }
+
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -58,24 +125,29 @@ public class GetWorkflowsListRequest {
         }
         GetWorkflowsListRequest other = (GetWorkflowsListRequest) o;
         return 
-            Objects.deepEquals(this.accountId, other.accountId);
+            Objects.deepEquals(this.accountId, other.accountId) &&
+            Objects.deepEquals(this.status, other.status);
     }
     
     @Override
     public int hashCode() {
         return Objects.hash(
-            accountId);
+            accountId,
+            status);
     }
     
     @Override
     public String toString() {
         return Utils.toString(GetWorkflowsListRequest.class,
-                "accountId", accountId);
+                "accountId", accountId,
+                "status", status);
     }
     
     public final static class Builder {
  
         private String accountId;
+ 
+        private Optional<? extends Status> status = Optional.empty();
         
         private Builder() {
           // force use of static builder() method
@@ -89,10 +161,41 @@ public class GetWorkflowsListRequest {
             this.accountId = accountId;
             return this;
         }
+
+        /**
+         * Filter workflows by their status. If provided, only workflows with the specified status will be returned.
+         * - `active`: Returns only active workflows.
+         * - `inactive`: Returns only inactive workflows.
+         * - `publishing`: Returns workflows currently being published.
+         * - `unpublishing`: Returns workflows currently being unpublished.
+         * - `archived`: Returns workflows that have been archived.
+         * - `archiving`: Returns workflows currently being archived.
+         */
+        public Builder status(Status status) {
+            Utils.checkNotNull(status, "status");
+            this.status = Optional.ofNullable(status);
+            return this;
+        }
+
+        /**
+         * Filter workflows by their status. If provided, only workflows with the specified status will be returned.
+         * - `active`: Returns only active workflows.
+         * - `inactive`: Returns only inactive workflows.
+         * - `publishing`: Returns workflows currently being published.
+         * - `unpublishing`: Returns workflows currently being unpublished.
+         * - `archived`: Returns workflows that have been archived.
+         * - `archiving`: Returns workflows currently being archived.
+         */
+        public Builder status(Optional<? extends Status> status) {
+            Utils.checkNotNull(status, "status");
+            this.status = status;
+            return this;
+        }
         
         public GetWorkflowsListRequest build() {
             return new GetWorkflowsListRequest(
-                accountId);
+                accountId,
+                status);
         }
     }
 }

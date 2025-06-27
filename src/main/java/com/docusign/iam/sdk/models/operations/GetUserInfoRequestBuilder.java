@@ -3,6 +3,10 @@
  */
 package com.docusign.iam.sdk.models.operations;
 
+import static com.docusign.iam.sdk.operations.Operations.RequestlessOperation;
+
+import com.docusign.iam.sdk.SDKConfiguration;
+import com.docusign.iam.sdk.operations.GetUserInfoOperation;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -14,10 +18,10 @@ public class GetUserInfoRequestBuilder {
 
     private Optional<String> serverURL = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallGetUserInfo sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetUserInfoRequestBuilder(SDKMethodInterfaces.MethodCallGetUserInfo sdk) {
-        this.sdk = sdk;
+    public GetUserInfoRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
                 
     public GetUserInfoRequestBuilder serverURL(String serverURL) {
@@ -46,10 +50,15 @@ public class GetUserInfoRequestBuilder {
 
     public GetUserInfoResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.getUserInfo(
-            serverURL,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestlessOperation<GetUserInfoResponse> operation
+            = new GetUserInfoOperation(
+                 sdkConfiguration,
+                 serverURL,
+                 options);
+
+        return operation.handleResponse(operation.doRequest());
     }
 }

@@ -19,7 +19,7 @@ public enum PublicAuthCodeGrantRequestBodyGrantType {
     @JsonValue
     private final String value;
 
-    private PublicAuthCodeGrantRequestBodyGrantType(String value) {
+    PublicAuthCodeGrantRequestBodyGrantType(String value) {
         this.value = value;
     }
     

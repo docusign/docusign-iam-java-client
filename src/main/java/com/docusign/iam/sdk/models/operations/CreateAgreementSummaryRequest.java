@@ -3,46 +3,39 @@
  */
 package com.docusign.iam.sdk.models.operations;
 
-import com.docusign.iam.sdk.utils.LazySingletonValue;
 import com.docusign.iam.sdk.utils.SpeakeasyMetadata;
 import com.docusign.iam.sdk.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
-import java.util.Optional;
 
 public class CreateAgreementSummaryRequest {
 
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=accountId")
-    private Optional<String> accountId;
+    private String accountId;
 
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=agreementId")
-    private Optional<String> agreementId;
+    private String agreementId;
 
     @JsonCreator
     public CreateAgreementSummaryRequest(
-            Optional<String> accountId,
-            Optional<String> agreementId) {
+            String accountId,
+            String agreementId) {
         Utils.checkNotNull(accountId, "accountId");
         Utils.checkNotNull(agreementId, "agreementId");
         this.accountId = accountId;
         this.agreementId = agreementId;
     }
-    
-    public CreateAgreementSummaryRequest() {
-        this(Optional.empty(), Optional.empty());
-    }
 
     @JsonIgnore
-    public Optional<String> accountId() {
+    public String accountId() {
         return accountId;
     }
 
     @JsonIgnore
-    public Optional<String> agreementId() {
+    public String agreementId() {
         return agreementId;
     }
 
@@ -52,23 +45,11 @@ public class CreateAgreementSummaryRequest {
 
     public CreateAgreementSummaryRequest withAccountId(String accountId) {
         Utils.checkNotNull(accountId, "accountId");
-        this.accountId = Optional.ofNullable(accountId);
-        return this;
-    }
-
-    public CreateAgreementSummaryRequest withAccountId(Optional<String> accountId) {
-        Utils.checkNotNull(accountId, "accountId");
         this.accountId = accountId;
         return this;
     }
 
     public CreateAgreementSummaryRequest withAgreementId(String agreementId) {
-        Utils.checkNotNull(agreementId, "agreementId");
-        this.agreementId = Optional.ofNullable(agreementId);
-        return this;
-    }
-
-    public CreateAgreementSummaryRequest withAgreementId(Optional<String> agreementId) {
         Utils.checkNotNull(agreementId, "agreementId");
         this.agreementId = agreementId;
         return this;
@@ -105,9 +86,9 @@ public class CreateAgreementSummaryRequest {
     
     public final static class Builder {
  
-        private Optional<String> accountId;
+        private String accountId;
  
-        private Optional<String> agreementId;
+        private String agreementId;
         
         private Builder() {
           // force use of static builder() method
@@ -115,50 +96,20 @@ public class CreateAgreementSummaryRequest {
 
         public Builder accountId(String accountId) {
             Utils.checkNotNull(accountId, "accountId");
-            this.accountId = Optional.ofNullable(accountId);
-            return this;
-        }
-
-        public Builder accountId(Optional<String> accountId) {
-            Utils.checkNotNull(accountId, "accountId");
             this.accountId = accountId;
             return this;
         }
 
         public Builder agreementId(String agreementId) {
             Utils.checkNotNull(agreementId, "agreementId");
-            this.agreementId = Optional.ofNullable(agreementId);
-            return this;
-        }
-
-        public Builder agreementId(Optional<String> agreementId) {
-            Utils.checkNotNull(agreementId, "agreementId");
             this.agreementId = agreementId;
             return this;
         }
         
         public CreateAgreementSummaryRequest build() {
-            if (accountId == null) {
-                accountId = _SINGLETON_VALUE_AccountId.value();
-            }
-            if (agreementId == null) {
-                agreementId = _SINGLETON_VALUE_AgreementId.value();
-            }
             return new CreateAgreementSummaryRequest(
                 accountId,
                 agreementId);
         }
-
-        private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_AccountId =
-                new LazySingletonValue<>(
-                        "accountId",
-                        "\"00000000-0000-0000-0000-000000000000\"",
-                        new TypeReference<Optional<String>>() {});
-
-        private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_AgreementId =
-                new LazySingletonValue<>(
-                        "agreementId",
-                        "\"00000000-0000-0000-0000-000000000000\"",
-                        new TypeReference<Optional<String>>() {});
     }
 }

@@ -29,7 +29,7 @@ public enum PaymentTermsDueDate {
     @JsonValue
     private final String value;
 
-    private PaymentTermsDueDate(String value) {
+    PaymentTermsDueDate(String value) {
         this.value = value;
     }
     

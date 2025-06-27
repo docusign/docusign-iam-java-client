@@ -3,38 +3,36 @@
  */
 package com.docusign.iam.sdk.models.components;
 
-import com.docusign.iam.sdk.utils.LazySingletonValue;
 import com.docusign.iam.sdk.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.Optional;
 
 public class RelatedAgreementDocuments {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("parent_agreement_document_id")
-    private JsonNullable<String> parentAgreementDocumentId;
+    private Optional<String> parentAgreementDocumentId;
 
     @JsonCreator
     public RelatedAgreementDocuments(
-            @JsonProperty("parent_agreement_document_id") JsonNullable<String> parentAgreementDocumentId) {
+            @JsonProperty("parent_agreement_document_id") Optional<String> parentAgreementDocumentId) {
         Utils.checkNotNull(parentAgreementDocumentId, "parentAgreementDocumentId");
         this.parentAgreementDocumentId = parentAgreementDocumentId;
     }
     
     public RelatedAgreementDocuments() {
-        this(JsonNullable.undefined());
+        this(Optional.empty());
     }
 
     @JsonIgnore
-    public JsonNullable<String> parentAgreementDocumentId() {
+    public Optional<String> parentAgreementDocumentId() {
         return parentAgreementDocumentId;
     }
 
@@ -44,11 +42,11 @@ public class RelatedAgreementDocuments {
 
     public RelatedAgreementDocuments withParentAgreementDocumentId(String parentAgreementDocumentId) {
         Utils.checkNotNull(parentAgreementDocumentId, "parentAgreementDocumentId");
-        this.parentAgreementDocumentId = JsonNullable.of(parentAgreementDocumentId);
+        this.parentAgreementDocumentId = Optional.ofNullable(parentAgreementDocumentId);
         return this;
     }
 
-    public RelatedAgreementDocuments withParentAgreementDocumentId(JsonNullable<String> parentAgreementDocumentId) {
+    public RelatedAgreementDocuments withParentAgreementDocumentId(Optional<String> parentAgreementDocumentId) {
         Utils.checkNotNull(parentAgreementDocumentId, "parentAgreementDocumentId");
         this.parentAgreementDocumentId = parentAgreementDocumentId;
         return this;
@@ -82,7 +80,7 @@ public class RelatedAgreementDocuments {
     
     public final static class Builder {
  
-        private JsonNullable<String> parentAgreementDocumentId;
+        private Optional<String> parentAgreementDocumentId = Optional.empty();
         
         private Builder() {
           // force use of static builder() method
@@ -90,28 +88,19 @@ public class RelatedAgreementDocuments {
 
         public Builder parentAgreementDocumentId(String parentAgreementDocumentId) {
             Utils.checkNotNull(parentAgreementDocumentId, "parentAgreementDocumentId");
-            this.parentAgreementDocumentId = JsonNullable.of(parentAgreementDocumentId);
+            this.parentAgreementDocumentId = Optional.ofNullable(parentAgreementDocumentId);
             return this;
         }
 
-        public Builder parentAgreementDocumentId(JsonNullable<String> parentAgreementDocumentId) {
+        public Builder parentAgreementDocumentId(Optional<String> parentAgreementDocumentId) {
             Utils.checkNotNull(parentAgreementDocumentId, "parentAgreementDocumentId");
             this.parentAgreementDocumentId = parentAgreementDocumentId;
             return this;
         }
         
         public RelatedAgreementDocuments build() {
-            if (parentAgreementDocumentId == null) {
-                parentAgreementDocumentId = _SINGLETON_VALUE_ParentAgreementDocumentId.value();
-            }
             return new RelatedAgreementDocuments(
                 parentAgreementDocumentId);
         }
-
-        private static final LazySingletonValue<JsonNullable<String>> _SINGLETON_VALUE_ParentAgreementDocumentId =
-                new LazySingletonValue<>(
-                        "parent_agreement_document_id",
-                        "\"00000000-0000-0000-0000-000000000000\"",
-                        new TypeReference<JsonNullable<String>>() {});
     }
 }

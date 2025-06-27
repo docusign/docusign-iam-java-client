@@ -197,7 +197,7 @@ public enum CurrencyCode {
     @JsonValue
     private final String value;
 
-    private CurrencyCode(String value) {
+    CurrencyCode(String value) {
         this.value = value;
     }
     

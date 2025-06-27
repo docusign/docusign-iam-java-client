@@ -19,9 +19,6 @@ public class GetWorkflowInstanceRequest {
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=accountId")
     private String accountId;
 
-    /**
-     * The unique identifier of the workflow.
-     */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=workflowId")
     private String workflowId;
 
@@ -52,9 +49,6 @@ public class GetWorkflowInstanceRequest {
         return accountId;
     }
 
-    /**
-     * The unique identifier of the workflow.
-     */
     @JsonIgnore
     public String workflowId() {
         return workflowId;
@@ -81,9 +75,6 @@ public class GetWorkflowInstanceRequest {
         return this;
     }
 
-    /**
-     * The unique identifier of the workflow.
-     */
     public GetWorkflowInstanceRequest withWorkflowId(String workflowId) {
         Utils.checkNotNull(workflowId, "workflowId");
         this.workflowId = workflowId;
@@ -152,9 +143,6 @@ public class GetWorkflowInstanceRequest {
             return this;
         }
 
-        /**
-         * The unique identifier of the workflow.
-         */
         public Builder workflowId(String workflowId) {
             Utils.checkNotNull(workflowId, "workflowId");
             this.workflowId = workflowId;

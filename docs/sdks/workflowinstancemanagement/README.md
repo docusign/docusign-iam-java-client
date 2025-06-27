@@ -88,10 +88,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                              | Type                                   | Required                               | Description                            | Example                                |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| `accountId`                            | *String*                               | :heavy_check_mark:                     | The unique identifier of the account.  | ae232f1f-8efc-4b8c-bb08-626847fad8bb   |
-| `workflowId`                           | *String*                               | :heavy_check_mark:                     | The unique identifier of the workflow. | ae232f1f-8efc-4b8c-bb08-626847fad8bb   |
+| Parameter                             | Type                                  | Required                              | Description                           |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| `accountId`                           | *String*                              | :heavy_check_mark:                    | The unique identifier of the account. |
+| `workflowId`                          | *String*                              | :heavy_check_mark:                    | N/A                                   |
 
 ### Response
 
@@ -158,11 +158,11 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                   | Type                                        | Required                                    | Description                                 | Example                                     |
-| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
-| `accountId`                                 | *String*                                    | :heavy_check_mark:                          | The unique identifier of the account.       | ae232f1f-8efc-4b8c-bb08-626847fad8bb        |
-| `workflowId`                                | *String*                                    | :heavy_check_mark:                          | The unique identifier of the workflow.      | ae232f1f-8efc-4b8c-bb08-626847fad8bb        |
-| `instanceId`                                | *String*                                    | :heavy_check_mark:                          | Unique identifier for the workflow instance |                                             |
+| Parameter                                   | Type                                        | Required                                    | Description                                 |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| `accountId`                                 | *String*                                    | :heavy_check_mark:                          | The unique identifier of the account.       |
+| `workflowId`                                | *String*                                    | :heavy_check_mark:                          | N/A                                         |
+| `instanceId`                                | *String*                                    | :heavy_check_mark:                          | Unique identifier for the workflow instance |
 
 ### Response
 
@@ -172,7 +172,7 @@ public class Application {
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
-| models/errors/Error        | 400, 401, 403, 404         | application/json           |
+| models/errors/Error        | 400, 403, 404              | application/json           |
 | models/errors/Error        | 500                        | application/json           |
 | models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
 
@@ -196,12 +196,13 @@ Once canceled, the workflow instance will no longer continue executing any remai
 package hello.world;
 
 import com.docusign.iam.sdk.IamClient;
+import com.docusign.iam.sdk.models.errors.Error;
 import com.docusign.iam.sdk.models.operations.CancelWorkflowInstanceResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Error, Error, Exception {
 
         IamClient sdk = IamClient.builder()
                 .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
@@ -222,11 +223,11 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                   | Type                                        | Required                                    | Description                                 | Example                                     |
-| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
-| `accountId`                                 | *String*                                    | :heavy_check_mark:                          | The unique identifier of the account.       | ae232f1f-8efc-4b8c-bb08-626847fad8bb        |
-| `workflowId`                                | *String*                                    | :heavy_check_mark:                          | The unique identifier of the workflow.      | ae232f1f-8efc-4b8c-bb08-626847fad8bb        |
-| `instanceId`                                | *String*                                    | :heavy_check_mark:                          | Unique identifier for the workflow instance |                                             |
+| Parameter                                   | Type                                        | Required                                    | Description                                 |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| `accountId`                                 | *String*                                    | :heavy_check_mark:                          | The unique identifier of the account.       |
+| `workflowId`                                | *String*                                    | :heavy_check_mark:                          | N/A                                         |
+| `instanceId`                                | *String*                                    | :heavy_check_mark:                          | Unique identifier for the workflow instance |
 
 ### Response
 
@@ -236,4 +237,6 @@ public class Application {
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
+| models/errors/Error        | 400, 403, 404, 409         | application/json           |
+| models/errors/Error        | 500                        | application/json           |
 | models/errors/APIException | 4XX, 5XX                   | \*/\*                      |

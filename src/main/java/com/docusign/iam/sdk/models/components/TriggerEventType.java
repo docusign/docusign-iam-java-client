@@ -20,7 +20,7 @@ public enum TriggerEventType {
     @JsonValue
     private final String value;
 
-    private TriggerEventType(String value) {
+    TriggerEventType(String value) {
         this.value = value;
     }
     

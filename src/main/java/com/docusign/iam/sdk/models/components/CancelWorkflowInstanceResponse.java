@@ -14,11 +14,13 @@ import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * CancelWorkflowInstanceResponse
+ * 
+ * <p>A message confirming the instance was canceled, including the instance and workflow IDs
+ */
 public class CancelWorkflowInstanceResponse {
 
-    /**
-     * A message confirming the instance was canceled, including the instance and workflow IDs
-     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("message")
     private Optional<String> message;
@@ -34,9 +36,6 @@ public class CancelWorkflowInstanceResponse {
         this(Optional.empty());
     }
 
-    /**
-     * A message confirming the instance was canceled, including the instance and workflow IDs
-     */
     @JsonIgnore
     public Optional<String> message() {
         return message;
@@ -46,18 +45,12 @@ public class CancelWorkflowInstanceResponse {
         return new Builder();
     }    
 
-    /**
-     * A message confirming the instance was canceled, including the instance and workflow IDs
-     */
     public CancelWorkflowInstanceResponse withMessage(String message) {
         Utils.checkNotNull(message, "message");
         this.message = Optional.ofNullable(message);
         return this;
     }
 
-    /**
-     * A message confirming the instance was canceled, including the instance and workflow IDs
-     */
     public CancelWorkflowInstanceResponse withMessage(Optional<String> message) {
         Utils.checkNotNull(message, "message");
         this.message = message;
@@ -98,18 +91,12 @@ public class CancelWorkflowInstanceResponse {
           // force use of static builder() method
         }
 
-        /**
-         * A message confirming the instance was canceled, including the instance and workflow IDs
-         */
         public Builder message(String message) {
             Utils.checkNotNull(message, "message");
             this.message = Optional.ofNullable(message);
             return this;
         }
 
-        /**
-         * A message confirming the instance was canceled, including the instance and workflow IDs
-         */
         public Builder message(Optional<String> message) {
             Utils.checkNotNull(message, "message");
             this.message = message;

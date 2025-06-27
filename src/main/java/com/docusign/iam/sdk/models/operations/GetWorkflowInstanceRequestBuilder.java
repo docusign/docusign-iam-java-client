@@ -3,6 +3,10 @@
  */
 package com.docusign.iam.sdk.models.operations;
 
+import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
+
+import com.docusign.iam.sdk.SDKConfiguration;
+import com.docusign.iam.sdk.operations.GetWorkflowInstanceOperation;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -16,10 +20,10 @@ public class GetWorkflowInstanceRequestBuilder {
     private String workflowId;
     private String instanceId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallGetWorkflowInstance sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetWorkflowInstanceRequestBuilder(SDKMethodInterfaces.MethodCallGetWorkflowInstance sdk) {
-        this.sdk = sdk;
+    public GetWorkflowInstanceRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetWorkflowInstanceRequestBuilder accountId(String accountId) {
@@ -52,14 +56,27 @@ public class GetWorkflowInstanceRequestBuilder {
         return this;
     }
 
+
+    private GetWorkflowInstanceRequest buildRequest() {
+
+        GetWorkflowInstanceRequest request = new GetWorkflowInstanceRequest(accountId,
+            workflowId,
+            instanceId);
+
+        return request;
+    }
+
     public GetWorkflowInstanceResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.getWorkflowInstance(
-            accountId,
-            workflowId,
-            instanceId,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<GetWorkflowInstanceRequest, GetWorkflowInstanceResponse> operation
+              = new GetWorkflowInstanceOperation(
+                 sdkConfiguration,
+                 options);
+        GetWorkflowInstanceRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }

@@ -3,51 +3,35 @@
  */
 package com.docusign.iam.sdk.models.operations;
 
-import com.docusign.iam.sdk.utils.LazySingletonValue;
+import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
+
+import com.docusign.iam.sdk.SDKConfiguration;
+import com.docusign.iam.sdk.operations.DeleteAgreementOperation;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
-import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
 public class DeleteAgreementRequestBuilder {
 
-    private Optional<String> accountId = Utils.readDefaultOrConstValue(
-                            "accountId",
-                            "\"00000000-0000-0000-0000-000000000000\"",
-                            new TypeReference<Optional<String>>() {});
-    private Optional<String> agreementId = Utils.readDefaultOrConstValue(
-                            "agreementId",
-                            "\"00000000-0000-0000-0000-000000000000\"",
-                            new TypeReference<Optional<String>>() {});
+    private String accountId;
+    private String agreementId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallDeleteAgreement sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public DeleteAgreementRequestBuilder(SDKMethodInterfaces.MethodCallDeleteAgreement sdk) {
-        this.sdk = sdk;
+    public DeleteAgreementRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
-                
+
     public DeleteAgreementRequestBuilder accountId(String accountId) {
-        Utils.checkNotNull(accountId, "accountId");
-        this.accountId = Optional.of(accountId);
-        return this;
-    }
-
-    public DeleteAgreementRequestBuilder accountId(Optional<String> accountId) {
         Utils.checkNotNull(accountId, "accountId");
         this.accountId = accountId;
         return this;
     }
-                
-    public DeleteAgreementRequestBuilder agreementId(String agreementId) {
-        Utils.checkNotNull(agreementId, "agreementId");
-        this.agreementId = Optional.of(agreementId);
-        return this;
-    }
 
-    public DeleteAgreementRequestBuilder agreementId(Optional<String> agreementId) {
+    public DeleteAgreementRequestBuilder agreementId(String agreementId) {
         Utils.checkNotNull(agreementId, "agreementId");
         this.agreementId = agreementId;
         return this;
@@ -65,30 +49,26 @@ public class DeleteAgreementRequestBuilder {
         return this;
     }
 
-    public DeleteAgreementResponse call() throws Exception {
-        if (accountId == null) {
-            accountId = _SINGLETON_VALUE_AccountId.value();
-        }
-        if (agreementId == null) {
-            agreementId = _SINGLETON_VALUE_AgreementId.value();
-        }        Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.deleteAgreement(
-            accountId,
-            agreementId,
-            options);
+
+    private DeleteAgreementRequest buildRequest() {
+
+        DeleteAgreementRequest request = new DeleteAgreementRequest(accountId,
+            agreementId);
+
+        return request;
     }
 
-    private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_AccountId =
-            new LazySingletonValue<>(
-                    "accountId",
-                    "\"00000000-0000-0000-0000-000000000000\"",
-                    new TypeReference<Optional<String>>() {});
+    public DeleteAgreementResponse call() throws Exception {
+        Optional<Options> options = Optional.of(Options.builder()
+            .retryConfig(retryConfig)
+            .build());
 
-    private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_AgreementId =
-            new LazySingletonValue<>(
-                    "agreementId",
-                    "\"00000000-0000-0000-0000-000000000000\"",
-                    new TypeReference<Optional<String>>() {});
+        RequestOperation<DeleteAgreementRequest, DeleteAgreementResponse> operation
+              = new DeleteAgreementOperation(
+                 sdkConfiguration,
+                 options);
+        DeleteAgreementRequest request = buildRequest();
+
+        return operation.handleResponse(operation.doRequest(request));
+    }
 }

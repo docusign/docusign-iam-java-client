@@ -19,7 +19,7 @@ public enum GetTokenFromRefreshTokenGrantType {
     @JsonValue
     private final String value;
 
-    private GetTokenFromRefreshTokenGrantType(String value) {
+    GetTokenFromRefreshTokenGrantType(String value) {
         this.value = value;
     }
     

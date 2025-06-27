@@ -3,6 +3,10 @@
  */
 package com.docusign.iam.sdk.models.operations;
 
+import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
+
+import com.docusign.iam.sdk.SDKConfiguration;
+import com.docusign.iam.sdk.operations.GetTokenFromJWTGrantOperation;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -15,10 +19,10 @@ public class GetTokenFromJWTGrantRequestBuilder {
     private JWTGrant request;
     private Optional<String> serverURL = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallGetTokenFromJWTGrant sdk;
+    private final SDKConfiguration sdkConfiguration;
 
-    public GetTokenFromJWTGrantRequestBuilder(SDKMethodInterfaces.MethodCallGetTokenFromJWTGrant sdk) {
-        this.sdk = sdk;
+    public GetTokenFromJWTGrantRequestBuilder(SDKConfiguration sdkConfiguration) {
+        this.sdkConfiguration = sdkConfiguration;
     }
 
     public GetTokenFromJWTGrantRequestBuilder request(JWTGrant request) {
@@ -53,11 +57,15 @@ public class GetTokenFromJWTGrantRequestBuilder {
 
     public GetTokenFromJWTGrantResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
-                                                    .retryConfig(retryConfig)
-                                                    .build());
-        return sdk.getTokenFromJwtGrant(
-            request,
-            serverURL,
-            options);
+            .retryConfig(retryConfig)
+            .build());
+
+        RequestOperation<JWTGrant, GetTokenFromJWTGrantResponse> operation
+              = new GetTokenFromJWTGrantOperation(
+                 sdkConfiguration,
+                 serverURL,
+                 options);
+
+        return operation.handleResponse(operation.doRequest(request));
     }
 }
