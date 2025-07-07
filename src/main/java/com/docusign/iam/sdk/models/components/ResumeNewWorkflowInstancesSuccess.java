@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -97,12 +96,12 @@ public class ResumeNewWorkflowInstancesSuccess {
         }
         ResumeNewWorkflowInstancesSuccess other = (ResumeNewWorkflowInstancesSuccess) o;
         return 
-            Objects.deepEquals(this.status, other.status);
+            Utils.enhancedDeepEquals(this.status, other.status);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             status);
     }
     

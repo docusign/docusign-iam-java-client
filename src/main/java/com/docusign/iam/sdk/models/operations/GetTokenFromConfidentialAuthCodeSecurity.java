@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 
 public class GetTokenFromConfidentialAuthCodeSecurity implements HasSecurity {
 
@@ -70,13 +69,13 @@ public class GetTokenFromConfidentialAuthCodeSecurity implements HasSecurity {
         }
         GetTokenFromConfidentialAuthCodeSecurity other = (GetTokenFromConfidentialAuthCodeSecurity) o;
         return 
-            Objects.deepEquals(this.clientId, other.clientId) &&
-            Objects.deepEquals(this.secretKey, other.secretKey);
+            Utils.enhancedDeepEquals(this.clientId, other.clientId) &&
+            Utils.enhancedDeepEquals(this.secretKey, other.secretKey);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             clientId,
             secretKey);
     }

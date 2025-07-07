@@ -12,7 +12,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -108,13 +107,13 @@ public class JWTGrant {
         }
         JWTGrant other = (JWTGrant) o;
         return 
-            Objects.deepEquals(this.grantType, other.grantType) &&
-            Objects.deepEquals(this.assertion, other.assertion);
+            Utils.enhancedDeepEquals(this.grantType, other.grantType) &&
+            Utils.enhancedDeepEquals(this.assertion, other.assertion);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             grantType,
             assertion);
     }

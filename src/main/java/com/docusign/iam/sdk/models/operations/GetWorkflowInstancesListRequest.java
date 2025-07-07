@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 
 public class GetWorkflowInstancesListRequest {
 
@@ -75,13 +74,13 @@ public class GetWorkflowInstancesListRequest {
         }
         GetWorkflowInstancesListRequest other = (GetWorkflowInstancesListRequest) o;
         return 
-            Objects.deepEquals(this.accountId, other.accountId) &&
-            Objects.deepEquals(this.workflowId, other.workflowId);
+            Utils.enhancedDeepEquals(this.accountId, other.accountId) &&
+            Utils.enhancedDeepEquals(this.workflowId, other.workflowId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             accountId,
             workflowId);
     }

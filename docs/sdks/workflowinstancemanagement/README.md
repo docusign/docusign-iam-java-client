@@ -71,7 +71,7 @@ public class Application {
     public static void main(String[] args) throws Exception {
 
         IamClient sdk = IamClient.builder()
-                .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
         GetWorkflowInstancesListResponse res = sdk.maestro().workflowInstanceManagement().getWorkflowInstancesList()
@@ -140,7 +140,7 @@ public class Application {
     public static void main(String[] args) throws Error, Error, Exception {
 
         IamClient sdk = IamClient.builder()
-                .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
         GetWorkflowInstanceResponse res = sdk.maestro().workflowInstanceManagement().getWorkflowInstance()
@@ -205,7 +205,7 @@ public class Application {
     public static void main(String[] args) throws Error, Error, Exception {
 
         IamClient sdk = IamClient.builder()
-                .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
         CancelWorkflowInstanceResponse res = sdk.maestro().workflowInstanceManagement().cancelWorkflowInstance()

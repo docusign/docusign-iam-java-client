@@ -15,7 +15,6 @@ import java.lang.RuntimeException;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.time.OffsetDateTime;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -52,6 +51,7 @@ public class Error extends RuntimeException {
             @JsonProperty("error") Optional<String> error,
             @JsonProperty("code") Optional<Long> code,
             @JsonProperty("timestamp") Optional<OffsetDateTime> timestamp) {
+        super("API error occurred");
         Utils.checkNotNull(error, "error");
         Utils.checkNotNull(code, "code");
         Utils.checkNotNull(timestamp, "timestamp");
@@ -157,14 +157,14 @@ public class Error extends RuntimeException {
         }
         Error other = (Error) o;
         return 
-            Objects.deepEquals(this.error, other.error) &&
-            Objects.deepEquals(this.code, other.code) &&
-            Objects.deepEquals(this.timestamp, other.timestamp);
+            Utils.enhancedDeepEquals(this.error, other.error) &&
+            Utils.enhancedDeepEquals(this.code, other.code) &&
+            Utils.enhancedDeepEquals(this.timestamp, other.timestamp);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             error,
             code,
             timestamp);

@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * TriggerWorkflow
@@ -110,13 +109,13 @@ public class TriggerWorkflow {
         }
         TriggerWorkflow other = (TriggerWorkflow) o;
         return 
-            Objects.deepEquals(this.instanceName, other.instanceName) &&
-            Objects.deepEquals(this.triggerInputs, other.triggerInputs);
+            Utils.enhancedDeepEquals(this.instanceName, other.instanceName) &&
+            Utils.enhancedDeepEquals(this.triggerInputs, other.triggerInputs);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             instanceName,
             triggerInputs);
     }

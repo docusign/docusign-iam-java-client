@@ -89,7 +89,7 @@ public class Application {
     public static void main(String[] args) throws Error, Error, Exception {
 
         IamClient sdk = IamClient.builder()
-                .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
         GetWorkflowsListResponse res = sdk.maestro().workflows().getWorkflowsList()
@@ -187,7 +187,7 @@ public class Application {
     public static void main(String[] args) throws Error, Error, Exception {
 
         IamClient sdk = IamClient.builder()
-                .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
         GetWorkflowTriggerRequirementsResponse res = sdk.maestro().workflows().getWorkflowTriggerRequirements()
@@ -296,7 +296,7 @@ public class Application {
     public static void main(String[] args) throws Error, Error, Exception {
 
         IamClient sdk = IamClient.builder()
-                .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
         TriggerWorkflowResponse res = sdk.maestro().workflows().triggerWorkflow()
@@ -357,7 +357,7 @@ public class Application {
     public static void main(String[] args) throws Error, Error, Exception {
 
         IamClient sdk = IamClient.builder()
-                .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
         PauseNewWorkflowInstancesResponse res = sdk.maestro().workflows().pauseNewWorkflowInstances()
@@ -411,7 +411,7 @@ public class Application {
     public static void main(String[] args) throws Error, Error, Exception {
 
         IamClient sdk = IamClient.builder()
-                .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
         ResumePausedWorkflowResponse res = sdk.maestro().workflows().resumePausedWorkflow()

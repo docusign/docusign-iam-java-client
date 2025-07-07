@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -112,13 +111,13 @@ public class TriggerHttpConfig {
         }
         TriggerHttpConfig other = (TriggerHttpConfig) o;
         return 
-            Objects.deepEquals(this.method, other.method) &&
-            Objects.deepEquals(this.url, other.url);
+            Utils.enhancedDeepEquals(this.method, other.method) &&
+            Utils.enhancedDeepEquals(this.url, other.url);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             method,
             url);
     }

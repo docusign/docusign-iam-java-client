@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
 public class RelatedAgreementDocuments {
@@ -63,12 +62,12 @@ public class RelatedAgreementDocuments {
         }
         RelatedAgreementDocuments other = (RelatedAgreementDocuments) o;
         return 
-            Objects.deepEquals(this.parentAgreementDocumentId, other.parentAgreementDocumentId);
+            Utils.enhancedDeepEquals(this.parentAgreementDocumentId, other.parentAgreementDocumentId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             parentAgreementDocumentId);
     }
     

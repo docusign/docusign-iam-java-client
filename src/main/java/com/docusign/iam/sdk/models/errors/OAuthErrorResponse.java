@@ -13,7 +13,6 @@ import java.lang.Override;
 import java.lang.RuntimeException;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 @SuppressWarnings("serial")
@@ -31,6 +30,7 @@ public class OAuthErrorResponse extends RuntimeException {
     public OAuthErrorResponse(
             @JsonProperty("error") JsonNullable<String> error,
             @JsonProperty("error_description") JsonNullable<String> errorDescription) {
+        super("API error occurred");
         Utils.checkNotNull(error, "error");
         Utils.checkNotNull(errorDescription, "errorDescription");
         this.error = error;
@@ -90,13 +90,13 @@ public class OAuthErrorResponse extends RuntimeException {
         }
         OAuthErrorResponse other = (OAuthErrorResponse) o;
         return 
-            Objects.deepEquals(this.error, other.error) &&
-            Objects.deepEquals(this.errorDescription, other.errorDescription);
+            Utils.enhancedDeepEquals(this.error, other.error) &&
+            Utils.enhancedDeepEquals(this.errorDescription, other.errorDescription);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             error,
             errorDescription);
     }

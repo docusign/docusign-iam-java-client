@@ -52,7 +52,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.docusign:iam-sdk:1.0.0-beta.2'
+implementation 'com.docusign:iam-sdk:1.0.0-beta.3'
 ```
 
 Maven:
@@ -60,7 +60,7 @@ Maven:
 <dependency>
     <groupId>com.docusign</groupId>
     <artifactId>iam-sdk</artifactId>
-    <version>1.0.0-beta.2</version>
+    <version>1.0.0-beta.3</version>
 </dependency>
 ```
 
@@ -124,7 +124,7 @@ public class Application {
     public static void main(String[] args) throws OAuthErrorResponse, Exception {
 
         IamClient sdk = IamClient.builder()
-                .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
         GetUserInfoResponse res = sdk.auth().getUserInfo()
@@ -383,8 +383,8 @@ public class Application {
         GetTokenFromConfidentialAuthCodeResponse res = sdk.auth().getTokenFromConfidentialAuthCode()
                 .request(req)
                 .security(GetTokenFromConfidentialAuthCodeSecurity.builder()
-                    .clientId("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79")
-                    .secretKey("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI")
+                    .clientId(System.getenv().getOrDefault("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79", ""))
+                    .secretKey(System.getenv().getOrDefault("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI", ""))
                     .build())
                 .retryConfig(RetryConfig.builder()
                     .backoff(BackoffStrategy.builder()
@@ -443,8 +443,8 @@ public class Application {
         GetTokenFromConfidentialAuthCodeResponse res = sdk.auth().getTokenFromConfidentialAuthCode()
                 .request(req)
                 .security(GetTokenFromConfidentialAuthCodeSecurity.builder()
-                    .clientId("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79")
-                    .secretKey("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI")
+                    .clientId(System.getenv().getOrDefault("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79", ""))
+                    .secretKey(System.getenv().getOrDefault("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI", ""))
                     .build())
                 .call();
 
@@ -494,8 +494,8 @@ public class Application {
         GetTokenFromConfidentialAuthCodeResponse res = sdk.auth().getTokenFromConfidentialAuthCode()
                 .request(req)
                 .security(GetTokenFromConfidentialAuthCodeSecurity.builder()
-                    .clientId("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79")
-                    .secretKey("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI")
+                    .clientId(System.getenv().getOrDefault("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79", ""))
+                    .secretKey(System.getenv().getOrDefault("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI", ""))
                     .build())
                 .call();
 
@@ -546,8 +546,8 @@ public class Application {
         GetTokenFromConfidentialAuthCodeResponse res = sdk.auth().getTokenFromConfidentialAuthCode()
                 .request(req)
                 .security(GetTokenFromConfidentialAuthCodeSecurity.builder()
-                    .clientId("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79")
-                    .secretKey("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI")
+                    .clientId(System.getenv().getOrDefault("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79", ""))
+                    .secretKey(System.getenv().getOrDefault("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI", ""))
                     .build())
                 .call();
 
@@ -586,8 +586,8 @@ public class Application {
         GetTokenFromConfidentialAuthCodeResponse res = sdk.auth().getTokenFromConfidentialAuthCode()
                 .request(req)
                 .security(GetTokenFromConfidentialAuthCodeSecurity.builder()
-                    .clientId("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79")
-                    .secretKey("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI")
+                    .clientId(System.getenv().getOrDefault("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79", ""))
+                    .secretKey(System.getenv().getOrDefault("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI", ""))
                     .build())
                 .call();
 
@@ -625,8 +625,8 @@ public class Application {
         GetTokenFromConfidentialAuthCodeResponse res = sdk.auth().getTokenFromConfidentialAuthCode()
                 .request(req)
                 .security(GetTokenFromConfidentialAuthCodeSecurity.builder()
-                    .clientId("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79")
-                    .secretKey("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI")
+                    .clientId(System.getenv().getOrDefault("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79", ""))
+                    .secretKey(System.getenv().getOrDefault("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI", ""))
                     .build())
                 .serverURL("https://account.docusign.com")
                 .call();

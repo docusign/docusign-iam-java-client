@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 
 public class TabConnectedFieldsData {
 
@@ -162,16 +161,16 @@ public class TabConnectedFieldsData {
         }
         TabConnectedFieldsData other = (TabConnectedFieldsData) o;
         return 
-            Objects.deepEquals(this.typeSystemNamespace, other.typeSystemNamespace) &&
-            Objects.deepEquals(this.typeName, other.typeName) &&
-            Objects.deepEquals(this.supportedOperation, other.supportedOperation) &&
-            Objects.deepEquals(this.propertyName, other.propertyName) &&
-            Objects.deepEquals(this.supportedUri, other.supportedUri);
+            Utils.enhancedDeepEquals(this.typeSystemNamespace, other.typeSystemNamespace) &&
+            Utils.enhancedDeepEquals(this.typeName, other.typeName) &&
+            Utils.enhancedDeepEquals(this.supportedOperation, other.supportedOperation) &&
+            Utils.enhancedDeepEquals(this.propertyName, other.propertyName) &&
+            Utils.enhancedDeepEquals(this.supportedUri, other.supportedUri);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             typeSystemNamespace,
             typeName,
             supportedOperation,

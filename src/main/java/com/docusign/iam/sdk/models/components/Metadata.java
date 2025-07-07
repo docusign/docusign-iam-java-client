@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -152,14 +151,14 @@ public class Metadata {
         }
         Metadata other = (Metadata) o;
         return 
-            Objects.deepEquals(this.workflowCreatedBy, other.workflowCreatedBy) &&
-            Objects.deepEquals(this.workflowVersion, other.workflowVersion) &&
-            Objects.deepEquals(this.workflowMetadataId, other.workflowMetadataId);
+            Utils.enhancedDeepEquals(this.workflowCreatedBy, other.workflowCreatedBy) &&
+            Utils.enhancedDeepEquals(this.workflowVersion, other.workflowVersion) &&
+            Utils.enhancedDeepEquals(this.workflowMetadataId, other.workflowMetadataId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             workflowCreatedBy,
             workflowVersion,
             workflowMetadataId);

@@ -13,7 +13,6 @@ import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import java.time.OffsetDateTime;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -54,25 +53,25 @@ public class TriggerWorkflowSuccess {
     /**
      * Unique identifier for the request, useful for tracking and debugging.
      */
-    @JsonInclude(Include.ALWAYS)
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("request_id")
-    private Optional<String> requestId;
+    private JsonNullable<String> requestId;
 
     /**
      * The timestamp indicating when the response was generated.
      */
-    @JsonInclude(Include.ALWAYS)
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("response_timestamp")
-    private Optional<OffsetDateTime> responseTimestamp;
+    private JsonNullable<OffsetDateTime> responseTimestamp;
 
     /**
      * The duration of time, in milliseconds, that the server took to process and respond 
      * to the request. This is measured from the time the server received the request 
      * until the time the response was sent.
      */
-    @JsonInclude(Include.ALWAYS)
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("response_duration_ms")
-    private Optional<Integer> responseDurationMs;
+    private JsonNullable<Integer> responseDurationMs;
 
     @JsonCreator
     public TriggerWorkflowSuccess(
@@ -80,9 +79,9 @@ public class TriggerWorkflowSuccess {
             @JsonProperty("instance_url") Optional<String> instanceUrl,
             @JsonProperty("page_limit") JsonNullable<Integer> pageLimit,
             @JsonProperty("page_token_next") JsonNullable<String> pageTokenNext,
-            @JsonProperty("request_id") Optional<String> requestId,
-            @JsonProperty("response_timestamp") Optional<OffsetDateTime> responseTimestamp,
-            @JsonProperty("response_duration_ms") Optional<Integer> responseDurationMs) {
+            @JsonProperty("request_id") JsonNullable<String> requestId,
+            @JsonProperty("response_timestamp") JsonNullable<OffsetDateTime> responseTimestamp,
+            @JsonProperty("response_duration_ms") JsonNullable<Integer> responseDurationMs) {
         Utils.checkNotNull(instanceId, "instanceId");
         Utils.checkNotNull(instanceUrl, "instanceUrl");
         Utils.checkNotNull(pageLimit, "pageLimit");
@@ -100,7 +99,7 @@ public class TriggerWorkflowSuccess {
     }
     
     public TriggerWorkflowSuccess() {
-        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -138,7 +137,7 @@ public class TriggerWorkflowSuccess {
      * Unique identifier for the request, useful for tracking and debugging.
      */
     @JsonIgnore
-    public Optional<String> requestId() {
+    public JsonNullable<String> requestId() {
         return requestId;
     }
 
@@ -146,7 +145,7 @@ public class TriggerWorkflowSuccess {
      * The timestamp indicating when the response was generated.
      */
     @JsonIgnore
-    public Optional<OffsetDateTime> responseTimestamp() {
+    public JsonNullable<OffsetDateTime> responseTimestamp() {
         return responseTimestamp;
     }
 
@@ -156,7 +155,7 @@ public class TriggerWorkflowSuccess {
      * until the time the response was sent.
      */
     @JsonIgnore
-    public Optional<Integer> responseDurationMs() {
+    public JsonNullable<Integer> responseDurationMs() {
         return responseDurationMs;
     }
 
@@ -239,14 +238,14 @@ public class TriggerWorkflowSuccess {
      */
     public TriggerWorkflowSuccess withRequestId(String requestId) {
         Utils.checkNotNull(requestId, "requestId");
-        this.requestId = Optional.ofNullable(requestId);
+        this.requestId = JsonNullable.of(requestId);
         return this;
     }
 
     /**
      * Unique identifier for the request, useful for tracking and debugging.
      */
-    public TriggerWorkflowSuccess withRequestId(Optional<String> requestId) {
+    public TriggerWorkflowSuccess withRequestId(JsonNullable<String> requestId) {
         Utils.checkNotNull(requestId, "requestId");
         this.requestId = requestId;
         return this;
@@ -257,14 +256,14 @@ public class TriggerWorkflowSuccess {
      */
     public TriggerWorkflowSuccess withResponseTimestamp(OffsetDateTime responseTimestamp) {
         Utils.checkNotNull(responseTimestamp, "responseTimestamp");
-        this.responseTimestamp = Optional.ofNullable(responseTimestamp);
+        this.responseTimestamp = JsonNullable.of(responseTimestamp);
         return this;
     }
 
     /**
      * The timestamp indicating when the response was generated.
      */
-    public TriggerWorkflowSuccess withResponseTimestamp(Optional<OffsetDateTime> responseTimestamp) {
+    public TriggerWorkflowSuccess withResponseTimestamp(JsonNullable<OffsetDateTime> responseTimestamp) {
         Utils.checkNotNull(responseTimestamp, "responseTimestamp");
         this.responseTimestamp = responseTimestamp;
         return this;
@@ -277,7 +276,7 @@ public class TriggerWorkflowSuccess {
      */
     public TriggerWorkflowSuccess withResponseDurationMs(int responseDurationMs) {
         Utils.checkNotNull(responseDurationMs, "responseDurationMs");
-        this.responseDurationMs = Optional.ofNullable(responseDurationMs);
+        this.responseDurationMs = JsonNullable.of(responseDurationMs);
         return this;
     }
 
@@ -286,7 +285,7 @@ public class TriggerWorkflowSuccess {
      * to the request. This is measured from the time the server received the request 
      * until the time the response was sent.
      */
-    public TriggerWorkflowSuccess withResponseDurationMs(Optional<Integer> responseDurationMs) {
+    public TriggerWorkflowSuccess withResponseDurationMs(JsonNullable<Integer> responseDurationMs) {
         Utils.checkNotNull(responseDurationMs, "responseDurationMs");
         this.responseDurationMs = responseDurationMs;
         return this;
@@ -303,18 +302,18 @@ public class TriggerWorkflowSuccess {
         }
         TriggerWorkflowSuccess other = (TriggerWorkflowSuccess) o;
         return 
-            Objects.deepEquals(this.instanceId, other.instanceId) &&
-            Objects.deepEquals(this.instanceUrl, other.instanceUrl) &&
-            Objects.deepEquals(this.pageLimit, other.pageLimit) &&
-            Objects.deepEquals(this.pageTokenNext, other.pageTokenNext) &&
-            Objects.deepEquals(this.requestId, other.requestId) &&
-            Objects.deepEquals(this.responseTimestamp, other.responseTimestamp) &&
-            Objects.deepEquals(this.responseDurationMs, other.responseDurationMs);
+            Utils.enhancedDeepEquals(this.instanceId, other.instanceId) &&
+            Utils.enhancedDeepEquals(this.instanceUrl, other.instanceUrl) &&
+            Utils.enhancedDeepEquals(this.pageLimit, other.pageLimit) &&
+            Utils.enhancedDeepEquals(this.pageTokenNext, other.pageTokenNext) &&
+            Utils.enhancedDeepEquals(this.requestId, other.requestId) &&
+            Utils.enhancedDeepEquals(this.responseTimestamp, other.responseTimestamp) &&
+            Utils.enhancedDeepEquals(this.responseDurationMs, other.responseDurationMs);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             instanceId,
             instanceUrl,
             pageLimit,
@@ -346,11 +345,11 @@ public class TriggerWorkflowSuccess {
  
         private JsonNullable<String> pageTokenNext = JsonNullable.undefined();
  
-        private Optional<String> requestId = Optional.empty();
+        private JsonNullable<String> requestId = JsonNullable.undefined();
  
-        private Optional<OffsetDateTime> responseTimestamp = Optional.empty();
+        private JsonNullable<OffsetDateTime> responseTimestamp = JsonNullable.undefined();
  
-        private Optional<Integer> responseDurationMs = Optional.empty();
+        private JsonNullable<Integer> responseDurationMs = JsonNullable.undefined();
         
         private Builder() {
           // force use of static builder() method
@@ -431,14 +430,14 @@ public class TriggerWorkflowSuccess {
          */
         public Builder requestId(String requestId) {
             Utils.checkNotNull(requestId, "requestId");
-            this.requestId = Optional.ofNullable(requestId);
+            this.requestId = JsonNullable.of(requestId);
             return this;
         }
 
         /**
          * Unique identifier for the request, useful for tracking and debugging.
          */
-        public Builder requestId(Optional<String> requestId) {
+        public Builder requestId(JsonNullable<String> requestId) {
             Utils.checkNotNull(requestId, "requestId");
             this.requestId = requestId;
             return this;
@@ -449,14 +448,14 @@ public class TriggerWorkflowSuccess {
          */
         public Builder responseTimestamp(OffsetDateTime responseTimestamp) {
             Utils.checkNotNull(responseTimestamp, "responseTimestamp");
-            this.responseTimestamp = Optional.ofNullable(responseTimestamp);
+            this.responseTimestamp = JsonNullable.of(responseTimestamp);
             return this;
         }
 
         /**
          * The timestamp indicating when the response was generated.
          */
-        public Builder responseTimestamp(Optional<OffsetDateTime> responseTimestamp) {
+        public Builder responseTimestamp(JsonNullable<OffsetDateTime> responseTimestamp) {
             Utils.checkNotNull(responseTimestamp, "responseTimestamp");
             this.responseTimestamp = responseTimestamp;
             return this;
@@ -469,7 +468,7 @@ public class TriggerWorkflowSuccess {
          */
         public Builder responseDurationMs(int responseDurationMs) {
             Utils.checkNotNull(responseDurationMs, "responseDurationMs");
-            this.responseDurationMs = Optional.ofNullable(responseDurationMs);
+            this.responseDurationMs = JsonNullable.of(responseDurationMs);
             return this;
         }
 
@@ -478,7 +477,7 @@ public class TriggerWorkflowSuccess {
          * to the request. This is measured from the time the server received the request 
          * until the time the response was sent.
          */
-        public Builder responseDurationMs(Optional<Integer> responseDurationMs) {
+        public Builder responseDurationMs(JsonNullable<Integer> responseDurationMs) {
             Utils.checkNotNull(responseDurationMs, "responseDurationMs");
             this.responseDurationMs = responseDurationMs;
             return this;

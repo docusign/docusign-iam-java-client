@@ -26,8 +26,6 @@ repositories {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
     withSourcesJar()
     withJavadocJar()
 }
@@ -63,6 +61,10 @@ tasks.withType(Javadoc) {
   options.addStringOption('Xdoclint:none', '-quiet')
 }
 
+tasks.withType(JavaCompile).configureEach {
+    options.release = 11
+}
+
 sourcesJar {
     archiveBaseName = "${artifactId}"
 }
@@ -90,11 +92,15 @@ publishing {
             // https://github.com/gradle/gradle/issues/18619
             groupId = "com.docusign"
             artifactId = "iam-sdk"
-            version = "1.0.0-beta.2"
+            version = "1.0.0-beta.3"
 
             from components.java
 
             pom {
+                properties = [
+                    'maven.compiler.source': '11',
+                    'maven.compiler.target': '11',
+                ]
                 name = 'Docusign Java SDK'
                 description = 'SDK enabling Java developers to easily integrate with the Docusign API.'
                 url = 'https://github.com/docusign/docusign-iam-java-client'

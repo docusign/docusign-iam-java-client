@@ -13,7 +13,6 @@ import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
 public class Account {
@@ -138,16 +137,16 @@ public class Account {
         }
         Account other = (Account) o;
         return 
-            Objects.deepEquals(this.accountId, other.accountId) &&
-            Objects.deepEquals(this.isDefault, other.isDefault) &&
-            Objects.deepEquals(this.accountName, other.accountName) &&
-            Objects.deepEquals(this.baseUri, other.baseUri) &&
-            Objects.deepEquals(this.organization, other.organization);
+            Utils.enhancedDeepEquals(this.accountId, other.accountId) &&
+            Utils.enhancedDeepEquals(this.isDefault, other.isDefault) &&
+            Utils.enhancedDeepEquals(this.accountName, other.accountName) &&
+            Utils.enhancedDeepEquals(this.baseUri, other.baseUri) &&
+            Utils.enhancedDeepEquals(this.organization, other.organization);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             accountId,
             isDefault,
             accountName,

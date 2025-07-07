@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
 public class ConnectedFieldsApiGetTabGroupsRequest {
@@ -78,13 +77,13 @@ public class ConnectedFieldsApiGetTabGroupsRequest {
         }
         ConnectedFieldsApiGetTabGroupsRequest other = (ConnectedFieldsApiGetTabGroupsRequest) o;
         return 
-            Objects.deepEquals(this.accountId, other.accountId) &&
-            Objects.deepEquals(this.appId, other.appId);
+            Utils.enhancedDeepEquals(this.accountId, other.accountId) &&
+            Utils.enhancedDeepEquals(this.appId, other.appId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             accountId,
             appId);
     }
