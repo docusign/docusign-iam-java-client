@@ -49,7 +49,7 @@ public class Application {
     public static void main(String[] args) throws Error, Error, Exception {
 
         IamClient sdk = IamClient.builder()
-                .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
         GetAgreementsListRequest req = GetAgreementsListRequest.builder()
@@ -126,7 +126,7 @@ public class Application {
     public static void main(String[] args) throws Error, Error, Exception {
 
         IamClient sdk = IamClient.builder()
-                .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
         GetAgreementResponse res = sdk.navigator().agreements().getAgreement()
@@ -180,7 +180,7 @@ public class Application {
     public static void main(String[] args) throws Error, Error, Exception {
 
         IamClient sdk = IamClient.builder()
-                .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
         DeleteAgreementResponse res = sdk.navigator().agreements().deleteAgreement()
@@ -238,7 +238,7 @@ public class Application {
     public static void main(String[] args) throws Error, Error, Exception {
 
         IamClient sdk = IamClient.builder()
-                .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
         CreateAgreementSummaryResponse res = sdk.navigator().agreements().createAgreementSummary()

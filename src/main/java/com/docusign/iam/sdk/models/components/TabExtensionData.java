@@ -14,7 +14,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 public class TabExtensionData {
@@ -438,23 +437,23 @@ public class TabExtensionData {
         }
         TabExtensionData other = (TabExtensionData) o;
         return 
-            Objects.deepEquals(this.extensionGroupId, other.extensionGroupId) &&
-            Objects.deepEquals(this.actionInputKey, other.actionInputKey) &&
-            Objects.deepEquals(this.extensionPolicy, other.extensionPolicy) &&
-            Objects.deepEquals(this.publisherName, other.publisherName) &&
-            Objects.deepEquals(this.applicationName, other.applicationName) &&
-            Objects.deepEquals(this.actionName, other.actionName) &&
-            Objects.deepEquals(this.extensionContract, other.extensionContract) &&
-            Objects.deepEquals(this.actionContract, other.actionContract) &&
-            Objects.deepEquals(this.extensionName, other.extensionName) &&
-            Objects.deepEquals(this.requiredForExtension, other.requiredForExtension) &&
-            Objects.deepEquals(this.connectionInstances, other.connectionInstances) &&
-            Objects.deepEquals(this.connectedFieldsData, other.connectedFieldsData);
+            Utils.enhancedDeepEquals(this.extensionGroupId, other.extensionGroupId) &&
+            Utils.enhancedDeepEquals(this.actionInputKey, other.actionInputKey) &&
+            Utils.enhancedDeepEquals(this.extensionPolicy, other.extensionPolicy) &&
+            Utils.enhancedDeepEquals(this.publisherName, other.publisherName) &&
+            Utils.enhancedDeepEquals(this.applicationName, other.applicationName) &&
+            Utils.enhancedDeepEquals(this.actionName, other.actionName) &&
+            Utils.enhancedDeepEquals(this.extensionContract, other.extensionContract) &&
+            Utils.enhancedDeepEquals(this.actionContract, other.actionContract) &&
+            Utils.enhancedDeepEquals(this.extensionName, other.extensionName) &&
+            Utils.enhancedDeepEquals(this.requiredForExtension, other.requiredForExtension) &&
+            Utils.enhancedDeepEquals(this.connectionInstances, other.connectionInstances) &&
+            Utils.enhancedDeepEquals(this.connectedFieldsData, other.connectedFieldsData);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             extensionGroupId,
             actionInputKey,
             extensionPolicy,

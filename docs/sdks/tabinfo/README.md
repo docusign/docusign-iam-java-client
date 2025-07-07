@@ -27,7 +27,7 @@ public class Application {
     public static void main(String[] args) throws Exception {
 
         IamClient sdk = IamClient.builder()
-                .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
         ConnectedFieldsApiGetTabGroupsResponse res = sdk.connectedFields().tabInfo().getConnectedFieldsTabGroups()

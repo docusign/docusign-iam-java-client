@@ -13,8 +13,6 @@ import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import java.time.OffsetDateTime;
-import java.util.Objects;
-import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
@@ -41,33 +39,33 @@ public class ResponseMetadata {
     /**
      * Unique identifier for the request, useful for tracking and debugging.
      */
-    @JsonInclude(Include.ALWAYS)
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("request_id")
-    private Optional<String> requestId;
+    private JsonNullable<String> requestId;
 
     /**
      * The timestamp indicating when the response was generated.
      */
-    @JsonInclude(Include.ALWAYS)
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("response_timestamp")
-    private Optional<OffsetDateTime> responseTimestamp;
+    private JsonNullable<OffsetDateTime> responseTimestamp;
 
     /**
      * The duration of time, in milliseconds, that the server took to process and respond 
      * to the request. This is measured from the time the server received the request 
      * until the time the response was sent.
      */
-    @JsonInclude(Include.ALWAYS)
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("response_duration_ms")
-    private Optional<Integer> responseDurationMs;
+    private JsonNullable<Integer> responseDurationMs;
 
     @JsonCreator
     public ResponseMetadata(
             @JsonProperty("page_limit") JsonNullable<Integer> pageLimit,
             @JsonProperty("page_token_next") JsonNullable<String> pageTokenNext,
-            @JsonProperty("request_id") Optional<String> requestId,
-            @JsonProperty("response_timestamp") Optional<OffsetDateTime> responseTimestamp,
-            @JsonProperty("response_duration_ms") Optional<Integer> responseDurationMs) {
+            @JsonProperty("request_id") JsonNullable<String> requestId,
+            @JsonProperty("response_timestamp") JsonNullable<OffsetDateTime> responseTimestamp,
+            @JsonProperty("response_duration_ms") JsonNullable<Integer> responseDurationMs) {
         Utils.checkNotNull(pageLimit, "pageLimit");
         Utils.checkNotNull(pageTokenNext, "pageTokenNext");
         Utils.checkNotNull(requestId, "requestId");
@@ -81,7 +79,7 @@ public class ResponseMetadata {
     }
     
     public ResponseMetadata() {
-        this(JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -104,7 +102,7 @@ public class ResponseMetadata {
      * Unique identifier for the request, useful for tracking and debugging.
      */
     @JsonIgnore
-    public Optional<String> requestId() {
+    public JsonNullable<String> requestId() {
         return requestId;
     }
 
@@ -112,7 +110,7 @@ public class ResponseMetadata {
      * The timestamp indicating when the response was generated.
      */
     @JsonIgnore
-    public Optional<OffsetDateTime> responseTimestamp() {
+    public JsonNullable<OffsetDateTime> responseTimestamp() {
         return responseTimestamp;
     }
 
@@ -122,7 +120,7 @@ public class ResponseMetadata {
      * until the time the response was sent.
      */
     @JsonIgnore
-    public Optional<Integer> responseDurationMs() {
+    public JsonNullable<Integer> responseDurationMs() {
         return responseDurationMs;
     }
 
@@ -171,14 +169,14 @@ public class ResponseMetadata {
      */
     public ResponseMetadata withRequestId(String requestId) {
         Utils.checkNotNull(requestId, "requestId");
-        this.requestId = Optional.ofNullable(requestId);
+        this.requestId = JsonNullable.of(requestId);
         return this;
     }
 
     /**
      * Unique identifier for the request, useful for tracking and debugging.
      */
-    public ResponseMetadata withRequestId(Optional<String> requestId) {
+    public ResponseMetadata withRequestId(JsonNullable<String> requestId) {
         Utils.checkNotNull(requestId, "requestId");
         this.requestId = requestId;
         return this;
@@ -189,14 +187,14 @@ public class ResponseMetadata {
      */
     public ResponseMetadata withResponseTimestamp(OffsetDateTime responseTimestamp) {
         Utils.checkNotNull(responseTimestamp, "responseTimestamp");
-        this.responseTimestamp = Optional.ofNullable(responseTimestamp);
+        this.responseTimestamp = JsonNullable.of(responseTimestamp);
         return this;
     }
 
     /**
      * The timestamp indicating when the response was generated.
      */
-    public ResponseMetadata withResponseTimestamp(Optional<OffsetDateTime> responseTimestamp) {
+    public ResponseMetadata withResponseTimestamp(JsonNullable<OffsetDateTime> responseTimestamp) {
         Utils.checkNotNull(responseTimestamp, "responseTimestamp");
         this.responseTimestamp = responseTimestamp;
         return this;
@@ -209,7 +207,7 @@ public class ResponseMetadata {
      */
     public ResponseMetadata withResponseDurationMs(int responseDurationMs) {
         Utils.checkNotNull(responseDurationMs, "responseDurationMs");
-        this.responseDurationMs = Optional.ofNullable(responseDurationMs);
+        this.responseDurationMs = JsonNullable.of(responseDurationMs);
         return this;
     }
 
@@ -218,7 +216,7 @@ public class ResponseMetadata {
      * to the request. This is measured from the time the server received the request 
      * until the time the response was sent.
      */
-    public ResponseMetadata withResponseDurationMs(Optional<Integer> responseDurationMs) {
+    public ResponseMetadata withResponseDurationMs(JsonNullable<Integer> responseDurationMs) {
         Utils.checkNotNull(responseDurationMs, "responseDurationMs");
         this.responseDurationMs = responseDurationMs;
         return this;
@@ -235,16 +233,16 @@ public class ResponseMetadata {
         }
         ResponseMetadata other = (ResponseMetadata) o;
         return 
-            Objects.deepEquals(this.pageLimit, other.pageLimit) &&
-            Objects.deepEquals(this.pageTokenNext, other.pageTokenNext) &&
-            Objects.deepEquals(this.requestId, other.requestId) &&
-            Objects.deepEquals(this.responseTimestamp, other.responseTimestamp) &&
-            Objects.deepEquals(this.responseDurationMs, other.responseDurationMs);
+            Utils.enhancedDeepEquals(this.pageLimit, other.pageLimit) &&
+            Utils.enhancedDeepEquals(this.pageTokenNext, other.pageTokenNext) &&
+            Utils.enhancedDeepEquals(this.requestId, other.requestId) &&
+            Utils.enhancedDeepEquals(this.responseTimestamp, other.responseTimestamp) &&
+            Utils.enhancedDeepEquals(this.responseDurationMs, other.responseDurationMs);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             pageLimit,
             pageTokenNext,
             requestId,
@@ -268,11 +266,11 @@ public class ResponseMetadata {
  
         private JsonNullable<String> pageTokenNext = JsonNullable.undefined();
  
-        private Optional<String> requestId = Optional.empty();
+        private JsonNullable<String> requestId = JsonNullable.undefined();
  
-        private Optional<OffsetDateTime> responseTimestamp = Optional.empty();
+        private JsonNullable<OffsetDateTime> responseTimestamp = JsonNullable.undefined();
  
-        private Optional<Integer> responseDurationMs = Optional.empty();
+        private JsonNullable<Integer> responseDurationMs = JsonNullable.undefined();
         
         private Builder() {
           // force use of static builder() method
@@ -319,14 +317,14 @@ public class ResponseMetadata {
          */
         public Builder requestId(String requestId) {
             Utils.checkNotNull(requestId, "requestId");
-            this.requestId = Optional.ofNullable(requestId);
+            this.requestId = JsonNullable.of(requestId);
             return this;
         }
 
         /**
          * Unique identifier for the request, useful for tracking and debugging.
          */
-        public Builder requestId(Optional<String> requestId) {
+        public Builder requestId(JsonNullable<String> requestId) {
             Utils.checkNotNull(requestId, "requestId");
             this.requestId = requestId;
             return this;
@@ -337,14 +335,14 @@ public class ResponseMetadata {
          */
         public Builder responseTimestamp(OffsetDateTime responseTimestamp) {
             Utils.checkNotNull(responseTimestamp, "responseTimestamp");
-            this.responseTimestamp = Optional.ofNullable(responseTimestamp);
+            this.responseTimestamp = JsonNullable.of(responseTimestamp);
             return this;
         }
 
         /**
          * The timestamp indicating when the response was generated.
          */
-        public Builder responseTimestamp(Optional<OffsetDateTime> responseTimestamp) {
+        public Builder responseTimestamp(JsonNullable<OffsetDateTime> responseTimestamp) {
             Utils.checkNotNull(responseTimestamp, "responseTimestamp");
             this.responseTimestamp = responseTimestamp;
             return this;
@@ -357,7 +355,7 @@ public class ResponseMetadata {
          */
         public Builder responseDurationMs(int responseDurationMs) {
             Utils.checkNotNull(responseDurationMs, "responseDurationMs");
-            this.responseDurationMs = Optional.ofNullable(responseDurationMs);
+            this.responseDurationMs = JsonNullable.of(responseDurationMs);
             return this;
         }
 
@@ -366,7 +364,7 @@ public class ResponseMetadata {
          * to the request. This is measured from the time the server received the request 
          * until the time the response was sent.
          */
-        public Builder responseDurationMs(Optional<Integer> responseDurationMs) {
+        public Builder responseDurationMs(JsonNullable<Integer> responseDurationMs) {
             Utils.checkNotNull(responseDurationMs, "responseDurationMs");
             this.responseDurationMs = responseDurationMs;
             return this;

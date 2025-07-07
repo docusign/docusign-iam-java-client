@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 
 public class TabConnectionInstance {
 
@@ -84,13 +83,13 @@ public class TabConnectionInstance {
         }
         TabConnectionInstance other = (TabConnectionInstance) o;
         return 
-            Objects.deepEquals(this.connectionKey, other.connectionKey) &&
-            Objects.deepEquals(this.connectionValue, other.connectionValue);
+            Utils.enhancedDeepEquals(this.connectionKey, other.connectionKey) &&
+            Utils.enhancedDeepEquals(this.connectionValue, other.connectionValue);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             connectionKey,
             connectionValue);
     }

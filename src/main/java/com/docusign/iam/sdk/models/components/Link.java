@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 
 public class Link {
 
@@ -66,13 +65,13 @@ public class Link {
         }
         Link other = (Link) o;
         return 
-            Objects.deepEquals(this.rel, other.rel) &&
-            Objects.deepEquals(this.href, other.href);
+            Utils.enhancedDeepEquals(this.rel, other.rel) &&
+            Utils.enhancedDeepEquals(this.href, other.href);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             rel,
             href);
     }

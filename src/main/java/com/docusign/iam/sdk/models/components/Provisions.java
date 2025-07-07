@@ -19,7 +19,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.time.OffsetDateTime;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -1165,43 +1164,43 @@ public class Provisions {
         }
         Provisions other = (Provisions) o;
         return 
-            Objects.deepEquals(this.assignmentType, other.assignmentType) &&
-            Objects.deepEquals(this.assignmentChangeOfControl, other.assignmentChangeOfControl) &&
-            Objects.deepEquals(this.assignmentTerminationRights, other.assignmentTerminationRights) &&
-            Objects.deepEquals(this.confidentialityObligationPeriod, other.confidentialityObligationPeriod) &&
-            Objects.deepEquals(this.governingLaw, other.governingLaw) &&
-            Objects.deepEquals(this.jurisdiction, other.jurisdiction) &&
-            Objects.deepEquals(this.ndaType, other.ndaType) &&
-            Objects.deepEquals(this.annualAgreementValue, other.annualAgreementValue) &&
-            Objects.deepEquals(this.annualAgreementValueCurrencyCode, other.annualAgreementValueCurrencyCode) &&
-            Objects.deepEquals(this.totalAgreementValue, other.totalAgreementValue) &&
-            Objects.deepEquals(this.totalAgreementValueCurrencyCode, other.totalAgreementValueCurrencyCode) &&
-            Objects.deepEquals(this.paymentTermsDueDate, other.paymentTermsDueDate) &&
-            Objects.deepEquals(this.canChargeLatePaymentFees, other.canChargeLatePaymentFees) &&
-            Objects.deepEquals(this.latePaymentFeePercent, other.latePaymentFeePercent) &&
-            Objects.deepEquals(this.liabilityCapFixedAmount, other.liabilityCapFixedAmount) &&
-            Objects.deepEquals(this.liabilityCapCurrencyCode, other.liabilityCapCurrencyCode) &&
-            Objects.deepEquals(this.liabilityCapMultiplier, other.liabilityCapMultiplier) &&
-            Objects.deepEquals(this.liabilityCapDuration, other.liabilityCapDuration) &&
-            Objects.deepEquals(this.priceCapPercentIncrease, other.priceCapPercentIncrease) &&
-            Objects.deepEquals(this.renewalType, other.renewalType) &&
-            Objects.deepEquals(this.renewalNoticePeriod, other.renewalNoticePeriod) &&
-            Objects.deepEquals(this.renewalNoticeDate, other.renewalNoticeDate) &&
-            Objects.deepEquals(this.autoRenewalTermLength, other.autoRenewalTermLength) &&
-            Objects.deepEquals(this.renewalExtensionPeriod, other.renewalExtensionPeriod) &&
-            Objects.deepEquals(this.renewalProcessOwner, other.renewalProcessOwner) &&
-            Objects.deepEquals(this.renewalAdditionalInfo, other.renewalAdditionalInfo) &&
-            Objects.deepEquals(this.terminationPeriodForCause, other.terminationPeriodForCause) &&
-            Objects.deepEquals(this.terminationPeriodForConvenience, other.terminationPeriodForConvenience) &&
-            Objects.deepEquals(this.effectiveDate, other.effectiveDate) &&
-            Objects.deepEquals(this.expirationDate, other.expirationDate) &&
-            Objects.deepEquals(this.executionDate, other.executionDate) &&
-            Objects.deepEquals(this.termLength, other.termLength);
+            Utils.enhancedDeepEquals(this.assignmentType, other.assignmentType) &&
+            Utils.enhancedDeepEquals(this.assignmentChangeOfControl, other.assignmentChangeOfControl) &&
+            Utils.enhancedDeepEquals(this.assignmentTerminationRights, other.assignmentTerminationRights) &&
+            Utils.enhancedDeepEquals(this.confidentialityObligationPeriod, other.confidentialityObligationPeriod) &&
+            Utils.enhancedDeepEquals(this.governingLaw, other.governingLaw) &&
+            Utils.enhancedDeepEquals(this.jurisdiction, other.jurisdiction) &&
+            Utils.enhancedDeepEquals(this.ndaType, other.ndaType) &&
+            Utils.enhancedDeepEquals(this.annualAgreementValue, other.annualAgreementValue) &&
+            Utils.enhancedDeepEquals(this.annualAgreementValueCurrencyCode, other.annualAgreementValueCurrencyCode) &&
+            Utils.enhancedDeepEquals(this.totalAgreementValue, other.totalAgreementValue) &&
+            Utils.enhancedDeepEquals(this.totalAgreementValueCurrencyCode, other.totalAgreementValueCurrencyCode) &&
+            Utils.enhancedDeepEquals(this.paymentTermsDueDate, other.paymentTermsDueDate) &&
+            Utils.enhancedDeepEquals(this.canChargeLatePaymentFees, other.canChargeLatePaymentFees) &&
+            Utils.enhancedDeepEquals(this.latePaymentFeePercent, other.latePaymentFeePercent) &&
+            Utils.enhancedDeepEquals(this.liabilityCapFixedAmount, other.liabilityCapFixedAmount) &&
+            Utils.enhancedDeepEquals(this.liabilityCapCurrencyCode, other.liabilityCapCurrencyCode) &&
+            Utils.enhancedDeepEquals(this.liabilityCapMultiplier, other.liabilityCapMultiplier) &&
+            Utils.enhancedDeepEquals(this.liabilityCapDuration, other.liabilityCapDuration) &&
+            Utils.enhancedDeepEquals(this.priceCapPercentIncrease, other.priceCapPercentIncrease) &&
+            Utils.enhancedDeepEquals(this.renewalType, other.renewalType) &&
+            Utils.enhancedDeepEquals(this.renewalNoticePeriod, other.renewalNoticePeriod) &&
+            Utils.enhancedDeepEquals(this.renewalNoticeDate, other.renewalNoticeDate) &&
+            Utils.enhancedDeepEquals(this.autoRenewalTermLength, other.autoRenewalTermLength) &&
+            Utils.enhancedDeepEquals(this.renewalExtensionPeriod, other.renewalExtensionPeriod) &&
+            Utils.enhancedDeepEquals(this.renewalProcessOwner, other.renewalProcessOwner) &&
+            Utils.enhancedDeepEquals(this.renewalAdditionalInfo, other.renewalAdditionalInfo) &&
+            Utils.enhancedDeepEquals(this.terminationPeriodForCause, other.terminationPeriodForCause) &&
+            Utils.enhancedDeepEquals(this.terminationPeriodForConvenience, other.terminationPeriodForConvenience) &&
+            Utils.enhancedDeepEquals(this.effectiveDate, other.effectiveDate) &&
+            Utils.enhancedDeepEquals(this.expirationDate, other.expirationDate) &&
+            Utils.enhancedDeepEquals(this.executionDate, other.executionDate) &&
+            Utils.enhancedDeepEquals(this.termLength, other.termLength);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             assignmentType,
             assignmentChangeOfControl,
             assignmentTerminationRights,

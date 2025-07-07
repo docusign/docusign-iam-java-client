@@ -12,7 +12,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -656,29 +655,29 @@ public class GetAgreementsListRequest {
         }
         GetAgreementsListRequest other = (GetAgreementsListRequest) o;
         return 
-            Objects.deepEquals(this.accountId, other.accountId) &&
-            Objects.deepEquals(this.limit, other.limit) &&
-            Objects.deepEquals(this.ctoken, other.ctoken) &&
-            Objects.deepEquals(this.sort, other.sort) &&
-            Objects.deepEquals(this.direction, other.direction) &&
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.status, other.status) &&
-            Objects.deepEquals(this.partiesNameInAgreement, other.partiesNameInAgreement) &&
-            Objects.deepEquals(this.metadataCreatedAt, other.metadataCreatedAt) &&
-            Objects.deepEquals(this.title, other.title) &&
-            Objects.deepEquals(this.relatedAgreementDocumentsParentAgreementDocumentId, other.relatedAgreementDocumentsParentAgreementDocumentId) &&
-            Objects.deepEquals(this.languages, other.languages) &&
-            Objects.deepEquals(this.provisionsEffectiveDate, other.provisionsEffectiveDate) &&
-            Objects.deepEquals(this.provisionsExpirationDate, other.provisionsExpirationDate) &&
-            Objects.deepEquals(this.provisionsExecutionDate, other.provisionsExecutionDate) &&
-            Objects.deepEquals(this.provisionsTermLength, other.provisionsTermLength) &&
-            Objects.deepEquals(this.sourceName, other.sourceName) &&
-            Objects.deepEquals(this.sourceId, other.sourceId);
+            Utils.enhancedDeepEquals(this.accountId, other.accountId) &&
+            Utils.enhancedDeepEquals(this.limit, other.limit) &&
+            Utils.enhancedDeepEquals(this.ctoken, other.ctoken) &&
+            Utils.enhancedDeepEquals(this.sort, other.sort) &&
+            Utils.enhancedDeepEquals(this.direction, other.direction) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.status, other.status) &&
+            Utils.enhancedDeepEquals(this.partiesNameInAgreement, other.partiesNameInAgreement) &&
+            Utils.enhancedDeepEquals(this.metadataCreatedAt, other.metadataCreatedAt) &&
+            Utils.enhancedDeepEquals(this.title, other.title) &&
+            Utils.enhancedDeepEquals(this.relatedAgreementDocumentsParentAgreementDocumentId, other.relatedAgreementDocumentsParentAgreementDocumentId) &&
+            Utils.enhancedDeepEquals(this.languages, other.languages) &&
+            Utils.enhancedDeepEquals(this.provisionsEffectiveDate, other.provisionsEffectiveDate) &&
+            Utils.enhancedDeepEquals(this.provisionsExpirationDate, other.provisionsExpirationDate) &&
+            Utils.enhancedDeepEquals(this.provisionsExecutionDate, other.provisionsExecutionDate) &&
+            Utils.enhancedDeepEquals(this.provisionsTermLength, other.provisionsTermLength) &&
+            Utils.enhancedDeepEquals(this.sourceName, other.sourceName) &&
+            Utils.enhancedDeepEquals(this.sourceId, other.sourceId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             accountId,
             limit,
             ctoken,

@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -174,14 +173,14 @@ public class TriggerInputSchema {
         }
         TriggerInputSchema other = (TriggerInputSchema) o;
         return 
-            Objects.deepEquals(this.fieldName, other.fieldName) &&
-            Objects.deepEquals(this.fieldDataType, other.fieldDataType) &&
-            Objects.deepEquals(this.defaultValue, other.defaultValue);
+            Utils.enhancedDeepEquals(this.fieldName, other.fieldName) &&
+            Utils.enhancedDeepEquals(this.fieldDataType, other.fieldDataType) &&
+            Utils.enhancedDeepEquals(this.defaultValue, other.defaultValue);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             fieldName,
             fieldDataType,
             defaultValue);

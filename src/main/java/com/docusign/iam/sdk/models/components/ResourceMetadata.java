@@ -13,7 +13,6 @@ import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import java.time.OffsetDateTime;
-import java.util.Objects;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 public class ResourceMetadata {
@@ -301,18 +300,18 @@ public class ResourceMetadata {
         }
         ResourceMetadata other = (ResourceMetadata) o;
         return 
-            Objects.deepEquals(this.createdAt, other.createdAt) &&
-            Objects.deepEquals(this.createdBy, other.createdBy) &&
-            Objects.deepEquals(this.modifiedAt, other.modifiedAt) &&
-            Objects.deepEquals(this.modifiedBy, other.modifiedBy) &&
-            Objects.deepEquals(this.requestId, other.requestId) &&
-            Objects.deepEquals(this.responseTimestamp, other.responseTimestamp) &&
-            Objects.deepEquals(this.responseDurationMs, other.responseDurationMs);
+            Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
+            Utils.enhancedDeepEquals(this.createdBy, other.createdBy) &&
+            Utils.enhancedDeepEquals(this.modifiedAt, other.modifiedAt) &&
+            Utils.enhancedDeepEquals(this.modifiedBy, other.modifiedBy) &&
+            Utils.enhancedDeepEquals(this.requestId, other.requestId) &&
+            Utils.enhancedDeepEquals(this.responseTimestamp, other.responseTimestamp) &&
+            Utils.enhancedDeepEquals(this.responseDurationMs, other.responseDurationMs);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             createdAt,
             createdBy,
             modifiedAt,

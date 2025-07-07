@@ -12,7 +12,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -118,14 +117,14 @@ public class ConfidentialAuthCodeGrantRequestBody {
         }
         ConfidentialAuthCodeGrantRequestBody other = (ConfidentialAuthCodeGrantRequestBody) o;
         return 
-            Objects.deepEquals(this.flow, other.flow) &&
-            Objects.deepEquals(this.grantType, other.grantType) &&
-            Objects.deepEquals(this.code, other.code);
+            Utils.enhancedDeepEquals(this.flow, other.flow) &&
+            Utils.enhancedDeepEquals(this.grantType, other.grantType) &&
+            Utils.enhancedDeepEquals(this.code, other.code);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             flow,
             grantType,
             code);

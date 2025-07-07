@@ -16,7 +16,6 @@ import java.lang.SuppressWarnings;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -780,31 +779,31 @@ public class WorkflowInstance {
         }
         WorkflowInstance other = (WorkflowInstance) o;
         return 
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.workflowStatus, other.workflowStatus) &&
-            Objects.deepEquals(this.templateId, other.templateId) &&
-            Objects.deepEquals(this.accountId, other.accountId) &&
-            Objects.deepEquals(this.startedAt, other.startedAt) &&
-            Objects.deepEquals(this.startedBy, other.startedBy) &&
-            Objects.deepEquals(this.startedByName, other.startedByName) &&
-            Objects.deepEquals(this.startedByRole, other.startedByRole) &&
-            Objects.deepEquals(this.endedAt, other.endedAt) &&
-            Objects.deepEquals(this.expiresAt, other.expiresAt) &&
-            Objects.deepEquals(this.lastModifiedAt, other.lastModifiedAt) &&
-            Objects.deepEquals(this.canceledAt, other.canceledAt) &&
-            Objects.deepEquals(this.canceledBy, other.canceledBy) &&
-            Objects.deepEquals(this.triggerInputs, other.triggerInputs) &&
-            Objects.deepEquals(this.totalSteps, other.totalSteps) &&
-            Objects.deepEquals(this.lastCompletedStep, other.lastCompletedStep) &&
-            Objects.deepEquals(this.lastCompletedStepName, other.lastCompletedStepName) &&
-            Objects.deepEquals(this.tags, other.tags) &&
-            Objects.deepEquals(this.metadata, other.metadata);
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.workflowStatus, other.workflowStatus) &&
+            Utils.enhancedDeepEquals(this.templateId, other.templateId) &&
+            Utils.enhancedDeepEquals(this.accountId, other.accountId) &&
+            Utils.enhancedDeepEquals(this.startedAt, other.startedAt) &&
+            Utils.enhancedDeepEquals(this.startedBy, other.startedBy) &&
+            Utils.enhancedDeepEquals(this.startedByName, other.startedByName) &&
+            Utils.enhancedDeepEquals(this.startedByRole, other.startedByRole) &&
+            Utils.enhancedDeepEquals(this.endedAt, other.endedAt) &&
+            Utils.enhancedDeepEquals(this.expiresAt, other.expiresAt) &&
+            Utils.enhancedDeepEquals(this.lastModifiedAt, other.lastModifiedAt) &&
+            Utils.enhancedDeepEquals(this.canceledAt, other.canceledAt) &&
+            Utils.enhancedDeepEquals(this.canceledBy, other.canceledBy) &&
+            Utils.enhancedDeepEquals(this.triggerInputs, other.triggerInputs) &&
+            Utils.enhancedDeepEquals(this.totalSteps, other.totalSteps) &&
+            Utils.enhancedDeepEquals(this.lastCompletedStep, other.lastCompletedStep) &&
+            Utils.enhancedDeepEquals(this.lastCompletedStepName, other.lastCompletedStepName) &&
+            Utils.enhancedDeepEquals(this.tags, other.tags) &&
+            Utils.enhancedDeepEquals(this.metadata, other.metadata);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             id,
             name,
             workflowStatus,

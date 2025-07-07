@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 
 public class TriggerWorkflowRequest {
 
@@ -93,14 +92,14 @@ public class TriggerWorkflowRequest {
         }
         TriggerWorkflowRequest other = (TriggerWorkflowRequest) o;
         return 
-            Objects.deepEquals(this.accountId, other.accountId) &&
-            Objects.deepEquals(this.workflowId, other.workflowId) &&
-            Objects.deepEquals(this.triggerWorkflow, other.triggerWorkflow);
+            Utils.enhancedDeepEquals(this.accountId, other.accountId) &&
+            Utils.enhancedDeepEquals(this.workflowId, other.workflowId) &&
+            Utils.enhancedDeepEquals(this.triggerWorkflow, other.triggerWorkflow);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             accountId,
             workflowId,
             triggerWorkflow);

@@ -44,8 +44,8 @@ public class Application {
         GetTokenFromConfidentialAuthCodeResponse res = sdk.auth().getTokenFromConfidentialAuthCode()
                 .request(req)
                 .security(GetTokenFromConfidentialAuthCodeSecurity.builder()
-                    .clientId("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79")
-                    .secretKey("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI")
+                    .clientId(System.getenv().getOrDefault("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79", ""))
+                    .secretKey(System.getenv().getOrDefault("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI", ""))
                     .build())
                 .call();
 
@@ -98,7 +98,7 @@ public class Application {
     public static void main(String[] args) throws OAuthErrorResponse, Exception {
 
         IamClient sdk = IamClient.builder()
-                .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
         PublicAuthCodeGrantRequestBody req = PublicAuthCodeGrantRequestBody.builder()
@@ -163,7 +163,7 @@ public class Application {
     public static void main(String[] args) throws OAuthErrorResponse, Exception {
 
         IamClient sdk = IamClient.builder()
-                .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
         JWTGrant req = JWTGrant.builder()
@@ -281,7 +281,7 @@ public class Application {
     public static void main(String[] args) throws OAuthErrorResponse, Exception {
 
         IamClient sdk = IamClient.builder()
-                .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
         GetUserInfoResponse res = sdk.auth().getUserInfo()

@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
-import java.util.Objects;
 
 public class UserInfo {
 
@@ -152,18 +151,18 @@ public class UserInfo {
         }
         UserInfo other = (UserInfo) o;
         return 
-            Objects.deepEquals(this.sub, other.sub) &&
-            Objects.deepEquals(this.name, other.name) &&
-            Objects.deepEquals(this.givenName, other.givenName) &&
-            Objects.deepEquals(this.familyName, other.familyName) &&
-            Objects.deepEquals(this.created, other.created) &&
-            Objects.deepEquals(this.email, other.email) &&
-            Objects.deepEquals(this.accounts, other.accounts);
+            Utils.enhancedDeepEquals(this.sub, other.sub) &&
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.givenName, other.givenName) &&
+            Utils.enhancedDeepEquals(this.familyName, other.familyName) &&
+            Utils.enhancedDeepEquals(this.created, other.created) &&
+            Utils.enhancedDeepEquals(this.email, other.email) &&
+            Utils.enhancedDeepEquals(this.accounts, other.accounts);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             sub,
             name,
             givenName,

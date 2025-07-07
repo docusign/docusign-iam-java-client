@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -84,12 +83,12 @@ public class AgreementSummary {
         }
         AgreementSummary other = (AgreementSummary) o;
         return 
-            Objects.deepEquals(this.summary, other.summary);
+            Utils.enhancedDeepEquals(this.summary, other.summary);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             summary);
     }
     

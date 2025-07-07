@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 
 /**
  * GetTokenFromRefreshTokenResponseBody
@@ -142,15 +141,15 @@ public class GetTokenFromRefreshTokenResponseBody {
         }
         GetTokenFromRefreshTokenResponseBody other = (GetTokenFromRefreshTokenResponseBody) o;
         return 
-            Objects.deepEquals(this.accessToken, other.accessToken) &&
-            Objects.deepEquals(this.tokenType, other.tokenType) &&
-            Objects.deepEquals(this.refreshToken, other.refreshToken) &&
-            Objects.deepEquals(this.expiresIn, other.expiresIn);
+            Utils.enhancedDeepEquals(this.accessToken, other.accessToken) &&
+            Utils.enhancedDeepEquals(this.tokenType, other.tokenType) &&
+            Utils.enhancedDeepEquals(this.refreshToken, other.refreshToken) &&
+            Utils.enhancedDeepEquals(this.expiresIn, other.expiresIn);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             accessToken,
             tokenType,
             refreshToken,

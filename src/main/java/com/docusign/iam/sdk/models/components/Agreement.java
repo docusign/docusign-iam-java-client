@@ -14,7 +14,6 @@ import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -702,30 +701,30 @@ public class Agreement {
         }
         Agreement other = (Agreement) o;
         return 
-            Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.title, other.title) &&
-            Objects.deepEquals(this.fileName, other.fileName) &&
-            Objects.deepEquals(this.type, other.type) &&
-            Objects.deepEquals(this.category, other.category) &&
-            Objects.deepEquals(this.summary, other.summary) &&
-            Objects.deepEquals(this.status, other.status) &&
-            Objects.deepEquals(this.parties, other.parties) &&
-            Objects.deepEquals(this.provisions, other.provisions) &&
-            Objects.deepEquals(this.customProvisions, other.customProvisions) &&
-            Objects.deepEquals(this.additionalUserDefinedData, other.additionalUserDefinedData) &&
-            Objects.deepEquals(this.additionalCustomClmData, other.additionalCustomClmData) &&
-            Objects.deepEquals(this.additionalCustomEsignData, other.additionalCustomEsignData) &&
-            Objects.deepEquals(this.relatedAgreementDocuments, other.relatedAgreementDocuments) &&
-            Objects.deepEquals(this.languages, other.languages) &&
-            Objects.deepEquals(this.sourceName, other.sourceName) &&
-            Objects.deepEquals(this.sourceId, other.sourceId) &&
-            Objects.deepEquals(this.sourceAccountId, other.sourceAccountId) &&
-            Objects.deepEquals(this.metadata, other.metadata);
+            Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.title, other.title) &&
+            Utils.enhancedDeepEquals(this.fileName, other.fileName) &&
+            Utils.enhancedDeepEquals(this.type, other.type) &&
+            Utils.enhancedDeepEquals(this.category, other.category) &&
+            Utils.enhancedDeepEquals(this.summary, other.summary) &&
+            Utils.enhancedDeepEquals(this.status, other.status) &&
+            Utils.enhancedDeepEquals(this.parties, other.parties) &&
+            Utils.enhancedDeepEquals(this.provisions, other.provisions) &&
+            Utils.enhancedDeepEquals(this.customProvisions, other.customProvisions) &&
+            Utils.enhancedDeepEquals(this.additionalUserDefinedData, other.additionalUserDefinedData) &&
+            Utils.enhancedDeepEquals(this.additionalCustomClmData, other.additionalCustomClmData) &&
+            Utils.enhancedDeepEquals(this.additionalCustomEsignData, other.additionalCustomEsignData) &&
+            Utils.enhancedDeepEquals(this.relatedAgreementDocuments, other.relatedAgreementDocuments) &&
+            Utils.enhancedDeepEquals(this.languages, other.languages) &&
+            Utils.enhancedDeepEquals(this.sourceName, other.sourceName) &&
+            Utils.enhancedDeepEquals(this.sourceId, other.sourceId) &&
+            Utils.enhancedDeepEquals(this.sourceAccountId, other.sourceAccountId) &&
+            Utils.enhancedDeepEquals(this.metadata, other.metadata);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             id,
             title,
             fileName,

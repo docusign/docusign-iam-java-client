@@ -12,7 +12,7 @@ public class Application {
     public static void main(String[] args) throws OAuthErrorResponse, Exception {
 
         IamClient sdk = IamClient.builder()
-                .accessToken("<YOUR_ACCESS_TOKEN_HERE>")
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
         GetUserInfoResponse res = sdk.auth().getUserInfo()

@@ -13,7 +13,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 public class Tab {
@@ -222,17 +221,17 @@ public class Tab {
         }
         Tab other = (Tab) o;
         return 
-            Objects.deepEquals(this.extensionData, other.extensionData) &&
-            Objects.deepEquals(this.tabType, other.tabType) &&
-            Objects.deepEquals(this.validationPattern, other.validationPattern) &&
-            Objects.deepEquals(this.validationMessage, other.validationMessage) &&
-            Objects.deepEquals(this.tabLabel, other.tabLabel) &&
-            Objects.deepEquals(this.radios, other.radios);
+            Utils.enhancedDeepEquals(this.extensionData, other.extensionData) &&
+            Utils.enhancedDeepEquals(this.tabType, other.tabType) &&
+            Utils.enhancedDeepEquals(this.validationPattern, other.validationPattern) &&
+            Utils.enhancedDeepEquals(this.validationMessage, other.validationMessage) &&
+            Utils.enhancedDeepEquals(this.tabLabel, other.tabLabel) &&
+            Utils.enhancedDeepEquals(this.radios, other.radios);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             extensionData,
             tabType,
             validationPattern,

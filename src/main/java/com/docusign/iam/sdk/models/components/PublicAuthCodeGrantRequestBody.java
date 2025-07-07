@@ -12,7 +12,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -162,15 +161,15 @@ public class PublicAuthCodeGrantRequestBody {
         }
         PublicAuthCodeGrantRequestBody other = (PublicAuthCodeGrantRequestBody) o;
         return 
-            Objects.deepEquals(this.grantType, other.grantType) &&
-            Objects.deepEquals(this.clientId, other.clientId) &&
-            Objects.deepEquals(this.code, other.code) &&
-            Objects.deepEquals(this.codeVerifier, other.codeVerifier);
+            Utils.enhancedDeepEquals(this.grantType, other.grantType) &&
+            Utils.enhancedDeepEquals(this.clientId, other.clientId) &&
+            Utils.enhancedDeepEquals(this.code, other.code) &&
+            Utils.enhancedDeepEquals(this.codeVerifier, other.codeVerifier);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             grantType,
             clientId,
             code,

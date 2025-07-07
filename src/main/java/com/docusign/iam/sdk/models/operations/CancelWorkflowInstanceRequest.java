@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Objects;
 
 public class CancelWorkflowInstanceRequest {
 
@@ -101,14 +100,14 @@ public class CancelWorkflowInstanceRequest {
         }
         CancelWorkflowInstanceRequest other = (CancelWorkflowInstanceRequest) o;
         return 
-            Objects.deepEquals(this.accountId, other.accountId) &&
-            Objects.deepEquals(this.workflowId, other.workflowId) &&
-            Objects.deepEquals(this.instanceId, other.instanceId);
+            Utils.enhancedDeepEquals(this.accountId, other.accountId) &&
+            Utils.enhancedDeepEquals(this.workflowId, other.workflowId) &&
+            Utils.enhancedDeepEquals(this.instanceId, other.instanceId);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             accountId,
             workflowId,
             instanceId);

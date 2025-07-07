@@ -13,7 +13,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -120,13 +119,13 @@ public class WorkflowsListSuccess {
         }
         WorkflowsListSuccess other = (WorkflowsListSuccess) o;
         return 
-            Objects.deepEquals(this.data, other.data) &&
-            Objects.deepEquals(this.responseMetadata, other.responseMetadata);
+            Utils.enhancedDeepEquals(this.data, other.data) &&
+            Utils.enhancedDeepEquals(this.responseMetadata, other.responseMetadata);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(
+        return Utils.enhancedHash(
             data,
             responseMetadata);
     }

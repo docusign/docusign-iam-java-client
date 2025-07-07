@@ -160,7 +160,7 @@ public class TriggerWorkflowOperation implements RequestOperation<TriggerWorkflo
 
         TriggerWorkflowResponse res = resBuilder.build();
         
-        if (Utils.statusCodeMatches(response.statusCode(), "201")) {
+        if (Utils.statusCodeMatches(response.statusCode(), "200")) {
             if (Utils.contentTypeMatches(contentType, "application/json")) {
                 TriggerWorkflowSuccess out = Utils.mapper().readValue(
                     response.body(),
