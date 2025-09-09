@@ -15,8 +15,8 @@ import java.lang.SuppressWarnings;
 import java.util.List;
 import java.util.Optional;
 
-public class WorkflowInstanceCollection {
 
+public class WorkflowInstanceCollection {
     /**
      * Array of workflow instances
      */
@@ -63,9 +63,10 @@ public class WorkflowInstanceCollection {
         return (Optional<ResponseMetadata>) responseMetadata;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Array of workflow instances
@@ -75,6 +76,7 @@ public class WorkflowInstanceCollection {
         this.data = Optional.ofNullable(data);
         return this;
     }
+
 
     /**
      * Array of workflow instances
@@ -94,6 +96,7 @@ public class WorkflowInstanceCollection {
         return this;
     }
 
+
     /**
      * Control information and metadata for the response.
      */
@@ -103,7 +106,6 @@ public class WorkflowInstanceCollection {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -121,8 +123,7 @@ public class WorkflowInstanceCollection {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            data,
-            responseMetadata);
+            data, responseMetadata);
     }
     
     @Override
@@ -131,16 +132,18 @@ public class WorkflowInstanceCollection {
                 "data", data,
                 "responseMetadata", responseMetadata);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<? extends List<WorkflowInstance>> data = Optional.empty();
- 
+
         private Optional<? extends ResponseMetadata> responseMetadata = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Array of workflow instances
@@ -160,6 +163,7 @@ public class WorkflowInstanceCollection {
             return this;
         }
 
+
         /**
          * Control information and metadata for the response.
          */
@@ -177,11 +181,12 @@ public class WorkflowInstanceCollection {
             this.responseMetadata = responseMetadata;
             return this;
         }
-        
+
         public WorkflowInstanceCollection build() {
+
             return new WorkflowInstanceCollection(
-                data,
-                responseMetadata);
+                data, responseMetadata);
         }
+
     }
 }

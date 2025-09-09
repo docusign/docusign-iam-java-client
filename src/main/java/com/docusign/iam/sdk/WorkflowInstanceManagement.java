@@ -14,13 +14,12 @@ import com.docusign.iam.sdk.models.operations.GetWorkflowInstanceResponse;
 import com.docusign.iam.sdk.models.operations.GetWorkflowInstancesListRequest;
 import com.docusign.iam.sdk.models.operations.GetWorkflowInstancesListRequestBuilder;
 import com.docusign.iam.sdk.models.operations.GetWorkflowInstancesListResponse;
-import com.docusign.iam.sdk.operations.CancelWorkflowInstanceOperation;
-import com.docusign.iam.sdk.operations.GetWorkflowInstanceOperation;
-import com.docusign.iam.sdk.operations.GetWorkflowInstancesListOperation;
+import com.docusign.iam.sdk.operations.CancelWorkflowInstance;
+import com.docusign.iam.sdk.operations.GetWorkflowInstance;
+import com.docusign.iam.sdk.operations.GetWorkflowInstancesList;
 import com.docusign.iam.sdk.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -96,9 +95,7 @@ public class WorkflowInstanceManagement {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetWorkflowInstancesListResponse getWorkflowInstancesList(
-            String accountId,
-            String workflowId) throws Exception {
+    public GetWorkflowInstancesListResponse getWorkflowInstancesList(String accountId, String workflowId) throws Exception {
         return getWorkflowInstancesList(accountId, workflowId, Optional.empty());
     }
 
@@ -136,8 +133,7 @@ public class WorkflowInstanceManagement {
      * @throws Exception if the API call fails
      */
     public GetWorkflowInstancesListResponse getWorkflowInstancesList(
-            String accountId,
-            String workflowId,
+            String accountId, String workflowId,
             Optional<Options> options) throws Exception {
         GetWorkflowInstancesListRequest request =
             GetWorkflowInstancesListRequest
@@ -146,12 +142,9 @@ public class WorkflowInstanceManagement {
                 .workflowId(workflowId)
                 .build();
         RequestOperation<GetWorkflowInstancesListRequest, GetWorkflowInstancesListResponse> operation
-              = new GetWorkflowInstancesListOperation(
-                 sdkConfiguration,
-                 options);
+              = new GetWorkflowInstancesList.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
-
 
     /**
      * Retrieve a Workflow Instance
@@ -210,10 +203,10 @@ public class WorkflowInstanceManagement {
      * @throws Exception if the API call fails
      */
     public GetWorkflowInstanceResponse getWorkflowInstance(
-            String accountId,
-            String workflowId,
+            String accountId, String workflowId,
             String instanceId) throws Exception {
-        return getWorkflowInstance(accountId, workflowId, instanceId, Optional.empty());
+        return getWorkflowInstance(accountId, workflowId, instanceId,
+            Optional.empty());
     }
 
     /**
@@ -246,10 +239,8 @@ public class WorkflowInstanceManagement {
      * @throws Exception if the API call fails
      */
     public GetWorkflowInstanceResponse getWorkflowInstance(
-            String accountId,
-            String workflowId,
-            String instanceId,
-            Optional<Options> options) throws Exception {
+            String accountId, String workflowId,
+            String instanceId, Optional<Options> options) throws Exception {
         GetWorkflowInstanceRequest request =
             GetWorkflowInstanceRequest
                 .builder()
@@ -258,12 +249,9 @@ public class WorkflowInstanceManagement {
                 .instanceId(instanceId)
                 .build();
         RequestOperation<GetWorkflowInstanceRequest, GetWorkflowInstanceResponse> operation
-              = new GetWorkflowInstanceOperation(
-                 sdkConfiguration,
-                 options);
+              = new GetWorkflowInstance.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
-
 
     /**
      * Cancel a Running Workflow Instance
@@ -306,10 +294,10 @@ public class WorkflowInstanceManagement {
      * @throws Exception if the API call fails
      */
     public CancelWorkflowInstanceResponse cancelWorkflowInstance(
-            String accountId,
-            String workflowId,
+            String accountId, String workflowId,
             String instanceId) throws Exception {
-        return cancelWorkflowInstance(accountId, workflowId, instanceId, Optional.empty());
+        return cancelWorkflowInstance(accountId, workflowId, instanceId,
+            Optional.empty());
     }
 
     /**
@@ -334,10 +322,8 @@ public class WorkflowInstanceManagement {
      * @throws Exception if the API call fails
      */
     public CancelWorkflowInstanceResponse cancelWorkflowInstance(
-            String accountId,
-            String workflowId,
-            String instanceId,
-            Optional<Options> options) throws Exception {
+            String accountId, String workflowId,
+            String instanceId, Optional<Options> options) throws Exception {
         CancelWorkflowInstanceRequest request =
             CancelWorkflowInstanceRequest
                 .builder()
@@ -346,9 +332,7 @@ public class WorkflowInstanceManagement {
                 .instanceId(instanceId)
                 .build();
         RequestOperation<CancelWorkflowInstanceRequest, CancelWorkflowInstanceResponse> operation
-              = new CancelWorkflowInstanceOperation(
-                 sdkConfiguration,
-                 options);
+              = new CancelWorkflowInstance.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

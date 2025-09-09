@@ -75,9 +75,10 @@ public class ConfidentialAuthCodeGrantRequestBody {
         return code;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The grant type. This value must be set to "authorization_code".
@@ -87,6 +88,7 @@ public class ConfidentialAuthCodeGrantRequestBody {
         this.grantType = Optional.ofNullable(grantType);
         return this;
     }
+
 
     /**
      * The grant type. This value must be set to "authorization_code".
@@ -106,7 +108,6 @@ public class ConfidentialAuthCodeGrantRequestBody {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -125,9 +126,7 @@ public class ConfidentialAuthCodeGrantRequestBody {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            flow,
-            grantType,
-            code);
+            flow, grantType, code);
     }
     
     @Override
@@ -137,16 +136,18 @@ public class ConfidentialAuthCodeGrantRequestBody {
                 "grantType", grantType,
                 "code", code);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<? extends ConfidentialAuthCodeGrantRequestBodyGrantType> grantType;
- 
+
         private String code;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The grant type. This value must be set to "authorization_code".
@@ -166,6 +167,7 @@ public class ConfidentialAuthCodeGrantRequestBody {
             return this;
         }
 
+
         /**
          * The authorization code supplied to the callback.
          */
@@ -174,15 +176,16 @@ public class ConfidentialAuthCodeGrantRequestBody {
             this.code = code;
             return this;
         }
-        
+
         public ConfidentialAuthCodeGrantRequestBody build() {
             if (grantType == null) {
                 grantType = _SINGLETON_VALUE_GrantType.value();
             }
+
             return new ConfidentialAuthCodeGrantRequestBody(
-                grantType,
-                code);
+                grantType, code);
         }
+
 
         private static final LazySingletonValue<Optional<? extends Flow>> _SINGLETON_VALUE_Flow =
                 new LazySingletonValue<>(

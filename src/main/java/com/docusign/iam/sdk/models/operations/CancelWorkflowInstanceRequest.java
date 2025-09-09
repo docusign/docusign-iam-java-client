@@ -10,13 +10,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 
-public class CancelWorkflowInstanceRequest {
 
+public class CancelWorkflowInstanceRequest {
     /**
      * The unique identifier of the account.
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=accountId")
     private String accountId;
+
 
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=workflowId")
     private String workflowId;
@@ -61,9 +62,10 @@ public class CancelWorkflowInstanceRequest {
         return instanceId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The unique identifier of the account.
@@ -89,7 +91,6 @@ public class CancelWorkflowInstanceRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -108,9 +109,7 @@ public class CancelWorkflowInstanceRequest {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            accountId,
-            workflowId,
-            instanceId);
+            accountId, workflowId, instanceId);
     }
     
     @Override
@@ -120,18 +119,20 @@ public class CancelWorkflowInstanceRequest {
                 "workflowId", workflowId,
                 "instanceId", instanceId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String accountId;
- 
+
         private String workflowId;
- 
+
         private String instanceId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The unique identifier of the account.
@@ -142,11 +143,13 @@ public class CancelWorkflowInstanceRequest {
             return this;
         }
 
+
         public Builder workflowId(String workflowId) {
             Utils.checkNotNull(workflowId, "workflowId");
             this.workflowId = workflowId;
             return this;
         }
+
 
         /**
          * Unique identifier for the workflow instance
@@ -156,12 +159,12 @@ public class CancelWorkflowInstanceRequest {
             this.instanceId = instanceId;
             return this;
         }
-        
+
         public CancelWorkflowInstanceRequest build() {
+
             return new CancelWorkflowInstanceRequest(
-                accountId,
-                workflowId,
-                instanceId);
+                accountId, workflowId, instanceId);
         }
+
     }
 }

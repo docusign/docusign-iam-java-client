@@ -20,7 +20,6 @@ import java.util.Optional;
  * <p>Array of fields required as inputs to trigger the workflow, including field names, data types, and default values.
  */
 public class TriggerInputSchema {
-
     /**
      * The name of the input field expected by the workflow. This key must match the name
      * provided in the `trigger_inputs` when triggering the workflow.
@@ -94,9 +93,10 @@ public class TriggerInputSchema {
         return (Optional<DefaultValue>) defaultValue;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The name of the input field expected by the workflow. This key must match the name
@@ -107,6 +107,7 @@ public class TriggerInputSchema {
         this.fieldName = Optional.ofNullable(fieldName);
         return this;
     }
+
 
     /**
      * The name of the input field expected by the workflow. This key must match the name
@@ -128,6 +129,7 @@ public class TriggerInputSchema {
         this.fieldDataType = Optional.ofNullable(fieldDataType);
         return this;
     }
+
 
     /**
      * The data type expected for the input field. This indicates whether the input should
@@ -151,6 +153,7 @@ public class TriggerInputSchema {
         return this;
     }
 
+
     /**
      * The default value for the input field if one is provided. This can be a string, number,
      * boolean, object, or array. If no value is provided during the trigger, the workflow may
@@ -162,7 +165,6 @@ public class TriggerInputSchema {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -181,9 +183,7 @@ public class TriggerInputSchema {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            fieldName,
-            fieldDataType,
-            defaultValue);
+            fieldName, fieldDataType, defaultValue);
     }
     
     @Override
@@ -193,18 +193,20 @@ public class TriggerInputSchema {
                 "fieldDataType", fieldDataType,
                 "defaultValue", defaultValue);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> fieldName = Optional.empty();
- 
+
         private Optional<String> fieldDataType = Optional.empty();
- 
+
         private Optional<? extends DefaultValue> defaultValue = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The name of the input field expected by the workflow. This key must match the name
@@ -225,6 +227,7 @@ public class TriggerInputSchema {
             this.fieldName = fieldName;
             return this;
         }
+
 
         /**
          * The data type expected for the input field. This indicates whether the input should
@@ -248,6 +251,7 @@ public class TriggerInputSchema {
             return this;
         }
 
+
         /**
          * The default value for the input field if one is provided. This can be a string, number,
          * boolean, object, or array. If no value is provided during the trigger, the workflow may
@@ -269,12 +273,12 @@ public class TriggerInputSchema {
             this.defaultValue = defaultValue;
             return this;
         }
-        
+
         public TriggerInputSchema build() {
+
             return new TriggerInputSchema(
-                fieldName,
-                fieldDataType,
-                defaultValue);
+                fieldName, fieldDataType, defaultValue);
         }
+
     }
 }

@@ -19,7 +19,6 @@ import org.openapitools.jackson.nullable.JsonNullable;
  * <p>A party is a person, group, or organization that is involved in a contract and has legally binding obligations and responsibilities. They also seek to benefit from the agreement.
  */
 public class Party {
-
     /**
      * Unique identifier for the party, mapped to the party entity reference.
      */
@@ -82,9 +81,10 @@ public class Party {
         return preferredName;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Unique identifier for the party, mapped to the party entity reference.
@@ -131,7 +131,6 @@ public class Party {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -150,9 +149,7 @@ public class Party {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            id,
-            nameInAgreement,
-            preferredName);
+            id, nameInAgreement, preferredName);
     }
     
     @Override
@@ -162,18 +159,20 @@ public class Party {
                 "nameInAgreement", nameInAgreement,
                 "preferredName", preferredName);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String id;
- 
+
         private JsonNullable<String> nameInAgreement = JsonNullable.undefined();
- 
+
         private JsonNullable<String> preferredName = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Unique identifier for the party, mapped to the party entity reference.
@@ -183,6 +182,7 @@ public class Party {
             this.id = id;
             return this;
         }
+
 
         /**
          * Name of the party as it appears in the agreement.
@@ -202,6 +202,7 @@ public class Party {
             return this;
         }
 
+
         /**
          * Formal name of the party.
          */
@@ -219,12 +220,12 @@ public class Party {
             this.preferredName = preferredName;
             return this;
         }
-        
+
         public Party build() {
+
             return new Party(
-                id,
-                nameInAgreement,
-                preferredName);
+                id, nameInAgreement, preferredName);
         }
+
     }
 }

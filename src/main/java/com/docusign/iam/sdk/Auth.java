@@ -22,15 +22,14 @@ import com.docusign.iam.sdk.models.operations.GetTokenFromRefreshTokenSecurity;
 import com.docusign.iam.sdk.models.operations.GetUserInfoRequestBuilder;
 import com.docusign.iam.sdk.models.operations.GetUserInfoResponse;
 import com.docusign.iam.sdk.models.operations.JWTGrant;
-import com.docusign.iam.sdk.operations.GetTokenFromConfidentialAuthCodeOperation;
-import com.docusign.iam.sdk.operations.GetTokenFromJWTGrantOperation;
-import com.docusign.iam.sdk.operations.GetTokenFromPublicAuthCodeOperation;
-import com.docusign.iam.sdk.operations.GetTokenFromRefreshTokenOperation;
-import com.docusign.iam.sdk.operations.GetUserInfoOperation;
+import com.docusign.iam.sdk.operations.GetTokenFromConfidentialAuthCode;
+import com.docusign.iam.sdk.operations.GetTokenFromJWTGrant;
+import com.docusign.iam.sdk.operations.GetTokenFromPublicAuthCode;
+import com.docusign.iam.sdk.operations.GetTokenFromRefreshToken;
+import com.docusign.iam.sdk.operations.GetUserInfo;
 import com.docusign.iam.sdk.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -68,10 +67,9 @@ public class Auth {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetTokenFromConfidentialAuthCodeResponse getTokenFromConfidentialAuthCode(
-            ConfidentialAuthCodeGrantRequestBody request,
-            GetTokenFromConfidentialAuthCodeSecurity security) throws Exception {
-        return getTokenFromConfidentialAuthCode(request, security, Optional.empty(), Optional.empty());
+    public GetTokenFromConfidentialAuthCodeResponse getTokenFromConfidentialAuthCode(ConfidentialAuthCodeGrantRequestBody request, GetTokenFromConfidentialAuthCodeSecurity security) throws Exception {
+        return getTokenFromConfidentialAuthCode(request, security, Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -90,19 +88,14 @@ public class Auth {
      * @throws Exception if the API call fails
      */
     public GetTokenFromConfidentialAuthCodeResponse getTokenFromConfidentialAuthCode(
-            ConfidentialAuthCodeGrantRequestBody request,
-            GetTokenFromConfidentialAuthCodeSecurity security,
-            Optional<String> serverURL,
-            Optional<Options> options) throws Exception {
+            ConfidentialAuthCodeGrantRequestBody request, GetTokenFromConfidentialAuthCodeSecurity security,
+            Optional<String> serverURL, Optional<Options> options) throws Exception {
         RequestOperation<ConfidentialAuthCodeGrantRequestBody, GetTokenFromConfidentialAuthCodeResponse> operation
-              = new GetTokenFromConfidentialAuthCodeOperation(
-                 sdkConfiguration,
-                 security,
-                 serverURL,
-                 options);
+              = new GetTokenFromConfidentialAuthCode.Sync(
+                                    sdkConfiguration, security, serverURL,
+                                    options);
         return operation.handleResponse(operation.doRequest(request));
     }
-
 
     /**
      * Obtains an access token from the Docusign API using an authorization code.
@@ -149,17 +142,12 @@ public class Auth {
      * @throws Exception if the API call fails
      */
     public GetTokenFromPublicAuthCodeResponse getTokenFromPublicAuthCode(
-            PublicAuthCodeGrantRequestBody request,
-            Optional<String> serverURL,
+            PublicAuthCodeGrantRequestBody request, Optional<String> serverURL,
             Optional<Options> options) throws Exception {
         RequestOperation<PublicAuthCodeGrantRequestBody, GetTokenFromPublicAuthCodeResponse> operation
-              = new GetTokenFromPublicAuthCodeOperation(
-                 sdkConfiguration,
-                 serverURL,
-                 options);
+              = new GetTokenFromPublicAuthCode.Sync(sdkConfiguration, serverURL, options);
         return operation.handleResponse(operation.doRequest(request));
     }
-
 
     /**
      * Obtains an access token from the Docusign API using a JWT grant.
@@ -215,17 +203,12 @@ public class Auth {
      * @throws Exception if the API call fails
      */
     public GetTokenFromJWTGrantResponse getTokenFromJwtGrant(
-            JWTGrant request,
-            Optional<String> serverURL,
+            JWTGrant request, Optional<String> serverURL,
             Optional<Options> options) throws Exception {
         RequestOperation<JWTGrant, GetTokenFromJWTGrantResponse> operation
-              = new GetTokenFromJWTGrantOperation(
-                 sdkConfiguration,
-                 serverURL,
-                 options);
+              = new GetTokenFromJWTGrant.Sync(sdkConfiguration, serverURL, options);
         return operation.handleResponse(operation.doRequest(request));
     }
-
 
     /**
      * Obtains an access token from the Docusign API using an authorization code.
@@ -256,10 +239,9 @@ public class Auth {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetTokenFromRefreshTokenResponse getTokenFromRefreshToken(
-            AuthorizationCodeGrant request,
-            GetTokenFromRefreshTokenSecurity security) throws Exception {
-        return getTokenFromRefreshToken(request, security, Optional.empty(), Optional.empty());
+    public GetTokenFromRefreshTokenResponse getTokenFromRefreshToken(AuthorizationCodeGrant request, GetTokenFromRefreshTokenSecurity security) throws Exception {
+        return getTokenFromRefreshToken(request, security, Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -279,19 +261,14 @@ public class Auth {
      * @throws Exception if the API call fails
      */
     public GetTokenFromRefreshTokenResponse getTokenFromRefreshToken(
-            AuthorizationCodeGrant request,
-            GetTokenFromRefreshTokenSecurity security,
-            Optional<String> serverURL,
-            Optional<Options> options) throws Exception {
+            AuthorizationCodeGrant request, GetTokenFromRefreshTokenSecurity security,
+            Optional<String> serverURL, Optional<Options> options) throws Exception {
         RequestOperation<AuthorizationCodeGrant, GetTokenFromRefreshTokenResponse> operation
-              = new GetTokenFromRefreshTokenOperation(
-                 sdkConfiguration,
-                 security,
-                 serverURL,
-                 options);
+              = new GetTokenFromRefreshToken.Sync(
+                                    sdkConfiguration, security, serverURL,
+                                    options);
         return operation.handleResponse(operation.doRequest(request));
     }
-
 
     /**
      * Get user information
@@ -332,14 +309,9 @@ public class Auth {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetUserInfoResponse getUserInfo(
-            Optional<String> serverURL,
-            Optional<Options> options) throws Exception {
+    public GetUserInfoResponse getUserInfo(Optional<String> serverURL, Optional<Options> options) throws Exception {
         RequestlessOperation<GetUserInfoResponse> operation
-            = new GetUserInfoOperation(
-                 sdkConfiguration,
-                 serverURL,
-                 options);
+            = new GetUserInfo.Sync(sdkConfiguration, serverURL, options);
         return operation.handleResponse(operation.doRequest());
     }
 

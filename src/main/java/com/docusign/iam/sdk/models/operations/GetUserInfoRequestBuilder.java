@@ -6,7 +6,7 @@ package com.docusign.iam.sdk.models.operations;
 import static com.docusign.iam.sdk.operations.Operations.RequestlessOperation;
 
 import com.docusign.iam.sdk.SDKConfiguration;
-import com.docusign.iam.sdk.operations.GetUserInfoOperation;
+import com.docusign.iam.sdk.operations.GetUserInfo;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -54,10 +54,7 @@ public class GetUserInfoRequestBuilder {
             .build());
 
         RequestlessOperation<GetUserInfoResponse> operation
-            = new GetUserInfoOperation(
-                 sdkConfiguration,
-                 serverURL,
-                 options);
+            = new GetUserInfo.Sync(sdkConfiguration, serverURL, options);
 
         return operation.handleResponse(operation.doRequest());
     }

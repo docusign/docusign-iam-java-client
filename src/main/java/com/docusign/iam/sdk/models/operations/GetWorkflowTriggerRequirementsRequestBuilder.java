@@ -6,7 +6,7 @@ package com.docusign.iam.sdk.models.operations;
 import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 
 import com.docusign.iam.sdk.SDKConfiguration;
-import com.docusign.iam.sdk.operations.GetWorkflowTriggerRequirementsOperation;
+import com.docusign.iam.sdk.operations.GetWorkflowTriggerRequirements;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -64,9 +64,7 @@ public class GetWorkflowTriggerRequirementsRequestBuilder {
             .build());
 
         RequestOperation<GetWorkflowTriggerRequirementsRequest, GetWorkflowTriggerRequirementsResponse> operation
-              = new GetWorkflowTriggerRequirementsOperation(
-                 sdkConfiguration,
-                 options);
+              = new GetWorkflowTriggerRequirements.Sync(sdkConfiguration, options);
         GetWorkflowTriggerRequirementsRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

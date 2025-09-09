@@ -40,9 +40,10 @@ public class CancelWorkflowInstanceResponse {
         return message;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public CancelWorkflowInstanceResponse withMessage(String message) {
         Utils.checkNotNull(message, "message");
@@ -50,13 +51,13 @@ public class CancelWorkflowInstanceResponse {
         return this;
     }
 
+
     public CancelWorkflowInstanceResponse withMessage(Optional<String> message) {
         Utils.checkNotNull(message, "message");
         this.message = message;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -81,14 +82,16 @@ public class CancelWorkflowInstanceResponse {
         return Utils.toString(CancelWorkflowInstanceResponse.class,
                 "message", message);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> message = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder message(String message) {
             Utils.checkNotNull(message, "message");
@@ -101,10 +104,12 @@ public class CancelWorkflowInstanceResponse {
             this.message = message;
             return this;
         }
-        
+
         public CancelWorkflowInstanceResponse build() {
+
             return new CancelWorkflowInstanceResponse(
                 message);
         }
+
     }
 }

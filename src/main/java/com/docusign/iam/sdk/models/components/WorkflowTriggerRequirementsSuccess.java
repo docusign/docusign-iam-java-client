@@ -55,6 +55,7 @@ public class WorkflowTriggerRequirementsSuccess {
     @JsonProperty("trigger_input_schema")
     private Optional<? extends List<TriggerInputSchema>> triggerInputSchema;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("metadata")
     private Optional<? extends ResourceMetadata> metadata;
@@ -131,7 +132,10 @@ public class WorkflowTriggerRequirementsSuccess {
     }
     
     public WorkflowTriggerRequirementsSuccess() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -219,15 +223,17 @@ public class WorkflowTriggerRequirementsSuccess {
         return responseDurationMs;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public WorkflowTriggerRequirementsSuccess withTriggerId(String triggerId) {
         Utils.checkNotNull(triggerId, "triggerId");
         this.triggerId = Optional.ofNullable(triggerId);
         return this;
     }
+
 
     public WorkflowTriggerRequirementsSuccess withTriggerId(Optional<String> triggerId) {
         Utils.checkNotNull(triggerId, "triggerId");
@@ -244,6 +250,7 @@ public class WorkflowTriggerRequirementsSuccess {
         this.triggerEventType = Optional.ofNullable(triggerEventType);
         return this;
     }
+
 
     /**
      * The type of event that triggers the workflow. In this case, the workflow is initiated
@@ -265,6 +272,7 @@ public class WorkflowTriggerRequirementsSuccess {
         this.triggerHttpConfig = Optional.ofNullable(triggerHttpConfig);
         return this;
     }
+
 
     /**
      * Configuration details specific to HTTP-triggered workflows. This object describes the
@@ -288,6 +296,7 @@ public class WorkflowTriggerRequirementsSuccess {
         return this;
     }
 
+
     /**
      * A list of input fields that define the structure of the data required to trigger the workflow.
      * Each item describes a field that must be included in the request when the workflow is triggered.
@@ -304,6 +313,7 @@ public class WorkflowTriggerRequirementsSuccess {
         this.metadata = Optional.ofNullable(metadata);
         return this;
     }
+
 
     public WorkflowTriggerRequirementsSuccess withMetadata(Optional<? extends ResourceMetadata> metadata) {
         Utils.checkNotNull(metadata, "metadata");
@@ -405,7 +415,6 @@ public class WorkflowTriggerRequirementsSuccess {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -431,15 +440,9 @@ public class WorkflowTriggerRequirementsSuccess {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            triggerId,
-            triggerEventType,
-            triggerHttpConfig,
-            triggerInputSchema,
-            metadata,
-            pageLimit,
-            pageTokenNext,
-            requestId,
-            responseTimestamp,
+            triggerId, triggerEventType, triggerHttpConfig,
+            triggerInputSchema, metadata, pageLimit,
+            pageTokenNext, requestId, responseTimestamp,
             responseDurationMs);
     }
     
@@ -457,32 +460,34 @@ public class WorkflowTriggerRequirementsSuccess {
                 "responseTimestamp", responseTimestamp,
                 "responseDurationMs", responseDurationMs);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> triggerId = Optional.empty();
- 
+
         private Optional<? extends TriggerEventType> triggerEventType = Optional.empty();
- 
+
         private Optional<? extends TriggerHttpConfig> triggerHttpConfig = Optional.empty();
- 
+
         private Optional<? extends List<TriggerInputSchema>> triggerInputSchema = Optional.empty();
- 
+
         private Optional<? extends ResourceMetadata> metadata = Optional.empty();
- 
+
         private JsonNullable<Integer> pageLimit = JsonNullable.undefined();
- 
+
         private JsonNullable<String> pageTokenNext = JsonNullable.undefined();
- 
+
         private JsonNullable<String> requestId = JsonNullable.undefined();
- 
+
         private JsonNullable<OffsetDateTime> responseTimestamp = JsonNullable.undefined();
- 
+
         private JsonNullable<Integer> responseDurationMs = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder triggerId(String triggerId) {
             Utils.checkNotNull(triggerId, "triggerId");
@@ -495,6 +500,7 @@ public class WorkflowTriggerRequirementsSuccess {
             this.triggerId = triggerId;
             return this;
         }
+
 
         /**
          * The type of event that triggers the workflow. In this case, the workflow is initiated
@@ -515,6 +521,7 @@ public class WorkflowTriggerRequirementsSuccess {
             this.triggerEventType = triggerEventType;
             return this;
         }
+
 
         /**
          * Configuration details specific to HTTP-triggered workflows. This object describes the
@@ -538,6 +545,7 @@ public class WorkflowTriggerRequirementsSuccess {
             return this;
         }
 
+
         /**
          * A list of input fields that define the structure of the data required to trigger the workflow.
          * Each item describes a field that must be included in the request when the workflow is triggered.
@@ -560,6 +568,7 @@ public class WorkflowTriggerRequirementsSuccess {
             return this;
         }
 
+
         public Builder metadata(ResourceMetadata metadata) {
             Utils.checkNotNull(metadata, "metadata");
             this.metadata = Optional.ofNullable(metadata);
@@ -571,6 +580,7 @@ public class WorkflowTriggerRequirementsSuccess {
             this.metadata = metadata;
             return this;
         }
+
 
         /**
          * The maximum number of items that can be returned in a single page.
@@ -590,6 +600,7 @@ public class WorkflowTriggerRequirementsSuccess {
             return this;
         }
 
+
         /**
          * The continuation token used to retrieve a page in a paginated response.
          */
@@ -607,6 +618,7 @@ public class WorkflowTriggerRequirementsSuccess {
             this.pageTokenNext = pageTokenNext;
             return this;
         }
+
 
         /**
          * Unique identifier for the request, useful for tracking and debugging.
@@ -626,6 +638,7 @@ public class WorkflowTriggerRequirementsSuccess {
             return this;
         }
 
+
         /**
          * The timestamp indicating when the response was generated.
          */
@@ -643,6 +656,7 @@ public class WorkflowTriggerRequirementsSuccess {
             this.responseTimestamp = responseTimestamp;
             return this;
         }
+
 
         /**
          * The duration of time, in milliseconds, that the server took to process and respond 
@@ -665,19 +679,15 @@ public class WorkflowTriggerRequirementsSuccess {
             this.responseDurationMs = responseDurationMs;
             return this;
         }
-        
+
         public WorkflowTriggerRequirementsSuccess build() {
+
             return new WorkflowTriggerRequirementsSuccess(
-                triggerId,
-                triggerEventType,
-                triggerHttpConfig,
-                triggerInputSchema,
-                metadata,
-                pageLimit,
-                pageTokenNext,
-                requestId,
-                responseTimestamp,
+                triggerId, triggerEventType, triggerHttpConfig,
+                triggerInputSchema, metadata, pageLimit,
+                pageTokenNext, requestId, responseTimestamp,
                 responseDurationMs);
         }
+
     }
 }

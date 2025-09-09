@@ -16,8 +16,8 @@ import java.lang.SuppressWarnings;
 import java.util.List;
 import java.util.Optional;
 
-public class TabExtensionData {
 
+public class TabExtensionData {
     /**
      * A unique UUID for each tab group. Tabs associated with the same model or concept will share the same extensionGroupId.
      */
@@ -92,6 +92,7 @@ public class TabExtensionData {
     @JsonProperty("connectionInstances")
     private Optional<? extends List<TabConnectionInstance>> connectionInstances;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("connectedFieldsData")
     private Optional<? extends TabConnectedFieldsData> connectedFieldsData;
@@ -140,7 +141,10 @@ public class TabExtensionData {
             String extensionGroupId,
             String actionInputKey,
             boolean requiredForExtension) {
-        this(extensionGroupId, actionInputKey, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), requiredForExtension, Optional.empty(), Optional.empty());
+        this(extensionGroupId, actionInputKey, Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            requiredForExtension, Optional.empty(), Optional.empty());
     }
 
     /**
@@ -239,9 +243,10 @@ public class TabExtensionData {
         return (Optional<TabConnectedFieldsData>) connectedFieldsData;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * A unique UUID for each tab group. Tabs associated with the same model or concept will share the same extensionGroupId.
@@ -270,6 +275,7 @@ public class TabExtensionData {
         return this;
     }
 
+
     /**
      * Indicates if the field is required to sign the document
      */
@@ -287,6 +293,7 @@ public class TabExtensionData {
         this.publisherName = Optional.ofNullable(publisherName);
         return this;
     }
+
 
     /**
      * Publisher of the extension app.
@@ -306,6 +313,7 @@ public class TabExtensionData {
         return this;
     }
 
+
     /**
      * Name of the extension app.
      */
@@ -323,6 +331,7 @@ public class TabExtensionData {
         this.actionName = Optional.ofNullable(actionName);
         return this;
     }
+
 
     /**
      * Name of an action in an extension app.
@@ -342,6 +351,7 @@ public class TabExtensionData {
         return this;
     }
 
+
     /**
      * Indicates the  template that defines an extension.
      */
@@ -360,6 +370,7 @@ public class TabExtensionData {
         return this;
     }
 
+
     /**
      * Indicates the template defining an action.
      */
@@ -377,6 +388,7 @@ public class TabExtensionData {
         this.extensionName = Optional.ofNullable(extensionName);
         return this;
     }
+
 
     /**
      * Name of the extension.
@@ -405,6 +417,7 @@ public class TabExtensionData {
         return this;
     }
 
+
     /**
      * Array representing the extension app connection name and instance.
      */
@@ -420,13 +433,13 @@ public class TabExtensionData {
         return this;
     }
 
+
     public TabExtensionData withConnectedFieldsData(Optional<? extends TabConnectedFieldsData> connectedFieldsData) {
         Utils.checkNotNull(connectedFieldsData, "connectedFieldsData");
         this.connectedFieldsData = connectedFieldsData;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -454,18 +467,10 @@ public class TabExtensionData {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            extensionGroupId,
-            actionInputKey,
-            extensionPolicy,
-            publisherName,
-            applicationName,
-            actionName,
-            extensionContract,
-            actionContract,
-            extensionName,
-            requiredForExtension,
-            connectionInstances,
-            connectedFieldsData);
+            extensionGroupId, actionInputKey, extensionPolicy,
+            publisherName, applicationName, actionName,
+            extensionContract, actionContract, extensionName,
+            requiredForExtension, connectionInstances, connectedFieldsData);
     }
     
     @Override
@@ -484,36 +489,38 @@ public class TabExtensionData {
                 "connectionInstances", connectionInstances,
                 "connectedFieldsData", connectedFieldsData);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String extensionGroupId;
- 
+
         private String actionInputKey;
- 
+
         private Optional<? extends ExtensionPolicy> extensionPolicy = Optional.empty();
- 
+
         private Optional<String> publisherName = Optional.empty();
- 
+
         private Optional<String> applicationName = Optional.empty();
- 
+
         private Optional<String> actionName = Optional.empty();
- 
+
         private Optional<String> extensionContract = Optional.empty();
- 
+
         private Optional<String> actionContract = Optional.empty();
- 
+
         private Optional<String> extensionName = Optional.empty();
- 
+
         private Boolean requiredForExtension;
- 
+
         private Optional<? extends List<TabConnectionInstance>> connectionInstances = Optional.empty();
- 
+
         private Optional<? extends TabConnectedFieldsData> connectedFieldsData = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * A unique UUID for each tab group. Tabs associated with the same model or concept will share the same extensionGroupId.
@@ -524,6 +531,7 @@ public class TabExtensionData {
             return this;
         }
 
+
         /**
          * Determines input data key required for data verification.
          */
@@ -532,6 +540,7 @@ public class TabExtensionData {
             this.actionInputKey = actionInputKey;
             return this;
         }
+
 
         /**
          * Indicates if the field is required to sign the document
@@ -551,6 +560,7 @@ public class TabExtensionData {
             return this;
         }
 
+
         /**
          * Publisher of the extension app.
          */
@@ -568,6 +578,7 @@ public class TabExtensionData {
             this.publisherName = publisherName;
             return this;
         }
+
 
         /**
          * Name of the extension app.
@@ -587,6 +598,7 @@ public class TabExtensionData {
             return this;
         }
 
+
         /**
          * Name of an action in an extension app.
          */
@@ -604,6 +616,7 @@ public class TabExtensionData {
             this.actionName = actionName;
             return this;
         }
+
 
         /**
          * Indicates the  template that defines an extension.
@@ -623,6 +636,7 @@ public class TabExtensionData {
             return this;
         }
 
+
         /**
          * Indicates the template defining an action.
          */
@@ -640,6 +654,7 @@ public class TabExtensionData {
             this.actionContract = actionContract;
             return this;
         }
+
 
         /**
          * Name of the extension.
@@ -659,6 +674,7 @@ public class TabExtensionData {
             return this;
         }
 
+
         /**
          * A boolean value that indicates if the field must pass verification to sign the document.
          */
@@ -667,6 +683,7 @@ public class TabExtensionData {
             this.requiredForExtension = requiredForExtension;
             return this;
         }
+
 
         /**
          * Array representing the extension app connection name and instance.
@@ -686,6 +703,7 @@ public class TabExtensionData {
             return this;
         }
 
+
         public Builder connectedFieldsData(TabConnectedFieldsData connectedFieldsData) {
             Utils.checkNotNull(connectedFieldsData, "connectedFieldsData");
             this.connectedFieldsData = Optional.ofNullable(connectedFieldsData);
@@ -697,21 +715,15 @@ public class TabExtensionData {
             this.connectedFieldsData = connectedFieldsData;
             return this;
         }
-        
+
         public TabExtensionData build() {
+
             return new TabExtensionData(
-                extensionGroupId,
-                actionInputKey,
-                extensionPolicy,
-                publisherName,
-                applicationName,
-                actionName,
-                extensionContract,
-                actionContract,
-                extensionName,
-                requiredForExtension,
-                connectionInstances,
-                connectedFieldsData);
+                extensionGroupId, actionInputKey, extensionPolicy,
+                publisherName, applicationName, actionName,
+                extensionContract, actionContract, extensionName,
+                requiredForExtension, connectionInstances, connectedFieldsData);
         }
+
     }
 }

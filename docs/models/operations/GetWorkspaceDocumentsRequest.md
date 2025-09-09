@@ -1,0 +1,12 @@
+# GetWorkspaceDocumentsRequest
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `accountId`                                                                      | *String*                                                                         | :heavy_check_mark:                                                               | The ID of the account                                                            |
+| `workspaceId`                                                                    | *String*                                                                         | :heavy_check_mark:                                                               | The ID of the workspace                                                          |
+| `count`                                                                          | *Optional\<Integer>*                                                             | :heavy_minus_sign:                                                               | Number of documents to return. Defaults to the maximum which is 100              |
+| `startPosition`                                                                  | *Optional\<Integer>*                                                             | :heavy_minus_sign:                                                               | Position of the first item in the total results. Defaults to 0                   |
+| `nameFilter`                                                                     | *Optional\<String>*                                                              | :heavy_minus_sign:                                                               | Filter documents where Name contains the filter. Defaults to null, to not filter |

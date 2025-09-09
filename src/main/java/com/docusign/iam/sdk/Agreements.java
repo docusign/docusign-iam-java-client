@@ -17,14 +17,13 @@ import com.docusign.iam.sdk.models.operations.GetAgreementResponse;
 import com.docusign.iam.sdk.models.operations.GetAgreementsListRequest;
 import com.docusign.iam.sdk.models.operations.GetAgreementsListRequestBuilder;
 import com.docusign.iam.sdk.models.operations.GetAgreementsListResponse;
-import com.docusign.iam.sdk.operations.CreateAgreementSummaryOperation;
-import com.docusign.iam.sdk.operations.DeleteAgreementOperation;
-import com.docusign.iam.sdk.operations.GetAgreementOperation;
-import com.docusign.iam.sdk.operations.GetAgreementsListOperation;
+import com.docusign.iam.sdk.operations.CreateAgreementSummary;
+import com.docusign.iam.sdk.operations.DeleteAgreement;
+import com.docusign.iam.sdk.operations.GetAgreement;
+import com.docusign.iam.sdk.operations.GetAgreementsList;
 import com.docusign.iam.sdk.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -123,16 +122,11 @@ public class Agreements {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetAgreementsListResponse getAgreementsList(
-            GetAgreementsListRequest request,
-            Optional<Options> options) throws Exception {
+    public GetAgreementsListResponse getAgreementsList(GetAgreementsListRequest request, Optional<Options> options) throws Exception {
         RequestOperation<GetAgreementsListRequest, GetAgreementsListResponse> operation
-              = new GetAgreementsListOperation(
-                 sdkConfiguration,
-                 options);
+              = new GetAgreementsList.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
-
 
     /**
      * Retrieve detailed information about a specific agreement
@@ -193,9 +187,7 @@ public class Agreements {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetAgreementResponse getAgreement(
-            String accountId,
-            String agreementId) throws Exception {
+    public GetAgreementResponse getAgreement(String accountId, String agreementId) throws Exception {
         return getAgreement(accountId, agreementId, Optional.empty());
     }
 
@@ -230,8 +222,7 @@ public class Agreements {
      * @throws Exception if the API call fails
      */
     public GetAgreementResponse getAgreement(
-            String accountId,
-            String agreementId,
+            String accountId, String agreementId,
             Optional<Options> options) throws Exception {
         GetAgreementRequest request =
             GetAgreementRequest
@@ -240,12 +231,9 @@ public class Agreements {
                 .agreementId(agreementId)
                 .build();
         RequestOperation<GetAgreementRequest, GetAgreementResponse> operation
-              = new GetAgreementOperation(
-                 sdkConfiguration,
-                 options);
+              = new GetAgreement.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
-
 
     /**
      * Delete a specific agreement
@@ -268,9 +256,7 @@ public class Agreements {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public DeleteAgreementResponse deleteAgreement(
-            String accountId,
-            String agreementId) throws Exception {
+    public DeleteAgreementResponse deleteAgreement(String accountId, String agreementId) throws Exception {
         return deleteAgreement(accountId, agreementId, Optional.empty());
     }
 
@@ -286,8 +272,7 @@ public class Agreements {
      * @throws Exception if the API call fails
      */
     public DeleteAgreementResponse deleteAgreement(
-            String accountId,
-            String agreementId,
+            String accountId, String agreementId,
             Optional<Options> options) throws Exception {
         DeleteAgreementRequest request =
             DeleteAgreementRequest
@@ -296,12 +281,9 @@ public class Agreements {
                 .agreementId(agreementId)
                 .build();
         RequestOperation<DeleteAgreementRequest, DeleteAgreementResponse> operation
-              = new DeleteAgreementOperation(
-                 sdkConfiguration,
-                 options);
+              = new DeleteAgreement.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
-
 
     /**
      * Create an AI-generated summary of an agreement document
@@ -336,9 +318,7 @@ public class Agreements {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public CreateAgreementSummaryResponse createAgreementSummary(
-            String accountId,
-            String agreementId) throws Exception {
+    public CreateAgreementSummaryResponse createAgreementSummary(String accountId, String agreementId) throws Exception {
         return createAgreementSummary(accountId, agreementId, Optional.empty());
     }
 
@@ -360,8 +340,7 @@ public class Agreements {
      * @throws Exception if the API call fails
      */
     public CreateAgreementSummaryResponse createAgreementSummary(
-            String accountId,
-            String agreementId,
+            String accountId, String agreementId,
             Optional<Options> options) throws Exception {
         CreateAgreementSummaryRequest request =
             CreateAgreementSummaryRequest
@@ -370,9 +349,7 @@ public class Agreements {
                 .agreementId(agreementId)
                 .build();
         RequestOperation<CreateAgreementSummaryRequest, CreateAgreementSummaryResponse> operation
-              = new CreateAgreementSummaryOperation(
-                 sdkConfiguration,
-                 options);
+              = new CreateAgreementSummary.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

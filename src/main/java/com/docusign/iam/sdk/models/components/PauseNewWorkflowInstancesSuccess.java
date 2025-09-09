@@ -20,7 +20,6 @@ import java.util.Optional;
  * Existing workflow instances will be unaffected.
  */
 public class PauseNewWorkflowInstancesSuccess {
-
     /**
      * Represents the new state of a workflow's mechanism to permit new workflow instances from being created.
      * Valid values include:
@@ -55,9 +54,10 @@ public class PauseNewWorkflowInstancesSuccess {
         return status;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Represents the new state of a workflow's mechanism to permit new workflow instances from being created.
@@ -72,6 +72,7 @@ public class PauseNewWorkflowInstancesSuccess {
         return this;
     }
 
+
     /**
      * Represents the new state of a workflow's mechanism to permit new workflow instances from being created.
      * Valid values include:
@@ -85,7 +86,6 @@ public class PauseNewWorkflowInstancesSuccess {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -110,14 +110,16 @@ public class PauseNewWorkflowInstancesSuccess {
         return Utils.toString(PauseNewWorkflowInstancesSuccess.class,
                 "status", status);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> status = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Represents the new state of a workflow's mechanism to permit new workflow instances from being created.
@@ -144,10 +146,12 @@ public class PauseNewWorkflowInstancesSuccess {
             this.status = status;
             return this;
         }
-        
+
         public PauseNewWorkflowInstancesSuccess build() {
+
             return new PauseNewWorkflowInstancesSuccess(
                 status);
         }
+
     }
 }

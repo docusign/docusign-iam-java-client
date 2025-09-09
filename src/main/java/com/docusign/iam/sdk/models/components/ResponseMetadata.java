@@ -21,7 +21,6 @@ import org.openapitools.jackson.nullable.JsonNullable;
  * <p>Control information and metadata for the response.
  */
 public class ResponseMetadata {
-
     /**
      * The maximum number of items that can be returned in a single page.
      */
@@ -79,7 +78,8 @@ public class ResponseMetadata {
     }
     
     public ResponseMetadata() {
-        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -124,9 +124,10 @@ public class ResponseMetadata {
         return responseDurationMs;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The maximum number of items that can be returned in a single page.
@@ -222,7 +223,6 @@ public class ResponseMetadata {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -243,11 +243,8 @@ public class ResponseMetadata {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            pageLimit,
-            pageTokenNext,
-            requestId,
-            responseTimestamp,
-            responseDurationMs);
+            pageLimit, pageTokenNext, requestId,
+            responseTimestamp, responseDurationMs);
     }
     
     @Override
@@ -259,22 +256,24 @@ public class ResponseMetadata {
                 "responseTimestamp", responseTimestamp,
                 "responseDurationMs", responseDurationMs);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private JsonNullable<Integer> pageLimit = JsonNullable.undefined();
- 
+
         private JsonNullable<String> pageTokenNext = JsonNullable.undefined();
- 
+
         private JsonNullable<String> requestId = JsonNullable.undefined();
- 
+
         private JsonNullable<OffsetDateTime> responseTimestamp = JsonNullable.undefined();
- 
+
         private JsonNullable<Integer> responseDurationMs = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The maximum number of items that can be returned in a single page.
@@ -294,6 +293,7 @@ public class ResponseMetadata {
             return this;
         }
 
+
         /**
          * The continuation token used to retrieve a page in a paginated response.
          */
@@ -311,6 +311,7 @@ public class ResponseMetadata {
             this.pageTokenNext = pageTokenNext;
             return this;
         }
+
 
         /**
          * Unique identifier for the request, useful for tracking and debugging.
@@ -330,6 +331,7 @@ public class ResponseMetadata {
             return this;
         }
 
+
         /**
          * The timestamp indicating when the response was generated.
          */
@@ -347,6 +349,7 @@ public class ResponseMetadata {
             this.responseTimestamp = responseTimestamp;
             return this;
         }
+
 
         /**
          * The duration of time, in milliseconds, that the server took to process and respond 
@@ -369,14 +372,13 @@ public class ResponseMetadata {
             this.responseDurationMs = responseDurationMs;
             return this;
         }
-        
+
         public ResponseMetadata build() {
+
             return new ResponseMetadata(
-                pageLimit,
-                pageTokenNext,
-                requestId,
-                responseTimestamp,
-                responseDurationMs);
+                pageLimit, pageTokenNext, requestId,
+                responseTimestamp, responseDurationMs);
         }
+
     }
 }

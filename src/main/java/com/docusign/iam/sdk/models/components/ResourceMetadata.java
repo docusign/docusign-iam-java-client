@@ -15,8 +15,8 @@ import java.lang.String;
 import java.time.OffsetDateTime;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class ResourceMetadata {
 
+public class ResourceMetadata {
     /**
      * Timestamp when the agreement document was created.
      */
@@ -94,7 +94,9 @@ public class ResourceMetadata {
     }
     
     public ResourceMetadata() {
-        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -155,9 +157,10 @@ public class ResourceMetadata {
         return responseDurationMs;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Timestamp when the agreement document was created.
@@ -289,7 +292,6 @@ public class ResourceMetadata {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -312,12 +314,8 @@ public class ResourceMetadata {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            createdAt,
-            createdBy,
-            modifiedAt,
-            modifiedBy,
-            requestId,
-            responseTimestamp,
+            createdAt, createdBy, modifiedAt,
+            modifiedBy, requestId, responseTimestamp,
             responseDurationMs);
     }
     
@@ -332,26 +330,28 @@ public class ResourceMetadata {
                 "responseTimestamp", responseTimestamp,
                 "responseDurationMs", responseDurationMs);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private JsonNullable<OffsetDateTime> createdAt = JsonNullable.undefined();
- 
+
         private JsonNullable<String> createdBy = JsonNullable.undefined();
- 
+
         private JsonNullable<OffsetDateTime> modifiedAt = JsonNullable.undefined();
- 
+
         private JsonNullable<String> modifiedBy = JsonNullable.undefined();
- 
+
         private JsonNullable<String> requestId = JsonNullable.undefined();
- 
+
         private JsonNullable<OffsetDateTime> responseTimestamp = JsonNullable.undefined();
- 
+
         private JsonNullable<Integer> responseDurationMs = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Timestamp when the agreement document was created.
@@ -371,6 +371,7 @@ public class ResourceMetadata {
             return this;
         }
 
+
         /**
          * User ID of the person who created the agreement document.
          */
@@ -388,6 +389,7 @@ public class ResourceMetadata {
             this.createdBy = createdBy;
             return this;
         }
+
 
         /**
          * Timestamp when the agreement document was last modified.
@@ -407,6 +409,7 @@ public class ResourceMetadata {
             return this;
         }
 
+
         /**
          * User ID of the person who last modified the agreement document.
          */
@@ -424,6 +427,7 @@ public class ResourceMetadata {
             this.modifiedBy = modifiedBy;
             return this;
         }
+
 
         /**
          * Unique identifier for the request, useful for tracking and debugging.
@@ -443,6 +447,7 @@ public class ResourceMetadata {
             return this;
         }
 
+
         /**
          * The timestamp indicating when the response was generated.
          */
@@ -460,6 +465,7 @@ public class ResourceMetadata {
             this.responseTimestamp = responseTimestamp;
             return this;
         }
+
 
         /**
          * The duration of time, in milliseconds, that the server took to process and respond 
@@ -482,16 +488,14 @@ public class ResourceMetadata {
             this.responseDurationMs = responseDurationMs;
             return this;
         }
-        
+
         public ResourceMetadata build() {
+
             return new ResourceMetadata(
-                createdAt,
-                createdBy,
-                modifiedAt,
-                modifiedBy,
-                requestId,
-                responseTimestamp,
+                createdAt, createdBy, modifiedAt,
+                modifiedBy, requestId, responseTimestamp,
                 responseDurationMs);
         }
+
     }
 }

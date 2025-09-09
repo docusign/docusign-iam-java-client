@@ -35,6 +35,7 @@ The response also includes provisions that outline the key legal, financial, and
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetAgreementsList" method="get" path="/v1/accounts/{accountId}/agreements" -->
 ```java
 package hello.world;
 
@@ -113,6 +114,7 @@ The operation is essential for retrieving the full context of an agreement, enab
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetAgreement" method="get" path="/v1/accounts/{accountId}/agreements/{agreementId}" -->
 ```java
 package hello.world;
 
@@ -167,6 +169,7 @@ This operation safely deletes an agreement. This action conforms to GDPR and CCP
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="DeleteAgreement" method="delete" path="/v1/accounts/{accountId}/agreements/{agreementId}" -->
 ```java
 package hello.world;
 
@@ -225,6 +228,7 @@ Please refer to the original agreement for any legally binding information.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="CreateAgreementSummary" method="post" path="/v1/accounts/{accountId}/agreements/{agreementId}/ai/actions/summarize" -->
 ```java
 package hello.world;
 

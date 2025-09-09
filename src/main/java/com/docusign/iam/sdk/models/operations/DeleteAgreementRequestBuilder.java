@@ -6,7 +6,7 @@ package com.docusign.iam.sdk.models.operations;
 import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 
 import com.docusign.iam.sdk.SDKConfiguration;
-import com.docusign.iam.sdk.operations.DeleteAgreementOperation;
+import com.docusign.iam.sdk.operations.DeleteAgreement;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -64,9 +64,7 @@ public class DeleteAgreementRequestBuilder {
             .build());
 
         RequestOperation<DeleteAgreementRequest, DeleteAgreementResponse> operation
-              = new DeleteAgreementOperation(
-                 sdkConfiguration,
-                 options);
+              = new DeleteAgreement.Sync(sdkConfiguration, options);
         DeleteAgreementRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

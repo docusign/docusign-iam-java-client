@@ -21,7 +21,6 @@ import java.util.Optional;
  * <p>A collection of agreements.
  */
 public class AgreementsResponse {
-
     /**
      * A list of agreements
      */
@@ -68,9 +67,10 @@ public class AgreementsResponse {
         return (Optional<ResponseMetadata>) responseMetadata;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * A list of agreements
@@ -80,6 +80,7 @@ public class AgreementsResponse {
         this.data = Optional.ofNullable(data);
         return this;
     }
+
 
     /**
      * A list of agreements
@@ -99,6 +100,7 @@ public class AgreementsResponse {
         return this;
     }
 
+
     /**
      * Control information and metadata for the response.
      */
@@ -108,7 +110,6 @@ public class AgreementsResponse {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -126,8 +127,7 @@ public class AgreementsResponse {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            data,
-            responseMetadata);
+            data, responseMetadata);
     }
     
     @Override
@@ -136,16 +136,18 @@ public class AgreementsResponse {
                 "data", data,
                 "responseMetadata", responseMetadata);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<? extends List<Agreement>> data = Optional.empty();
- 
+
         private Optional<? extends ResponseMetadata> responseMetadata = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * A list of agreements
@@ -165,6 +167,7 @@ public class AgreementsResponse {
             return this;
         }
 
+
         /**
          * Control information and metadata for the response.
          */
@@ -182,11 +185,12 @@ public class AgreementsResponse {
             this.responseMetadata = responseMetadata;
             return this;
         }
-        
+
         public AgreementsResponse build() {
+
             return new AgreementsResponse(
-                data,
-                responseMetadata);
+                data, responseMetadata);
         }
+
     }
 }

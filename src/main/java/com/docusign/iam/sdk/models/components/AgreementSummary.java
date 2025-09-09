@@ -19,7 +19,6 @@ import java.util.Optional;
  * <p>A high-level, AI-generated summary of an agreement document.
  */
 public class AgreementSummary {
-
     /**
      * An AI-generated summary of the agreement. This summary is provided for convenience 
      * and may not capture every detail of the original agreement.
@@ -48,9 +47,10 @@ public class AgreementSummary {
         return summary;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * An AI-generated summary of the agreement. This summary is provided for convenience 
@@ -62,6 +62,7 @@ public class AgreementSummary {
         return this;
     }
 
+
     /**
      * An AI-generated summary of the agreement. This summary is provided for convenience 
      * and may not capture every detail of the original agreement.
@@ -72,7 +73,6 @@ public class AgreementSummary {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -97,14 +97,16 @@ public class AgreementSummary {
         return Utils.toString(AgreementSummary.class,
                 "summary", summary);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> summary = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * An AI-generated summary of the agreement. This summary is provided for convenience 
@@ -125,10 +127,12 @@ public class AgreementSummary {
             this.summary = summary;
             return this;
         }
-        
+
         public AgreementSummary build() {
+
             return new AgreementSummary(
                 summary);
         }
+
     }
 }

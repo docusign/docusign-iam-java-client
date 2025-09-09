@@ -14,6 +14,7 @@ import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Optional;
 
+
 public class Workflow {
 
     @JsonInclude(Include.NON_ABSENT)
@@ -27,6 +28,7 @@ public class Workflow {
     @JsonProperty("name")
     private Optional<String> name;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("account_id")
     private Optional<String> accountId;
@@ -37,6 +39,7 @@ public class Workflow {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("status")
     private Optional<String> status;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("metadata")
@@ -62,7 +65,8 @@ public class Workflow {
     }
     
     public Workflow() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
@@ -97,15 +101,17 @@ public class Workflow {
         return (Optional<ResourceMetadata>) metadata;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public Workflow withId(String id) {
         Utils.checkNotNull(id, "id");
         this.id = Optional.ofNullable(id);
         return this;
     }
+
 
     public Workflow withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
@@ -122,6 +128,7 @@ public class Workflow {
         return this;
     }
 
+
     /**
      * A user-provided name for this workflow
      */
@@ -136,6 +143,7 @@ public class Workflow {
         this.accountId = Optional.ofNullable(accountId);
         return this;
     }
+
 
     public Workflow withAccountId(Optional<String> accountId) {
         Utils.checkNotNull(accountId, "accountId");
@@ -152,6 +160,7 @@ public class Workflow {
         return this;
     }
 
+
     /**
      * Indicates the readiness and deployment status of a workflow
      */
@@ -167,13 +176,13 @@ public class Workflow {
         return this;
     }
 
+
     public Workflow withMetadata(Optional<? extends ResourceMetadata> metadata) {
         Utils.checkNotNull(metadata, "metadata");
         this.metadata = metadata;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -194,11 +203,8 @@ public class Workflow {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            id,
-            name,
-            accountId,
-            status,
-            metadata);
+            id, name, accountId,
+            status, metadata);
     }
     
     @Override
@@ -210,22 +216,24 @@ public class Workflow {
                 "status", status,
                 "metadata", metadata);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> id = Optional.empty();
- 
+
         private Optional<String> name = Optional.empty();
- 
+
         private Optional<String> accountId = Optional.empty();
- 
+
         private Optional<String> status = Optional.empty();
- 
+
         private Optional<? extends ResourceMetadata> metadata = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
@@ -238,6 +246,7 @@ public class Workflow {
             this.id = id;
             return this;
         }
+
 
         /**
          * A user-provided name for this workflow
@@ -257,6 +266,7 @@ public class Workflow {
             return this;
         }
 
+
         public Builder accountId(String accountId) {
             Utils.checkNotNull(accountId, "accountId");
             this.accountId = Optional.ofNullable(accountId);
@@ -268,6 +278,7 @@ public class Workflow {
             this.accountId = accountId;
             return this;
         }
+
 
         /**
          * Indicates the readiness and deployment status of a workflow
@@ -287,6 +298,7 @@ public class Workflow {
             return this;
         }
 
+
         public Builder metadata(ResourceMetadata metadata) {
             Utils.checkNotNull(metadata, "metadata");
             this.metadata = Optional.ofNullable(metadata);
@@ -298,14 +310,13 @@ public class Workflow {
             this.metadata = metadata;
             return this;
         }
-        
+
         public Workflow build() {
+
             return new Workflow(
-                id,
-                name,
-                accountId,
-                status,
-                metadata);
+                id, name, accountId,
+                status, metadata);
         }
+
     }
 }

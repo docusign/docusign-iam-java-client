@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
+
 public class GetAgreementsListRequest {
 
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=accountId")
@@ -182,7 +183,12 @@ public class GetAgreementsListRequest {
     
     public GetAgreementsListRequest(
             String accountId) {
-        this(accountId, JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(accountId, JsonNullable.undefined(), JsonNullable.undefined(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
@@ -328,9 +334,10 @@ public class GetAgreementsListRequest {
         return sourceId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public GetAgreementsListRequest withAccountId(String accountId) {
         Utils.checkNotNull(accountId, "accountId");
@@ -383,6 +390,7 @@ public class GetAgreementsListRequest {
         return this;
     }
 
+
     /**
      * Field to sort the agreements by.
      */
@@ -400,6 +408,7 @@ public class GetAgreementsListRequest {
         this.direction = Optional.ofNullable(direction);
         return this;
     }
+
 
     /**
      * Direction of sorting (ascending or descending).
@@ -419,6 +428,7 @@ public class GetAgreementsListRequest {
         return this;
     }
 
+
     /**
      * List of agreement IDs to filter by (comma-separated), use operators (=, [in]) with an UUID format.
      */
@@ -436,6 +446,7 @@ public class GetAgreementsListRequest {
         this.status = Optional.ofNullable(status);
         return this;
     }
+
 
     /**
      * Status of the agreement.
@@ -455,6 +466,7 @@ public class GetAgreementsListRequest {
         return this;
     }
 
+
     /**
      * Filter by party display name in the agreement.
      */
@@ -472,6 +484,7 @@ public class GetAgreementsListRequest {
         this.metadataCreatedAt = Optional.ofNullable(metadataCreatedAt);
         return this;
     }
+
 
     /**
      * Filter by creation date (also available via `created_at` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
@@ -491,6 +504,7 @@ public class GetAgreementsListRequest {
         return this;
     }
 
+
     /**
      * Title of the agreement.
      */
@@ -508,6 +522,7 @@ public class GetAgreementsListRequest {
         this.relatedAgreementDocumentsParentAgreementDocumentId = Optional.ofNullable(relatedAgreementDocumentsParentAgreementDocumentId);
         return this;
     }
+
 
     /**
      * Filter by parent agreement document ID (also available via `parent_agreement_document_id` key). with an UUID format.
@@ -527,6 +542,7 @@ public class GetAgreementsListRequest {
         return this;
     }
 
+
     /**
      * List of BCP-47 language tags
      */
@@ -544,6 +560,7 @@ public class GetAgreementsListRequest {
         this.provisionsEffectiveDate = Optional.ofNullable(provisionsEffectiveDate);
         return this;
     }
+
 
     /**
      * Filter by effective date range (also available via `effective_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
@@ -563,6 +580,7 @@ public class GetAgreementsListRequest {
         return this;
     }
 
+
     /**
      * Filter by expiration date (also available via `expiration_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
      */
@@ -580,6 +598,7 @@ public class GetAgreementsListRequest {
         this.provisionsExecutionDate = Optional.ofNullable(provisionsExecutionDate);
         return this;
     }
+
 
     /**
      * Filter by execution date (also available via `execution_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
@@ -599,6 +618,7 @@ public class GetAgreementsListRequest {
         return this;
     }
 
+
     /**
      * duration of the agreement (also available via `term_length` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 Duration string (e.g., `P1Y`).
      */
@@ -616,6 +636,7 @@ public class GetAgreementsListRequest {
         this.sourceName = Optional.ofNullable(sourceName);
         return this;
     }
+
 
     /**
      * Source name of the agreement.
@@ -635,6 +656,7 @@ public class GetAgreementsListRequest {
         return this;
     }
 
+
     /**
      * Source id of the agreement.
      */
@@ -644,7 +666,6 @@ public class GetAgreementsListRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -678,24 +699,12 @@ public class GetAgreementsListRequest {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            accountId,
-            limit,
-            ctoken,
-            sort,
-            direction,
-            id,
-            status,
-            partiesNameInAgreement,
-            metadataCreatedAt,
-            title,
-            relatedAgreementDocumentsParentAgreementDocumentId,
-            languages,
-            provisionsEffectiveDate,
-            provisionsExpirationDate,
-            provisionsExecutionDate,
-            provisionsTermLength,
-            sourceName,
-            sourceId);
+            accountId, limit, ctoken,
+            sort, direction, id,
+            status, partiesNameInAgreement, metadataCreatedAt,
+            title, relatedAgreementDocumentsParentAgreementDocumentId, languages,
+            provisionsEffectiveDate, provisionsExpirationDate, provisionsExecutionDate,
+            provisionsTermLength, sourceName, sourceId);
     }
     
     @Override
@@ -720,54 +729,57 @@ public class GetAgreementsListRequest {
                 "sourceName", sourceName,
                 "sourceId", sourceId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String accountId;
- 
+
         private JsonNullable<Integer> limit = JsonNullable.undefined();
- 
+
         private JsonNullable<String> ctoken = JsonNullable.undefined();
- 
+
         private Optional<String> sort = Optional.empty();
- 
+
         private Optional<? extends Direction> direction = Optional.empty();
- 
+
         private Optional<String> id = Optional.empty();
- 
+
         private Optional<String> status = Optional.empty();
- 
+
         private Optional<String> partiesNameInAgreement = Optional.empty();
- 
+
         private Optional<String> metadataCreatedAt = Optional.empty();
- 
+
         private Optional<String> title = Optional.empty();
- 
+
         private Optional<String> relatedAgreementDocumentsParentAgreementDocumentId = Optional.empty();
- 
+
         private Optional<? extends List<String>> languages = Optional.empty();
- 
+
         private Optional<String> provisionsEffectiveDate = Optional.empty();
- 
+
         private Optional<String> provisionsExpirationDate = Optional.empty();
- 
+
         private Optional<String> provisionsExecutionDate = Optional.empty();
- 
+
         private Optional<String> provisionsTermLength = Optional.empty();
- 
+
         private Optional<String> sourceName = Optional.empty();
- 
+
         private Optional<String> sourceId = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder accountId(String accountId) {
             Utils.checkNotNull(accountId, "accountId");
             this.accountId = accountId;
             return this;
         }
+
 
         /**
          * The maximum number of items that can be returned in a single page.
@@ -787,6 +799,7 @@ public class GetAgreementsListRequest {
             return this;
         }
 
+
         /**
          * An opaque token that helps retrieve the a page of data.
          */
@@ -804,6 +817,7 @@ public class GetAgreementsListRequest {
             this.ctoken = ctoken;
             return this;
         }
+
 
         /**
          * Field to sort the agreements by.
@@ -823,6 +837,7 @@ public class GetAgreementsListRequest {
             return this;
         }
 
+
         /**
          * Direction of sorting (ascending or descending).
          */
@@ -840,6 +855,7 @@ public class GetAgreementsListRequest {
             this.direction = direction;
             return this;
         }
+
 
         /**
          * List of agreement IDs to filter by (comma-separated), use operators (=, [in]) with an UUID format.
@@ -859,6 +875,7 @@ public class GetAgreementsListRequest {
             return this;
         }
 
+
         /**
          * Status of the agreement.
          */
@@ -876,6 +893,7 @@ public class GetAgreementsListRequest {
             this.status = status;
             return this;
         }
+
 
         /**
          * Filter by party display name in the agreement.
@@ -895,6 +913,7 @@ public class GetAgreementsListRequest {
             return this;
         }
 
+
         /**
          * Filter by creation date (also available via `created_at` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
          */
@@ -912,6 +931,7 @@ public class GetAgreementsListRequest {
             this.metadataCreatedAt = metadataCreatedAt;
             return this;
         }
+
 
         /**
          * Title of the agreement.
@@ -931,6 +951,7 @@ public class GetAgreementsListRequest {
             return this;
         }
 
+
         /**
          * Filter by parent agreement document ID (also available via `parent_agreement_document_id` key). with an UUID format.
          */
@@ -948,6 +969,7 @@ public class GetAgreementsListRequest {
             this.relatedAgreementDocumentsParentAgreementDocumentId = relatedAgreementDocumentsParentAgreementDocumentId;
             return this;
         }
+
 
         /**
          * List of BCP-47 language tags
@@ -967,6 +989,7 @@ public class GetAgreementsListRequest {
             return this;
         }
 
+
         /**
          * Filter by effective date range (also available via `effective_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
          */
@@ -984,6 +1007,7 @@ public class GetAgreementsListRequest {
             this.provisionsEffectiveDate = provisionsEffectiveDate;
             return this;
         }
+
 
         /**
          * Filter by expiration date (also available via `expiration_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
@@ -1003,6 +1027,7 @@ public class GetAgreementsListRequest {
             return this;
         }
 
+
         /**
          * Filter by execution date (also available via `execution_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
          */
@@ -1020,6 +1045,7 @@ public class GetAgreementsListRequest {
             this.provisionsExecutionDate = provisionsExecutionDate;
             return this;
         }
+
 
         /**
          * duration of the agreement (also available via `term_length` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 Duration string (e.g., `P1Y`).
@@ -1039,6 +1065,7 @@ public class GetAgreementsListRequest {
             return this;
         }
 
+
         /**
          * Source name of the agreement.
          */
@@ -1057,6 +1084,7 @@ public class GetAgreementsListRequest {
             return this;
         }
 
+
         /**
          * Source id of the agreement.
          */
@@ -1074,27 +1102,17 @@ public class GetAgreementsListRequest {
             this.sourceId = sourceId;
             return this;
         }
-        
+
         public GetAgreementsListRequest build() {
+
             return new GetAgreementsListRequest(
-                accountId,
-                limit,
-                ctoken,
-                sort,
-                direction,
-                id,
-                status,
-                partiesNameInAgreement,
-                metadataCreatedAt,
-                title,
-                relatedAgreementDocumentsParentAgreementDocumentId,
-                languages,
-                provisionsEffectiveDate,
-                provisionsExpirationDate,
-                provisionsExecutionDate,
-                provisionsTermLength,
-                sourceName,
-                sourceId);
+                accountId, limit, ctoken,
+                sort, direction, id,
+                status, partiesNameInAgreement, metadataCreatedAt,
+                title, relatedAgreementDocumentsParentAgreementDocumentId, languages,
+                provisionsEffectiveDate, provisionsExpirationDate, provisionsExecutionDate,
+                provisionsTermLength, sourceName, sourceId);
         }
+
     }
 }

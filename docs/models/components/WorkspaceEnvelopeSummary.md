@@ -1,0 +1,15 @@
+# WorkspaceEnvelopeSummary
+
+The summary of the envelope in the workspace
+
+
+## Fields
+
+| Field                                                                                     | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `envelopeId`                                                                              | *Optional\<String>*                                                                       | :heavy_check_mark:                                                                        | The ID of the envelope                                                                    |
+| `status`                                                                                  | *Optional\<String>*                                                                       | :heavy_check_mark:                                                                        | The status of the envelope in the workspace                                               |
+| `name`                                                                                    | *JsonNullable\<String>*                                                                   | :heavy_minus_sign:                                                                        | The envelope name                                                                         |
+| `subject`                                                                                 | *JsonNullable\<String>*                                                                   | :heavy_minus_sign:                                                                        | The envelope subject                                                                      |
+| `createdDate`                                                                             | [OffsetDateTime](https://docs.oracle.com/javase/8/docs/api/java/time/OffsetDateTime.html) | :heavy_minus_sign:                                                                        | The date the envelope was created                                                         |
+| `lastUpdatedDate`                                                                         | [OffsetDateTime](https://docs.oracle.com/javase/8/docs/api/java/time/OffsetDateTime.html) | :heavy_minus_sign:                                                                        | The date the envelope was last updated                                                    |

@@ -16,8 +16,8 @@ import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
 import java.util.Optional;
 
-public class PauseNewWorkflowInstancesResponse implements Response {
 
+public class PauseNewWorkflowInstancesResponse implements Response {
     /**
      * HTTP response content type for this operation
      */
@@ -59,7 +59,8 @@ public class PauseNewWorkflowInstancesResponse implements Response {
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
-        this(contentType, statusCode, rawResponse, Optional.empty());
+        this(contentType, statusCode, rawResponse,
+            Optional.empty());
     }
 
     /**
@@ -96,9 +97,10 @@ public class PauseNewWorkflowInstancesResponse implements Response {
         return (Optional<PauseNewWorkflowInstancesSuccess>) pauseNewWorkflowInstancesSuccess;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * HTTP response content type for this operation
@@ -137,6 +139,7 @@ public class PauseNewWorkflowInstancesResponse implements Response {
         return this;
     }
 
+
     /**
      * Indicates that a workflow has been successfully paused. New instances of this workflow will not be created.
      * Existing workflow instances will be unaffected.
@@ -147,7 +150,6 @@ public class PauseNewWorkflowInstancesResponse implements Response {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -167,9 +169,7 @@ public class PauseNewWorkflowInstancesResponse implements Response {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            contentType,
-            statusCode,
-            rawResponse,
+            contentType, statusCode, rawResponse,
             pauseNewWorkflowInstancesSuccess);
     }
     
@@ -181,20 +181,22 @@ public class PauseNewWorkflowInstancesResponse implements Response {
                 "rawResponse", rawResponse,
                 "pauseNewWorkflowInstancesSuccess", pauseNewWorkflowInstancesSuccess);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String contentType;
- 
+
         private Integer statusCode;
- 
+
         private HttpResponse<InputStream> rawResponse;
- 
+
         private Optional<? extends PauseNewWorkflowInstancesSuccess> pauseNewWorkflowInstancesSuccess = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * HTTP response content type for this operation
@@ -205,6 +207,7 @@ public class PauseNewWorkflowInstancesResponse implements Response {
             return this;
         }
 
+
         /**
          * HTTP response status code for this operation
          */
@@ -214,6 +217,7 @@ public class PauseNewWorkflowInstancesResponse implements Response {
             return this;
         }
 
+
         /**
          * Raw HTTP response; suitable for custom response parsing
          */
@@ -222,6 +226,7 @@ public class PauseNewWorkflowInstancesResponse implements Response {
             this.rawResponse = rawResponse;
             return this;
         }
+
 
         /**
          * Indicates that a workflow has been successfully paused. New instances of this workflow will not be created.
@@ -242,13 +247,13 @@ public class PauseNewWorkflowInstancesResponse implements Response {
             this.pauseNewWorkflowInstancesSuccess = pauseNewWorkflowInstancesSuccess;
             return this;
         }
-        
+
         public PauseNewWorkflowInstancesResponse build() {
+
             return new PauseNewWorkflowInstancesResponse(
-                contentType,
-                statusCode,
-                rawResponse,
+                contentType, statusCode, rawResponse,
                 pauseNewWorkflowInstancesSuccess);
         }
+
     }
 }

@@ -20,6 +20,7 @@ You do not need an integration key to obtain an access token.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetTokenFromConfidentialAuthCode" method="post" path="/oauth/token#FromConfidentialAuthCode" -->
 ```java
 package hello.world;
 
@@ -44,8 +45,8 @@ public class Application {
         GetTokenFromConfidentialAuthCodeResponse res = sdk.auth().getTokenFromConfidentialAuthCode()
                 .request(req)
                 .security(GetTokenFromConfidentialAuthCodeSecurity.builder()
-                    .clientId(System.getenv().getOrDefault("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79", ""))
-                    .secretKey(System.getenv().getOrDefault("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI", ""))
+                    .clientId("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79")
+                    .secretKey("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI")
                     .build())
                 .call();
 
@@ -84,6 +85,7 @@ You do not need an integration key to obtain an access token.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetTokenFromPublicAuthCode" method="post" path="/oauth/token#FromPublicAuthCode" -->
 ```java
 package hello.world;
 
@@ -149,6 +151,7 @@ You do not need an integration key to obtain an access token.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetTokenFromJWTGrant" method="post" path="/oauth/token#FromJWTGrant" -->
 ```java
 package hello.world;
 
@@ -209,6 +212,7 @@ You do not need an integration key to obtain an access token.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetTokenFromRefreshToken" method="post" path="/oauth/token#FromRefreshToken" -->
 ```java
 package hello.world;
 
@@ -268,6 +272,7 @@ For the production environment, the URI is https://account.docusign.com/oauth/us
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetUserInfo" method="get" path="/oauth/userinfo" -->
 ```java
 package hello.world;
 

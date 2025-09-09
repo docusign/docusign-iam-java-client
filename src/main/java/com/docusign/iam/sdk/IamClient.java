@@ -28,17 +28,17 @@ public class IamClient {
          * 
          * <p>Demo
          */
-      DEMO("demo"),
+        DEMO("demo"),
         /**
          * PROD
          * 
          * <p>Production
          */
-      PROD("prod");
+        PROD("prod");
 
         private final String server;
 
-        private AvailableServers(String server) {
+        AvailableServers(String server) {
             this.server = server;
         }
 
@@ -52,35 +52,50 @@ public class IamClient {
      */
     @SuppressWarnings("serial")
     public static final Map<AvailableServers, String> SERVERS = new HashMap<>() { {
-    put(AvailableServers.DEMO, "https://api-d.docusign.com");
-    put(AvailableServers.PROD, "https://api.docusign.com");
+        put(AvailableServers.DEMO, "https://api-d.docusign.com");
+        put(AvailableServers.PROD, "https://api.docusign.com");
     }};
 
-    
 
     private final Auth auth;
 
+
     private final Maestro maestro;
+
 
     private final Navigator navigator;
 
+
     private final ConnectedFields connectedFields;
+
+
+    private final Workspaces1 workspaces;
+
 
     public Auth auth() {
         return auth;
     }
 
+
     public Maestro maestro() {
         return maestro;
     }
+
 
     public Navigator navigator() {
         return navigator;
     }
 
+
     public ConnectedFields connectedFields() {
         return connectedFields;
     }
+
+
+    public Workspaces1 workspaces() {
+        return workspaces;
+    }
+
     private SDKConfiguration sdkConfiguration;
 
     /**
@@ -179,11 +194,13 @@ public class IamClient {
 
         /**
          * Enables debug logging for HTTP requests and responses, including JSON body content.
-         *
+         * <p>
          * Convenience method that calls {@link HTTPClient#enableDebugLogging(boolean)}.
          * {@link SpeakeasyHTTPClient} honors this setting. If you are using a custom HTTP client,
          * it is up to the custom client to honor this setting.
+         * </p>
          *
+         * @param enabled Whether to enable debug logging.
          * @return The builder instance.
          */
         public Builder enableHTTPDebugLogging(boolean enabled) {
@@ -237,8 +254,7 @@ public class IamClient {
         this.maestro = new Maestro(sdkConfiguration);
         this.navigator = new Navigator(sdkConfiguration);
         this.connectedFields = new ConnectedFields(sdkConfiguration);
-        
+        this.workspaces = new Workspaces1(sdkConfiguration);
         this.sdkConfiguration = this.sdkConfiguration.hooks().sdkInit(this.sdkConfiguration);
-        
     }
 }

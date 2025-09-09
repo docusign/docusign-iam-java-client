@@ -75,6 +75,7 @@ be triggered.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetWorkflowsList" method="get" path="/v1/accounts/{accountId}/workflows" -->
 ```java
 package hello.world;
 
@@ -174,6 +175,7 @@ the workflow instance, ensuring seamless execution and compliance with workflow 
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="GetWorkflowTriggerRequirements" method="get" path="/v1/accounts/{accountId}/workflows/{workflowId}/trigger-requirements" -->
 ```java
 package hello.world;
 
@@ -280,6 +282,7 @@ interact with or track the running instance.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="TriggerWorkflow" method="post" path="/v1/accounts/{accountId}/workflows/{workflowId}/actions/trigger" -->
 ```java
 package hello.world;
 
@@ -344,6 +347,7 @@ This operation pauses new workflow instances from being created. Any running wor
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="pauseNewWorkflowInstances" method="post" path="/v1/accounts/{accountId}/workflows/{workflowId}/actions/pause" -->
 ```java
 package hello.world;
 
@@ -398,6 +402,7 @@ This operation enables new workflow instances to be created
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="resumePausedWorkflow" method="post" path="/v1/accounts/{accountId}/workflows/{workflowId}/actions/resume" -->
 ```java
 package hello.world;
 

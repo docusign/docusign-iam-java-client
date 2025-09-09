@@ -7,7 +7,7 @@ import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 
 import com.docusign.iam.sdk.SDKConfiguration;
 import com.docusign.iam.sdk.models.components.ConfidentialAuthCodeGrantRequestBody;
-import com.docusign.iam.sdk.operations.GetTokenFromConfidentialAuthCodeOperation;
+import com.docusign.iam.sdk.operations.GetTokenFromConfidentialAuthCode;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -69,11 +69,9 @@ public class GetTokenFromConfidentialAuthCodeRequestBuilder {
             .build());
 
         RequestOperation<ConfidentialAuthCodeGrantRequestBody, GetTokenFromConfidentialAuthCodeResponse> operation
-              = new GetTokenFromConfidentialAuthCodeOperation(
-                 sdkConfiguration,
-                 security,
-                 serverURL,
-                 options);
+              = new GetTokenFromConfidentialAuthCode.Sync(
+                                    sdkConfiguration, security, serverURL,
+                                    options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

@@ -114,6 +114,7 @@ public class Agreement {
     @JsonProperty("additional_custom_esign_data")
     private JsonNullable<? extends Map<String, CustomProperty>> additionalCustomEsignData;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("related_agreement_documents")
     private Optional<? extends RelatedAgreementDocuments> relatedAgreementDocuments;
@@ -145,6 +146,7 @@ public class Agreement {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("source_account_id")
     private JsonNullable<String> sourceAccountId;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("metadata")
@@ -213,7 +215,13 @@ public class Agreement {
     
     public Agreement(
             String id) {
-        this(id, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty());
+        this(id, JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            Optional.empty());
     }
 
     @JsonIgnore
@@ -368,9 +376,10 @@ public class Agreement {
         return (Optional<ResourceMetadata>) metadata;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public Agreement withId(String id) {
         Utils.checkNotNull(id, "id");
@@ -600,6 +609,7 @@ public class Agreement {
         return this;
     }
 
+
     public Agreement withRelatedAgreementDocuments(Optional<? extends RelatedAgreementDocuments> relatedAgreementDocuments) {
         Utils.checkNotNull(relatedAgreementDocuments, "relatedAgreementDocuments");
         this.relatedAgreementDocuments = relatedAgreementDocuments;
@@ -684,13 +694,13 @@ public class Agreement {
         return this;
     }
 
+
     public Agreement withMetadata(Optional<? extends ResourceMetadata> metadata) {
         Utils.checkNotNull(metadata, "metadata");
         this.metadata = metadata;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -725,24 +735,12 @@ public class Agreement {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            id,
-            title,
-            fileName,
-            type,
-            category,
-            summary,
-            status,
-            parties,
-            provisions,
-            customProvisions,
-            additionalUserDefinedData,
-            additionalCustomClmData,
-            additionalCustomEsignData,
-            relatedAgreementDocuments,
-            languages,
-            sourceName,
-            sourceId,
-            sourceAccountId,
+            id, title, fileName,
+            type, category, summary,
+            status, parties, provisions,
+            customProvisions, additionalUserDefinedData, additionalCustomClmData,
+            additionalCustomEsignData, relatedAgreementDocuments, languages,
+            sourceName, sourceId, sourceAccountId,
             metadata);
     }
     
@@ -769,56 +767,59 @@ public class Agreement {
                 "sourceAccountId", sourceAccountId,
                 "metadata", metadata);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String id;
- 
+
         private JsonNullable<String> title = JsonNullable.undefined();
- 
+
         private JsonNullable<String> fileName = JsonNullable.undefined();
- 
+
         private JsonNullable<String> type = JsonNullable.undefined();
- 
+
         private JsonNullable<String> category = JsonNullable.undefined();
- 
+
         private JsonNullable<String> summary = JsonNullable.undefined();
- 
+
         private JsonNullable<String> status = JsonNullable.undefined();
- 
+
         private JsonNullable<? extends List<Party>> parties = JsonNullable.undefined();
- 
+
         private JsonNullable<? extends Provisions> provisions = JsonNullable.undefined();
- 
+
         private JsonNullable<? extends Map<String, CustomProperty>> customProvisions = JsonNullable.undefined();
- 
+
         private JsonNullable<? extends Map<String, CustomProperty>> additionalUserDefinedData = JsonNullable.undefined();
- 
+
         private JsonNullable<? extends Map<String, CustomProperty>> additionalCustomClmData = JsonNullable.undefined();
- 
+
         private JsonNullable<? extends Map<String, CustomProperty>> additionalCustomEsignData = JsonNullable.undefined();
- 
+
         private Optional<? extends RelatedAgreementDocuments> relatedAgreementDocuments = Optional.empty();
- 
+
         private JsonNullable<? extends List<String>> languages = JsonNullable.undefined();
- 
+
         private JsonNullable<String> sourceName = JsonNullable.undefined();
- 
+
         private JsonNullable<String> sourceId = JsonNullable.undefined();
- 
+
         private JsonNullable<String> sourceAccountId = JsonNullable.undefined();
- 
+
         private Optional<? extends ResourceMetadata> metadata = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
         }
+
 
         /**
          * Title of the agreement document, summarizing its purpose.
@@ -838,6 +839,7 @@ public class Agreement {
             return this;
         }
 
+
         /**
          * The file name of the agreement.
          */
@@ -855,6 +857,7 @@ public class Agreement {
             this.fileName = fileName;
             return this;
         }
+
 
         /**
          * The type of agreement.
@@ -874,6 +877,7 @@ public class Agreement {
             return this;
         }
 
+
         /**
          * Server-defined category based on the agreement type.
          */
@@ -891,6 +895,7 @@ public class Agreement {
             this.category = category;
             return this;
         }
+
 
         /**
          * A detailed summary of the agreement's key provisions and scope.
@@ -910,6 +915,7 @@ public class Agreement {
             return this;
         }
 
+
         /**
          * Current status of the agreement (e.g., PENDING, COMPLETE, INACTIVE)
          */
@@ -927,6 +933,7 @@ public class Agreement {
             this.status = status;
             return this;
         }
+
 
         /**
          * A list of parties involved in the agreement.
@@ -946,6 +953,7 @@ public class Agreement {
             return this;
         }
 
+
         /**
          * "The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type."
          */
@@ -963,6 +971,7 @@ public class Agreement {
             this.provisions = provisions;
             return this;
         }
+
 
         /**
          * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
@@ -982,6 +991,7 @@ public class Agreement {
             return this;
         }
 
+
         /**
          * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
          */
@@ -999,6 +1009,7 @@ public class Agreement {
             this.additionalUserDefinedData = additionalUserDefinedData;
             return this;
         }
+
 
         /**
          * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
@@ -1018,6 +1029,7 @@ public class Agreement {
             return this;
         }
 
+
         /**
          * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
          */
@@ -1036,6 +1048,7 @@ public class Agreement {
             return this;
         }
 
+
         public Builder relatedAgreementDocuments(RelatedAgreementDocuments relatedAgreementDocuments) {
             Utils.checkNotNull(relatedAgreementDocuments, "relatedAgreementDocuments");
             this.relatedAgreementDocuments = Optional.ofNullable(relatedAgreementDocuments);
@@ -1047,6 +1060,7 @@ public class Agreement {
             this.relatedAgreementDocuments = relatedAgreementDocuments;
             return this;
         }
+
 
         /**
          * List of languages applicable to the agreement, identified using BCP-47 language codes.
@@ -1066,6 +1080,7 @@ public class Agreement {
             return this;
         }
 
+
         /**
          * The name of the source system who creates this entity, e.g. eSign, CLM, or Salesforce.
          */
@@ -1083,6 +1098,7 @@ public class Agreement {
             this.sourceName = sourceName;
             return this;
         }
+
 
         /**
          * The ID of the entity in the source system that this entity is associated with. For example, it could be an ID of the envelope in eSign.
@@ -1102,6 +1118,7 @@ public class Agreement {
             return this;
         }
 
+
         /**
          * The Account ID of the source system who creates this entity, e.g. eSign Account ID
          */
@@ -1120,6 +1137,7 @@ public class Agreement {
             return this;
         }
 
+
         public Builder metadata(ResourceMetadata metadata) {
             Utils.checkNotNull(metadata, "metadata");
             this.metadata = Optional.ofNullable(metadata);
@@ -1131,28 +1149,18 @@ public class Agreement {
             this.metadata = metadata;
             return this;
         }
-        
+
         public Agreement build() {
+
             return new Agreement(
-                id,
-                title,
-                fileName,
-                type,
-                category,
-                summary,
-                status,
-                parties,
-                provisions,
-                customProvisions,
-                additionalUserDefinedData,
-                additionalCustomClmData,
-                additionalCustomEsignData,
-                relatedAgreementDocuments,
-                languages,
-                sourceName,
-                sourceId,
-                sourceAccountId,
+                id, title, fileName,
+                type, category, summary,
+                status, parties, provisions,
+                customProvisions, additionalUserDefinedData, additionalCustomClmData,
+                additionalCustomEsignData, relatedAgreementDocuments, languages,
+                sourceName, sourceId, sourceAccountId,
                 metadata);
         }
+
     }
 }

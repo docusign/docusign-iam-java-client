@@ -10,10 +10,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 
+
 public class DeleteAgreementRequest {
 
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=accountId")
     private String accountId;
+
 
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=agreementId")
     private String agreementId;
@@ -38,9 +40,10 @@ public class DeleteAgreementRequest {
         return agreementId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public DeleteAgreementRequest withAccountId(String accountId) {
         Utils.checkNotNull(accountId, "accountId");
@@ -54,7 +57,6 @@ public class DeleteAgreementRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -72,8 +74,7 @@ public class DeleteAgreementRequest {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            accountId,
-            agreementId);
+            accountId, agreementId);
     }
     
     @Override
@@ -82,16 +83,18 @@ public class DeleteAgreementRequest {
                 "accountId", accountId,
                 "agreementId", agreementId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String accountId;
- 
+
         private String agreementId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder accountId(String accountId) {
             Utils.checkNotNull(accountId, "accountId");
@@ -99,16 +102,18 @@ public class DeleteAgreementRequest {
             return this;
         }
 
+
         public Builder agreementId(String agreementId) {
             Utils.checkNotNull(agreementId, "agreementId");
             this.agreementId = agreementId;
             return this;
         }
-        
+
         public DeleteAgreementRequest build() {
+
             return new DeleteAgreementRequest(
-                accountId,
-                agreementId);
+                accountId, agreementId);
         }
+
     }
 }

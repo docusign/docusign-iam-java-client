@@ -13,6 +13,7 @@ import java.lang.Override;
 import java.lang.String;
 import java.util.Optional;
 
+
 public class RelatedAgreementDocuments {
 
     @JsonInclude(Include.NON_ABSENT)
@@ -35,9 +36,10 @@ public class RelatedAgreementDocuments {
         return parentAgreementDocumentId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public RelatedAgreementDocuments withParentAgreementDocumentId(String parentAgreementDocumentId) {
         Utils.checkNotNull(parentAgreementDocumentId, "parentAgreementDocumentId");
@@ -45,13 +47,13 @@ public class RelatedAgreementDocuments {
         return this;
     }
 
+
     public RelatedAgreementDocuments withParentAgreementDocumentId(Optional<String> parentAgreementDocumentId) {
         Utils.checkNotNull(parentAgreementDocumentId, "parentAgreementDocumentId");
         this.parentAgreementDocumentId = parentAgreementDocumentId;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -76,14 +78,16 @@ public class RelatedAgreementDocuments {
         return Utils.toString(RelatedAgreementDocuments.class,
                 "parentAgreementDocumentId", parentAgreementDocumentId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> parentAgreementDocumentId = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder parentAgreementDocumentId(String parentAgreementDocumentId) {
             Utils.checkNotNull(parentAgreementDocumentId, "parentAgreementDocumentId");
@@ -96,10 +100,12 @@ public class RelatedAgreementDocuments {
             this.parentAgreementDocumentId = parentAgreementDocumentId;
             return this;
         }
-        
+
         public RelatedAgreementDocuments build() {
+
             return new RelatedAgreementDocuments(
                 parentAgreementDocumentId);
         }
+
     }
 }

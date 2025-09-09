@@ -11,8 +11,8 @@ import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 
-public class TabInfo {
 
+public class TabInfo {
     /**
      * Unique ID of the installed extension app
      */
@@ -51,9 +51,10 @@ public class TabInfo {
         return tabs;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Unique ID of the installed extension app
@@ -73,7 +74,6 @@ public class TabInfo {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -91,8 +91,7 @@ public class TabInfo {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            appId,
-            tabs);
+            appId, tabs);
     }
     
     @Override
@@ -101,16 +100,18 @@ public class TabInfo {
                 "appId", appId,
                 "tabs", tabs);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String appId;
- 
+
         private List<Tab> tabs;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Unique ID of the installed extension app
@@ -121,6 +122,7 @@ public class TabInfo {
             return this;
         }
 
+
         /**
          * Tab data representing the tabs associated with installed apps in the account
          */
@@ -129,11 +131,12 @@ public class TabInfo {
             this.tabs = tabs;
             return this;
         }
-        
+
         public TabInfo build() {
+
             return new TabInfo(
-                appId,
-                tabs);
+                appId, tabs);
         }
+
     }
 }

@@ -10,10 +10,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
 
+
 public class Link {
 
     @JsonProperty("rel")
     private String rel;
+
 
     @JsonProperty("href")
     private String href;
@@ -38,9 +40,10 @@ public class Link {
         return href;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public Link withRel(String rel) {
         Utils.checkNotNull(rel, "rel");
@@ -54,7 +57,6 @@ public class Link {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -72,8 +74,7 @@ public class Link {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            rel,
-            href);
+            rel, href);
     }
     
     @Override
@@ -82,16 +83,18 @@ public class Link {
                 "rel", rel,
                 "href", href);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String rel;
- 
+
         private String href;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder rel(String rel) {
             Utils.checkNotNull(rel, "rel");
@@ -99,16 +102,18 @@ public class Link {
             return this;
         }
 
+
         public Builder href(String href) {
             Utils.checkNotNull(href, "href");
             this.href = href;
             return this;
         }
-        
+
         public Link build() {
+
             return new Link(
-                rel,
-                href);
+                rel, href);
         }
+
     }
 }

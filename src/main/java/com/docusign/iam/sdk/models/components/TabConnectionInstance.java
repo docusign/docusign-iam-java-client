@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
 
-public class TabConnectionInstance {
 
+public class TabConnectionInstance {
     /**
      * Identifies an extension app's unique connection key.
      */
@@ -50,9 +50,10 @@ public class TabConnectionInstance {
         return connectionValue;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Identifies an extension app's unique connection key.
@@ -72,7 +73,6 @@ public class TabConnectionInstance {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -90,8 +90,7 @@ public class TabConnectionInstance {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            connectionKey,
-            connectionValue);
+            connectionKey, connectionValue);
     }
     
     @Override
@@ -100,16 +99,18 @@ public class TabConnectionInstance {
                 "connectionKey", connectionKey,
                 "connectionValue", connectionValue);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String connectionKey;
- 
+
         private String connectionValue;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Identifies an extension app's unique connection key.
@@ -120,6 +121,7 @@ public class TabConnectionInstance {
             return this;
         }
 
+
         /**
          * Identifies an extension app's connection instance.
          */
@@ -128,11 +130,12 @@ public class TabConnectionInstance {
             this.connectionValue = connectionValue;
             return this;
         }
-        
+
         public TabConnectionInstance build() {
+
             return new TabConnectionInstance(
-                connectionKey,
-                connectionValue);
+                connectionKey, connectionValue);
         }
+
     }
 }

@@ -20,7 +20,6 @@ import java.util.Optional;
  * <p>This grant optionally uses Proof Key for Code Exchange (PKCE) to authenticate securely without requiring a client secret.
  */
 public class AuthorizationCodeGrant {
-
     /**
      * The grant type. This value must be set to "refresh_token".
      */
@@ -82,9 +81,10 @@ public class AuthorizationCodeGrant {
         return clientId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The grant type. This value must be set to "refresh_token".
@@ -94,6 +94,7 @@ public class AuthorizationCodeGrant {
         this.grantType = Optional.ofNullable(grantType);
         return this;
     }
+
 
     /**
      * The grant type. This value must be set to "refresh_token".
@@ -122,6 +123,7 @@ public class AuthorizationCodeGrant {
         return this;
     }
 
+
     /**
      * The client ID.
      */
@@ -131,7 +133,6 @@ public class AuthorizationCodeGrant {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -150,9 +151,7 @@ public class AuthorizationCodeGrant {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            grantType,
-            refreshToken,
-            clientId);
+            grantType, refreshToken, clientId);
     }
     
     @Override
@@ -162,18 +161,20 @@ public class AuthorizationCodeGrant {
                 "refreshToken", refreshToken,
                 "clientId", clientId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<? extends GetTokenFromRefreshTokenGrantType> grantType;
- 
+
         private String refreshToken;
- 
+
         private Optional<String> clientId = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The grant type. This value must be set to "refresh_token".
@@ -193,6 +194,7 @@ public class AuthorizationCodeGrant {
             return this;
         }
 
+
         /**
          * The refresh token supplied to the callback.
          */
@@ -201,6 +203,7 @@ public class AuthorizationCodeGrant {
             this.refreshToken = refreshToken;
             return this;
         }
+
 
         /**
          * The client ID.
@@ -219,16 +222,16 @@ public class AuthorizationCodeGrant {
             this.clientId = clientId;
             return this;
         }
-        
+
         public AuthorizationCodeGrant build() {
             if (grantType == null) {
                 grantType = _SINGLETON_VALUE_GrantType.value();
             }
+
             return new AuthorizationCodeGrant(
-                grantType,
-                refreshToken,
-                clientId);
+                grantType, refreshToken, clientId);
         }
+
 
         private static final LazySingletonValue<Optional<? extends GetTokenFromRefreshTokenGrantType>> _SINGLETON_VALUE_GrantType =
                 new LazySingletonValue<>(

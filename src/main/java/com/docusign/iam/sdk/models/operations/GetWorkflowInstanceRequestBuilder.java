@@ -6,7 +6,7 @@ package com.docusign.iam.sdk.models.operations;
 import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 
 import com.docusign.iam.sdk.SDKConfiguration;
-import com.docusign.iam.sdk.operations.GetWorkflowInstanceOperation;
+import com.docusign.iam.sdk.operations.GetWorkflowInstance;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -72,9 +72,7 @@ public class GetWorkflowInstanceRequestBuilder {
             .build());
 
         RequestOperation<GetWorkflowInstanceRequest, GetWorkflowInstanceResponse> operation
-              = new GetWorkflowInstanceOperation(
-                 sdkConfiguration,
-                 options);
+              = new GetWorkflowInstance.Sync(sdkConfiguration, options);
         GetWorkflowInstanceRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

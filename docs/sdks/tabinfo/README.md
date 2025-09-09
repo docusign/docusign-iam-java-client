@@ -15,6 +15,7 @@ Returns all tabs associated with the given account.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="ConnectedFieldsApi_GetTabGroups" method="get" path="/v1/accounts/{accountId}/connected-fields/tab-groups" -->
 ```java
 package hello.world;
 

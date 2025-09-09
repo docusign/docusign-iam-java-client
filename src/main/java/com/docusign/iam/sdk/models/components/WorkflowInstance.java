@@ -19,8 +19,8 @@ import java.util.Map;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-public class WorkflowInstance {
 
+public class WorkflowInstance {
     /**
      * Unique identifier for the workflow instance
      */
@@ -229,7 +229,13 @@ public class WorkflowInstance {
     }
     
     public WorkflowInstance() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
+            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -398,9 +404,10 @@ public class WorkflowInstance {
         return (Optional<Metadata>) metadata;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Unique identifier for the workflow instance
@@ -410,6 +417,7 @@ public class WorkflowInstance {
         this.id = Optional.ofNullable(id);
         return this;
     }
+
 
     /**
      * Unique identifier for the workflow instance
@@ -429,6 +437,7 @@ public class WorkflowInstance {
         return this;
     }
 
+
     /**
      * Human-readable name for the workflow instance
      */
@@ -446,6 +455,7 @@ public class WorkflowInstance {
         this.workflowStatus = Optional.ofNullable(workflowStatus);
         return this;
     }
+
 
     /**
      * Current status of the workflow (e.g. In Progress, Completed, Canceled)
@@ -465,6 +475,7 @@ public class WorkflowInstance {
         return this;
     }
 
+
     /**
      * Identifier linking this instance to a workflow template
      */
@@ -482,6 +493,7 @@ public class WorkflowInstance {
         this.accountId = Optional.ofNullable(accountId);
         return this;
     }
+
 
     /**
      * Account under which this workflow instance was initiated
@@ -501,6 +513,7 @@ public class WorkflowInstance {
         return this;
     }
 
+
     /**
      * Date and time when the workflow was started
      */
@@ -518,6 +531,7 @@ public class WorkflowInstance {
         this.startedBy = Optional.ofNullable(startedBy);
         return this;
     }
+
 
     /**
      * User or system identifier that started this workflow
@@ -537,6 +551,7 @@ public class WorkflowInstance {
         return this;
     }
 
+
     /**
      * Display name of the user who started this workflow
      */
@@ -554,6 +569,7 @@ public class WorkflowInstance {
         this.startedByRole = Optional.ofNullable(startedByRole);
         return this;
     }
+
 
     /**
      * Role of the user who started this workflow (e.g. Preparer)
@@ -608,6 +624,7 @@ public class WorkflowInstance {
         this.lastModifiedAt = Optional.ofNullable(lastModifiedAt);
         return this;
     }
+
 
     /**
      * Date and time when the workflow instance was last modified
@@ -666,6 +683,7 @@ public class WorkflowInstance {
         return this;
     }
 
+
     /**
      * Key-value pairs representing the input data required to trigger the workflow.
      * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow definition.
@@ -687,6 +705,7 @@ public class WorkflowInstance {
         return this;
     }
 
+
     /**
      * Total number of steps configured in the workflow
      */
@@ -704,6 +723,7 @@ public class WorkflowInstance {
         this.lastCompletedStep = Optional.ofNullable(lastCompletedStep);
         return this;
     }
+
 
     /**
      * The index of the most recently completed step
@@ -741,6 +761,7 @@ public class WorkflowInstance {
         return this;
     }
 
+
     /**
      * Custom tags for organization or filtering
      */
@@ -759,6 +780,7 @@ public class WorkflowInstance {
         return this;
     }
 
+
     /**
      * Additional metadata related to this workflow instance
      */
@@ -768,7 +790,6 @@ public class WorkflowInstance {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -804,26 +825,13 @@ public class WorkflowInstance {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            id,
-            name,
-            workflowStatus,
-            templateId,
-            accountId,
-            startedAt,
-            startedBy,
-            startedByName,
-            startedByRole,
-            endedAt,
-            expiresAt,
-            lastModifiedAt,
-            canceledAt,
-            canceledBy,
-            triggerInputs,
-            totalSteps,
-            lastCompletedStep,
-            lastCompletedStepName,
-            tags,
-            metadata);
+            id, name, workflowStatus,
+            templateId, accountId, startedAt,
+            startedBy, startedByName, startedByRole,
+            endedAt, expiresAt, lastModifiedAt,
+            canceledAt, canceledBy, triggerInputs,
+            totalSteps, lastCompletedStep, lastCompletedStepName,
+            tags, metadata);
     }
     
     @Override
@@ -850,52 +858,54 @@ public class WorkflowInstance {
                 "tags", tags,
                 "metadata", metadata);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> id = Optional.empty();
- 
+
         private Optional<String> name = Optional.empty();
- 
+
         private Optional<String> workflowStatus = Optional.empty();
- 
+
         private Optional<String> templateId = Optional.empty();
- 
+
         private Optional<String> accountId = Optional.empty();
- 
+
         private Optional<OffsetDateTime> startedAt = Optional.empty();
- 
+
         private Optional<String> startedBy = Optional.empty();
- 
+
         private Optional<String> startedByName = Optional.empty();
- 
+
         private Optional<String> startedByRole = Optional.empty();
- 
+
         private JsonNullable<OffsetDateTime> endedAt = JsonNullable.undefined();
- 
+
         private JsonNullable<OffsetDateTime> expiresAt = JsonNullable.undefined();
- 
+
         private Optional<OffsetDateTime> lastModifiedAt = Optional.empty();
- 
+
         private JsonNullable<OffsetDateTime> canceledAt = JsonNullable.undefined();
- 
+
         private JsonNullable<String> canceledBy = JsonNullable.undefined();
- 
+
         private Optional<? extends Map<String, TriggerInputs>> triggerInputs = Optional.empty();
- 
+
         private Optional<Long> totalSteps = Optional.empty();
- 
+
         private Optional<Long> lastCompletedStep = Optional.empty();
- 
+
         private JsonNullable<String> lastCompletedStepName = JsonNullable.undefined();
- 
+
         private Optional<? extends List<String>> tags = Optional.empty();
- 
+
         private Optional<? extends Metadata> metadata = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Unique identifier for the workflow instance
@@ -915,6 +925,7 @@ public class WorkflowInstance {
             return this;
         }
 
+
         /**
          * Human-readable name for the workflow instance
          */
@@ -932,6 +943,7 @@ public class WorkflowInstance {
             this.name = name;
             return this;
         }
+
 
         /**
          * Current status of the workflow (e.g. In Progress, Completed, Canceled)
@@ -951,6 +963,7 @@ public class WorkflowInstance {
             return this;
         }
 
+
         /**
          * Identifier linking this instance to a workflow template
          */
@@ -968,6 +981,7 @@ public class WorkflowInstance {
             this.templateId = templateId;
             return this;
         }
+
 
         /**
          * Account under which this workflow instance was initiated
@@ -987,6 +1001,7 @@ public class WorkflowInstance {
             return this;
         }
 
+
         /**
          * Date and time when the workflow was started
          */
@@ -1004,6 +1019,7 @@ public class WorkflowInstance {
             this.startedAt = startedAt;
             return this;
         }
+
 
         /**
          * User or system identifier that started this workflow
@@ -1023,6 +1039,7 @@ public class WorkflowInstance {
             return this;
         }
 
+
         /**
          * Display name of the user who started this workflow
          */
@@ -1040,6 +1057,7 @@ public class WorkflowInstance {
             this.startedByName = startedByName;
             return this;
         }
+
 
         /**
          * Role of the user who started this workflow (e.g. Preparer)
@@ -1059,6 +1077,7 @@ public class WorkflowInstance {
             return this;
         }
 
+
         /**
          * Date and time when the workflow completed
          */
@@ -1076,6 +1095,7 @@ public class WorkflowInstance {
             this.endedAt = endedAt;
             return this;
         }
+
 
         /**
          * Date and time after which the workflow expires
@@ -1095,6 +1115,7 @@ public class WorkflowInstance {
             return this;
         }
 
+
         /**
          * Date and time when the workflow instance was last modified
          */
@@ -1112,6 +1133,7 @@ public class WorkflowInstance {
             this.lastModifiedAt = lastModifiedAt;
             return this;
         }
+
 
         /**
          * Date and time when the workflow was canceled (if applicable)
@@ -1131,6 +1153,7 @@ public class WorkflowInstance {
             return this;
         }
 
+
         /**
          * User or system identifier that canceled this workflow (if applicable)
          */
@@ -1148,6 +1171,7 @@ public class WorkflowInstance {
             this.canceledBy = canceledBy;
             return this;
         }
+
 
         /**
          * Key-value pairs representing the input data required to trigger the workflow.
@@ -1173,6 +1197,7 @@ public class WorkflowInstance {
             return this;
         }
 
+
         /**
          * Total number of steps configured in the workflow
          */
@@ -1190,6 +1215,7 @@ public class WorkflowInstance {
             this.totalSteps = totalSteps;
             return this;
         }
+
 
         /**
          * The index of the most recently completed step
@@ -1209,6 +1235,7 @@ public class WorkflowInstance {
             return this;
         }
 
+
         /**
          * The name of the most recently completed step
          */
@@ -1226,6 +1253,7 @@ public class WorkflowInstance {
             this.lastCompletedStepName = lastCompletedStepName;
             return this;
         }
+
 
         /**
          * Custom tags for organization or filtering
@@ -1245,6 +1273,7 @@ public class WorkflowInstance {
             return this;
         }
 
+
         /**
          * Additional metadata related to this workflow instance
          */
@@ -1262,29 +1291,18 @@ public class WorkflowInstance {
             this.metadata = metadata;
             return this;
         }
-        
+
         public WorkflowInstance build() {
+
             return new WorkflowInstance(
-                id,
-                name,
-                workflowStatus,
-                templateId,
-                accountId,
-                startedAt,
-                startedBy,
-                startedByName,
-                startedByRole,
-                endedAt,
-                expiresAt,
-                lastModifiedAt,
-                canceledAt,
-                canceledBy,
-                triggerInputs,
-                totalSteps,
-                lastCompletedStep,
-                lastCompletedStepName,
-                tags,
-                metadata);
+                id, name, workflowStatus,
+                templateId, accountId, startedAt,
+                startedBy, startedByName, startedByRole,
+                endedAt, expiresAt, lastModifiedAt,
+                canceledAt, canceledBy, triggerInputs,
+                totalSteps, lastCompletedStep, lastCompletedStepName,
+                tags, metadata);
         }
+
     }
 }

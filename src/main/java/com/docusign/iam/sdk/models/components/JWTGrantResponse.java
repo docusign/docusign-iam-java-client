@@ -11,8 +11,8 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 
-public class JWTGrantResponse {
 
+public class JWTGrantResponse {
     /**
      * The value of the access token. This value will be added to the Authorization header of all Docusign API calls.
      */
@@ -68,9 +68,10 @@ public class JWTGrantResponse {
         return expiresIn;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The value of the access token. This value will be added to the Authorization header of all Docusign API calls.
@@ -99,7 +100,6 @@ public class JWTGrantResponse {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -118,9 +118,7 @@ public class JWTGrantResponse {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            accessToken,
-            tokenType,
-            expiresIn);
+            accessToken, tokenType, expiresIn);
     }
     
     @Override
@@ -130,18 +128,20 @@ public class JWTGrantResponse {
                 "tokenType", tokenType,
                 "expiresIn", expiresIn);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String accessToken;
- 
+
         private String tokenType;
- 
+
         private Long expiresIn;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The value of the access token. This value will be added to the Authorization header of all Docusign API calls.
@@ -152,6 +152,7 @@ public class JWTGrantResponse {
             return this;
         }
 
+
         /**
          * The type of token. For access tokens, the value of this will be Bearer.
          */
@@ -161,6 +162,7 @@ public class JWTGrantResponse {
             return this;
         }
 
+
         /**
          * The number of seconds until the access token expires.
          */
@@ -169,12 +171,12 @@ public class JWTGrantResponse {
             this.expiresIn = expiresIn;
             return this;
         }
-        
+
         public JWTGrantResponse build() {
+
             return new JWTGrantResponse(
-                accessToken,
-                tokenType,
-                expiresIn);
+                accessToken, tokenType, expiresIn);
         }
+
     }
 }

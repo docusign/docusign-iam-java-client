@@ -22,7 +22,6 @@ import java.util.Optional;
  * that should be used to initiate the workflow.
  */
 public class TriggerHttpConfig {
-
     /**
      * The HTTP method used to trigger the workflow. This defines the type of request
      * that will initiate the workflow (e.g., GET, POST).
@@ -30,6 +29,7 @@ public class TriggerHttpConfig {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("method")
     private Optional<? extends Method> method;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("url")
@@ -64,9 +64,10 @@ public class TriggerHttpConfig {
         return url;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The HTTP method used to trigger the workflow. This defines the type of request
@@ -77,6 +78,7 @@ public class TriggerHttpConfig {
         this.method = Optional.ofNullable(method);
         return this;
     }
+
 
     /**
      * The HTTP method used to trigger the workflow. This defines the type of request
@@ -94,13 +96,13 @@ public class TriggerHttpConfig {
         return this;
     }
 
+
     public TriggerHttpConfig withUrl(Optional<String> url) {
         Utils.checkNotNull(url, "url");
         this.url = url;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -118,8 +120,7 @@ public class TriggerHttpConfig {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            method,
-            url);
+            method, url);
     }
     
     @Override
@@ -128,16 +129,18 @@ public class TriggerHttpConfig {
                 "method", method,
                 "url", url);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<? extends Method> method = Optional.empty();
- 
+
         private Optional<String> url = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The HTTP method used to trigger the workflow. This defines the type of request
@@ -159,6 +162,7 @@ public class TriggerHttpConfig {
             return this;
         }
 
+
         public Builder url(String url) {
             Utils.checkNotNull(url, "url");
             this.url = Optional.ofNullable(url);
@@ -170,11 +174,12 @@ public class TriggerHttpConfig {
             this.url = url;
             return this;
         }
-        
+
         public TriggerHttpConfig build() {
+
             return new TriggerHttpConfig(
-                method,
-                url);
+                method, url);
         }
+
     }
 }

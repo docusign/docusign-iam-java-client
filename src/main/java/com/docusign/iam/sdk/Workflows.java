@@ -22,15 +22,13 @@ import com.docusign.iam.sdk.models.operations.Status;
 import com.docusign.iam.sdk.models.operations.TriggerWorkflowRequest;
 import com.docusign.iam.sdk.models.operations.TriggerWorkflowRequestBuilder;
 import com.docusign.iam.sdk.models.operations.TriggerWorkflowResponse;
-import com.docusign.iam.sdk.operations.GetWorkflowTriggerRequirementsOperation;
-import com.docusign.iam.sdk.operations.GetWorkflowsListOperation;
-import com.docusign.iam.sdk.operations.PauseNewWorkflowInstancesOperation;
-import com.docusign.iam.sdk.operations.ResumePausedWorkflowOperation;
-import com.docusign.iam.sdk.operations.TriggerWorkflowOperation;
+import com.docusign.iam.sdk.operations.GetWorkflowTriggerRequirements;
+import com.docusign.iam.sdk.operations.GetWorkflowsList;
+import com.docusign.iam.sdk.operations.PauseNewWorkflowInstances;
+import com.docusign.iam.sdk.operations.ResumePausedWorkflow;
 import com.docusign.iam.sdk.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -171,8 +169,7 @@ public class Workflows {
      * @throws Exception if the API call fails
      */
     public GetWorkflowsListResponse getWorkflowsList(
-            String accountId,
-            Optional<? extends Status> status,
+            String accountId, Optional<? extends Status> status,
             Optional<Options> options) throws Exception {
         GetWorkflowsListRequest request =
             GetWorkflowsListRequest
@@ -181,12 +178,9 @@ public class Workflows {
                 .status(status)
                 .build();
         RequestOperation<GetWorkflowsListRequest, GetWorkflowsListResponse> operation
-              = new GetWorkflowsListOperation(
-                 sdkConfiguration,
-                 options);
+              = new GetWorkflowsList.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
-
 
     /**
      * Retrieve trigger requirements for a specific Maestro workflow
@@ -255,9 +249,7 @@ public class Workflows {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public GetWorkflowTriggerRequirementsResponse getWorkflowTriggerRequirements(
-            String accountId,
-            String workflowId) throws Exception {
+    public GetWorkflowTriggerRequirementsResponse getWorkflowTriggerRequirements(String accountId, String workflowId) throws Exception {
         return getWorkflowTriggerRequirements(accountId, workflowId, Optional.empty());
     }
 
@@ -296,8 +288,7 @@ public class Workflows {
      * @throws Exception if the API call fails
      */
     public GetWorkflowTriggerRequirementsResponse getWorkflowTriggerRequirements(
-            String accountId,
-            String workflowId,
+            String accountId, String workflowId,
             Optional<Options> options) throws Exception {
         GetWorkflowTriggerRequirementsRequest request =
             GetWorkflowTriggerRequirementsRequest
@@ -306,12 +297,9 @@ public class Workflows {
                 .workflowId(workflowId)
                 .build();
         RequestOperation<GetWorkflowTriggerRequirementsRequest, GetWorkflowTriggerRequirementsResponse> operation
-              = new GetWorkflowTriggerRequirementsOperation(
-                 sdkConfiguration,
-                 options);
+              = new GetWorkflowTriggerRequirements.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
-
 
     /**
      * Trigger a new instance of a Maestro workflow
@@ -404,10 +392,10 @@ public class Workflows {
      * @throws Exception if the API call fails
      */
     public TriggerWorkflowResponse triggerWorkflow(
-            String accountId,
-            String workflowId,
+            String accountId, String workflowId,
             TriggerWorkflow triggerWorkflow) throws Exception {
-        return triggerWorkflow(accountId, workflowId, triggerWorkflow, Optional.empty());
+        return triggerWorkflow(accountId, workflowId, triggerWorkflow,
+            Optional.empty());
     }
 
     /**
@@ -460,10 +448,8 @@ public class Workflows {
      * @throws Exception if the API call fails
      */
     public TriggerWorkflowResponse triggerWorkflow(
-            String accountId,
-            String workflowId,
-            TriggerWorkflow triggerWorkflow,
-            Optional<Options> options) throws Exception {
+            String accountId, String workflowId,
+            TriggerWorkflow triggerWorkflow, Optional<Options> options) throws Exception {
         TriggerWorkflowRequest request =
             TriggerWorkflowRequest
                 .builder()
@@ -472,12 +458,9 @@ public class Workflows {
                 .triggerWorkflow(triggerWorkflow)
                 .build();
         RequestOperation<TriggerWorkflowRequest, TriggerWorkflowResponse> operation
-              = new TriggerWorkflowOperation(
-                 sdkConfiguration,
-                 options);
+              = new com.docusign.iam.sdk.operations.TriggerWorkflow.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
-
 
     /**
      * Pause an Active Workflow
@@ -500,9 +483,7 @@ public class Workflows {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public PauseNewWorkflowInstancesResponse pauseNewWorkflowInstances(
-            String accountId,
-            String workflowId) throws Exception {
+    public PauseNewWorkflowInstancesResponse pauseNewWorkflowInstances(String accountId, String workflowId) throws Exception {
         return pauseNewWorkflowInstances(accountId, workflowId, Optional.empty());
     }
 
@@ -518,8 +499,7 @@ public class Workflows {
      * @throws Exception if the API call fails
      */
     public PauseNewWorkflowInstancesResponse pauseNewWorkflowInstances(
-            String accountId,
-            String workflowId,
+            String accountId, String workflowId,
             Optional<Options> options) throws Exception {
         PauseNewWorkflowInstancesRequest request =
             PauseNewWorkflowInstancesRequest
@@ -528,12 +508,9 @@ public class Workflows {
                 .workflowId(workflowId)
                 .build();
         RequestOperation<PauseNewWorkflowInstancesRequest, PauseNewWorkflowInstancesResponse> operation
-              = new PauseNewWorkflowInstancesOperation(
-                 sdkConfiguration,
-                 options);
+              = new PauseNewWorkflowInstances.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
-
 
     /**
      * Resume a Paused Workflow
@@ -556,9 +533,7 @@ public class Workflows {
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
-    public ResumePausedWorkflowResponse resumePausedWorkflow(
-            String accountId,
-            String workflowId) throws Exception {
+    public ResumePausedWorkflowResponse resumePausedWorkflow(String accountId, String workflowId) throws Exception {
         return resumePausedWorkflow(accountId, workflowId, Optional.empty());
     }
 
@@ -574,8 +549,7 @@ public class Workflows {
      * @throws Exception if the API call fails
      */
     public ResumePausedWorkflowResponse resumePausedWorkflow(
-            String accountId,
-            String workflowId,
+            String accountId, String workflowId,
             Optional<Options> options) throws Exception {
         ResumePausedWorkflowRequest request =
             ResumePausedWorkflowRequest
@@ -584,9 +558,7 @@ public class Workflows {
                 .workflowId(workflowId)
                 .build();
         RequestOperation<ResumePausedWorkflowRequest, ResumePausedWorkflowResponse> operation
-              = new ResumePausedWorkflowOperation(
-                 sdkConfiguration,
-                 options);
+              = new ResumePausedWorkflow.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 
