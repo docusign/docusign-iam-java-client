@@ -5,13 +5,15 @@ package com.docusign.iam.sdk;
 
 public class Navigator {
     private final SDKConfiguration sdkConfiguration;
-private final Agreements agreements;
+    private final Agreements agreements;
 
     Navigator(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
         this.agreements = new Agreements(this.sdkConfiguration);
     }
-public final Agreements agreements() {
+
+    public final Agreements agreements() {
         return agreements;
     }
+
 }

@@ -19,7 +19,6 @@ import java.util.Optional;
  * <p>Additional metadata related to this workflow instance
  */
 public class Metadata {
-
     /**
      * Identifier of the user who originally created the workflow definition
      */
@@ -82,9 +81,10 @@ public class Metadata {
         return workflowMetadataId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * Identifier of the user who originally created the workflow definition
@@ -94,6 +94,7 @@ public class Metadata {
         this.workflowCreatedBy = Optional.ofNullable(workflowCreatedBy);
         return this;
     }
+
 
     /**
      * Identifier of the user who originally created the workflow definition
@@ -113,6 +114,7 @@ public class Metadata {
         return this;
     }
 
+
     /**
      * Version string of the deployed workflow
      */
@@ -131,6 +133,7 @@ public class Metadata {
         return this;
     }
 
+
     /**
      * Identifier for workflow definition metadata in the system
      */
@@ -140,7 +143,6 @@ public class Metadata {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -159,9 +161,7 @@ public class Metadata {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            workflowCreatedBy,
-            workflowVersion,
-            workflowMetadataId);
+            workflowCreatedBy, workflowVersion, workflowMetadataId);
     }
     
     @Override
@@ -171,18 +171,20 @@ public class Metadata {
                 "workflowVersion", workflowVersion,
                 "workflowMetadataId", workflowMetadataId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> workflowCreatedBy = Optional.empty();
- 
+
         private Optional<String> workflowVersion = Optional.empty();
- 
+
         private Optional<String> workflowMetadataId = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * Identifier of the user who originally created the workflow definition
@@ -202,6 +204,7 @@ public class Metadata {
             return this;
         }
 
+
         /**
          * Version string of the deployed workflow
          */
@@ -220,6 +223,7 @@ public class Metadata {
             return this;
         }
 
+
         /**
          * Identifier for workflow definition metadata in the system
          */
@@ -237,12 +241,12 @@ public class Metadata {
             this.workflowMetadataId = workflowMetadataId;
             return this;
         }
-        
+
         public Metadata build() {
+
             return new Metadata(
-                workflowCreatedBy,
-                workflowVersion,
-                workflowMetadataId);
+                workflowCreatedBy, workflowVersion, workflowMetadataId);
         }
+
     }
 }

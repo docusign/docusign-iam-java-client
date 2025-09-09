@@ -5,18 +5,21 @@ package com.docusign.iam.sdk;
 
 public class Maestro {
     private final SDKConfiguration sdkConfiguration;
-private final Workflows workflows;
-private final WorkflowInstanceManagement workflowInstanceManagement;
+    private final Workflows workflows;
+    private final WorkflowInstanceManagement workflowInstanceManagement;
 
     Maestro(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
         this.workflows = new Workflows(this.sdkConfiguration);
         this.workflowInstanceManagement = new WorkflowInstanceManagement(this.sdkConfiguration);
     }
-public final Workflows workflows() {
+
+    public final Workflows workflows() {
         return workflows;
     }
-public final WorkflowInstanceManagement workflowInstanceManagement() {
+
+    public final WorkflowInstanceManagement workflowInstanceManagement() {
         return workflowInstanceManagement;
     }
+
 }

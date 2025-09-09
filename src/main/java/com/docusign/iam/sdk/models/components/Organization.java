@@ -11,10 +11,12 @@ import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 
+
 public class Organization {
 
     @JsonProperty("organization_id")
     private String organizationId;
+
 
     @JsonProperty("links")
     private List<Link> links;
@@ -39,9 +41,10 @@ public class Organization {
         return links;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public Organization withOrganizationId(String organizationId) {
         Utils.checkNotNull(organizationId, "organizationId");
@@ -55,7 +58,6 @@ public class Organization {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -73,8 +75,7 @@ public class Organization {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            organizationId,
-            links);
+            organizationId, links);
     }
     
     @Override
@@ -83,16 +84,18 @@ public class Organization {
                 "organizationId", organizationId,
                 "links", links);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String organizationId;
- 
+
         private List<Link> links;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder organizationId(String organizationId) {
             Utils.checkNotNull(organizationId, "organizationId");
@@ -100,16 +103,18 @@ public class Organization {
             return this;
         }
 
+
         public Builder links(List<Link> links) {
             Utils.checkNotNull(links, "links");
             this.links = links;
             return this;
         }
-        
+
         public Organization build() {
+
             return new Organization(
-                organizationId,
-                links);
+                organizationId, links);
         }
+
     }
 }

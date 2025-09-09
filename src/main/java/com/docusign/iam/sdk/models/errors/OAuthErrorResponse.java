@@ -15,12 +15,14 @@ import java.lang.String;
 import java.lang.SuppressWarnings;
 import org.openapitools.jackson.nullable.JsonNullable;
 
+
 @SuppressWarnings("serial")
 public class OAuthErrorResponse extends RuntimeException {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("error")
     private JsonNullable<String> error;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("error_description")
@@ -51,9 +53,10 @@ public class OAuthErrorResponse extends RuntimeException {
         return errorDescription;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public OAuthErrorResponse withError(String error) {
         Utils.checkNotNull(error, "error");
@@ -79,7 +82,6 @@ public class OAuthErrorResponse extends RuntimeException {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -97,8 +99,7 @@ public class OAuthErrorResponse extends RuntimeException {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            error,
-            errorDescription);
+            error, errorDescription);
     }
     
     @Override
@@ -107,16 +108,18 @@ public class OAuthErrorResponse extends RuntimeException {
                 "error", error,
                 "errorDescription", errorDescription);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private JsonNullable<String> error = JsonNullable.undefined();
- 
+
         private JsonNullable<String> errorDescription = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder error(String error) {
             Utils.checkNotNull(error, "error");
@@ -130,6 +133,7 @@ public class OAuthErrorResponse extends RuntimeException {
             return this;
         }
 
+
         public Builder errorDescription(String errorDescription) {
             Utils.checkNotNull(errorDescription, "errorDescription");
             this.errorDescription = JsonNullable.of(errorDescription);
@@ -141,12 +145,13 @@ public class OAuthErrorResponse extends RuntimeException {
             this.errorDescription = errorDescription;
             return this;
         }
-        
+
         public OAuthErrorResponse build() {
+
             return new OAuthErrorResponse(
-                error,
-                errorDescription);
+                error, errorDescription);
         }
+
     }
 }
 

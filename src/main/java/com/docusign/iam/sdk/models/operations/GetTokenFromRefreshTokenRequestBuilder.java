@@ -6,7 +6,7 @@ package com.docusign.iam.sdk.models.operations;
 import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 
 import com.docusign.iam.sdk.SDKConfiguration;
-import com.docusign.iam.sdk.operations.GetTokenFromRefreshTokenOperation;
+import com.docusign.iam.sdk.operations.GetTokenFromRefreshToken;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -68,11 +68,9 @@ public class GetTokenFromRefreshTokenRequestBuilder {
             .build());
 
         RequestOperation<AuthorizationCodeGrant, GetTokenFromRefreshTokenResponse> operation
-              = new GetTokenFromRefreshTokenOperation(
-                 sdkConfiguration,
-                 security,
-                 serverURL,
-                 options);
+              = new GetTokenFromRefreshToken.Sync(
+                                    sdkConfiguration, security, serverURL,
+                                    options);
 
         return operation.handleResponse(operation.doRequest(request));
     }

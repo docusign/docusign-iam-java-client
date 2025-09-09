@@ -28,7 +28,6 @@ import org.openapitools.jackson.nullable.JsonNullable;
  * <p>"The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type."
  */
 public class Provisions {
-
     /**
      * The type of assignment rights in the agreement (e.g., transferability)
      */
@@ -151,6 +150,7 @@ public class Provisions {
     @JsonProperty("liability_cap_multiplier")
     private JsonNullable<Double> liabilityCapMultiplier;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("liability_cap_duration")
     private JsonNullable<String> liabilityCapDuration;
@@ -169,6 +169,7 @@ public class Provisions {
     @JsonProperty("renewal_type")
     private JsonNullable<String> renewalType;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("renewal_notice_period")
     private JsonNullable<String> renewalNoticePeriod;
@@ -180,14 +181,19 @@ public class Provisions {
     @JsonProperty("renewal_notice_date")
     private JsonNullable<OffsetDateTime> renewalNoticeDate;
 
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("auto_renewal_term_length")
     private JsonNullable<String> autoRenewalTermLength;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("renewal_extension_period")
     private JsonNullable<String> renewalExtensionPeriod;
 
+    /**
+     * The userId parameter
+     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("renewal_process_owner")
     private Optional<String> renewalProcessOwner;
@@ -343,7 +349,17 @@ public class Provisions {
     }
     
     public Provisions() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -533,6 +549,9 @@ public class Provisions {
         return renewalExtensionPeriod;
     }
 
+    /**
+     * The userId parameter
+     */
     @JsonIgnore
     public Optional<String> renewalProcessOwner() {
         return renewalProcessOwner;
@@ -595,9 +614,10 @@ public class Provisions {
         return termLength;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The type of assignment rights in the agreement (e.g., transferability)
@@ -607,6 +627,7 @@ public class Provisions {
         this.assignmentType = Optional.ofNullable(assignmentType);
         return this;
     }
+
 
     /**
      * The type of assignment rights in the agreement (e.g., transferability)
@@ -626,6 +647,7 @@ public class Provisions {
         return this;
     }
 
+
     /**
      * Provisions related to changes in control of the assigning party
      */
@@ -643,6 +665,7 @@ public class Provisions {
         this.assignmentTerminationRights = Optional.ofNullable(assignmentTerminationRights);
         return this;
     }
+
 
     /**
      * Provisions for the termination of assignment rights
@@ -809,6 +832,7 @@ public class Provisions {
         this.paymentTermsDueDate = Optional.ofNullable(paymentTermsDueDate);
         return this;
     }
+
 
     /**
      * Terms specifying the payment due date, based on a defined number of days or other conditions.
@@ -1013,12 +1037,19 @@ public class Provisions {
         return this;
     }
 
+    /**
+     * The userId parameter
+     */
     public Provisions withRenewalProcessOwner(String renewalProcessOwner) {
         Utils.checkNotNull(renewalProcessOwner, "renewalProcessOwner");
         this.renewalProcessOwner = Optional.ofNullable(renewalProcessOwner);
         return this;
     }
 
+
+    /**
+     * The userId parameter
+     */
     public Provisions withRenewalProcessOwner(Optional<String> renewalProcessOwner) {
         Utils.checkNotNull(renewalProcessOwner, "renewalProcessOwner");
         this.renewalProcessOwner = renewalProcessOwner;
@@ -1153,7 +1184,6 @@ public class Provisions {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -1201,38 +1231,17 @@ public class Provisions {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            assignmentType,
-            assignmentChangeOfControl,
-            assignmentTerminationRights,
-            confidentialityObligationPeriod,
-            governingLaw,
-            jurisdiction,
-            ndaType,
-            annualAgreementValue,
-            annualAgreementValueCurrencyCode,
-            totalAgreementValue,
-            totalAgreementValueCurrencyCode,
-            paymentTermsDueDate,
-            canChargeLatePaymentFees,
-            latePaymentFeePercent,
-            liabilityCapFixedAmount,
-            liabilityCapCurrencyCode,
-            liabilityCapMultiplier,
-            liabilityCapDuration,
-            priceCapPercentIncrease,
-            renewalType,
-            renewalNoticePeriod,
-            renewalNoticeDate,
-            autoRenewalTermLength,
-            renewalExtensionPeriod,
-            renewalProcessOwner,
-            renewalAdditionalInfo,
-            terminationPeriodForCause,
-            terminationPeriodForConvenience,
-            effectiveDate,
-            expirationDate,
-            executionDate,
-            termLength);
+            assignmentType, assignmentChangeOfControl, assignmentTerminationRights,
+            confidentialityObligationPeriod, governingLaw, jurisdiction,
+            ndaType, annualAgreementValue, annualAgreementValueCurrencyCode,
+            totalAgreementValue, totalAgreementValueCurrencyCode, paymentTermsDueDate,
+            canChargeLatePaymentFees, latePaymentFeePercent, liabilityCapFixedAmount,
+            liabilityCapCurrencyCode, liabilityCapMultiplier, liabilityCapDuration,
+            priceCapPercentIncrease, renewalType, renewalNoticePeriod,
+            renewalNoticeDate, autoRenewalTermLength, renewalExtensionPeriod,
+            renewalProcessOwner, renewalAdditionalInfo, terminationPeriodForCause,
+            terminationPeriodForConvenience, effectiveDate, expirationDate,
+            executionDate, termLength);
     }
     
     @Override
@@ -1271,76 +1280,78 @@ public class Provisions {
                 "executionDate", executionDate,
                 "termLength", termLength);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> assignmentType = Optional.empty();
- 
+
         private Optional<String> assignmentChangeOfControl = Optional.empty();
- 
+
         private Optional<String> assignmentTerminationRights = Optional.empty();
- 
+
         private JsonNullable<String> confidentialityObligationPeriod = JsonNullable.undefined();
- 
+
         private JsonNullable<String> governingLaw = JsonNullable.undefined();
- 
+
         private JsonNullable<String> jurisdiction = JsonNullable.undefined();
- 
+
         private JsonNullable<String> ndaType = JsonNullable.undefined();
- 
+
         private JsonNullable<Double> annualAgreementValue = JsonNullable.undefined();
- 
+
         private JsonNullable<? extends CurrencyCode> annualAgreementValueCurrencyCode = JsonNullable.undefined();
- 
+
         private JsonNullable<Double> totalAgreementValue = JsonNullable.undefined();
- 
+
         private JsonNullable<? extends CurrencyCode> totalAgreementValueCurrencyCode = JsonNullable.undefined();
- 
+
         private Optional<? extends PaymentTermsDueDate> paymentTermsDueDate;
- 
+
         private JsonNullable<Boolean> canChargeLatePaymentFees = JsonNullable.undefined();
- 
+
         private JsonNullable<Long> latePaymentFeePercent = JsonNullable.undefined();
- 
+
         private JsonNullable<Double> liabilityCapFixedAmount = JsonNullable.undefined();
- 
+
         private JsonNullable<? extends CurrencyCode> liabilityCapCurrencyCode = JsonNullable.undefined();
- 
+
         private JsonNullable<Double> liabilityCapMultiplier = JsonNullable.undefined();
- 
+
         private JsonNullable<String> liabilityCapDuration = JsonNullable.undefined();
- 
+
         private JsonNullable<Float> priceCapPercentIncrease = JsonNullable.undefined();
- 
+
         private JsonNullable<String> renewalType = JsonNullable.undefined();
- 
+
         private JsonNullable<String> renewalNoticePeriod = JsonNullable.undefined();
- 
+
         private JsonNullable<OffsetDateTime> renewalNoticeDate = JsonNullable.undefined();
- 
+
         private JsonNullable<String> autoRenewalTermLength = JsonNullable.undefined();
- 
+
         private JsonNullable<String> renewalExtensionPeriod = JsonNullable.undefined();
- 
+
         private Optional<String> renewalProcessOwner = Optional.empty();
- 
+
         private JsonNullable<String> renewalAdditionalInfo = JsonNullable.undefined();
- 
+
         private JsonNullable<String> terminationPeriodForCause = JsonNullable.undefined();
- 
+
         private JsonNullable<String> terminationPeriodForConvenience = JsonNullable.undefined();
- 
+
         private JsonNullable<OffsetDateTime> effectiveDate = JsonNullable.undefined();
- 
+
         private JsonNullable<OffsetDateTime> expirationDate = JsonNullable.undefined();
- 
+
         private JsonNullable<OffsetDateTime> executionDate = JsonNullable.undefined();
- 
+
         private JsonNullable<String> termLength = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The type of assignment rights in the agreement (e.g., transferability)
@@ -1360,6 +1371,7 @@ public class Provisions {
             return this;
         }
 
+
         /**
          * Provisions related to changes in control of the assigning party
          */
@@ -1377,6 +1389,7 @@ public class Provisions {
             this.assignmentChangeOfControl = assignmentChangeOfControl;
             return this;
         }
+
 
         /**
          * Provisions for the termination of assignment rights
@@ -1396,6 +1409,7 @@ public class Provisions {
             return this;
         }
 
+
         /**
          * A subset of ISO 8601 duration. Fractional or negative values are not supported.
          */
@@ -1413,6 +1427,7 @@ public class Provisions {
             this.confidentialityObligationPeriod = confidentialityObligationPeriod;
             return this;
         }
+
 
         /**
          * The governing law clause identifies the substantive law that will govern the rights and obligations of the parties to the agreement.
@@ -1432,6 +1447,7 @@ public class Provisions {
             return this;
         }
 
+
         /**
          * A jurisdiction clause expressly sets out which courts or tribunals have the power to hear a dispute which arises under the agreement.
          */
@@ -1449,6 +1465,7 @@ public class Provisions {
             this.jurisdiction = jurisdiction;
             return this;
         }
+
 
         /**
          * Type of non-disclosure agreement (e.g., unilateral, bilateral).
@@ -1468,6 +1485,7 @@ public class Provisions {
             return this;
         }
 
+
         /**
          * Total annual value of the agreement.
          */
@@ -1485,6 +1503,7 @@ public class Provisions {
             this.annualAgreementValue = annualAgreementValue;
             return this;
         }
+
 
         /**
          * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
@@ -1506,6 +1525,7 @@ public class Provisions {
             return this;
         }
 
+
         /**
          * Total value of the agreement.
          */
@@ -1523,6 +1543,7 @@ public class Provisions {
             this.totalAgreementValue = totalAgreementValue;
             return this;
         }
+
 
         /**
          * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
@@ -1544,6 +1565,7 @@ public class Provisions {
             return this;
         }
 
+
         /**
          * Terms specifying the payment due date, based on a defined number of days or other conditions.
          */
@@ -1561,6 +1583,7 @@ public class Provisions {
             this.paymentTermsDueDate = paymentTermsDueDate;
             return this;
         }
+
 
         /**
          * Indicates if late payment fees can be charged.
@@ -1580,6 +1603,7 @@ public class Provisions {
             return this;
         }
 
+
         /**
          * Percentage fee charged on late payments.
          */
@@ -1598,6 +1622,7 @@ public class Provisions {
             return this;
         }
 
+
         /**
          * Maximum liability cap in the agreement
          */
@@ -1615,6 +1640,7 @@ public class Provisions {
             this.liabilityCapFixedAmount = liabilityCapFixedAmount;
             return this;
         }
+
 
         /**
          * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
@@ -1636,6 +1662,7 @@ public class Provisions {
             return this;
         }
 
+
         /**
          * Multiplier applied to calculate the liability cap
          */
@@ -1654,6 +1681,7 @@ public class Provisions {
             return this;
         }
 
+
         public Builder liabilityCapDuration(String liabilityCapDuration) {
             Utils.checkNotNull(liabilityCapDuration, "liabilityCapDuration");
             this.liabilityCapDuration = JsonNullable.of(liabilityCapDuration);
@@ -1665,6 +1693,7 @@ public class Provisions {
             this.liabilityCapDuration = liabilityCapDuration;
             return this;
         }
+
 
         /**
          * Maximum allowed percentage increase in prices, limited between 0 and 100.
@@ -1684,6 +1713,7 @@ public class Provisions {
             return this;
         }
 
+
         /**
          * Specifies the type of renewal (e.g., automatic, manual).
          */
@@ -1702,6 +1732,7 @@ public class Provisions {
             return this;
         }
 
+
         public Builder renewalNoticePeriod(String renewalNoticePeriod) {
             Utils.checkNotNull(renewalNoticePeriod, "renewalNoticePeriod");
             this.renewalNoticePeriod = JsonNullable.of(renewalNoticePeriod);
@@ -1713,6 +1744,7 @@ public class Provisions {
             this.renewalNoticePeriod = renewalNoticePeriod;
             return this;
         }
+
 
         /**
          * Calculated field based on renewal notice period. (agreement expiration date - renewal notice period duration)
@@ -1732,6 +1764,7 @@ public class Provisions {
             return this;
         }
 
+
         public Builder autoRenewalTermLength(String autoRenewalTermLength) {
             Utils.checkNotNull(autoRenewalTermLength, "autoRenewalTermLength");
             this.autoRenewalTermLength = JsonNullable.of(autoRenewalTermLength);
@@ -1743,6 +1776,7 @@ public class Provisions {
             this.autoRenewalTermLength = autoRenewalTermLength;
             return this;
         }
+
 
         public Builder renewalExtensionPeriod(String renewalExtensionPeriod) {
             Utils.checkNotNull(renewalExtensionPeriod, "renewalExtensionPeriod");
@@ -1756,17 +1790,25 @@ public class Provisions {
             return this;
         }
 
+
+        /**
+         * The userId parameter
+         */
         public Builder renewalProcessOwner(String renewalProcessOwner) {
             Utils.checkNotNull(renewalProcessOwner, "renewalProcessOwner");
             this.renewalProcessOwner = Optional.ofNullable(renewalProcessOwner);
             return this;
         }
 
+        /**
+         * The userId parameter
+         */
         public Builder renewalProcessOwner(Optional<String> renewalProcessOwner) {
             Utils.checkNotNull(renewalProcessOwner, "renewalProcessOwner");
             this.renewalProcessOwner = renewalProcessOwner;
             return this;
         }
+
 
         /**
          * Additional information related to the renewal process.
@@ -1785,6 +1827,7 @@ public class Provisions {
             this.renewalAdditionalInfo = renewalAdditionalInfo;
             return this;
         }
+
 
         /**
          * The specific duration that a party has to give notice before terminating the agreement due to a significant breach or violation of terms. 
@@ -1806,6 +1849,7 @@ public class Provisions {
             return this;
         }
 
+
         /**
          * Specifies the required notice period that a party must provide before terminating the agreement for convenience, without cause, under the terms outlined in the contract.
          */
@@ -1823,6 +1867,7 @@ public class Provisions {
             this.terminationPeriodForConvenience = terminationPeriodForConvenience;
             return this;
         }
+
 
         /**
          * The date when the terms of the agreement start to apply and become legally binding.
@@ -1842,6 +1887,7 @@ public class Provisions {
             return this;
         }
 
+
         /**
          * The date when the agreement ends and is no longer valid or enforceable.
          */
@@ -1859,6 +1905,7 @@ public class Provisions {
             this.expirationDate = expirationDate;
             return this;
         }
+
 
         /**
          * The date when the agreement is signed by all parties, making it officially binding. This is not necessarily the same as the effective date.
@@ -1878,6 +1925,7 @@ public class Provisions {
             return this;
         }
 
+
         /**
          * Overall duration of the agreement.
          */
@@ -1895,45 +1943,26 @@ public class Provisions {
             this.termLength = termLength;
             return this;
         }
-        
+
         public Provisions build() {
             if (paymentTermsDueDate == null) {
                 paymentTermsDueDate = _SINGLETON_VALUE_PaymentTermsDueDate.value();
             }
+
             return new Provisions(
-                assignmentType,
-                assignmentChangeOfControl,
-                assignmentTerminationRights,
-                confidentialityObligationPeriod,
-                governingLaw,
-                jurisdiction,
-                ndaType,
-                annualAgreementValue,
-                annualAgreementValueCurrencyCode,
-                totalAgreementValue,
-                totalAgreementValueCurrencyCode,
-                paymentTermsDueDate,
-                canChargeLatePaymentFees,
-                latePaymentFeePercent,
-                liabilityCapFixedAmount,
-                liabilityCapCurrencyCode,
-                liabilityCapMultiplier,
-                liabilityCapDuration,
-                priceCapPercentIncrease,
-                renewalType,
-                renewalNoticePeriod,
-                renewalNoticeDate,
-                autoRenewalTermLength,
-                renewalExtensionPeriod,
-                renewalProcessOwner,
-                renewalAdditionalInfo,
-                terminationPeriodForCause,
-                terminationPeriodForConvenience,
-                effectiveDate,
-                expirationDate,
-                executionDate,
-                termLength);
+                assignmentType, assignmentChangeOfControl, assignmentTerminationRights,
+                confidentialityObligationPeriod, governingLaw, jurisdiction,
+                ndaType, annualAgreementValue, annualAgreementValueCurrencyCode,
+                totalAgreementValue, totalAgreementValueCurrencyCode, paymentTermsDueDate,
+                canChargeLatePaymentFees, latePaymentFeePercent, liabilityCapFixedAmount,
+                liabilityCapCurrencyCode, liabilityCapMultiplier, liabilityCapDuration,
+                priceCapPercentIncrease, renewalType, renewalNoticePeriod,
+                renewalNoticeDate, autoRenewalTermLength, renewalExtensionPeriod,
+                renewalProcessOwner, renewalAdditionalInfo, terminationPeriodForCause,
+                terminationPeriodForConvenience, effectiveDate, expirationDate,
+                executionDate, termLength);
         }
+
 
         private static final LazySingletonValue<Optional<? extends PaymentTermsDueDate>> _SINGLETON_VALUE_PaymentTermsDueDate =
                 new LazySingletonValue<>(

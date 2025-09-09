@@ -21,7 +21,6 @@ import java.util.Optional;
  * <p>A list of workflows has been successfully returned.
  */
 public class WorkflowsListSuccess {
-
     /**
      * A list of workflows
      */
@@ -68,9 +67,10 @@ public class WorkflowsListSuccess {
         return (Optional<ResponseMetadata>) responseMetadata;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * A list of workflows
@@ -80,6 +80,7 @@ public class WorkflowsListSuccess {
         this.data = Optional.ofNullable(data);
         return this;
     }
+
 
     /**
      * A list of workflows
@@ -99,6 +100,7 @@ public class WorkflowsListSuccess {
         return this;
     }
 
+
     /**
      * Control information and metadata for the response.
      */
@@ -108,7 +110,6 @@ public class WorkflowsListSuccess {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -126,8 +127,7 @@ public class WorkflowsListSuccess {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            data,
-            responseMetadata);
+            data, responseMetadata);
     }
     
     @Override
@@ -136,16 +136,18 @@ public class WorkflowsListSuccess {
                 "data", data,
                 "responseMetadata", responseMetadata);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<? extends List<Workflow>> data = Optional.empty();
- 
+
         private Optional<? extends ResponseMetadata> responseMetadata = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * A list of workflows
@@ -165,6 +167,7 @@ public class WorkflowsListSuccess {
             return this;
         }
 
+
         /**
          * Control information and metadata for the response.
          */
@@ -182,11 +185,12 @@ public class WorkflowsListSuccess {
             this.responseMetadata = responseMetadata;
             return this;
         }
-        
+
         public WorkflowsListSuccess build() {
+
             return new WorkflowsListSuccess(
-                data,
-                responseMetadata);
+                data, responseMetadata);
         }
+
     }
 }

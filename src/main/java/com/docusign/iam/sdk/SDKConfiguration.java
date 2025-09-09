@@ -16,8 +16,8 @@ public class SDKConfiguration {
 
     private static final String LANGUAGE = "java";
     public static final String OPENAPI_DOC_VERSION = "v1";
-    public static final String SDK_VERSION = "1.0.0-beta.3";
-    public static final String GEN_VERSION = "2.651.2";
+    public static final String SDK_VERSION = "1.0.0-beta.5";
+    public static final String GEN_VERSION = "2.692.0";
     private static final String BASE_PACKAGE = "com.docusign.iam.sdk";
     public static final String USER_AGENT = 
             String.format("speakeasy-sdk/%s %s %s %s %s",
@@ -98,7 +98,7 @@ public class SDKConfiguration {
         this._hooks = hooks;
     }
 
-    /** 
+    /**
      * Initializes state (for example hooks).
      **/
     public void initialize() {
@@ -112,7 +112,7 @@ public class SDKConfiguration {
     public Optional<RetryConfig> retryConfig() {
         return retryConfig;
     }
-    
+
     public void setRetryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;

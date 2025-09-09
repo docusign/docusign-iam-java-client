@@ -22,7 +22,6 @@ import java.util.Map;
  * - `trigger_inputs` contains the key-value pairs corresponding to the inputs required by the workflow, as described in the `trigger_input_schema` from the workflow definition.
  */
 public class TriggerWorkflow {
-
     /**
      * A descriptive name for the specific instance of the workflow being triggered.
      * This is typically used for identification and tracking purposes.
@@ -46,6 +45,7 @@ public class TriggerWorkflow {
             @JsonProperty("trigger_inputs") Map<String, TriggerInputs> triggerInputs) {
         Utils.checkNotNull(instanceName, "instanceName");
         triggerInputs = Utils.emptyMapIfNull(triggerInputs);
+        Utils.checkNotNull(triggerInputs, "triggerInputs");
         this.instanceName = instanceName;
         this.triggerInputs = triggerInputs;
     }
@@ -71,9 +71,10 @@ public class TriggerWorkflow {
         return triggerInputs;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * A descriptive name for the specific instance of the workflow being triggered.
@@ -98,7 +99,6 @@ public class TriggerWorkflow {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -116,8 +116,7 @@ public class TriggerWorkflow {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            instanceName,
-            triggerInputs);
+            instanceName, triggerInputs);
     }
     
     @Override
@@ -126,16 +125,18 @@ public class TriggerWorkflow {
                 "instanceName", instanceName,
                 "triggerInputs", triggerInputs);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String instanceName;
- 
+
         private Map<String, TriggerInputs> triggerInputs;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * A descriptive name for the specific instance of the workflow being triggered.
@@ -148,6 +149,7 @@ public class TriggerWorkflow {
             return this;
         }
 
+
         /**
          * Key-value pairs representing the input data required to trigger the workflow.
          * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow definition.
@@ -159,11 +161,12 @@ public class TriggerWorkflow {
             this.triggerInputs = triggerInputs;
             return this;
         }
-        
+
         public TriggerWorkflow build() {
+
             return new TriggerWorkflow(
-                instanceName,
-                triggerInputs);
+                instanceName, triggerInputs);
         }
+
     }
 }

@@ -10,13 +10,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 
-public class GetWorkflowTriggerRequirementsRequest {
 
+public class GetWorkflowTriggerRequirementsRequest {
     /**
      * The unique identifier of the account.
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=accountId")
     private String accountId;
+
 
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=workflowId")
     private String workflowId;
@@ -44,9 +45,10 @@ public class GetWorkflowTriggerRequirementsRequest {
         return workflowId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The unique identifier of the account.
@@ -63,7 +65,6 @@ public class GetWorkflowTriggerRequirementsRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -81,8 +82,7 @@ public class GetWorkflowTriggerRequirementsRequest {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            accountId,
-            workflowId);
+            accountId, workflowId);
     }
     
     @Override
@@ -91,16 +91,18 @@ public class GetWorkflowTriggerRequirementsRequest {
                 "accountId", accountId,
                 "workflowId", workflowId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String accountId;
- 
+
         private String workflowId;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The unique identifier of the account.
@@ -111,16 +113,18 @@ public class GetWorkflowTriggerRequirementsRequest {
             return this;
         }
 
+
         public Builder workflowId(String workflowId) {
             Utils.checkNotNull(workflowId, "workflowId");
             this.workflowId = workflowId;
             return this;
         }
-        
+
         public GetWorkflowTriggerRequirementsRequest build() {
+
             return new GetWorkflowTriggerRequirementsRequest(
-                accountId,
-                workflowId);
+                accountId, workflowId);
         }
+
     }
 }

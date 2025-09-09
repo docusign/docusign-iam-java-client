@@ -12,8 +12,8 @@ import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Optional;
 
-public class GetWorkflowsListRequest {
 
+public class GetWorkflowsListRequest {
     /**
      * The unique identifier of the account.
      */
@@ -70,9 +70,10 @@ public class GetWorkflowsListRequest {
         return (Optional<Status>) status;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The unique identifier of the account.
@@ -98,6 +99,7 @@ public class GetWorkflowsListRequest {
         return this;
     }
 
+
     /**
      * Filter workflows by their status. If provided, only workflows with the specified status will be returned.
      * - `active`: Returns only active workflows.
@@ -113,7 +115,6 @@ public class GetWorkflowsListRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -131,8 +132,7 @@ public class GetWorkflowsListRequest {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            accountId,
-            status);
+            accountId, status);
     }
     
     @Override
@@ -141,16 +141,18 @@ public class GetWorkflowsListRequest {
                 "accountId", accountId,
                 "status", status);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String accountId;
- 
+
         private Optional<? extends Status> status = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The unique identifier of the account.
@@ -160,6 +162,7 @@ public class GetWorkflowsListRequest {
             this.accountId = accountId;
             return this;
         }
+
 
         /**
          * Filter workflows by their status. If provided, only workflows with the specified status will be returned.
@@ -190,11 +193,12 @@ public class GetWorkflowsListRequest {
             this.status = status;
             return this;
         }
-        
+
         public GetWorkflowsListRequest build() {
+
             return new GetWorkflowsListRequest(
-                accountId,
-                status);
+                accountId, status);
         }
+
     }
 }

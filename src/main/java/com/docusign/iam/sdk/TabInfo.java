@@ -8,11 +8,10 @@ import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 import com.docusign.iam.sdk.models.operations.ConnectedFieldsApiGetTabGroupsRequest;
 import com.docusign.iam.sdk.models.operations.ConnectedFieldsApiGetTabGroupsRequestBuilder;
 import com.docusign.iam.sdk.models.operations.ConnectedFieldsApiGetTabGroupsResponse;
-import com.docusign.iam.sdk.operations.ConnectedFieldsApiGetTabGroupsOperation;
+import com.docusign.iam.sdk.operations.ConnectedFieldsApiGetTabGroups;
 import com.docusign.iam.sdk.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -65,8 +64,7 @@ public class TabInfo {
      * @throws Exception if the API call fails
      */
     public ConnectedFieldsApiGetTabGroupsResponse getConnectedFieldsTabGroups(
-            String accountId,
-            Optional<String> appId,
+            String accountId, Optional<String> appId,
             Optional<Options> options) throws Exception {
         ConnectedFieldsApiGetTabGroupsRequest request =
             ConnectedFieldsApiGetTabGroupsRequest
@@ -75,9 +73,7 @@ public class TabInfo {
                 .appId(appId)
                 .build();
         RequestOperation<ConnectedFieldsApiGetTabGroupsRequest, ConnectedFieldsApiGetTabGroupsResponse> operation
-              = new ConnectedFieldsApiGetTabGroupsOperation(
-                 sdkConfiguration,
-                 options);
+              = new ConnectedFieldsApiGetTabGroups.Sync(sdkConfiguration, options);
         return operation.handleResponse(operation.doRequest(request));
     }
 

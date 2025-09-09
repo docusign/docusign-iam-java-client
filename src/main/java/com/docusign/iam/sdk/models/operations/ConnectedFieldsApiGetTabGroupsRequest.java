@@ -11,10 +11,12 @@ import java.lang.Override;
 import java.lang.String;
 import java.util.Optional;
 
+
 public class ConnectedFieldsApiGetTabGroupsRequest {
 
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=accountId")
     private String accountId;
+
 
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=appId")
     private Optional<String> appId;
@@ -44,9 +46,10 @@ public class ConnectedFieldsApiGetTabGroupsRequest {
         return appId;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public ConnectedFieldsApiGetTabGroupsRequest withAccountId(String accountId) {
         Utils.checkNotNull(accountId, "accountId");
@@ -60,13 +63,13 @@ public class ConnectedFieldsApiGetTabGroupsRequest {
         return this;
     }
 
+
     public ConnectedFieldsApiGetTabGroupsRequest withAppId(Optional<String> appId) {
         Utils.checkNotNull(appId, "appId");
         this.appId = appId;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -84,8 +87,7 @@ public class ConnectedFieldsApiGetTabGroupsRequest {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            accountId,
-            appId);
+            accountId, appId);
     }
     
     @Override
@@ -94,22 +96,25 @@ public class ConnectedFieldsApiGetTabGroupsRequest {
                 "accountId", accountId,
                 "appId", appId);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String accountId;
- 
+
         private Optional<String> appId = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder accountId(String accountId) {
             Utils.checkNotNull(accountId, "accountId");
             this.accountId = accountId;
             return this;
         }
+
 
         public Builder appId(String appId) {
             Utils.checkNotNull(appId, "appId");
@@ -122,11 +127,12 @@ public class ConnectedFieldsApiGetTabGroupsRequest {
             this.appId = appId;
             return this;
         }
-        
+
         public ConnectedFieldsApiGetTabGroupsRequest build() {
+
             return new ConnectedFieldsApiGetTabGroupsRequest(
-                accountId,
-                appId);
+                accountId, appId);
         }
+
     }
 }

@@ -6,7 +6,7 @@ package com.docusign.iam.sdk.models.operations;
 import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 
 import com.docusign.iam.sdk.SDKConfiguration;
-import com.docusign.iam.sdk.operations.ConnectedFieldsApiGetTabGroupsOperation;
+import com.docusign.iam.sdk.operations.ConnectedFieldsApiGetTabGroups;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -70,9 +70,7 @@ public class ConnectedFieldsApiGetTabGroupsRequestBuilder {
             .build());
 
         RequestOperation<ConnectedFieldsApiGetTabGroupsRequest, ConnectedFieldsApiGetTabGroupsResponse> operation
-              = new ConnectedFieldsApiGetTabGroupsOperation(
-                 sdkConfiguration,
-                 options);
+              = new ConnectedFieldsApiGetTabGroups.Sync(sdkConfiguration, options);
         ConnectedFieldsApiGetTabGroupsRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

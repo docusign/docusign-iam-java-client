@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
 
-public class TabConnectedFieldsData {
 
+public class TabConnectedFieldsData {
     /**
      * The fully qualified namespace for the type system being verified.
      */
@@ -101,9 +101,10 @@ public class TabConnectedFieldsData {
         return supportedUri;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The fully qualified namespace for the type system being verified.
@@ -150,7 +151,6 @@ public class TabConnectedFieldsData {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -171,11 +171,8 @@ public class TabConnectedFieldsData {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            typeSystemNamespace,
-            typeName,
-            supportedOperation,
-            propertyName,
-            supportedUri);
+            typeSystemNamespace, typeName, supportedOperation,
+            propertyName, supportedUri);
     }
     
     @Override
@@ -187,22 +184,24 @@ public class TabConnectedFieldsData {
                 "propertyName", propertyName,
                 "supportedUri", supportedUri);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String typeSystemNamespace;
- 
+
         private String typeName;
- 
+
         private SupportedOperation supportedOperation;
- 
+
         private String propertyName;
- 
+
         private String supportedUri;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The fully qualified namespace for the type system being verified.
@@ -213,6 +212,7 @@ public class TabConnectedFieldsData {
             return this;
         }
 
+
         /**
          * Name of the type being verified.
          */
@@ -221,6 +221,7 @@ public class TabConnectedFieldsData {
             this.typeName = typeName;
             return this;
         }
+
 
         /**
          * The operation that the field supports.
@@ -231,6 +232,7 @@ public class TabConnectedFieldsData {
             return this;
         }
 
+
         /**
          * The name of the individual field being verified.
          */
@@ -240,6 +242,7 @@ public class TabConnectedFieldsData {
             return this;
         }
 
+
         /**
          * Indicates the type verification url of the field.
          */
@@ -248,14 +251,13 @@ public class TabConnectedFieldsData {
             this.supportedUri = supportedUri;
             return this;
         }
-        
+
         public TabConnectedFieldsData build() {
+
             return new TabConnectedFieldsData(
-                typeSystemNamespace,
-                typeName,
-                supportedOperation,
-                propertyName,
-                supportedUri);
+                typeSystemNamespace, typeName, supportedOperation,
+                propertyName, supportedUri);
         }
+
     }
 }

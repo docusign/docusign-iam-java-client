@@ -99,7 +99,9 @@ public class TriggerWorkflowSuccess {
     }
     
     public TriggerWorkflowSuccess() {
-        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     @JsonIgnore
@@ -159,15 +161,17 @@ public class TriggerWorkflowSuccess {
         return responseDurationMs;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public TriggerWorkflowSuccess withInstanceId(String instanceId) {
         Utils.checkNotNull(instanceId, "instanceId");
         this.instanceId = Optional.ofNullable(instanceId);
         return this;
     }
+
 
     public TriggerWorkflowSuccess withInstanceId(Optional<String> instanceId) {
         Utils.checkNotNull(instanceId, "instanceId");
@@ -185,6 +189,7 @@ public class TriggerWorkflowSuccess {
         this.instanceUrl = Optional.ofNullable(instanceUrl);
         return this;
     }
+
 
     /**
      * A fully-qualified URL that can be used to access or interact with this
@@ -291,7 +296,6 @@ public class TriggerWorkflowSuccess {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -314,12 +318,8 @@ public class TriggerWorkflowSuccess {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            instanceId,
-            instanceUrl,
-            pageLimit,
-            pageTokenNext,
-            requestId,
-            responseTimestamp,
+            instanceId, instanceUrl, pageLimit,
+            pageTokenNext, requestId, responseTimestamp,
             responseDurationMs);
     }
     
@@ -334,26 +334,28 @@ public class TriggerWorkflowSuccess {
                 "responseTimestamp", responseTimestamp,
                 "responseDurationMs", responseDurationMs);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> instanceId = Optional.empty();
- 
+
         private Optional<String> instanceUrl = Optional.empty();
- 
+
         private JsonNullable<Integer> pageLimit = JsonNullable.undefined();
- 
+
         private JsonNullable<String> pageTokenNext = JsonNullable.undefined();
- 
+
         private JsonNullable<String> requestId = JsonNullable.undefined();
- 
+
         private JsonNullable<OffsetDateTime> responseTimestamp = JsonNullable.undefined();
- 
+
         private JsonNullable<Integer> responseDurationMs = JsonNullable.undefined();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder instanceId(String instanceId) {
             Utils.checkNotNull(instanceId, "instanceId");
@@ -366,6 +368,7 @@ public class TriggerWorkflowSuccess {
             this.instanceId = instanceId;
             return this;
         }
+
 
         /**
          * A fully-qualified URL that can be used to access or interact with this
@@ -389,6 +392,7 @@ public class TriggerWorkflowSuccess {
             return this;
         }
 
+
         /**
          * The maximum number of items that can be returned in a single page.
          */
@@ -406,6 +410,7 @@ public class TriggerWorkflowSuccess {
             this.pageLimit = pageLimit;
             return this;
         }
+
 
         /**
          * The continuation token used to retrieve a page in a paginated response.
@@ -425,6 +430,7 @@ public class TriggerWorkflowSuccess {
             return this;
         }
 
+
         /**
          * Unique identifier for the request, useful for tracking and debugging.
          */
@@ -443,6 +449,7 @@ public class TriggerWorkflowSuccess {
             return this;
         }
 
+
         /**
          * The timestamp indicating when the response was generated.
          */
@@ -460,6 +467,7 @@ public class TriggerWorkflowSuccess {
             this.responseTimestamp = responseTimestamp;
             return this;
         }
+
 
         /**
          * The duration of time, in milliseconds, that the server took to process and respond 
@@ -482,16 +490,14 @@ public class TriggerWorkflowSuccess {
             this.responseDurationMs = responseDurationMs;
             return this;
         }
-        
+
         public TriggerWorkflowSuccess build() {
+
             return new TriggerWorkflowSuccess(
-                instanceId,
-                instanceUrl,
-                pageLimit,
-                pageTokenNext,
-                requestId,
-                responseTimestamp,
+                instanceId, instanceUrl, pageLimit,
+                pageTokenNext, requestId, responseTimestamp,
                 responseDurationMs);
         }
+
     }
 }

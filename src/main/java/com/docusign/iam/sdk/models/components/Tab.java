@@ -15,6 +15,7 @@ import java.lang.SuppressWarnings;
 import java.util.List;
 import java.util.Optional;
 
+
 public class Tab {
 
     @JsonProperty("extensionData")
@@ -79,7 +80,8 @@ public class Tab {
             TabExtensionData extensionData,
             String tabType,
             String tabLabel) {
-        this(extensionData, tabType, Optional.empty(), Optional.empty(), tabLabel, Optional.empty());
+        this(extensionData, tabType, Optional.empty(),
+            Optional.empty(), tabLabel, Optional.empty());
     }
 
     @JsonIgnore
@@ -128,9 +130,10 @@ public class Tab {
         return (Optional<List<String>>) radios;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public Tab withExtensionData(TabExtensionData extensionData) {
         Utils.checkNotNull(extensionData, "extensionData");
@@ -156,6 +159,7 @@ public class Tab {
         return this;
     }
 
+
     /**
      * A regular expression used to validate input for the tab.
      */
@@ -173,6 +177,7 @@ public class Tab {
         this.validationMessage = Optional.ofNullable(validationMessage);
         return this;
     }
+
 
     /**
      * The message displayed if the custom tab fails input validation
@@ -201,6 +206,7 @@ public class Tab {
         return this;
     }
 
+
     /**
      * The radio button properties for the tab (if the tab is of radio type)
      */
@@ -210,7 +216,6 @@ public class Tab {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -232,12 +237,8 @@ public class Tab {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            extensionData,
-            tabType,
-            validationPattern,
-            validationMessage,
-            tabLabel,
-            radios);
+            extensionData, tabType, validationPattern,
+            validationMessage, tabLabel, radios);
     }
     
     @Override
@@ -250,30 +251,33 @@ public class Tab {
                 "tabLabel", tabLabel,
                 "radios", radios);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private TabExtensionData extensionData;
- 
+
         private String tabType;
- 
+
         private Optional<String> validationPattern = Optional.empty();
- 
+
         private Optional<String> validationMessage = Optional.empty();
- 
+
         private String tabLabel;
- 
+
         private Optional<? extends List<String>> radios = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder extensionData(TabExtensionData extensionData) {
             Utils.checkNotNull(extensionData, "extensionData");
             this.extensionData = extensionData;
             return this;
         }
+
 
         /**
          * Indicates the type of tab
@@ -283,6 +287,7 @@ public class Tab {
             this.tabType = tabType;
             return this;
         }
+
 
         /**
          * A regular expression used to validate input for the tab.
@@ -302,6 +307,7 @@ public class Tab {
             return this;
         }
 
+
         /**
          * The message displayed if the custom tab fails input validation
          */
@@ -320,6 +326,7 @@ public class Tab {
             return this;
         }
 
+
         /**
          * The label associated to a verification field in a document.
          */
@@ -328,6 +335,7 @@ public class Tab {
             this.tabLabel = tabLabel;
             return this;
         }
+
 
         /**
          * The radio button properties for the tab (if the tab is of radio type)
@@ -346,15 +354,13 @@ public class Tab {
             this.radios = radios;
             return this;
         }
-        
+
         public Tab build() {
+
             return new Tab(
-                extensionData,
-                tabType,
-                validationPattern,
-                validationMessage,
-                tabLabel,
-                radios);
+                extensionData, tabType, validationPattern,
+                validationMessage, tabLabel, radios);
         }
+
     }
 }

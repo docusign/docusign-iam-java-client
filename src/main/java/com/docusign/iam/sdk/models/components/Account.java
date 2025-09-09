@@ -15,19 +15,24 @@ import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Optional;
 
+
 public class Account {
 
     @JsonProperty("account_id")
     private String accountId;
 
+
     @JsonProperty("is_default")
     private boolean isDefault;
+
 
     @JsonProperty("account_name")
     private String accountName;
 
+
     @JsonProperty("base_uri")
     private String baseUri;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("organization")
@@ -57,7 +62,8 @@ public class Account {
             boolean isDefault,
             String accountName,
             String baseUri) {
-        this(accountId, isDefault, accountName, baseUri, Optional.empty());
+        this(accountId, isDefault, accountName,
+            baseUri, Optional.empty());
     }
 
     @JsonIgnore
@@ -86,9 +92,10 @@ public class Account {
         return (Optional<Organization>) organization;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public Account withAccountId(String accountId) {
         Utils.checkNotNull(accountId, "accountId");
@@ -120,13 +127,13 @@ public class Account {
         return this;
     }
 
+
     public Account withOrganization(Optional<? extends Organization> organization) {
         Utils.checkNotNull(organization, "organization");
         this.organization = organization;
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -147,11 +154,8 @@ public class Account {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            accountId,
-            isDefault,
-            accountName,
-            baseUri,
-            organization);
+            accountId, isDefault, accountName,
+            baseUri, organization);
     }
     
     @Override
@@ -163,22 +167,24 @@ public class Account {
                 "baseUri", baseUri,
                 "organization", organization);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String accountId;
- 
+
         private Boolean isDefault;
- 
+
         private String accountName;
- 
+
         private String baseUri;
- 
+
         private Optional<? extends Organization> organization = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder accountId(String accountId) {
             Utils.checkNotNull(accountId, "accountId");
@@ -186,11 +192,13 @@ public class Account {
             return this;
         }
 
+
         public Builder isDefault(boolean isDefault) {
             Utils.checkNotNull(isDefault, "isDefault");
             this.isDefault = isDefault;
             return this;
         }
+
 
         public Builder accountName(String accountName) {
             Utils.checkNotNull(accountName, "accountName");
@@ -198,11 +206,13 @@ public class Account {
             return this;
         }
 
+
         public Builder baseUri(String baseUri) {
             Utils.checkNotNull(baseUri, "baseUri");
             this.baseUri = baseUri;
             return this;
         }
+
 
         public Builder organization(Organization organization) {
             Utils.checkNotNull(organization, "organization");
@@ -215,14 +225,13 @@ public class Account {
             this.organization = organization;
             return this;
         }
-        
+
         public Account build() {
+
             return new Account(
-                accountId,
-                isDefault,
-                accountName,
-                baseUri,
-                organization);
+                accountId, isDefault, accountName,
+                baseUri, organization);
         }
+
     }
 }

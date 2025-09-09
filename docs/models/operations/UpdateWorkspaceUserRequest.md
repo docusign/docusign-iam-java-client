@@ -1,0 +1,11 @@
+# UpdateWorkspaceUserRequest
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `accountId`                                                                            | *String*                                                                               | :heavy_check_mark:                                                                     | The ID of the account                                                                  |
+| `workspaceId`                                                                          | *String*                                                                               | :heavy_check_mark:                                                                     | The ID of the workspace                                                                |
+| `userId`                                                                               | *String*                                                                               | :heavy_check_mark:                                                                     | The ID of the user to update                                                           |
+| `workspaceUserForUpdate`                                                               | [Optional\<WorkspaceUserForUpdate>](../../models/components/WorkspaceUserForUpdate.md) | :heavy_minus_sign:                                                                     | The user details to update to including the RoleId                                     |

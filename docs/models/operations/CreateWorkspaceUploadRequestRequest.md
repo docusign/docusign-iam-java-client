@@ -1,0 +1,10 @@
+# CreateWorkspaceUploadRequestRequest
+
+
+## Fields
+
+| Field                                                                                           | Type                                                                                            | Required                                                                                        | Description                                                                                     |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `accountId`                                                                                     | *String*                                                                                        | :heavy_check_mark:                                                                              | The ID of the account                                                                           |
+| `workspaceId`                                                                                   | *String*                                                                                        | :heavy_check_mark:                                                                              | The ID of the workspace                                                                         |
+| `createWorkspaceUploadRequestBody`                                                              | [CreateWorkspaceUploadRequestBody](../../models/components/CreateWorkspaceUploadRequestBody.md) | :heavy_check_mark:                                                                              | The upload request details including name, description, assignments, and status                 |

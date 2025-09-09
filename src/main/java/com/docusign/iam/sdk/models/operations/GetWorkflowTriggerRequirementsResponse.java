@@ -16,8 +16,8 @@ import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
 import java.util.Optional;
 
-public class GetWorkflowTriggerRequirementsResponse implements Response {
 
+public class GetWorkflowTriggerRequirementsResponse implements Response {
     /**
      * HTTP response content type for this operation
      */
@@ -58,7 +58,8 @@ public class GetWorkflowTriggerRequirementsResponse implements Response {
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
-        this(contentType, statusCode, rawResponse, Optional.empty());
+        this(contentType, statusCode, rawResponse,
+            Optional.empty());
     }
 
     /**
@@ -94,9 +95,10 @@ public class GetWorkflowTriggerRequirementsResponse implements Response {
         return (Optional<WorkflowTriggerRequirementsSuccess>) workflowTriggerRequirementsSuccess;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * HTTP response content type for this operation
@@ -134,6 +136,7 @@ public class GetWorkflowTriggerRequirementsResponse implements Response {
         return this;
     }
 
+
     /**
      * Describes the requirements for triggering a workflow
      */
@@ -143,7 +146,6 @@ public class GetWorkflowTriggerRequirementsResponse implements Response {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -163,9 +165,7 @@ public class GetWorkflowTriggerRequirementsResponse implements Response {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            contentType,
-            statusCode,
-            rawResponse,
+            contentType, statusCode, rawResponse,
             workflowTriggerRequirementsSuccess);
     }
     
@@ -177,20 +177,22 @@ public class GetWorkflowTriggerRequirementsResponse implements Response {
                 "rawResponse", rawResponse,
                 "workflowTriggerRequirementsSuccess", workflowTriggerRequirementsSuccess);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String contentType;
- 
+
         private Integer statusCode;
- 
+
         private HttpResponse<InputStream> rawResponse;
- 
+
         private Optional<? extends WorkflowTriggerRequirementsSuccess> workflowTriggerRequirementsSuccess = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * HTTP response content type for this operation
@@ -201,6 +203,7 @@ public class GetWorkflowTriggerRequirementsResponse implements Response {
             return this;
         }
 
+
         /**
          * HTTP response status code for this operation
          */
@@ -210,6 +213,7 @@ public class GetWorkflowTriggerRequirementsResponse implements Response {
             return this;
         }
 
+
         /**
          * Raw HTTP response; suitable for custom response parsing
          */
@@ -218,6 +222,7 @@ public class GetWorkflowTriggerRequirementsResponse implements Response {
             this.rawResponse = rawResponse;
             return this;
         }
+
 
         /**
          * Describes the requirements for triggering a workflow
@@ -236,13 +241,13 @@ public class GetWorkflowTriggerRequirementsResponse implements Response {
             this.workflowTriggerRequirementsSuccess = workflowTriggerRequirementsSuccess;
             return this;
         }
-        
+
         public GetWorkflowTriggerRequirementsResponse build() {
+
             return new GetWorkflowTriggerRequirementsResponse(
-                contentType,
-                statusCode,
-                rawResponse,
+                contentType, statusCode, rawResponse,
                 workflowTriggerRequirementsSuccess);
         }
+
     }
 }

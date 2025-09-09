@@ -15,7 +15,19 @@ public enum AuthScope {
   IMPERSONATION("impersonation"),
 
   /** Required to call most eSignature REST API endpoints. */
-  SIGNATURE("signature");
+  SIGNATURE("signature"),
+
+  /** Read workspace profile information */
+  DTR_COMPANY_READ("dtr.company.read"),
+
+  /** Read workspace data */
+  DTR_ROOMS_READ("dtr.rooms.read"),
+
+  /** Update workspace data */
+  DTR_ROOMS_WRITE("dtr.rooms.write"),
+
+  /** Modify workspace documents */
+  DTR_DOCUMENTS_WRITE("dtr.documents.write");
 
   private final String value;
 
@@ -41,6 +53,11 @@ public enum AuthScope {
   /** Returns scopes required for Connected Fields in Navigator. */
   public static List<AuthScope> getConnectedFieldsScopesForNavigator() {
     return List.of(ADM_STORE_UNIFIED_REPO_READ, SIGNATURE);
+  }
+
+  /** Returns scopes required for Workspace operations. */
+  public static List<AuthScope> getWorkspaceScopes() {
+    return List.of(DTR_COMPANY_READ, DTR_ROOMS_READ, DTR_ROOMS_WRITE, DTR_DOCUMENTS_WRITE);
   }
 
   /** Finds enum by string value. */

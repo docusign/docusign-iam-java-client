@@ -11,25 +11,32 @@ import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 
+
 public class UserInfo {
 
     @JsonProperty("sub")
     private String sub;
 
+
     @JsonProperty("name")
     private String name;
+
 
     @JsonProperty("given_name")
     private String givenName;
 
+
     @JsonProperty("family_name")
     private String familyName;
+
 
     @JsonProperty("created")
     private String created;
 
+
     @JsonProperty("email")
     private String email;
+
 
     @JsonProperty("accounts")
     private List<Account> accounts;
@@ -94,9 +101,10 @@ public class UserInfo {
         return accounts;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public UserInfo withSub(String sub) {
         Utils.checkNotNull(sub, "sub");
@@ -140,7 +148,6 @@ public class UserInfo {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -163,12 +170,8 @@ public class UserInfo {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            sub,
-            name,
-            givenName,
-            familyName,
-            created,
-            email,
+            sub, name, givenName,
+            familyName, created, email,
             accounts);
     }
     
@@ -183,26 +186,28 @@ public class UserInfo {
                 "email", email,
                 "accounts", accounts);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String sub;
- 
+
         private String name;
- 
+
         private String givenName;
- 
+
         private String familyName;
- 
+
         private String created;
- 
+
         private String email;
- 
+
         private List<Account> accounts;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder sub(String sub) {
             Utils.checkNotNull(sub, "sub");
@@ -210,11 +215,13 @@ public class UserInfo {
             return this;
         }
 
+
         public Builder name(String name) {
             Utils.checkNotNull(name, "name");
             this.name = name;
             return this;
         }
+
 
         public Builder givenName(String givenName) {
             Utils.checkNotNull(givenName, "givenName");
@@ -222,11 +229,13 @@ public class UserInfo {
             return this;
         }
 
+
         public Builder familyName(String familyName) {
             Utils.checkNotNull(familyName, "familyName");
             this.familyName = familyName;
             return this;
         }
+
 
         public Builder created(String created) {
             Utils.checkNotNull(created, "created");
@@ -234,27 +243,27 @@ public class UserInfo {
             return this;
         }
 
+
         public Builder email(String email) {
             Utils.checkNotNull(email, "email");
             this.email = email;
             return this;
         }
 
+
         public Builder accounts(List<Account> accounts) {
             Utils.checkNotNull(accounts, "accounts");
             this.accounts = accounts;
             return this;
         }
-        
+
         public UserInfo build() {
+
             return new UserInfo(
-                sub,
-                name,
-                givenName,
-                familyName,
-                created,
-                email,
+                sub, name, givenName,
+                familyName, created, email,
                 accounts);
         }
+
     }
 }

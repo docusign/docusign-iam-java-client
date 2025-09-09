@@ -5,13 +5,15 @@ package com.docusign.iam.sdk;
 
 public class ConnectedFields {
     private final SDKConfiguration sdkConfiguration;
-private final TabInfo tabInfo;
+    private final TabInfo tabInfo;
 
     ConnectedFields(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
         this.tabInfo = new TabInfo(this.sdkConfiguration);
     }
-public final TabInfo tabInfo() {
+
+    public final TabInfo tabInfo() {
         return tabInfo;
     }
+
 }

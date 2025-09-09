@@ -12,11 +12,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
 
+
 public class GetTokenFromConfidentialAuthCodeSecurity implements HasSecurity {
 
     @JsonProperty("clientId")
     @SpeakeasyMetadata("security:scheme=true,type=http,subtype=custom,name=clientId")
     private String clientId;
+
 
     @JsonProperty("secretKey")
     @SpeakeasyMetadata("security:scheme=true,type=http,subtype=custom,name=secretKey")
@@ -42,9 +44,10 @@ public class GetTokenFromConfidentialAuthCodeSecurity implements HasSecurity {
         return secretKey;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     public GetTokenFromConfidentialAuthCodeSecurity withClientId(String clientId) {
         Utils.checkNotNull(clientId, "clientId");
@@ -58,7 +61,6 @@ public class GetTokenFromConfidentialAuthCodeSecurity implements HasSecurity {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -76,8 +78,7 @@ public class GetTokenFromConfidentialAuthCodeSecurity implements HasSecurity {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            clientId,
-            secretKey);
+            clientId, secretKey);
     }
     
     @Override
@@ -86,16 +87,18 @@ public class GetTokenFromConfidentialAuthCodeSecurity implements HasSecurity {
                 "clientId", clientId,
                 "secretKey", secretKey);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String clientId;
- 
+
         private String secretKey;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         public Builder clientId(String clientId) {
             Utils.checkNotNull(clientId, "clientId");
@@ -103,16 +106,18 @@ public class GetTokenFromConfidentialAuthCodeSecurity implements HasSecurity {
             return this;
         }
 
+
         public Builder secretKey(String secretKey) {
             Utils.checkNotNull(secretKey, "secretKey");
             this.secretKey = secretKey;
             return this;
         }
-        
+
         public GetTokenFromConfidentialAuthCodeSecurity build() {
+
             return new GetTokenFromConfidentialAuthCodeSecurity(
-                clientId,
-                secretKey);
+                clientId, secretKey);
         }
+
     }
 }

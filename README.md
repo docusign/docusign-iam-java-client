@@ -35,6 +35,7 @@ Developer Center](https://developers.docusign.com/).
   * [Retries](#retries)
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
+  * [Debugging](#debugging)
 * [Development](#development)
   * [Maturity](#maturity)
   * [Contributions](#contributions)
@@ -52,7 +53,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.docusign:iam-sdk:1.0.0-beta.3'
+implementation 'com.docusign:iam-sdk:1.0.0-beta.5'
 ```
 
 Maven:
@@ -60,7 +61,7 @@ Maven:
 <dependency>
     <groupId>com.docusign</groupId>
     <artifactId>iam-sdk</artifactId>
-    <version>1.0.0-beta.3</version>
+    <version>1.0.0-beta.5</version>
 </dependency>
 ```
 
@@ -77,33 +78,6 @@ On Windows:
 ```bash
 gradlew.bat publishToMavenLocal -Pskip.signing
 ```
-
-### Logging
-A logging framework/facade has not yet been adopted but is under consideration.
-
-For request and response logging (especially json bodies), call `enableHTTPDebugLogging(boolean)` on the SDK builder like so:
-```java
-SDK.builder()
-    .enableHTTPDebugLogging(true)
-    .build();
-```
-Example output:
-```
-Sending request: http://localhost:35123/bearer#global GET
-Request headers: {Accept=[application/json], Authorization=[******], Client-Level-Header=[added by client], Idempotency-Key=[some-key], x-speakeasy-user-agent=[speakeasy-sdk/java 0.0.1 internal 0.1.0 org.openapis.openapi]}
-Received response: (GET http://localhost:35123/bearer#global) 200
-Response headers: {access-control-allow-credentials=[true], access-control-allow-origin=[*], connection=[keep-alive], content-length=[50], content-type=[application/json], date=[Wed, 09 Apr 2025 01:43:29 GMT], server=[gunicorn/19.9.0]}
-Response body:
-{
-  "authenticated": true, 
-  "token": "global"
-}
-```
-__WARNING__: This should only used for temporary debugging purposes. Leaving this option on in a production system could expose credentials/secrets in logs. <i>Authorization</i> headers are redacted by default and there is the ability to specify redacted header names via `SpeakeasyHTTPClient.setRedactedHeaders`.
-
-__NOTE__: This is a convenience method that calls `HTTPClient.enableDebugLogging()`. The `SpeakeasyHTTPClient` honors this setting. If you are using a custom HTTP client, it is up to the custom client to honor this setting.
-
-Another option is to set the System property `-Djdk.httpclient.HttpClient.log=all`. However, this second option does not log bodies.
 <!-- End SDK Installation [installation] -->
 
 <!-- Start SDK Example Usage [usage] -->
@@ -347,6 +321,42 @@ var res = sdk.auth().getUserInfo().call();
 * [deleteAgreement](docs/sdks/agreements/README.md#deleteagreement) - Delete a specific agreement
 * [createAgreementSummary](docs/sdks/agreements/README.md#createagreementsummary) - Create an AI-generated summary of an agreement document
 
+### [workspaces()](docs/sdks/workspaces1/README.md)
+
+
+#### [workspaces().workspaceDocuments()](docs/sdks/workspacedocuments/README.md)
+
+* [getWorkspaceDocuments](docs/sdks/workspacedocuments/README.md#getworkspacedocuments) - Get documents in the workspace accessible to the calling user
+* [getWorkspaceDocument](docs/sdks/workspacedocuments/README.md#getworkspacedocument) - Get information about the document
+* [deleteWorkspaceDocument](docs/sdks/workspacedocuments/README.md#deleteworkspacedocument) - Deletes a document in the workspace
+* [getWorkspaceDocumentContents](docs/sdks/workspacedocuments/README.md#getworkspacedocumentcontents) - Get the file contents of the document
+
+#### [workspaces().workspaces()](docs/sdks/workspaces2/README.md)
+
+* [getWorkspaces](docs/sdks/workspaces2/README.md#getworkspaces) - Gets workspaces available to the calling user
+* [createWorkspace](docs/sdks/workspaces2/README.md#createworkspace) - Creates a new workspace
+* [getWorkspace](docs/sdks/workspaces2/README.md#getworkspace) - Returns details about the workspace
+* [getWorkspaceAssignableRoles](docs/sdks/workspaces2/README.md#getworkspaceassignableroles) - Returns the roles the caller can assign to workspace users
+* [createWorkspaceEnvelope](docs/sdks/workspaces2/README.md#createworkspaceenvelope) - Creates an envelope with the given documents. Returns the ID of the created envelope
+* [getWorkspaceEnvelopes](docs/sdks/workspaces2/README.md#getworkspaceenvelopes) - Returns the envelopes associated with the given workspace
+
+#### [workspaces().workspaceUploadRequest()](docs/sdks/workspaceuploadrequest/README.md)
+
+* [createWorkspaceUploadRequest](docs/sdks/workspaceuploadrequest/README.md#createworkspaceuploadrequest) - Creates a new upload request within a workspace
+* [getWorkspaceUploadRequests](docs/sdks/workspaceuploadrequest/README.md#getworkspaceuploadrequests) - Gets upload requests within a workspace
+* [getWorkspaceUploadRequest](docs/sdks/workspaceuploadrequest/README.md#getworkspaceuploadrequest) - Gets details for a specific upload request
+* [updateWorkspaceUploadRequest](docs/sdks/workspaceuploadrequest/README.md#updateworkspaceuploadrequest) - Updates a specific upload request
+* [deleteWorkspaceUploadRequest](docs/sdks/workspaceuploadrequest/README.md#deleteworkspaceuploadrequest) - Deletes a specific upload request
+* [completeWorkspaceUploadRequest](docs/sdks/workspaceuploadrequest/README.md#completeworkspaceuploadrequest) - Complete an upload request
+
+#### [workspaces().workspaceUsers()](docs/sdks/workspaceusers/README.md)
+
+* [getWorkspaceUsers](docs/sdks/workspaceusers/README.md#getworkspaceusers) - Retrieves the list of users in the given workspace
+* [addWorkspaceUser](docs/sdks/workspaceusers/README.md#addworkspaceuser) - Adds a user to the workspace by email address
+* [updateWorkspaceUser](docs/sdks/workspaceusers/README.md#updateworkspaceuser) - Updates the specified user's role
+* [revokeWorkspaceUserAccess](docs/sdks/workspaceusers/README.md#revokeworkspaceuseraccess) - Revokes the specified user's access to the workspace
+* [restoreWorkspaceUserAccess](docs/sdks/workspaceusers/README.md#restoreworkspaceuseraccess) - Restores the specified user's access to the workspace
+
 </details>
 <!-- End Available Resources and Operations [operations] -->
 
@@ -383,8 +393,8 @@ public class Application {
         GetTokenFromConfidentialAuthCodeResponse res = sdk.auth().getTokenFromConfidentialAuthCode()
                 .request(req)
                 .security(GetTokenFromConfidentialAuthCodeSecurity.builder()
-                    .clientId(System.getenv().getOrDefault("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79", ""))
-                    .secretKey(System.getenv().getOrDefault("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI", ""))
+                    .clientId("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79")
+                    .secretKey("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI")
                     .build())
                 .retryConfig(RetryConfig.builder()
                     .backoff(BackoffStrategy.builder()
@@ -443,8 +453,8 @@ public class Application {
         GetTokenFromConfidentialAuthCodeResponse res = sdk.auth().getTokenFromConfidentialAuthCode()
                 .request(req)
                 .security(GetTokenFromConfidentialAuthCodeSecurity.builder()
-                    .clientId(System.getenv().getOrDefault("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79", ""))
-                    .secretKey(System.getenv().getOrDefault("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI", ""))
+                    .clientId("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79")
+                    .secretKey("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI")
                     .build())
                 .call();
 
@@ -494,8 +504,8 @@ public class Application {
         GetTokenFromConfidentialAuthCodeResponse res = sdk.auth().getTokenFromConfidentialAuthCode()
                 .request(req)
                 .security(GetTokenFromConfidentialAuthCodeSecurity.builder()
-                    .clientId(System.getenv().getOrDefault("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79", ""))
-                    .secretKey(System.getenv().getOrDefault("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI", ""))
+                    .clientId("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79")
+                    .secretKey("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI")
                     .build())
                 .call();
 
@@ -546,8 +556,8 @@ public class Application {
         GetTokenFromConfidentialAuthCodeResponse res = sdk.auth().getTokenFromConfidentialAuthCode()
                 .request(req)
                 .security(GetTokenFromConfidentialAuthCodeSecurity.builder()
-                    .clientId(System.getenv().getOrDefault("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79", ""))
-                    .secretKey(System.getenv().getOrDefault("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI", ""))
+                    .clientId("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79")
+                    .secretKey("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI")
                     .build())
                 .call();
 
@@ -586,8 +596,8 @@ public class Application {
         GetTokenFromConfidentialAuthCodeResponse res = sdk.auth().getTokenFromConfidentialAuthCode()
                 .request(req)
                 .security(GetTokenFromConfidentialAuthCodeSecurity.builder()
-                    .clientId(System.getenv().getOrDefault("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79", ""))
-                    .secretKey(System.getenv().getOrDefault("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI", ""))
+                    .clientId("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79")
+                    .secretKey("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI")
                     .build())
                 .call();
 
@@ -625,8 +635,8 @@ public class Application {
         GetTokenFromConfidentialAuthCodeResponse res = sdk.auth().getTokenFromConfidentialAuthCode()
                 .request(req)
                 .security(GetTokenFromConfidentialAuthCodeSecurity.builder()
-                    .clientId(System.getenv().getOrDefault("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79", ""))
-                    .secretKey(System.getenv().getOrDefault("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI", ""))
+                    .clientId("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79")
+                    .secretKey("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI")
                     .build())
                 .serverURL("https://account.docusign.com")
                 .call();
@@ -638,6 +648,37 @@ public class Application {
 }
 ```
 <!-- End Server Selection [server] -->
+
+<!-- Start Debugging [debug] -->
+## Debugging
+
+### Debug
+You can setup your SDK to emit debug logs for SDK requests and responses.
+
+For request and response logging (especially json bodies), call `enableHTTPDebugLogging(boolean)` on the SDK builder like so:
+```java
+SDK.builder()
+    .enableHTTPDebugLogging(true)
+    .build();
+```
+Example output:
+```
+Sending request: http://localhost:35123/bearer#global GET
+Request headers: {Accept=[application/json], Authorization=[******], Client-Level-Header=[added by client], Idempotency-Key=[some-key], x-speakeasy-user-agent=[speakeasy-sdk/java 0.0.1 internal 0.1.0 org.openapis.openapi]}
+Received response: (GET http://localhost:35123/bearer#global) 200
+Response headers: {access-control-allow-credentials=[true], access-control-allow-origin=[*], connection=[keep-alive], content-length=[50], content-type=[application/json], date=[Wed, 09 Apr 2025 01:43:29 GMT], server=[gunicorn/19.9.0]}
+Response body:
+{
+  "authenticated": true, 
+  "token": "global"
+}
+```
+__WARNING__: This should only used for temporary debugging purposes. Leaving this option on in a production system could expose credentials/secrets in logs. <i>Authorization</i> headers are redacted by default and there is the ability to specify redacted header names via `SpeakeasyHTTPClient.setRedactedHeaders`.
+
+__NOTE__: This is a convenience method that calls `HTTPClient.enableDebugLogging()`. The `SpeakeasyHTTPClient` honors this setting. If you are using a custom HTTP client, it is up to the custom client to honor this setting.
+
+Another option is to set the System property `-Djdk.httpclient.HttpClient.log=all`. However, this second option does not log bodies.
+<!-- End Debugging [debug] -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
 

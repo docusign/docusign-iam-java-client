@@ -1,0 +1,8 @@
+# RevokeWorkspaceUserDetails
+
+
+## Fields
+
+| Field                                                                                                          | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `revocationDate`                                                                                               | [OffsetDateTime](https://docs.oracle.com/javase/8/docs/api/java/time/OffsetDateTime.html)                      | :heavy_minus_sign:                                                                                             | The optional date in the future to initiate the revocation. If not specified, the revocation will be immediate |

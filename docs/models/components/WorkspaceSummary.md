@@ -1,0 +1,11 @@
+# WorkspaceSummary
+
+
+## Fields
+
+| Field                                                                                     | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `workspaceId`                                                                             | *Optional\<String>*                                                                       | :heavy_minus_sign:                                                                        | The ID of the workspace                                                                   |
+| `name`                                                                                    | *JsonNullable\<String>*                                                                   | :heavy_minus_sign:                                                                        | The name of the workspace                                                                 |
+| `createdDate`                                                                             | [OffsetDateTime](https://docs.oracle.com/javase/8/docs/api/java/time/OffsetDateTime.html) | :heavy_minus_sign:                                                                        | The date the workspace was created                                                        |
+| `createdByUserId`                                                                         | *Optional\<String>*                                                                       | :heavy_minus_sign:                                                                        | The ID of the user who created the workspace                                              |

@@ -11,16 +11,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.lang.Override;
 import java.lang.String;
 
-public class TriggerWorkflowRequest {
 
+public class TriggerWorkflowRequest {
     /**
      * The unique identifier of the account.
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=accountId")
     private String accountId;
 
+
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=workflowId")
     private String workflowId;
+
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private TriggerWorkflow triggerWorkflow;
@@ -56,9 +58,10 @@ public class TriggerWorkflowRequest {
         return triggerWorkflow;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The unique identifier of the account.
@@ -81,7 +84,6 @@ public class TriggerWorkflowRequest {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -100,9 +102,7 @@ public class TriggerWorkflowRequest {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            accountId,
-            workflowId,
-            triggerWorkflow);
+            accountId, workflowId, triggerWorkflow);
     }
     
     @Override
@@ -112,18 +112,20 @@ public class TriggerWorkflowRequest {
                 "workflowId", workflowId,
                 "triggerWorkflow", triggerWorkflow);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String accountId;
- 
+
         private String workflowId;
- 
+
         private TriggerWorkflow triggerWorkflow;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The unique identifier of the account.
@@ -134,23 +136,25 @@ public class TriggerWorkflowRequest {
             return this;
         }
 
+
         public Builder workflowId(String workflowId) {
             Utils.checkNotNull(workflowId, "workflowId");
             this.workflowId = workflowId;
             return this;
         }
 
+
         public Builder triggerWorkflow(TriggerWorkflow triggerWorkflow) {
             Utils.checkNotNull(triggerWorkflow, "triggerWorkflow");
             this.triggerWorkflow = triggerWorkflow;
             return this;
         }
-        
+
         public TriggerWorkflowRequest build() {
+
             return new TriggerWorkflowRequest(
-                accountId,
-                workflowId,
-                triggerWorkflow);
+                accountId, workflowId, triggerWorkflow);
         }
+
     }
 }

@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.lang.Long;
 import java.lang.Override;
 import java.lang.RuntimeException;
 import java.lang.String;
@@ -24,7 +23,6 @@ import java.util.Optional;
  */
 @SuppressWarnings("serial")
 public class Error extends RuntimeException {
-
     /**
      * A message describing the error.
      */
@@ -37,7 +35,7 @@ public class Error extends RuntimeException {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("code")
-    private Optional<Long> code;
+    private Optional<String> code;
 
     /**
      * The timestamp when the error occurred.
@@ -49,7 +47,7 @@ public class Error extends RuntimeException {
     @JsonCreator
     public Error(
             @JsonProperty("error") Optional<String> error,
-            @JsonProperty("code") Optional<Long> code,
+            @JsonProperty("code") Optional<String> code,
             @JsonProperty("timestamp") Optional<OffsetDateTime> timestamp) {
         super("API error occurred");
         Utils.checkNotNull(error, "error");
@@ -76,7 +74,7 @@ public class Error extends RuntimeException {
      * HTTP status code for the error.
      */
     @JsonIgnore
-    public Optional<Long> code() {
+    public Optional<String> code() {
         return code;
     }
 
@@ -88,9 +86,10 @@ public class Error extends RuntimeException {
         return timestamp;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * A message describing the error.
@@ -100,6 +99,7 @@ public class Error extends RuntimeException {
         this.error = Optional.ofNullable(error);
         return this;
     }
+
 
     /**
      * A message describing the error.
@@ -113,16 +113,17 @@ public class Error extends RuntimeException {
     /**
      * HTTP status code for the error.
      */
-    public Error withCode(long code) {
+    public Error withCode(String code) {
         Utils.checkNotNull(code, "code");
         this.code = Optional.ofNullable(code);
         return this;
     }
 
+
     /**
      * HTTP status code for the error.
      */
-    public Error withCode(Optional<Long> code) {
+    public Error withCode(Optional<String> code) {
         Utils.checkNotNull(code, "code");
         this.code = code;
         return this;
@@ -137,6 +138,7 @@ public class Error extends RuntimeException {
         return this;
     }
 
+
     /**
      * The timestamp when the error occurred.
      */
@@ -146,7 +148,6 @@ public class Error extends RuntimeException {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -165,9 +166,7 @@ public class Error extends RuntimeException {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            error,
-            code,
-            timestamp);
+            error, code, timestamp);
     }
     
     @Override
@@ -177,18 +176,20 @@ public class Error extends RuntimeException {
                 "code", code,
                 "timestamp", timestamp);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<String> error = Optional.empty();
- 
-        private Optional<Long> code = Optional.empty();
- 
+
+        private Optional<String> code = Optional.empty();
+
         private Optional<OffsetDateTime> timestamp = Optional.empty();
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * A message describing the error.
@@ -208,10 +209,11 @@ public class Error extends RuntimeException {
             return this;
         }
 
+
         /**
          * HTTP status code for the error.
          */
-        public Builder code(long code) {
+        public Builder code(String code) {
             Utils.checkNotNull(code, "code");
             this.code = Optional.ofNullable(code);
             return this;
@@ -220,11 +222,12 @@ public class Error extends RuntimeException {
         /**
          * HTTP status code for the error.
          */
-        public Builder code(Optional<Long> code) {
+        public Builder code(Optional<String> code) {
             Utils.checkNotNull(code, "code");
             this.code = code;
             return this;
         }
+
 
         /**
          * The timestamp when the error occurred.
@@ -243,13 +246,13 @@ public class Error extends RuntimeException {
             this.timestamp = timestamp;
             return this;
         }
-        
+
         public Error build() {
+
             return new Error(
-                error,
-                code,
-                timestamp);
+                error, code, timestamp);
         }
+
     }
 }
 

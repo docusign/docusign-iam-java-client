@@ -6,7 +6,7 @@ package com.docusign.iam.sdk.models.operations;
 import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 
 import com.docusign.iam.sdk.SDKConfiguration;
-import com.docusign.iam.sdk.operations.CreateAgreementSummaryOperation;
+import com.docusign.iam.sdk.operations.CreateAgreementSummary;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -64,9 +64,7 @@ public class CreateAgreementSummaryRequestBuilder {
             .build());
 
         RequestOperation<CreateAgreementSummaryRequest, CreateAgreementSummaryResponse> operation
-              = new CreateAgreementSummaryOperation(
-                 sdkConfiguration,
-                 options);
+              = new CreateAgreementSummary.Sync(sdkConfiguration, options);
         CreateAgreementSummaryRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

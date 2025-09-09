@@ -11,8 +11,8 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 
-public class AuthorizationCodeGrantResponse {
 
+public class AuthorizationCodeGrantResponse {
     /**
      * The value of the access token. This value will be added to the Authorization header of all Docusign API calls.
      */
@@ -85,9 +85,10 @@ public class AuthorizationCodeGrantResponse {
         return expiresIn;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The value of the access token. This value will be added to the Authorization header of all Docusign API calls.
@@ -125,7 +126,6 @@ public class AuthorizationCodeGrantResponse {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -145,9 +145,7 @@ public class AuthorizationCodeGrantResponse {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            accessToken,
-            tokenType,
-            refreshToken,
+            accessToken, tokenType, refreshToken,
             expiresIn);
     }
     
@@ -159,20 +157,22 @@ public class AuthorizationCodeGrantResponse {
                 "refreshToken", refreshToken,
                 "expiresIn", expiresIn);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private String accessToken;
- 
+
         private String tokenType;
- 
+
         private String refreshToken;
- 
+
         private Long expiresIn;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The value of the access token. This value will be added to the Authorization header of all Docusign API calls.
@@ -183,6 +183,7 @@ public class AuthorizationCodeGrantResponse {
             return this;
         }
 
+
         /**
          * The type of token. For access tokens, the value of this will be Bearer.
          */
@@ -191,6 +192,7 @@ public class AuthorizationCodeGrantResponse {
             this.tokenType = tokenType;
             return this;
         }
+
 
         /**
          * The refresh token.
@@ -201,6 +203,7 @@ public class AuthorizationCodeGrantResponse {
             return this;
         }
 
+
         /**
          * The number of seconds until the access token expires.
          */
@@ -209,13 +212,13 @@ public class AuthorizationCodeGrantResponse {
             this.expiresIn = expiresIn;
             return this;
         }
-        
+
         public AuthorizationCodeGrantResponse build() {
+
             return new AuthorizationCodeGrantResponse(
-                accessToken,
-                tokenType,
-                refreshToken,
+                accessToken, tokenType, refreshToken,
                 expiresIn);
         }
+
     }
 }

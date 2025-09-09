@@ -59,6 +59,7 @@ as who started it, when it was last modified, and how many steps have been compl
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="getWorkflowInstancesList" method="get" path="/v1/accounts/{accountId}/workflows/{workflowId}/instances" -->
 ```java
 package hello.world;
 
@@ -127,6 +128,7 @@ auditing and reporting within the system.
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="getWorkflowInstance" method="get" path="/v1/accounts/{accountId}/workflows/{workflowId}/instances/{instanceId}" -->
 ```java
 package hello.world;
 
@@ -192,6 +194,7 @@ Once canceled, the workflow instance will no longer continue executing any remai
 
 ### Example Usage
 
+<!-- UsageSnippet language="java" operationID="cancelWorkflowInstance" method="post" path="/v1/accounts/{accountId}/workflows/{workflowId}/instances/{instanceId}/actions/cancel" -->
 ```java
 package hello.world;
 

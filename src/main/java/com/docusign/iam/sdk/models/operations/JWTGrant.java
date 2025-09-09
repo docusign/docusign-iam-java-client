@@ -20,7 +20,6 @@ import java.util.Optional;
  * <p>JSON Web Token (JWT) Grant is an OAuth 2.0 flow that is used to grant an access token to service integrations
  */
 public class JWTGrant {
-
     /**
      * The grant type.
      */
@@ -65,9 +64,10 @@ public class JWTGrant {
         return assertion;
     }
 
-    public final static Builder builder() {
+    public static Builder builder() {
         return new Builder();
-    }    
+    }
+
 
     /**
      * The grant type.
@@ -77,6 +77,7 @@ public class JWTGrant {
         this.grantType = Optional.ofNullable(grantType);
         return this;
     }
+
 
     /**
      * The grant type.
@@ -96,7 +97,6 @@ public class JWTGrant {
         return this;
     }
 
-    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -114,8 +114,7 @@ public class JWTGrant {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            grantType,
-            assertion);
+            grantType, assertion);
     }
     
     @Override
@@ -124,16 +123,18 @@ public class JWTGrant {
                 "grantType", grantType,
                 "assertion", assertion);
     }
-    
+
+    @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
- 
+
         private Optional<? extends GetTokenFromJWTGrantGrantType> grantType;
- 
+
         private String assertion;
-        
+
         private Builder() {
           // force use of static builder() method
         }
+
 
         /**
          * The grant type.
@@ -153,6 +154,7 @@ public class JWTGrant {
             return this;
         }
 
+
         /**
          * Your JWT
          */
@@ -161,15 +163,16 @@ public class JWTGrant {
             this.assertion = assertion;
             return this;
         }
-        
+
         public JWTGrant build() {
             if (grantType == null) {
                 grantType = _SINGLETON_VALUE_GrantType.value();
             }
+
             return new JWTGrant(
-                grantType,
-                assertion);
+                grantType, assertion);
         }
+
 
         private static final LazySingletonValue<Optional<? extends GetTokenFromJWTGrantGrantType>> _SINGLETON_VALUE_GrantType =
                 new LazySingletonValue<>(

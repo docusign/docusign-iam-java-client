@@ -1,0 +1,10 @@
+# CreateWorkspaceEnvelopeRequest
+
+
+## Fields
+
+| Field                                                                                               | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `accountId`                                                                                         | *String*                                                                                            | :heavy_check_mark:                                                                                  | The ID of the account                                                                               |
+| `workspaceId`                                                                                       | *String*                                                                                            | :heavy_check_mark:                                                                                  | The ID of the workspace                                                                             |
+| `workspaceEnvelopeForCreate`                                                                        | [WorkspaceEnvelopeForCreate](../../models/components/WorkspaceEnvelopeForCreate.md)                 | :heavy_check_mark:                                                                                  | The details of the envelope to be created including the list of document IDs to add to the envelope |
