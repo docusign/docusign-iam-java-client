@@ -26,7 +26,8 @@ public class GetWorkspacesResponse {
     private JsonNullable<? extends List<WorkspaceSummary>> workspaces;
 
     /**
-     * The number of workspaces returned in the response. Always equal or less than the `count` of the request
+     * The number of workspaces returned in the response. Always equal or less than the `count` of the
+     * request
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("result_set_size")
@@ -47,7 +48,8 @@ public class GetWorkspacesResponse {
     private JsonNullable<Integer> endPosition;
 
     /**
-     * The total number of workspaces applicable to the request regardless of pagination. It may not always be computed
+     * The total number of workspaces applicable to the request regardless of pagination. It may not always
+     * be computed
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("total_row_count")
@@ -87,7 +89,8 @@ public class GetWorkspacesResponse {
     }
 
     /**
-     * The number of workspaces returned in the response. Always equal or less than the `count` of the request
+     * The number of workspaces returned in the response. Always equal or less than the `count` of the
+     * request
      */
     @JsonIgnore
     public JsonNullable<Integer> resultSetSize() {
@@ -111,7 +114,8 @@ public class GetWorkspacesResponse {
     }
 
     /**
-     * The total number of workspaces applicable to the request regardless of pagination. It may not always be computed
+     * The total number of workspaces applicable to the request regardless of pagination. It may not always
+     * be computed
      */
     @JsonIgnore
     public JsonNullable<Integer> totalRowCount() {
@@ -142,7 +146,8 @@ public class GetWorkspacesResponse {
     }
 
     /**
-     * The number of workspaces returned in the response. Always equal or less than the `count` of the request
+     * The number of workspaces returned in the response. Always equal or less than the `count` of the
+     * request
      */
     public GetWorkspacesResponse withResultSetSize(int resultSetSize) {
         Utils.checkNotNull(resultSetSize, "resultSetSize");
@@ -151,7 +156,8 @@ public class GetWorkspacesResponse {
     }
 
     /**
-     * The number of workspaces returned in the response. Always equal or less than the `count` of the request
+     * The number of workspaces returned in the response. Always equal or less than the `count` of the
+     * request
      */
     public GetWorkspacesResponse withResultSetSize(JsonNullable<Integer> resultSetSize) {
         Utils.checkNotNull(resultSetSize, "resultSetSize");
@@ -196,7 +202,8 @@ public class GetWorkspacesResponse {
     }
 
     /**
-     * The total number of workspaces applicable to the request regardless of pagination. It may not always be computed
+     * The total number of workspaces applicable to the request regardless of pagination. It may not always
+     * be computed
      */
     public GetWorkspacesResponse withTotalRowCount(int totalRowCount) {
         Utils.checkNotNull(totalRowCount, "totalRowCount");
@@ -205,7 +212,8 @@ public class GetWorkspacesResponse {
     }
 
     /**
-     * The total number of workspaces applicable to the request regardless of pagination. It may not always be computed
+     * The total number of workspaces applicable to the request regardless of pagination. It may not always
+     * be computed
      */
     public GetWorkspacesResponse withTotalRowCount(JsonNullable<Integer> totalRowCount) {
         Utils.checkNotNull(totalRowCount, "totalRowCount");
@@ -285,7 +293,8 @@ public class GetWorkspacesResponse {
 
 
         /**
-         * The number of workspaces returned in the response. Always equal or less than the `count` of the request
+         * The number of workspaces returned in the response. Always equal or less than the `count` of the
+         * request
          */
         public Builder resultSetSize(int resultSetSize) {
             Utils.checkNotNull(resultSetSize, "resultSetSize");
@@ -294,7 +303,8 @@ public class GetWorkspacesResponse {
         }
 
         /**
-         * The number of workspaces returned in the response. Always equal or less than the `count` of the request
+         * The number of workspaces returned in the response. Always equal or less than the `count` of the
+         * request
          */
         public Builder resultSetSize(JsonNullable<Integer> resultSetSize) {
             Utils.checkNotNull(resultSetSize, "resultSetSize");
@@ -342,7 +352,8 @@ public class GetWorkspacesResponse {
 
 
         /**
-         * The total number of workspaces applicable to the request regardless of pagination. It may not always be computed
+         * The total number of workspaces applicable to the request regardless of pagination. It may not always
+         * be computed
          */
         public Builder totalRowCount(int totalRowCount) {
             Utils.checkNotNull(totalRowCount, "totalRowCount");
@@ -351,7 +362,8 @@ public class GetWorkspacesResponse {
         }
 
         /**
-         * The total number of workspaces applicable to the request regardless of pagination. It may not always be computed
+         * The total number of workspaces applicable to the request regardless of pagination. It may not always
+         * be computed
          */
         public Builder totalRowCount(JsonNullable<Integer> totalRowCount) {
             Utils.checkNotNull(totalRowCount, "totalRowCount");

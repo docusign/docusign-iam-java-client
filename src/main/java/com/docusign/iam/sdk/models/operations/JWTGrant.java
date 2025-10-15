@@ -17,7 +17,8 @@ import java.util.Optional;
 /**
  * JWTGrant
  * 
- * <p>JSON Web Token (JWT) Grant is an OAuth 2.0 flow that is used to grant an access token to service integrations
+ * <p>JSON Web Token (JWT) Grant is an OAuth 2.0 flow that is used to grant an access token to service
+ * integrations
  */
 public class JWTGrant {
     /**

@@ -10,6 +10,7 @@
 * [getWorkspaceUploadRequest](#getworkspaceuploadrequest) - Gets details for a specific upload request
 * [updateWorkspaceUploadRequest](#updateworkspaceuploadrequest) - Updates a specific upload request
 * [deleteWorkspaceUploadRequest](#deleteworkspaceuploadrequest) - Deletes a specific upload request
+* [addWorkspaceUploadRequestDocument](#addworkspaceuploadrequestdocument) - Add a document to an upload request via file upload
 * [completeWorkspaceUploadRequest](#completeworkspaceuploadrequest) - Complete an upload request
 
 ## createWorkspaceUploadRequest
@@ -300,6 +301,60 @@ public class Application {
 ### Response
 
 **[DeleteWorkspaceUploadRequestResponse](../../models/operations/DeleteWorkspaceUploadRequestResponse.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models/errors/ErrorDetails | 400, 401                   | application/json           |
+| models/errors/ErrorDetails | 500                        | application/json           |
+| models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
+
+## addWorkspaceUploadRequestDocument
+
+This operation adds a document to a specific upload request within a workspace via file upload. The file is passed in the request body as multipart/form-data. The file name is used as the document name.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="addWorkspaceUploadRequestDocument" method="post" path="/v1/accounts/{accountId}/workspaces/{workspaceId}/upload-requests/{uploadRequestId}/documents" -->
+```java
+package hello.world;
+
+import com.docusign.iam.sdk.IamClient;
+import com.docusign.iam.sdk.models.errors.ErrorDetails;
+import com.docusign.iam.sdk.models.operations.AddWorkspaceUploadRequestDocumentResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ErrorDetails, ErrorDetails, Exception {
+
+        IamClient sdk = IamClient.builder()
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
+            .build();
+
+        AddWorkspaceUploadRequestDocumentResponse res = sdk.workspaces().workspaceUploadRequest().addWorkspaceUploadRequestDocument()
+                .accountId("8b599acd-faa6-4529-b5ad-02f99b937198")
+                .workspaceId("4cbc6785-7806-4970-8bca-94d8b557bc6e")
+                .uploadRequestId("a1972622-e272-42d7-9477-b2574b1da2ae")
+                .call();
+
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                  | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
+| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `accountId`                                                                                                                | *String*                                                                                                                   | :heavy_check_mark:                                                                                                         | The ID of the account                                                                                                      |
+| `workspaceId`                                                                                                              | *String*                                                                                                                   | :heavy_check_mark:                                                                                                         | The ID of the workspace                                                                                                    |
+| `uploadRequestId`                                                                                                          | *String*                                                                                                                   | :heavy_check_mark:                                                                                                         | The ID of the upload request                                                                                               |
+| `addWorkspaceUploadRequestDocumentRequest`                                                                                 | [Optional\<AddWorkspaceUploadRequestDocumentRequest>](../../models/components/AddWorkspaceUploadRequestDocumentRequest.md) | :heavy_minus_sign:                                                                                                         | N/A                                                                                                                        |
+
+### Response
+
+**[AddWorkspaceUploadRequestDocumentResponse](../../models/operations/AddWorkspaceUploadRequestDocumentResponse.md)**
 
 ### Errors
 

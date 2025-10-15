@@ -19,7 +19,8 @@ import java.util.Map;
  * along with the input data required to trigger the workflow.
  * 
  * <p>- `instance_name` provides a user-defined name for the workflow instance.
- * - `trigger_inputs` contains the key-value pairs corresponding to the inputs required by the workflow, as described in the `trigger_input_schema` from the workflow definition.
+ * - `trigger_inputs` contains the key-value pairs corresponding to the inputs required by the
+ * workflow, as described in the `trigger_input_schema` from the workflow definition.
  */
 public class TriggerWorkflow {
     /**
@@ -32,7 +33,8 @@ public class TriggerWorkflow {
 
     /**
      * Key-value pairs representing the input data required to trigger the workflow.
-     * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow definition.
+     * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow
+     * definition.
      * The values should match the specified `field_data_type` (e.g., string, number, boolean).
      * Example: {"name": "John Doe", "email": "johndoe@example.com"}
      */
@@ -62,7 +64,8 @@ public class TriggerWorkflow {
 
     /**
      * Key-value pairs representing the input data required to trigger the workflow.
-     * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow definition.
+     * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow
+     * definition.
      * The values should match the specified `field_data_type` (e.g., string, number, boolean).
      * Example: {"name": "John Doe", "email": "johndoe@example.com"}
      */
@@ -89,7 +92,8 @@ public class TriggerWorkflow {
 
     /**
      * Key-value pairs representing the input data required to trigger the workflow.
-     * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow definition.
+     * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow
+     * definition.
      * The values should match the specified `field_data_type` (e.g., string, number, boolean).
      * Example: {"name": "John Doe", "email": "johndoe@example.com"}
      */
@@ -152,7 +156,8 @@ public class TriggerWorkflow {
 
         /**
          * Key-value pairs representing the input data required to trigger the workflow.
-         * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow definition.
+         * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow
+         * definition.
          * The values should match the specified `field_data_type` (e.g., string, number, boolean).
          * Example: {"name": "John Doe", "email": "johndoe@example.com"}
          */

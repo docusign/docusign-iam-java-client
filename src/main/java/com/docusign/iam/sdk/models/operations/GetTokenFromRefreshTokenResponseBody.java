@@ -18,7 +18,8 @@ import java.lang.String;
  */
 public class GetTokenFromRefreshTokenResponseBody {
     /**
-     * The value of the access token. This value will be added to the Authorization header of all Docusign API calls.
+     * The value of the access token. This value will be added to the Authorization header of all Docusign
+     * API calls.
      */
     @JsonProperty("access_token")
     private String accessToken;
@@ -58,7 +59,8 @@ public class GetTokenFromRefreshTokenResponseBody {
     }
 
     /**
-     * The value of the access token. This value will be added to the Authorization header of all Docusign API calls.
+     * The value of the access token. This value will be added to the Authorization header of all Docusign
+     * API calls.
      */
     @JsonIgnore
     public String accessToken() {
@@ -95,7 +97,8 @@ public class GetTokenFromRefreshTokenResponseBody {
 
 
     /**
-     * The value of the access token. This value will be added to the Authorization header of all Docusign API calls.
+     * The value of the access token. This value will be added to the Authorization header of all Docusign
+     * API calls.
      */
     public GetTokenFromRefreshTokenResponseBody withAccessToken(String accessToken) {
         Utils.checkNotNull(accessToken, "accessToken");
@@ -179,7 +182,8 @@ public class GetTokenFromRefreshTokenResponseBody {
 
 
         /**
-         * The value of the access token. This value will be added to the Authorization header of all Docusign API calls.
+         * The value of the access token. This value will be added to the Authorization header of all Docusign
+         * API calls.
          */
         public Builder accessToken(String accessToken) {
             Utils.checkNotNull(accessToken, "accessToken");

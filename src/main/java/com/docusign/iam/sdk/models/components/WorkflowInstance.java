@@ -121,7 +121,8 @@ public class WorkflowInstance {
 
     /**
      * Key-value pairs representing the input data required to trigger the workflow.
-     * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow definition.
+     * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow
+     * definition.
      * The values should match the specified `field_data_type` (e.g., string, number, boolean).
      * Example: {"name": "John Doe", "email": "johndoe@example.com"}
      */
@@ -352,7 +353,8 @@ public class WorkflowInstance {
 
     /**
      * Key-value pairs representing the input data required to trigger the workflow.
-     * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow definition.
+     * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow
+     * definition.
      * The values should match the specified `field_data_type` (e.g., string, number, boolean).
      * Example: {"name": "John Doe", "email": "johndoe@example.com"}
      */
@@ -673,7 +675,8 @@ public class WorkflowInstance {
 
     /**
      * Key-value pairs representing the input data required to trigger the workflow.
-     * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow definition.
+     * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow
+     * definition.
      * The values should match the specified `field_data_type` (e.g., string, number, boolean).
      * Example: {"name": "John Doe", "email": "johndoe@example.com"}
      */
@@ -686,7 +689,8 @@ public class WorkflowInstance {
 
     /**
      * Key-value pairs representing the input data required to trigger the workflow.
-     * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow definition.
+     * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow
+     * definition.
      * The values should match the specified `field_data_type` (e.g., string, number, boolean).
      * Example: {"name": "John Doe", "email": "johndoe@example.com"}
      */
@@ -1175,7 +1179,8 @@ public class WorkflowInstance {
 
         /**
          * Key-value pairs representing the input data required to trigger the workflow.
-         * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow definition.
+         * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow
+         * definition.
          * The values should match the specified `field_data_type` (e.g., string, number, boolean).
          * Example: {"name": "John Doe", "email": "johndoe@example.com"}
          */
@@ -1187,7 +1192,8 @@ public class WorkflowInstance {
 
         /**
          * Key-value pairs representing the input data required to trigger the workflow.
-         * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow definition.
+         * The keys correspond to the `field_name` values defined in the `trigger_input_schema` of the workflow
+         * definition.
          * The values should match the specified `field_data_type` (e.g., string, number, boolean).
          * Example: {"name": "John Doe", "email": "johndoe@example.com"}
          */

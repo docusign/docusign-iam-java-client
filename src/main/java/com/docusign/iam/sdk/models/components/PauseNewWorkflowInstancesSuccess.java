@@ -16,16 +16,18 @@ import java.util.Optional;
 /**
  * PauseNewWorkflowInstancesSuccess
  * 
- * <p>Indicates that a workflow has been successfully paused. New instances of this workflow will not be created.
+ * <p>Indicates that a workflow has been successfully paused. New instances of this workflow will not be
+ * created.
  * Existing workflow instances will be unaffected.
  */
 public class PauseNewWorkflowInstancesSuccess {
     /**
-     * Represents the new state of a workflow's mechanism to permit new workflow instances from being created.
+     * Represents the new state of a workflow's mechanism to permit new workflow instances from being
+     * created.
      * Valid values include:
      * 
-     * <p>  - active
-     *   - paused
+     * <p>- active
+     * - paused
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("status")
@@ -43,11 +45,12 @@ public class PauseNewWorkflowInstancesSuccess {
     }
 
     /**
-     * Represents the new state of a workflow's mechanism to permit new workflow instances from being created.
+     * Represents the new state of a workflow's mechanism to permit new workflow instances from being
+     * created.
      * Valid values include:
      * 
-     * <p>  - active
-     *   - paused
+     * <p>- active
+     * - paused
      */
     @JsonIgnore
     public Optional<String> status() {
@@ -60,11 +63,12 @@ public class PauseNewWorkflowInstancesSuccess {
 
 
     /**
-     * Represents the new state of a workflow's mechanism to permit new workflow instances from being created.
+     * Represents the new state of a workflow's mechanism to permit new workflow instances from being
+     * created.
      * Valid values include:
      * 
-     * <p>  - active
-     *   - paused
+     * <p>- active
+     * - paused
      */
     public PauseNewWorkflowInstancesSuccess withStatus(String status) {
         Utils.checkNotNull(status, "status");
@@ -74,11 +78,12 @@ public class PauseNewWorkflowInstancesSuccess {
 
 
     /**
-     * Represents the new state of a workflow's mechanism to permit new workflow instances from being created.
+     * Represents the new state of a workflow's mechanism to permit new workflow instances from being
+     * created.
      * Valid values include:
      * 
-     * <p>  - active
-     *   - paused
+     * <p>- active
+     * - paused
      */
     public PauseNewWorkflowInstancesSuccess withStatus(Optional<String> status) {
         Utils.checkNotNull(status, "status");
@@ -122,11 +127,12 @@ public class PauseNewWorkflowInstancesSuccess {
 
 
         /**
-         * Represents the new state of a workflow's mechanism to permit new workflow instances from being created.
+         * Represents the new state of a workflow's mechanism to permit new workflow instances from being
+         * created.
          * Valid values include:
          * 
-         * <p>  - active
-         *   - paused
+         * <p>- active
+         * - paused
          */
         public Builder status(String status) {
             Utils.checkNotNull(status, "status");
@@ -135,11 +141,12 @@ public class PauseNewWorkflowInstancesSuccess {
         }
 
         /**
-         * Represents the new state of a workflow's mechanism to permit new workflow instances from being created.
+         * Represents the new state of a workflow's mechanism to permit new workflow instances from being
+         * created.
          * Valid values include:
          * 
-         * <p>  - active
-         *   - paused
+         * <p>- active
+         * - paused
          */
         public Builder status(Optional<String> status) {
             Utils.checkNotNull(status, "status");

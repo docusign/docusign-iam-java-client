@@ -21,7 +21,8 @@ public class GetWorkflowsListRequest {
     private String accountId;
 
     /**
-     * Filter workflows by their status. If provided, only workflows with the specified status will be returned.
+     * Filter workflows by their status. If provided, only workflows with the specified status will be
+     * returned.
      * - `active`: Returns only active workflows.
      * - `inactive`: Returns only inactive workflows.
      * - `publishing`: Returns workflows currently being published.
@@ -56,7 +57,8 @@ public class GetWorkflowsListRequest {
     }
 
     /**
-     * Filter workflows by their status. If provided, only workflows with the specified status will be returned.
+     * Filter workflows by their status. If provided, only workflows with the specified status will be
+     * returned.
      * - `active`: Returns only active workflows.
      * - `inactive`: Returns only inactive workflows.
      * - `publishing`: Returns workflows currently being published.
@@ -85,7 +87,8 @@ public class GetWorkflowsListRequest {
     }
 
     /**
-     * Filter workflows by their status. If provided, only workflows with the specified status will be returned.
+     * Filter workflows by their status. If provided, only workflows with the specified status will be
+     * returned.
      * - `active`: Returns only active workflows.
      * - `inactive`: Returns only inactive workflows.
      * - `publishing`: Returns workflows currently being published.
@@ -101,7 +104,8 @@ public class GetWorkflowsListRequest {
 
 
     /**
-     * Filter workflows by their status. If provided, only workflows with the specified status will be returned.
+     * Filter workflows by their status. If provided, only workflows with the specified status will be
+     * returned.
      * - `active`: Returns only active workflows.
      * - `inactive`: Returns only inactive workflows.
      * - `publishing`: Returns workflows currently being published.
@@ -165,7 +169,8 @@ public class GetWorkflowsListRequest {
 
 
         /**
-         * Filter workflows by their status. If provided, only workflows with the specified status will be returned.
+         * Filter workflows by their status. If provided, only workflows with the specified status will be
+         * returned.
          * - `active`: Returns only active workflows.
          * - `inactive`: Returns only inactive workflows.
          * - `publishing`: Returns workflows currently being published.
@@ -180,7 +185,8 @@ public class GetWorkflowsListRequest {
         }
 
         /**
-         * Filter workflows by their status. If provided, only workflows with the specified status will be returned.
+         * Filter workflows by their status. If provided, only workflows with the specified status will be
+         * returned.
          * - `active`: Returns only active workflows.
          * - `inactive`: Returns only inactive workflows.
          * - `publishing`: Returns workflows currently being published.

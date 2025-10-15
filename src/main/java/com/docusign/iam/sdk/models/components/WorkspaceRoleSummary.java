@@ -33,7 +33,8 @@ public class WorkspaceRoleSummary {
     private JsonNullable<String> name;
 
     /**
-     * If this role is applicable to any participant of a workspace including those outside the account. If false, this role may only be assigned to internal users of the same account
+     * If this role is applicable to any participant of a workspace including those outside the account. If
+     * false, this role may only be assigned to internal users of the same account
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("is_external")
@@ -84,7 +85,8 @@ public class WorkspaceRoleSummary {
     }
 
     /**
-     * If this role is applicable to any participant of a workspace including those outside the account. If false, this role may only be assigned to internal users of the same account
+     * If this role is applicable to any participant of a workspace including those outside the account. If
+     * false, this role may only be assigned to internal users of the same account
      */
     @JsonIgnore
     public JsonNullable<Boolean> isExternal() {
@@ -142,7 +144,8 @@ public class WorkspaceRoleSummary {
     }
 
     /**
-     * If this role is applicable to any participant of a workspace including those outside the account. If false, this role may only be assigned to internal users of the same account
+     * If this role is applicable to any participant of a workspace including those outside the account. If
+     * false, this role may only be assigned to internal users of the same account
      */
     public WorkspaceRoleSummary withIsExternal(boolean isExternal) {
         Utils.checkNotNull(isExternal, "isExternal");
@@ -151,7 +154,8 @@ public class WorkspaceRoleSummary {
     }
 
     /**
-     * If this role is applicable to any participant of a workspace including those outside the account. If false, this role may only be assigned to internal users of the same account
+     * If this role is applicable to any participant of a workspace including those outside the account. If
+     * false, this role may only be assigned to internal users of the same account
      */
     public WorkspaceRoleSummary withIsExternal(JsonNullable<Boolean> isExternal) {
         Utils.checkNotNull(isExternal, "isExternal");
@@ -264,7 +268,8 @@ public class WorkspaceRoleSummary {
 
 
         /**
-         * If this role is applicable to any participant of a workspace including those outside the account. If false, this role may only be assigned to internal users of the same account
+         * If this role is applicable to any participant of a workspace including those outside the account. If
+         * false, this role may only be assigned to internal users of the same account
          */
         public Builder isExternal(boolean isExternal) {
             Utils.checkNotNull(isExternal, "isExternal");
@@ -273,7 +278,8 @@ public class WorkspaceRoleSummary {
         }
 
         /**
-         * If this role is applicable to any participant of a workspace including those outside the account. If false, this role may only be assigned to internal users of the same account
+         * If this role is applicable to any participant of a workspace including those outside the account. If
+         * false, this role may only be assigned to internal users of the same account
          */
         public Builder isExternal(JsonNullable<Boolean> isExternal) {
             Utils.checkNotNull(isExternal, "isExternal");

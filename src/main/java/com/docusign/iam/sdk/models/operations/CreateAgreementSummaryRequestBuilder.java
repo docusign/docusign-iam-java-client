@@ -7,6 +7,7 @@ import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 
 import com.docusign.iam.sdk.SDKConfiguration;
 import com.docusign.iam.sdk.operations.CreateAgreementSummary;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -20,6 +21,7 @@ public class CreateAgreementSummaryRequestBuilder {
     private String agreementId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public CreateAgreementSummaryRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -64,7 +66,7 @@ public class CreateAgreementSummaryRequestBuilder {
             .build());
 
         RequestOperation<CreateAgreementSummaryRequest, CreateAgreementSummaryResponse> operation
-              = new CreateAgreementSummary.Sync(sdkConfiguration, options);
+              = new CreateAgreementSummary.Sync(sdkConfiguration, options, _headers);
         CreateAgreementSummaryRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

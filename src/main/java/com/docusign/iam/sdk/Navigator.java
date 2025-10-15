@@ -3,7 +3,11 @@
  */
 package com.docusign.iam.sdk;
 
+import com.docusign.iam.sdk.utils.Headers;
+
+
 public class Navigator {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
     private final Agreements agreements;
 

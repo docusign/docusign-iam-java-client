@@ -14,6 +14,7 @@ methods to interact with the following Docusign APIs:
 * [Maestro API](https://developers.docusign.com/docs/maestro-api/)
 * [Navigator API](https://developers.docusign.com/docs/navigator-api/)
 * [Connected Fields API](https://developers.docusign.com/docs/connected-fields-api/)
+* [Workspaces API](https://developers.docusign.com/docs/workspaces-api/)
 
 This repo contains the source-code for this SDK. You only need to use the code
 in this repo if you want to customize the SDK for your own needs. To use the
@@ -53,7 +54,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.docusign:iam-sdk:1.0.0-beta.5'
+implementation 'com.docusign:iam-sdk:1.0.0-beta.6'
 ```
 
 Maven:
@@ -61,7 +62,7 @@ Maven:
 <dependency>
     <groupId>com.docusign</groupId>
     <artifactId>iam-sdk</artifactId>
-    <version>1.0.0-beta.5</version>
+    <version>1.0.0-beta.6</version>
 </dependency>
 ```
 
@@ -286,16 +287,9 @@ var res = sdk.auth().getUserInfo().call();
 * [getTokenFromRefreshToken](docs/sdks/auth/README.md#gettokenfromrefreshtoken) - Obtains an access token from the Docusign API using an authorization code.
 * [getUserInfo](docs/sdks/auth/README.md#getuserinfo) - Get user information
 
-### [connectedFields()](docs/sdks/connectedfields/README.md)
-
-
 #### [connectedFields().tabInfo()](docs/sdks/tabinfo/README.md)
 
 * [getConnectedFieldsTabGroups](docs/sdks/tabinfo/README.md#getconnectedfieldstabgroups) - Returns all tabs associated with the given account
-
-
-### [maestro()](docs/sdks/maestro/README.md)
-
 
 #### [maestro().workflowInstanceManagement()](docs/sdks/workflowinstancemanagement/README.md)
 
@@ -311,9 +305,6 @@ var res = sdk.auth().getUserInfo().call();
 * [pauseNewWorkflowInstances](docs/sdks/workflows/README.md#pausenewworkflowinstances) - Pause an Active Workflow
 * [resumePausedWorkflow](docs/sdks/workflows/README.md#resumepausedworkflow) - Resume a Paused Workflow
 
-### [navigator()](docs/sdks/navigator/README.md)
-
-
 #### [navigator().agreements()](docs/sdks/agreements/README.md)
 
 * [getAgreementsList](docs/sdks/agreements/README.md#getagreementslist) - Retrieve a list of agreements
@@ -321,12 +312,10 @@ var res = sdk.auth().getUserInfo().call();
 * [deleteAgreement](docs/sdks/agreements/README.md#deleteagreement) - Delete a specific agreement
 * [createAgreementSummary](docs/sdks/agreements/README.md#createagreementsummary) - Create an AI-generated summary of an agreement document
 
-### [workspaces()](docs/sdks/workspaces1/README.md)
-
-
 #### [workspaces().workspaceDocuments()](docs/sdks/workspacedocuments/README.md)
 
 * [getWorkspaceDocuments](docs/sdks/workspacedocuments/README.md#getworkspacedocuments) - Get documents in the workspace accessible to the calling user
+* [addWorkspaceDocument](docs/sdks/workspacedocuments/README.md#addworkspacedocument) - Add a document to a workspace via file contents upload
 * [getWorkspaceDocument](docs/sdks/workspacedocuments/README.md#getworkspacedocument) - Get information about the document
 * [deleteWorkspaceDocument](docs/sdks/workspacedocuments/README.md#deleteworkspacedocument) - Deletes a document in the workspace
 * [getWorkspaceDocumentContents](docs/sdks/workspacedocuments/README.md#getworkspacedocumentcontents) - Get the file contents of the document
@@ -347,6 +336,7 @@ var res = sdk.auth().getUserInfo().call();
 * [getWorkspaceUploadRequest](docs/sdks/workspaceuploadrequest/README.md#getworkspaceuploadrequest) - Gets details for a specific upload request
 * [updateWorkspaceUploadRequest](docs/sdks/workspaceuploadrequest/README.md#updateworkspaceuploadrequest) - Updates a specific upload request
 * [deleteWorkspaceUploadRequest](docs/sdks/workspaceuploadrequest/README.md#deleteworkspaceuploadrequest) - Deletes a specific upload request
+* [addWorkspaceUploadRequestDocument](docs/sdks/workspaceuploadrequest/README.md#addworkspaceuploadrequestdocument) - Add a document to an upload request via file upload
 * [completeWorkspaceUploadRequest](docs/sdks/workspaceuploadrequest/README.md#completeworkspaceuploadrequest) - Complete an upload request
 
 #### [workspaces().workspaceUsers()](docs/sdks/workspaceusers/README.md)

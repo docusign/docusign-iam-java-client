@@ -7,6 +7,7 @@ import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 
 import com.docusign.iam.sdk.SDKConfiguration;
 import com.docusign.iam.sdk.operations.PauseNewWorkflowInstances;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -20,6 +21,7 @@ public class PauseNewWorkflowInstancesRequestBuilder {
     private String workflowId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public PauseNewWorkflowInstancesRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -64,7 +66,7 @@ public class PauseNewWorkflowInstancesRequestBuilder {
             .build());
 
         RequestOperation<PauseNewWorkflowInstancesRequest, PauseNewWorkflowInstancesResponse> operation
-              = new PauseNewWorkflowInstances.Sync(sdkConfiguration, options);
+              = new PauseNewWorkflowInstances.Sync(sdkConfiguration, options, _headers);
         PauseNewWorkflowInstancesRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

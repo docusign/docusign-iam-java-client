@@ -64,7 +64,8 @@ public class GetAgreementsListRequest {
     private Optional<String> partiesNameInAgreement;
 
     /**
-     * Filter by creation date (also available via `created_at` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+     * Filter by creation date (also available via `created_at` key). Use operators (`=`, `gte`, `gt`,
+     * `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=metadata.created_at")
     private Optional<String> metadataCreatedAt;
@@ -76,7 +77,8 @@ public class GetAgreementsListRequest {
     private Optional<String> title;
 
     /**
-     * Filter by parent agreement document ID (also available via `parent_agreement_document_id` key). with an UUID format.
+     * Filter by parent agreement document ID (also available via `parent_agreement_document_id` key). with
+     * an UUID format.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=related_agreement_documents.parent_agreement_document_id")
     private Optional<String> relatedAgreementDocumentsParentAgreementDocumentId;
@@ -88,25 +90,29 @@ public class GetAgreementsListRequest {
     private Optional<? extends List<String>> languages;
 
     /**
-     * Filter by effective date range (also available via `effective_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+     * Filter by effective date range (also available via `effective_date` key). Use operators (`=`, `gte`,
+     * `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=provisions.effective_date")
     private Optional<String> provisionsEffectiveDate;
 
     /**
-     * Filter by expiration date (also available via `expiration_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+     * Filter by expiration date (also available via `expiration_date` key). Use operators (`=`, `gte`,
+     * `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=provisions.expiration_date")
     private Optional<String> provisionsExpirationDate;
 
     /**
-     * Filter by execution date (also available via `execution_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+     * Filter by execution date (also available via `execution_date` key). Use operators (`=`, `gte`, `gt`,
+     * `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=provisions.execution_date")
     private Optional<String> provisionsExecutionDate;
 
     /**
-     * duration of the agreement (also available via `term_length` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 Duration string (e.g., `P1Y`).
+     * duration of the agreement (also available via `term_length` key). Use operators (`=`, `gte`, `gt`,
+     * `lte`, `le`, `ne`) with an ISO 8601 Duration string (e.g., `P1Y`).
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=provisions.term_length")
     private Optional<String> provisionsTermLength;
@@ -254,7 +260,8 @@ public class GetAgreementsListRequest {
     }
 
     /**
-     * Filter by creation date (also available via `created_at` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+     * Filter by creation date (also available via `created_at` key). Use operators (`=`, `gte`, `gt`,
+     * `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
      */
     @JsonIgnore
     public Optional<String> metadataCreatedAt() {
@@ -270,7 +277,8 @@ public class GetAgreementsListRequest {
     }
 
     /**
-     * Filter by parent agreement document ID (also available via `parent_agreement_document_id` key). with an UUID format.
+     * Filter by parent agreement document ID (also available via `parent_agreement_document_id` key). with
+     * an UUID format.
      */
     @JsonIgnore
     public Optional<String> relatedAgreementDocumentsParentAgreementDocumentId() {
@@ -287,7 +295,8 @@ public class GetAgreementsListRequest {
     }
 
     /**
-     * Filter by effective date range (also available via `effective_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+     * Filter by effective date range (also available via `effective_date` key). Use operators (`=`, `gte`,
+     * `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
      */
     @JsonIgnore
     public Optional<String> provisionsEffectiveDate() {
@@ -295,7 +304,8 @@ public class GetAgreementsListRequest {
     }
 
     /**
-     * Filter by expiration date (also available via `expiration_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+     * Filter by expiration date (also available via `expiration_date` key). Use operators (`=`, `gte`,
+     * `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
      */
     @JsonIgnore
     public Optional<String> provisionsExpirationDate() {
@@ -303,7 +313,8 @@ public class GetAgreementsListRequest {
     }
 
     /**
-     * Filter by execution date (also available via `execution_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+     * Filter by execution date (also available via `execution_date` key). Use operators (`=`, `gte`, `gt`,
+     * `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
      */
     @JsonIgnore
     public Optional<String> provisionsExecutionDate() {
@@ -311,7 +322,8 @@ public class GetAgreementsListRequest {
     }
 
     /**
-     * duration of the agreement (also available via `term_length` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 Duration string (e.g., `P1Y`).
+     * duration of the agreement (also available via `term_length` key). Use operators (`=`, `gte`, `gt`,
+     * `lte`, `le`, `ne`) with an ISO 8601 Duration string (e.g., `P1Y`).
      */
     @JsonIgnore
     public Optional<String> provisionsTermLength() {
@@ -477,7 +489,8 @@ public class GetAgreementsListRequest {
     }
 
     /**
-     * Filter by creation date (also available via `created_at` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+     * Filter by creation date (also available via `created_at` key). Use operators (`=`, `gte`, `gt`,
+     * `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
      */
     public GetAgreementsListRequest withMetadataCreatedAt(String metadataCreatedAt) {
         Utils.checkNotNull(metadataCreatedAt, "metadataCreatedAt");
@@ -487,7 +500,8 @@ public class GetAgreementsListRequest {
 
 
     /**
-     * Filter by creation date (also available via `created_at` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+     * Filter by creation date (also available via `created_at` key). Use operators (`=`, `gte`, `gt`,
+     * `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
      */
     public GetAgreementsListRequest withMetadataCreatedAt(Optional<String> metadataCreatedAt) {
         Utils.checkNotNull(metadataCreatedAt, "metadataCreatedAt");
@@ -515,7 +529,8 @@ public class GetAgreementsListRequest {
     }
 
     /**
-     * Filter by parent agreement document ID (also available via `parent_agreement_document_id` key). with an UUID format.
+     * Filter by parent agreement document ID (also available via `parent_agreement_document_id` key). with
+     * an UUID format.
      */
     public GetAgreementsListRequest withRelatedAgreementDocumentsParentAgreementDocumentId(String relatedAgreementDocumentsParentAgreementDocumentId) {
         Utils.checkNotNull(relatedAgreementDocumentsParentAgreementDocumentId, "relatedAgreementDocumentsParentAgreementDocumentId");
@@ -525,7 +540,8 @@ public class GetAgreementsListRequest {
 
 
     /**
-     * Filter by parent agreement document ID (also available via `parent_agreement_document_id` key). with an UUID format.
+     * Filter by parent agreement document ID (also available via `parent_agreement_document_id` key). with
+     * an UUID format.
      */
     public GetAgreementsListRequest withRelatedAgreementDocumentsParentAgreementDocumentId(Optional<String> relatedAgreementDocumentsParentAgreementDocumentId) {
         Utils.checkNotNull(relatedAgreementDocumentsParentAgreementDocumentId, "relatedAgreementDocumentsParentAgreementDocumentId");
@@ -553,7 +569,8 @@ public class GetAgreementsListRequest {
     }
 
     /**
-     * Filter by effective date range (also available via `effective_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+     * Filter by effective date range (also available via `effective_date` key). Use operators (`=`, `gte`,
+     * `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
      */
     public GetAgreementsListRequest withProvisionsEffectiveDate(String provisionsEffectiveDate) {
         Utils.checkNotNull(provisionsEffectiveDate, "provisionsEffectiveDate");
@@ -563,7 +580,8 @@ public class GetAgreementsListRequest {
 
 
     /**
-     * Filter by effective date range (also available via `effective_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+     * Filter by effective date range (also available via `effective_date` key). Use operators (`=`, `gte`,
+     * `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
      */
     public GetAgreementsListRequest withProvisionsEffectiveDate(Optional<String> provisionsEffectiveDate) {
         Utils.checkNotNull(provisionsEffectiveDate, "provisionsEffectiveDate");
@@ -572,7 +590,8 @@ public class GetAgreementsListRequest {
     }
 
     /**
-     * Filter by expiration date (also available via `expiration_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+     * Filter by expiration date (also available via `expiration_date` key). Use operators (`=`, `gte`,
+     * `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
      */
     public GetAgreementsListRequest withProvisionsExpirationDate(String provisionsExpirationDate) {
         Utils.checkNotNull(provisionsExpirationDate, "provisionsExpirationDate");
@@ -582,7 +601,8 @@ public class GetAgreementsListRequest {
 
 
     /**
-     * Filter by expiration date (also available via `expiration_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+     * Filter by expiration date (also available via `expiration_date` key). Use operators (`=`, `gte`,
+     * `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
      */
     public GetAgreementsListRequest withProvisionsExpirationDate(Optional<String> provisionsExpirationDate) {
         Utils.checkNotNull(provisionsExpirationDate, "provisionsExpirationDate");
@@ -591,7 +611,8 @@ public class GetAgreementsListRequest {
     }
 
     /**
-     * Filter by execution date (also available via `execution_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+     * Filter by execution date (also available via `execution_date` key). Use operators (`=`, `gte`, `gt`,
+     * `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
      */
     public GetAgreementsListRequest withProvisionsExecutionDate(String provisionsExecutionDate) {
         Utils.checkNotNull(provisionsExecutionDate, "provisionsExecutionDate");
@@ -601,7 +622,8 @@ public class GetAgreementsListRequest {
 
 
     /**
-     * Filter by execution date (also available via `execution_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+     * Filter by execution date (also available via `execution_date` key). Use operators (`=`, `gte`, `gt`,
+     * `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
      */
     public GetAgreementsListRequest withProvisionsExecutionDate(Optional<String> provisionsExecutionDate) {
         Utils.checkNotNull(provisionsExecutionDate, "provisionsExecutionDate");
@@ -610,7 +632,8 @@ public class GetAgreementsListRequest {
     }
 
     /**
-     * duration of the agreement (also available via `term_length` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 Duration string (e.g., `P1Y`).
+     * duration of the agreement (also available via `term_length` key). Use operators (`=`, `gte`, `gt`,
+     * `lte`, `le`, `ne`) with an ISO 8601 Duration string (e.g., `P1Y`).
      */
     public GetAgreementsListRequest withProvisionsTermLength(String provisionsTermLength) {
         Utils.checkNotNull(provisionsTermLength, "provisionsTermLength");
@@ -620,7 +643,8 @@ public class GetAgreementsListRequest {
 
 
     /**
-     * duration of the agreement (also available via `term_length` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 Duration string (e.g., `P1Y`).
+     * duration of the agreement (also available via `term_length` key). Use operators (`=`, `gte`, `gt`,
+     * `lte`, `le`, `ne`) with an ISO 8601 Duration string (e.g., `P1Y`).
      */
     public GetAgreementsListRequest withProvisionsTermLength(Optional<String> provisionsTermLength) {
         Utils.checkNotNull(provisionsTermLength, "provisionsTermLength");
@@ -915,7 +939,8 @@ public class GetAgreementsListRequest {
 
 
         /**
-         * Filter by creation date (also available via `created_at` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+         * Filter by creation date (also available via `created_at` key). Use operators (`=`, `gte`, `gt`,
+         * `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
          */
         public Builder metadataCreatedAt(String metadataCreatedAt) {
             Utils.checkNotNull(metadataCreatedAt, "metadataCreatedAt");
@@ -924,7 +949,8 @@ public class GetAgreementsListRequest {
         }
 
         /**
-         * Filter by creation date (also available via `created_at` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+         * Filter by creation date (also available via `created_at` key). Use operators (`=`, `gte`, `gt`,
+         * `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
          */
         public Builder metadataCreatedAt(Optional<String> metadataCreatedAt) {
             Utils.checkNotNull(metadataCreatedAt, "metadataCreatedAt");
@@ -953,7 +979,8 @@ public class GetAgreementsListRequest {
 
 
         /**
-         * Filter by parent agreement document ID (also available via `parent_agreement_document_id` key). with an UUID format.
+         * Filter by parent agreement document ID (also available via `parent_agreement_document_id` key). with
+         * an UUID format.
          */
         public Builder relatedAgreementDocumentsParentAgreementDocumentId(String relatedAgreementDocumentsParentAgreementDocumentId) {
             Utils.checkNotNull(relatedAgreementDocumentsParentAgreementDocumentId, "relatedAgreementDocumentsParentAgreementDocumentId");
@@ -962,7 +989,8 @@ public class GetAgreementsListRequest {
         }
 
         /**
-         * Filter by parent agreement document ID (also available via `parent_agreement_document_id` key). with an UUID format.
+         * Filter by parent agreement document ID (also available via `parent_agreement_document_id` key). with
+         * an UUID format.
          */
         public Builder relatedAgreementDocumentsParentAgreementDocumentId(Optional<String> relatedAgreementDocumentsParentAgreementDocumentId) {
             Utils.checkNotNull(relatedAgreementDocumentsParentAgreementDocumentId, "relatedAgreementDocumentsParentAgreementDocumentId");
@@ -991,7 +1019,8 @@ public class GetAgreementsListRequest {
 
 
         /**
-         * Filter by effective date range (also available via `effective_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+         * Filter by effective date range (also available via `effective_date` key). Use operators (`=`, `gte`,
+         * `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
          */
         public Builder provisionsEffectiveDate(String provisionsEffectiveDate) {
             Utils.checkNotNull(provisionsEffectiveDate, "provisionsEffectiveDate");
@@ -1000,7 +1029,8 @@ public class GetAgreementsListRequest {
         }
 
         /**
-         * Filter by effective date range (also available via `effective_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+         * Filter by effective date range (also available via `effective_date` key). Use operators (`=`, `gte`,
+         * `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
          */
         public Builder provisionsEffectiveDate(Optional<String> provisionsEffectiveDate) {
             Utils.checkNotNull(provisionsEffectiveDate, "provisionsEffectiveDate");
@@ -1010,7 +1040,8 @@ public class GetAgreementsListRequest {
 
 
         /**
-         * Filter by expiration date (also available via `expiration_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+         * Filter by expiration date (also available via `expiration_date` key). Use operators (`=`, `gte`,
+         * `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
          */
         public Builder provisionsExpirationDate(String provisionsExpirationDate) {
             Utils.checkNotNull(provisionsExpirationDate, "provisionsExpirationDate");
@@ -1019,7 +1050,8 @@ public class GetAgreementsListRequest {
         }
 
         /**
-         * Filter by expiration date (also available via `expiration_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+         * Filter by expiration date (also available via `expiration_date` key). Use operators (`=`, `gte`,
+         * `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
          */
         public Builder provisionsExpirationDate(Optional<String> provisionsExpirationDate) {
             Utils.checkNotNull(provisionsExpirationDate, "provisionsExpirationDate");
@@ -1029,7 +1061,8 @@ public class GetAgreementsListRequest {
 
 
         /**
-         * Filter by execution date (also available via `execution_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+         * Filter by execution date (also available via `execution_date` key). Use operators (`=`, `gte`, `gt`,
+         * `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
          */
         public Builder provisionsExecutionDate(String provisionsExecutionDate) {
             Utils.checkNotNull(provisionsExecutionDate, "provisionsExecutionDate");
@@ -1038,7 +1071,8 @@ public class GetAgreementsListRequest {
         }
 
         /**
-         * Filter by execution date (also available via `execution_date` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
+         * Filter by execution date (also available via `execution_date` key). Use operators (`=`, `gte`, `gt`,
+         * `lte`, `le`, `ne`) with an ISO 8601 DateTime string (e.g., `YYYY-MM-DD`).
          */
         public Builder provisionsExecutionDate(Optional<String> provisionsExecutionDate) {
             Utils.checkNotNull(provisionsExecutionDate, "provisionsExecutionDate");
@@ -1048,7 +1082,8 @@ public class GetAgreementsListRequest {
 
 
         /**
-         * duration of the agreement (also available via `term_length` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 Duration string (e.g., `P1Y`).
+         * duration of the agreement (also available via `term_length` key). Use operators (`=`, `gte`, `gt`,
+         * `lte`, `le`, `ne`) with an ISO 8601 Duration string (e.g., `P1Y`).
          */
         public Builder provisionsTermLength(String provisionsTermLength) {
             Utils.checkNotNull(provisionsTermLength, "provisionsTermLength");
@@ -1057,7 +1092,8 @@ public class GetAgreementsListRequest {
         }
 
         /**
-         * duration of the agreement (also available via `term_length` key). Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO 8601 Duration string (e.g., `P1Y`).
+         * duration of the agreement (also available via `term_length` key). Use operators (`=`, `gte`, `gt`,
+         * `lte`, `le`, `ne`) with an ISO 8601 Duration string (e.g., `P1Y`).
          */
         public Builder provisionsTermLength(Optional<String> provisionsTermLength) {
             Utils.checkNotNull(provisionsTermLength, "provisionsTermLength");

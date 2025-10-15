@@ -8,3 +8,14 @@
  */
 
 rootProject.name = 'iam-sdk'
+
+include 'iam-sdk-spring-boot-autoconfigure'
+include 'iam-sdk-spring-boot-starter'
+
+project(':iam-sdk-spring-boot-autoconfigure').projectDir = file('spring/iam-sdk-spring-boot-autoconfigure')
+project(':iam-sdk-spring-boot-starter').projectDir = file('spring/iam-sdk-spring-boot-starter')
+
+// Apply additional settings if the file exists
+if (file('settings-extra.gradle').exists()) {
+    apply from: 'settings-extra.gradle'
+}

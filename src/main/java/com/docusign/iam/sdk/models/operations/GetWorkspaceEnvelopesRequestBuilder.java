@@ -7,6 +7,7 @@ import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 
 import com.docusign.iam.sdk.SDKConfiguration;
 import com.docusign.iam.sdk.operations.GetWorkspaceEnvelopes;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -20,6 +21,7 @@ public class GetWorkspaceEnvelopesRequestBuilder {
     private String workspaceId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public GetWorkspaceEnvelopesRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -64,7 +66,7 @@ public class GetWorkspaceEnvelopesRequestBuilder {
             .build());
 
         RequestOperation<GetWorkspaceEnvelopesRequest, GetWorkspaceEnvelopesResponse> operation
-              = new GetWorkspaceEnvelopes.Sync(sdkConfiguration, options);
+              = new GetWorkspaceEnvelopes.Sync(sdkConfiguration, options, _headers);
         GetWorkspaceEnvelopesRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

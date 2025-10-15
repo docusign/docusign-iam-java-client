@@ -20,9 +20,12 @@ import org.openapitools.jackson.nullable.JsonNullable;
 /**
  * Agreement
  * 
- * <p>The Agreement component represents a comprehensive overview of a contractual document, detailing its unique identifiers, key properties, parties involved, 
- * and specific provisions. It includes general information such as the title, type, status, and important dates like effective and expiration dates. 
- * The component also incorporates various provisions—legal, financial, lifecycle, and custom—along with metadata, external references, and related documents 
+ * <p>The Agreement component represents a comprehensive overview of a contractual document, detailing its
+ * unique identifiers, key properties, parties involved,
+ * and specific provisions. It includes general information such as the title, type, status, and
+ * important dates like effective and expiration dates.
+ * The component also incorporates various provisions—legal, financial, lifecycle, and custom—along
+ * with metadata, external references, and related documents
  * to offer a full representation of the structure and context of an agreement.
  */
 public class Agreement {
@@ -80,35 +83,40 @@ public class Agreement {
     private JsonNullable<? extends List<Party>> parties;
 
     /**
-     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type."
+     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined
+     * by the agreement type."
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("provisions")
     private JsonNullable<? extends Provisions> provisions;
 
     /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("custom_provisions")
     private JsonNullable<? extends Map<String, CustomProperty>> customProvisions;
 
     /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("additional_user_defined_data")
     private JsonNullable<? extends Map<String, CustomProperty>> additionalUserDefinedData;
 
     /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("additional_custom_clm_data")
     private JsonNullable<? extends Map<String, CustomProperty>> additionalCustomClmData;
 
     /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("additional_custom_esign_data")
@@ -134,7 +142,8 @@ public class Agreement {
     private JsonNullable<String> sourceName;
 
     /**
-     * The ID of the entity in the source system that this entity is associated with. For example, it could be an ID of the envelope in eSign.
+     * The ID of the entity in the source system that this entity is associated with. For example, it could
+     * be an ID of the envelope in eSign.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("source_id")
@@ -287,7 +296,8 @@ public class Agreement {
     }
 
     /**
-     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type."
+     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined
+     * by the agreement type."
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -296,7 +306,8 @@ public class Agreement {
     }
 
     /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -305,7 +316,8 @@ public class Agreement {
     }
 
     /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -314,7 +326,8 @@ public class Agreement {
     }
 
     /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -323,7 +336,8 @@ public class Agreement {
     }
 
     /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -355,7 +369,8 @@ public class Agreement {
     }
 
     /**
-     * The ID of the entity in the source system that this entity is associated with. For example, it could be an ID of the envelope in eSign.
+     * The ID of the entity in the source system that this entity is associated with. For example, it could
+     * be an ID of the envelope in eSign.
      */
     @JsonIgnore
     public JsonNullable<String> sourceId() {
@@ -514,7 +529,8 @@ public class Agreement {
     }
 
     /**
-     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type."
+     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined
+     * by the agreement type."
      */
     public Agreement withProvisions(Provisions provisions) {
         Utils.checkNotNull(provisions, "provisions");
@@ -523,7 +539,8 @@ public class Agreement {
     }
 
     /**
-     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type."
+     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined
+     * by the agreement type."
      */
     public Agreement withProvisions(JsonNullable<? extends Provisions> provisions) {
         Utils.checkNotNull(provisions, "provisions");
@@ -532,7 +549,8 @@ public class Agreement {
     }
 
     /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
      */
     public Agreement withCustomProvisions(Map<String, CustomProperty> customProvisions) {
         Utils.checkNotNull(customProvisions, "customProvisions");
@@ -541,7 +559,8 @@ public class Agreement {
     }
 
     /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
      */
     public Agreement withCustomProvisions(JsonNullable<? extends Map<String, CustomProperty>> customProvisions) {
         Utils.checkNotNull(customProvisions, "customProvisions");
@@ -550,7 +569,8 @@ public class Agreement {
     }
 
     /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
      */
     public Agreement withAdditionalUserDefinedData(Map<String, CustomProperty> additionalUserDefinedData) {
         Utils.checkNotNull(additionalUserDefinedData, "additionalUserDefinedData");
@@ -559,7 +579,8 @@ public class Agreement {
     }
 
     /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
      */
     public Agreement withAdditionalUserDefinedData(JsonNullable<? extends Map<String, CustomProperty>> additionalUserDefinedData) {
         Utils.checkNotNull(additionalUserDefinedData, "additionalUserDefinedData");
@@ -568,7 +589,8 @@ public class Agreement {
     }
 
     /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
      */
     public Agreement withAdditionalCustomClmData(Map<String, CustomProperty> additionalCustomClmData) {
         Utils.checkNotNull(additionalCustomClmData, "additionalCustomClmData");
@@ -577,7 +599,8 @@ public class Agreement {
     }
 
     /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
      */
     public Agreement withAdditionalCustomClmData(JsonNullable<? extends Map<String, CustomProperty>> additionalCustomClmData) {
         Utils.checkNotNull(additionalCustomClmData, "additionalCustomClmData");
@@ -586,7 +609,8 @@ public class Agreement {
     }
 
     /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
      */
     public Agreement withAdditionalCustomEsignData(Map<String, CustomProperty> additionalCustomEsignData) {
         Utils.checkNotNull(additionalCustomEsignData, "additionalCustomEsignData");
@@ -595,7 +619,8 @@ public class Agreement {
     }
 
     /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
      */
     public Agreement withAdditionalCustomEsignData(JsonNullable<? extends Map<String, CustomProperty>> additionalCustomEsignData) {
         Utils.checkNotNull(additionalCustomEsignData, "additionalCustomEsignData");
@@ -653,7 +678,8 @@ public class Agreement {
     }
 
     /**
-     * The ID of the entity in the source system that this entity is associated with. For example, it could be an ID of the envelope in eSign.
+     * The ID of the entity in the source system that this entity is associated with. For example, it could
+     * be an ID of the envelope in eSign.
      */
     public Agreement withSourceId(String sourceId) {
         Utils.checkNotNull(sourceId, "sourceId");
@@ -662,7 +688,8 @@ public class Agreement {
     }
 
     /**
-     * The ID of the entity in the source system that this entity is associated with. For example, it could be an ID of the envelope in eSign.
+     * The ID of the entity in the source system that this entity is associated with. For example, it could
+     * be an ID of the envelope in eSign.
      */
     public Agreement withSourceId(JsonNullable<String> sourceId) {
         Utils.checkNotNull(sourceId, "sourceId");
@@ -955,7 +982,8 @@ public class Agreement {
 
 
         /**
-         * "The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type."
+         * "The conditions or rules written in a legal agreement. The set of possible provisions is determined
+         * by the agreement type."
          */
         public Builder provisions(Provisions provisions) {
             Utils.checkNotNull(provisions, "provisions");
@@ -964,7 +992,8 @@ public class Agreement {
         }
 
         /**
-         * "The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type."
+         * "The conditions or rules written in a legal agreement. The set of possible provisions is determined
+         * by the agreement type."
          */
         public Builder provisions(JsonNullable<? extends Provisions> provisions) {
             Utils.checkNotNull(provisions, "provisions");
@@ -974,7 +1003,8 @@ public class Agreement {
 
 
         /**
-         * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+         * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+         * booleans, numbers, arrays, or objects
          */
         public Builder customProvisions(Map<String, CustomProperty> customProvisions) {
             Utils.checkNotNull(customProvisions, "customProvisions");
@@ -983,7 +1013,8 @@ public class Agreement {
         }
 
         /**
-         * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+         * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+         * booleans, numbers, arrays, or objects
          */
         public Builder customProvisions(JsonNullable<? extends Map<String, CustomProperty>> customProvisions) {
             Utils.checkNotNull(customProvisions, "customProvisions");
@@ -993,7 +1024,8 @@ public class Agreement {
 
 
         /**
-         * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+         * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+         * booleans, numbers, arrays, or objects
          */
         public Builder additionalUserDefinedData(Map<String, CustomProperty> additionalUserDefinedData) {
             Utils.checkNotNull(additionalUserDefinedData, "additionalUserDefinedData");
@@ -1002,7 +1034,8 @@ public class Agreement {
         }
 
         /**
-         * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+         * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+         * booleans, numbers, arrays, or objects
          */
         public Builder additionalUserDefinedData(JsonNullable<? extends Map<String, CustomProperty>> additionalUserDefinedData) {
             Utils.checkNotNull(additionalUserDefinedData, "additionalUserDefinedData");
@@ -1012,7 +1045,8 @@ public class Agreement {
 
 
         /**
-         * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+         * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+         * booleans, numbers, arrays, or objects
          */
         public Builder additionalCustomClmData(Map<String, CustomProperty> additionalCustomClmData) {
             Utils.checkNotNull(additionalCustomClmData, "additionalCustomClmData");
@@ -1021,7 +1055,8 @@ public class Agreement {
         }
 
         /**
-         * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+         * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+         * booleans, numbers, arrays, or objects
          */
         public Builder additionalCustomClmData(JsonNullable<? extends Map<String, CustomProperty>> additionalCustomClmData) {
             Utils.checkNotNull(additionalCustomClmData, "additionalCustomClmData");
@@ -1031,7 +1066,8 @@ public class Agreement {
 
 
         /**
-         * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+         * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+         * booleans, numbers, arrays, or objects
          */
         public Builder additionalCustomEsignData(Map<String, CustomProperty> additionalCustomEsignData) {
             Utils.checkNotNull(additionalCustomEsignData, "additionalCustomEsignData");
@@ -1040,7 +1076,8 @@ public class Agreement {
         }
 
         /**
-         * A generic map/dict. The key is a string, and the value can be of any type, including strings, booleans, numbers, arrays, or objects
+         * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+         * booleans, numbers, arrays, or objects
          */
         public Builder additionalCustomEsignData(JsonNullable<? extends Map<String, CustomProperty>> additionalCustomEsignData) {
             Utils.checkNotNull(additionalCustomEsignData, "additionalCustomEsignData");
@@ -1101,7 +1138,8 @@ public class Agreement {
 
 
         /**
-         * The ID of the entity in the source system that this entity is associated with. For example, it could be an ID of the envelope in eSign.
+         * The ID of the entity in the source system that this entity is associated with. For example, it could
+         * be an ID of the envelope in eSign.
          */
         public Builder sourceId(String sourceId) {
             Utils.checkNotNull(sourceId, "sourceId");
@@ -1110,7 +1148,8 @@ public class Agreement {
         }
 
         /**
-         * The ID of the entity in the source system that this entity is associated with. For example, it could be an ID of the envelope in eSign.
+         * The ID of the entity in the source system that this entity is associated with. For example, it could
+         * be an ID of the envelope in eSign.
          */
         public Builder sourceId(JsonNullable<String> sourceId) {
             Utils.checkNotNull(sourceId, "sourceId");

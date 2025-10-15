@@ -31,6 +31,7 @@ import com.docusign.iam.sdk.operations.GetWorkspace;
 import com.docusign.iam.sdk.operations.GetWorkspaceAssignableRoles;
 import com.docusign.iam.sdk.operations.GetWorkspaceEnvelopes;
 import com.docusign.iam.sdk.operations.GetWorkspaces;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import java.lang.Exception;
 import java.lang.Integer;
@@ -39,6 +40,7 @@ import java.util.Optional;
 
 
 public class Workspaces2 {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     Workspaces2(SDKConfiguration sdkConfiguration) {
@@ -48,9 +50,13 @@ public class Workspaces2 {
     /**
      * Gets workspaces available to the calling user
      * 
-     * <p>This operation retrieves a list of workspaces available to the calling user. It returns basic information about each workspace, including its unique identifier (ID), name, and metadata such as when it was created and by whom.
+     * <p>This operation retrieves a list of workspaces available to the calling user. It returns basic
+     * information about each workspace, including its unique identifier (ID), name, and metadata such as
+     * when it was created and by whom.
      * 
-     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent requests.
+     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will
+     * include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent
+     * requests.
      * 
      * @return The call builder
      */
@@ -61,9 +67,13 @@ public class Workspaces2 {
     /**
      * Gets workspaces available to the calling user
      * 
-     * <p>This operation retrieves a list of workspaces available to the calling user. It returns basic information about each workspace, including its unique identifier (ID), name, and metadata such as when it was created and by whom.
+     * <p>This operation retrieves a list of workspaces available to the calling user. It returns basic
+     * information about each workspace, including its unique identifier (ID), name, and metadata such as
+     * when it was created and by whom.
      * 
-     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent requests.
+     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will
+     * include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent
+     * requests.
      * 
      * @param accountId The ID of the account
      * @return The response from the API call
@@ -77,9 +87,13 @@ public class Workspaces2 {
     /**
      * Gets workspaces available to the calling user
      * 
-     * <p>This operation retrieves a list of workspaces available to the calling user. It returns basic information about each workspace, including its unique identifier (ID), name, and metadata such as when it was created and by whom.
+     * <p>This operation retrieves a list of workspaces available to the calling user. It returns basic
+     * information about each workspace, including its unique identifier (ID), name, and metadata such as
+     * when it was created and by whom.
      * 
-     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent requests.
+     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will
+     * include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent
+     * requests.
      * 
      * @param accountId The ID of the account
      * @param count Number of workspaces to return. Defaults to the maximum which is 100
@@ -99,16 +113,18 @@ public class Workspaces2 {
                 .startPosition(startPosition)
                 .build();
         RequestOperation<GetWorkspacesRequest, GetWorkspacesResponse> operation
-              = new GetWorkspaces.Sync(sdkConfiguration, options);
+              = new GetWorkspaces.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Creates a new workspace
      * 
-     * <p>This operation creates a new workspace. The calling user is automatically added as a member of the workspace with the role of Manage.
+     * <p>This operation creates a new workspace. The calling user is automatically added as a member of the
+     * workspace with the role of Manage.
      * 
-     * <p>Once created, the `workspace_id` is utilized to associate tasks such as envelopes. Participants on tasks will automatically be added to the workspace with the Participate role.
+     * <p>Once created, the `workspace_id` is utilized to associate tasks such as envelopes. Participants on
+     * tasks will automatically be added to the workspace with the Participate role.
      * 
      * @return The call builder
      */
@@ -119,9 +135,11 @@ public class Workspaces2 {
     /**
      * Creates a new workspace
      * 
-     * <p>This operation creates a new workspace. The calling user is automatically added as a member of the workspace with the role of Manage.
+     * <p>This operation creates a new workspace. The calling user is automatically added as a member of the
+     * workspace with the role of Manage.
      * 
-     * <p>Once created, the `workspace_id` is utilized to associate tasks such as envelopes. Participants on tasks will automatically be added to the workspace with the Participate role.
+     * <p>Once created, the `workspace_id` is utilized to associate tasks such as envelopes. Participants on
+     * tasks will automatically be added to the workspace with the Participate role.
      * 
      * @param accountId The ID of the account
      * @param createWorkspaceBody 
@@ -135,9 +153,11 @@ public class Workspaces2 {
     /**
      * Creates a new workspace
      * 
-     * <p>This operation creates a new workspace. The calling user is automatically added as a member of the workspace with the role of Manage.
+     * <p>This operation creates a new workspace. The calling user is automatically added as a member of the
+     * workspace with the role of Manage.
      * 
-     * <p>Once created, the `workspace_id` is utilized to associate tasks such as envelopes. Participants on tasks will automatically be added to the workspace with the Participate role.
+     * <p>Once created, the `workspace_id` is utilized to associate tasks such as envelopes. Participants on
+     * tasks will automatically be added to the workspace with the Participate role.
      * 
      * @param accountId The ID of the account
      * @param createWorkspaceBody 
@@ -155,14 +175,15 @@ public class Workspaces2 {
                 .createWorkspaceBody(createWorkspaceBody)
                 .build();
         RequestOperation<CreateWorkspaceRequest, CreateWorkspaceResponse> operation
-              = new CreateWorkspace.Sync(sdkConfiguration, options);
+              = new CreateWorkspace.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Returns details about the workspace
      * 
-     * <p>This operation retrieves details about a specific workspace. It returns the workspace's unique identifier (ID), name, and metadata such as when it was created and by whom.
+     * <p>This operation retrieves details about a specific workspace. It returns the workspace's unique
+     * identifier (ID), name, and metadata such as when it was created and by whom.
      * 
      * @return The call builder
      */
@@ -173,7 +194,8 @@ public class Workspaces2 {
     /**
      * Returns details about the workspace
      * 
-     * <p>This operation retrieves details about a specific workspace. It returns the workspace's unique identifier (ID), name, and metadata such as when it was created and by whom.
+     * <p>This operation retrieves details about a specific workspace. It returns the workspace's unique
+     * identifier (ID), name, and metadata such as when it was created and by whom.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -187,7 +209,8 @@ public class Workspaces2 {
     /**
      * Returns details about the workspace
      * 
-     * <p>This operation retrieves details about a specific workspace. It returns the workspace's unique identifier (ID), name, and metadata such as when it was created and by whom.
+     * <p>This operation retrieves details about a specific workspace. It returns the workspace's unique
+     * identifier (ID), name, and metadata such as when it was created and by whom.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -205,18 +228,23 @@ public class Workspaces2 {
                 .workspaceId(workspaceId)
                 .build();
         RequestOperation<GetWorkspaceRequest, GetWorkspaceResponse> operation
-              = new GetWorkspace.Sync(sdkConfiguration, options);
+              = new GetWorkspace.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Returns the roles the caller can assign to workspace users
      * 
-     * <p>This operation returns roles that are assignable to users in the workspace based on the caller's role in the workspace. Roles available include Manage (internal) and Participate (external). Participate is the default role.
+     * <p>This operation returns roles that are assignable to users in the workspace based on the caller's
+     * role in the workspace. Roles available include Manage (internal) and Participate (external).
+     * Participate is the default role.
      * 
-     * <p>Users within the account are considered "Internal" and may be assigned any role. Users outside the account are considered "External" and may only be assigned "External" roles.
+     * <p>Users within the account are considered "Internal" and may be assigned any role. Users outside the
+     * account are considered "External" and may only be assigned "External" roles.
      * 
-     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent requests.
+     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will
+     * include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent
+     * requests.
      * 
      * @return The call builder
      */
@@ -227,11 +255,16 @@ public class Workspaces2 {
     /**
      * Returns the roles the caller can assign to workspace users
      * 
-     * <p>This operation returns roles that are assignable to users in the workspace based on the caller's role in the workspace. Roles available include Manage (internal) and Participate (external). Participate is the default role.
+     * <p>This operation returns roles that are assignable to users in the workspace based on the caller's
+     * role in the workspace. Roles available include Manage (internal) and Participate (external).
+     * Participate is the default role.
      * 
-     * <p>Users within the account are considered "Internal" and may be assigned any role. Users outside the account are considered "External" and may only be assigned "External" roles.
+     * <p>Users within the account are considered "Internal" and may be assigned any role. Users outside the
+     * account are considered "External" and may only be assigned "External" roles.
      * 
-     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent requests.
+     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will
+     * include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent
+     * requests.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
@@ -244,11 +277,16 @@ public class Workspaces2 {
     /**
      * Returns the roles the caller can assign to workspace users
      * 
-     * <p>This operation returns roles that are assignable to users in the workspace based on the caller's role in the workspace. Roles available include Manage (internal) and Participate (external). Participate is the default role.
+     * <p>This operation returns roles that are assignable to users in the workspace based on the caller's
+     * role in the workspace. Roles available include Manage (internal) and Participate (external).
+     * Participate is the default role.
      * 
-     * <p>Users within the account are considered "Internal" and may be assigned any role. Users outside the account are considered "External" and may only be assigned "External" roles.
+     * <p>Users within the account are considered "Internal" and may be assigned any role. Users outside the
+     * account are considered "External" and may only be assigned "External" roles.
      * 
-     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent requests.
+     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will
+     * include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent
+     * requests.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
@@ -257,22 +295,29 @@ public class Workspaces2 {
      */
     public GetWorkspaceAssignableRolesResponse getWorkspaceAssignableRoles(GetWorkspaceAssignableRolesRequest request, Optional<Options> options) throws Exception {
         RequestOperation<GetWorkspaceAssignableRolesRequest, GetWorkspaceAssignableRolesResponse> operation
-              = new GetWorkspaceAssignableRoles.Sync(sdkConfiguration, options);
+              = new GetWorkspaceAssignableRoles.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Creates an envelope with the given documents. Returns the ID of the created envelope
      * 
-     * <p>This operation creates an envelope associated with the workspace. Using the `envelope_id` from the response, the [eSignature API](https://developers.docusign.com/docs/esign-rest-api/) may be utilized to modify the envelope and ultimately send it.
+     * <p>This operation creates an envelope associated with the workspace. Using the `envelope_id` from the
+     * response, the [eSignature API](https://developers.docusign.com/docs/esign-rest-api/) may be utilized
+     * to modify the envelope and ultimately send it.
      * 
-     * <p>Envelope recipients will automatically be granted Participate access to the workspace. Envelope recipients will receive consolidated notifications from Docusign Workspaces rather than standard individual envelope notifications.
+     * <p>Envelope recipients will automatically be granted Participate access to the workspace. Envelope
+     * recipients will receive consolidated notifications from Docusign Workspaces rather than standard
+     * individual envelope notifications.
      * 
      * <p>Docusign Connect events may be utilized to receive updates to individual envelope events.
      * 
-     * <p>The `envelopes` operation on the workspace may be utilized to query the status of all the envelopes in the workspace.
+     * <p>The `envelopes` operation on the workspace may be utilized to query the status of all the envelopes
+     * in the workspace.
      * 
-     * <p>When `document_ids` is empty or excluded, the envelope is created without any documents from the workspace. eSignature API calls, including adding documents and templates, may be utilized to modify the envelope before it is sent. The eSignature API must be utilized to send the envelope.
+     * <p>When `document_ids` is empty or excluded, the envelope is created without any documents from the
+     * workspace. eSignature API calls, including adding documents and templates, may be utilized to modify
+     * the envelope before it is sent. The eSignature API must be utilized to send the envelope.
      * 
      * @return The call builder
      */
@@ -283,15 +328,22 @@ public class Workspaces2 {
     /**
      * Creates an envelope with the given documents. Returns the ID of the created envelope
      * 
-     * <p>This operation creates an envelope associated with the workspace. Using the `envelope_id` from the response, the [eSignature API](https://developers.docusign.com/docs/esign-rest-api/) may be utilized to modify the envelope and ultimately send it.
+     * <p>This operation creates an envelope associated with the workspace. Using the `envelope_id` from the
+     * response, the [eSignature API](https://developers.docusign.com/docs/esign-rest-api/) may be utilized
+     * to modify the envelope and ultimately send it.
      * 
-     * <p>Envelope recipients will automatically be granted Participate access to the workspace. Envelope recipients will receive consolidated notifications from Docusign Workspaces rather than standard individual envelope notifications.
+     * <p>Envelope recipients will automatically be granted Participate access to the workspace. Envelope
+     * recipients will receive consolidated notifications from Docusign Workspaces rather than standard
+     * individual envelope notifications.
      * 
      * <p>Docusign Connect events may be utilized to receive updates to individual envelope events.
      * 
-     * <p>The `envelopes` operation on the workspace may be utilized to query the status of all the envelopes in the workspace.
+     * <p>The `envelopes` operation on the workspace may be utilized to query the status of all the envelopes
+     * in the workspace.
      * 
-     * <p>When `document_ids` is empty or excluded, the envelope is created without any documents from the workspace. eSignature API calls, including adding documents and templates, may be utilized to modify the envelope before it is sent. The eSignature API must be utilized to send the envelope.
+     * <p>When `document_ids` is empty or excluded, the envelope is created without any documents from the
+     * workspace. eSignature API calls, including adding documents and templates, may be utilized to modify
+     * the envelope before it is sent. The eSignature API must be utilized to send the envelope.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -309,15 +361,22 @@ public class Workspaces2 {
     /**
      * Creates an envelope with the given documents. Returns the ID of the created envelope
      * 
-     * <p>This operation creates an envelope associated with the workspace. Using the `envelope_id` from the response, the [eSignature API](https://developers.docusign.com/docs/esign-rest-api/) may be utilized to modify the envelope and ultimately send it.
+     * <p>This operation creates an envelope associated with the workspace. Using the `envelope_id` from the
+     * response, the [eSignature API](https://developers.docusign.com/docs/esign-rest-api/) may be utilized
+     * to modify the envelope and ultimately send it.
      * 
-     * <p>Envelope recipients will automatically be granted Participate access to the workspace. Envelope recipients will receive consolidated notifications from Docusign Workspaces rather than standard individual envelope notifications.
+     * <p>Envelope recipients will automatically be granted Participate access to the workspace. Envelope
+     * recipients will receive consolidated notifications from Docusign Workspaces rather than standard
+     * individual envelope notifications.
      * 
      * <p>Docusign Connect events may be utilized to receive updates to individual envelope events.
      * 
-     * <p>The `envelopes` operation on the workspace may be utilized to query the status of all the envelopes in the workspace.
+     * <p>The `envelopes` operation on the workspace may be utilized to query the status of all the envelopes
+     * in the workspace.
      * 
-     * <p>When `document_ids` is empty or excluded, the envelope is created without any documents from the workspace. eSignature API calls, including adding documents and templates, may be utilized to modify the envelope before it is sent. The eSignature API must be utilized to send the envelope.
+     * <p>When `document_ids` is empty or excluded, the envelope is created without any documents from the
+     * workspace. eSignature API calls, including adding documents and templates, may be utilized to modify
+     * the envelope before it is sent. The eSignature API must be utilized to send the envelope.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -337,16 +396,21 @@ public class Workspaces2 {
                 .workspaceEnvelopeForCreate(workspaceEnvelopeForCreate)
                 .build();
         RequestOperation<CreateWorkspaceEnvelopeRequest, CreateWorkspaceEnvelopeResponse> operation
-              = new CreateWorkspaceEnvelope.Sync(sdkConfiguration, options);
+              = new CreateWorkspaceEnvelope.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Returns the envelopes associated with the given workspace
      * 
-     * <p>This operation retrieves a list of all associated workspace envelopes. The [`status`](https://support.docusign.com/s/document-item?bundleId=oeq1643226594604&amp;topicId=wdm1578456348227.html) on each envelope can be used to track envelope progress. Statuses are formatted as ProperCase. e.g. `Sent`, `WaitingForOthers`, `Completed`, etc.
+     * <p>This operation retrieves a list of all associated workspace envelopes. The
+     * [`status`](https://support.docusign.com/s/document-item?bundleId=oeq1643226594604&amp;topicId=wdm1578456348227.html)
+     * on each envelope can be used to track envelope progress. Statuses are formatted as ProperCase.
      * 
-     * <p>Based on the permissions of the caller, additional envelope details may be retrieved from the [eSignature API](https://developers.docusign.com/docs/esign-rest-api/) using the `envelope_id`.
+     * <p>e.g. `Sent`, `WaitingForOthers`, `Completed`, etc.
+     * 
+     * <p>Based on the permissions of the caller, additional envelope details may be retrieved from the
+     * [eSignature API](https://developers.docusign.com/docs/esign-rest-api/) using the `envelope_id`.
      * 
      * @return The call builder
      */
@@ -357,9 +421,14 @@ public class Workspaces2 {
     /**
      * Returns the envelopes associated with the given workspace
      * 
-     * <p>This operation retrieves a list of all associated workspace envelopes. The [`status`](https://support.docusign.com/s/document-item?bundleId=oeq1643226594604&amp;topicId=wdm1578456348227.html) on each envelope can be used to track envelope progress. Statuses are formatted as ProperCase. e.g. `Sent`, `WaitingForOthers`, `Completed`, etc.
+     * <p>This operation retrieves a list of all associated workspace envelopes. The
+     * [`status`](https://support.docusign.com/s/document-item?bundleId=oeq1643226594604&amp;topicId=wdm1578456348227.html)
+     * on each envelope can be used to track envelope progress. Statuses are formatted as ProperCase.
      * 
-     * <p>Based on the permissions of the caller, additional envelope details may be retrieved from the [eSignature API](https://developers.docusign.com/docs/esign-rest-api/) using the `envelope_id`.
+     * <p>e.g. `Sent`, `WaitingForOthers`, `Completed`, etc.
+     * 
+     * <p>Based on the permissions of the caller, additional envelope details may be retrieved from the
+     * [eSignature API](https://developers.docusign.com/docs/esign-rest-api/) using the `envelope_id`.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -373,9 +442,14 @@ public class Workspaces2 {
     /**
      * Returns the envelopes associated with the given workspace
      * 
-     * <p>This operation retrieves a list of all associated workspace envelopes. The [`status`](https://support.docusign.com/s/document-item?bundleId=oeq1643226594604&amp;topicId=wdm1578456348227.html) on each envelope can be used to track envelope progress. Statuses are formatted as ProperCase. e.g. `Sent`, `WaitingForOthers`, `Completed`, etc.
+     * <p>This operation retrieves a list of all associated workspace envelopes. The
+     * [`status`](https://support.docusign.com/s/document-item?bundleId=oeq1643226594604&amp;topicId=wdm1578456348227.html)
+     * on each envelope can be used to track envelope progress. Statuses are formatted as ProperCase.
      * 
-     * <p>Based on the permissions of the caller, additional envelope details may be retrieved from the [eSignature API](https://developers.docusign.com/docs/esign-rest-api/) using the `envelope_id`.
+     * <p>e.g. `Sent`, `WaitingForOthers`, `Completed`, etc.
+     * 
+     * <p>Based on the permissions of the caller, additional envelope details may be retrieved from the
+     * [eSignature API](https://developers.docusign.com/docs/esign-rest-api/) using the `envelope_id`.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -393,7 +467,7 @@ public class Workspaces2 {
                 .workspaceId(workspaceId)
                 .build();
         RequestOperation<GetWorkspaceEnvelopesRequest, GetWorkspaceEnvelopesResponse> operation
-              = new GetWorkspaceEnvelopes.Sync(sdkConfiguration, options);
+              = new GetWorkspaceEnvelopes.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

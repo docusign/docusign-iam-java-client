@@ -5,8 +5,11 @@ package com.docusign.iam.sdk;
 
 import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 
+import com.docusign.iam.sdk.models.components.AddWorkspaceUploadRequestDocumentRequest;
 import com.docusign.iam.sdk.models.components.CreateWorkspaceUploadRequestBody;
 import com.docusign.iam.sdk.models.components.UpdateWorkspaceUploadRequestBody;
+import com.docusign.iam.sdk.models.operations.AddWorkspaceUploadRequestDocumentRequestBuilder;
+import com.docusign.iam.sdk.models.operations.AddWorkspaceUploadRequestDocumentResponse;
 import com.docusign.iam.sdk.models.operations.CompleteWorkspaceUploadRequestRequest;
 import com.docusign.iam.sdk.models.operations.CompleteWorkspaceUploadRequestRequestBuilder;
 import com.docusign.iam.sdk.models.operations.CompleteWorkspaceUploadRequestResponse;
@@ -25,12 +28,14 @@ import com.docusign.iam.sdk.models.operations.GetWorkspaceUploadRequestsResponse
 import com.docusign.iam.sdk.models.operations.UpdateWorkspaceUploadRequestRequest;
 import com.docusign.iam.sdk.models.operations.UpdateWorkspaceUploadRequestRequestBuilder;
 import com.docusign.iam.sdk.models.operations.UpdateWorkspaceUploadRequestResponse;
+import com.docusign.iam.sdk.operations.AddWorkspaceUploadRequestDocument;
 import com.docusign.iam.sdk.operations.CompleteWorkspaceUploadRequest;
 import com.docusign.iam.sdk.operations.CreateWorkspaceUploadRequest;
 import com.docusign.iam.sdk.operations.DeleteWorkspaceUploadRequest;
 import com.docusign.iam.sdk.operations.GetWorkspaceUploadRequest;
 import com.docusign.iam.sdk.operations.GetWorkspaceUploadRequests;
 import com.docusign.iam.sdk.operations.UpdateWorkspaceUploadRequest;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
@@ -38,6 +43,7 @@ import java.util.Optional;
 
 
 public class WorkspaceUploadRequest {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     WorkspaceUploadRequest(SDKConfiguration sdkConfiguration) {
@@ -47,7 +53,9 @@ public class WorkspaceUploadRequest {
     /**
      * Creates a new upload request within a workspace
      * 
-     * <p>This operation creates a new upload request within a workspace. The upload request includes name, description, due date, and user assignments. Upload requests can be created as drafts or sent immediately based on the status field.
+     * <p>This operation creates a new upload request within a workspace. The upload request includes name,
+     * description, due date, and user assignments. Upload requests can be created as drafts or sent
+     * immediately based on the status field.
      * 
      * @return The call builder
      */
@@ -58,7 +66,9 @@ public class WorkspaceUploadRequest {
     /**
      * Creates a new upload request within a workspace
      * 
-     * <p>This operation creates a new upload request within a workspace. The upload request includes name, description, due date, and user assignments. Upload requests can be created as drafts or sent immediately based on the status field.
+     * <p>This operation creates a new upload request within a workspace. The upload request includes name,
+     * description, due date, and user assignments. Upload requests can be created as drafts or sent
+     * immediately based on the status field.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -76,7 +86,9 @@ public class WorkspaceUploadRequest {
     /**
      * Creates a new upload request within a workspace
      * 
-     * <p>This operation creates a new upload request within a workspace. The upload request includes name, description, due date, and user assignments. Upload requests can be created as drafts or sent immediately based on the status field.
+     * <p>This operation creates a new upload request within a workspace. The upload request includes name,
+     * description, due date, and user assignments. Upload requests can be created as drafts or sent
+     * immediately based on the status field.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -96,14 +108,16 @@ public class WorkspaceUploadRequest {
                 .createWorkspaceUploadRequestBody(createWorkspaceUploadRequestBody)
                 .build();
         RequestOperation<CreateWorkspaceUploadRequestRequest, CreateWorkspaceUploadRequestResponse> operation
-              = new CreateWorkspaceUploadRequest.Sync(sdkConfiguration, options);
+              = new CreateWorkspaceUploadRequest.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Gets upload requests within a workspace
      * 
-     * <p>This operation retrieves a list of upload requests within a workspace. Each upload request includes details such as ID, name, description, status, owner information, associated documents, assignments, and various dates.
+     * <p>This operation retrieves a list of upload requests within a workspace. Each upload request includes
+     * details such as ID, name, description, status, owner information, associated documents, assignments,
+     * and various dates.
      * 
      * @return The call builder
      */
@@ -114,7 +128,9 @@ public class WorkspaceUploadRequest {
     /**
      * Gets upload requests within a workspace
      * 
-     * <p>This operation retrieves a list of upload requests within a workspace. Each upload request includes details such as ID, name, description, status, owner information, associated documents, assignments, and various dates.
+     * <p>This operation retrieves a list of upload requests within a workspace. Each upload request includes
+     * details such as ID, name, description, status, owner information, associated documents, assignments,
+     * and various dates.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -128,7 +144,9 @@ public class WorkspaceUploadRequest {
     /**
      * Gets upload requests within a workspace
      * 
-     * <p>This operation retrieves a list of upload requests within a workspace. Each upload request includes details such as ID, name, description, status, owner information, associated documents, assignments, and various dates.
+     * <p>This operation retrieves a list of upload requests within a workspace. Each upload request includes
+     * details such as ID, name, description, status, owner information, associated documents, assignments,
+     * and various dates.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -146,14 +164,16 @@ public class WorkspaceUploadRequest {
                 .workspaceId(workspaceId)
                 .build();
         RequestOperation<GetWorkspaceUploadRequestsRequest, GetWorkspaceUploadRequestsResponse> operation
-              = new GetWorkspaceUploadRequests.Sync(sdkConfiguration, options);
+              = new GetWorkspaceUploadRequests.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Gets details for a specific upload request
      * 
-     * <p>This operation retrieves details about a specific upload request within a workspace. The response includes comprehensive information about the upload request including status, assigned users, associated documents, owner details, and various dates.
+     * <p>This operation retrieves details about a specific upload request within a workspace. The response
+     * includes comprehensive information about the upload request including status, assigned users,
+     * associated documents, owner details, and various dates.
      * 
      * @return The call builder
      */
@@ -164,7 +184,9 @@ public class WorkspaceUploadRequest {
     /**
      * Gets details for a specific upload request
      * 
-     * <p>This operation retrieves details about a specific upload request within a workspace. The response includes comprehensive information about the upload request including status, assigned users, associated documents, owner details, and various dates.
+     * <p>This operation retrieves details about a specific upload request within a workspace. The response
+     * includes comprehensive information about the upload request including status, assigned users,
+     * associated documents, owner details, and various dates.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -182,7 +204,9 @@ public class WorkspaceUploadRequest {
     /**
      * Gets details for a specific upload request
      * 
-     * <p>This operation retrieves details about a specific upload request within a workspace. The response includes comprehensive information about the upload request including status, assigned users, associated documents, owner details, and various dates.
+     * <p>This operation retrieves details about a specific upload request within a workspace. The response
+     * includes comprehensive information about the upload request including status, assigned users,
+     * associated documents, owner details, and various dates.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -202,14 +226,19 @@ public class WorkspaceUploadRequest {
                 .uploadRequestId(uploadRequestId)
                 .build();
         RequestOperation<GetWorkspaceUploadRequestRequest, GetWorkspaceUploadRequestResponse> operation
-              = new GetWorkspaceUploadRequest.Sync(sdkConfiguration, options);
+              = new GetWorkspaceUploadRequest.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Updates a specific upload request
      * 
-     * <p>This operation updates a specific upload request within a workspace. Only draft upload requests can be edited. The editable fields are name, description, due date, and status. Status changes are restricted - only transitions from draft to in_progress are allowed. Attempting to update a non-draft upload request will result in an INVALID_STATUS error. Attempting an invalid status change will result in an INVALID_STATUS_CHANGE error.
+     * <p>This operation updates a specific upload request within a workspace. Only draft upload requests can
+     * be edited. The editable fields are name, description, due date, and status.
+     * 
+     * <p>Status changes are restricted - only transitions from draft to in_progress are allowed. Attempting
+     * to update a non-draft upload request will result in an INVALID_STATUS error. Attempting an invalid
+     * status change will result in an INVALID_STATUS_CHANGE error.
      * 
      * @return The call builder
      */
@@ -220,7 +249,12 @@ public class WorkspaceUploadRequest {
     /**
      * Updates a specific upload request
      * 
-     * <p>This operation updates a specific upload request within a workspace. Only draft upload requests can be edited. The editable fields are name, description, due date, and status. Status changes are restricted - only transitions from draft to in_progress are allowed. Attempting to update a non-draft upload request will result in an INVALID_STATUS error. Attempting an invalid status change will result in an INVALID_STATUS_CHANGE error.
+     * <p>This operation updates a specific upload request within a workspace. Only draft upload requests can
+     * be edited. The editable fields are name, description, due date, and status.
+     * 
+     * <p>Status changes are restricted - only transitions from draft to in_progress are allowed. Attempting
+     * to update a non-draft upload request will result in an INVALID_STATUS error. Attempting an invalid
+     * status change will result in an INVALID_STATUS_CHANGE error.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -239,7 +273,12 @@ public class WorkspaceUploadRequest {
     /**
      * Updates a specific upload request
      * 
-     * <p>This operation updates a specific upload request within a workspace. Only draft upload requests can be edited. The editable fields are name, description, due date, and status. Status changes are restricted - only transitions from draft to in_progress are allowed. Attempting to update a non-draft upload request will result in an INVALID_STATUS error. Attempting an invalid status change will result in an INVALID_STATUS_CHANGE error.
+     * <p>This operation updates a specific upload request within a workspace. Only draft upload requests can
+     * be edited. The editable fields are name, description, due date, and status.
+     * 
+     * <p>Status changes are restricted - only transitions from draft to in_progress are allowed. Attempting
+     * to update a non-draft upload request will result in an INVALID_STATUS error. Attempting an invalid
+     * status change will result in an INVALID_STATUS_CHANGE error.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -262,14 +301,15 @@ public class WorkspaceUploadRequest {
                 .updateWorkspaceUploadRequestBody(updateWorkspaceUploadRequestBody)
                 .build();
         RequestOperation<UpdateWorkspaceUploadRequestRequest, UpdateWorkspaceUploadRequestResponse> operation
-              = new UpdateWorkspaceUploadRequest.Sync(sdkConfiguration, options);
+              = new UpdateWorkspaceUploadRequest.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Deletes a specific upload request
      * 
-     * <p>This operation deletes a specific upload request within a workspace. Upload requests cannot be deleted if they are complete or have associated documents.
+     * <p>This operation deletes a specific upload request within a workspace. Upload requests cannot be
+     * deleted if they are complete or have associated documents.
      * 
      * @return The call builder
      */
@@ -280,7 +320,8 @@ public class WorkspaceUploadRequest {
     /**
      * Deletes a specific upload request
      * 
-     * <p>This operation deletes a specific upload request within a workspace. Upload requests cannot be deleted if they are complete or have associated documents.
+     * <p>This operation deletes a specific upload request within a workspace. Upload requests cannot be
+     * deleted if they are complete or have associated documents.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -298,7 +339,8 @@ public class WorkspaceUploadRequest {
     /**
      * Deletes a specific upload request
      * 
-     * <p>This operation deletes a specific upload request within a workspace. Upload requests cannot be deleted if they are complete or have associated documents.
+     * <p>This operation deletes a specific upload request within a workspace. Upload requests cannot be
+     * deleted if they are complete or have associated documents.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -318,14 +360,81 @@ public class WorkspaceUploadRequest {
                 .uploadRequestId(uploadRequestId)
                 .build();
         RequestOperation<DeleteWorkspaceUploadRequestRequest, DeleteWorkspaceUploadRequestResponse> operation
-              = new DeleteWorkspaceUploadRequest.Sync(sdkConfiguration, options);
+              = new DeleteWorkspaceUploadRequest.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Add a document to an upload request via file upload
+     * 
+     * <p>This operation adds a document to a specific upload request within a workspace via file upload. The
+     * file is passed in the request body as multipart/form-data. The file name is used as the document
+     * name.
+     * 
+     * @return The call builder
+     */
+    public AddWorkspaceUploadRequestDocumentRequestBuilder addWorkspaceUploadRequestDocument() {
+        return new AddWorkspaceUploadRequestDocumentRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Add a document to an upload request via file upload
+     * 
+     * <p>This operation adds a document to a specific upload request within a workspace via file upload. The
+     * file is passed in the request body as multipart/form-data. The file name is used as the document
+     * name.
+     * 
+     * @param accountId The ID of the account
+     * @param workspaceId The ID of the workspace
+     * @param uploadRequestId The ID of the upload request
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public AddWorkspaceUploadRequestDocumentResponse addWorkspaceUploadRequestDocument(
+            String accountId, String workspaceId,
+            String uploadRequestId) throws Exception {
+        return addWorkspaceUploadRequestDocument(accountId, workspaceId, uploadRequestId,
+            Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Add a document to an upload request via file upload
+     * 
+     * <p>This operation adds a document to a specific upload request within a workspace via file upload. The
+     * file is passed in the request body as multipart/form-data. The file name is used as the document
+     * name.
+     * 
+     * @param accountId The ID of the account
+     * @param workspaceId The ID of the workspace
+     * @param uploadRequestId The ID of the upload request
+     * @param addWorkspaceUploadRequestDocumentRequest 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public AddWorkspaceUploadRequestDocumentResponse addWorkspaceUploadRequestDocument(
+            String accountId, String workspaceId,
+            String uploadRequestId, Optional<? extends AddWorkspaceUploadRequestDocumentRequest> addWorkspaceUploadRequestDocumentRequest,
+            Optional<Options> options) throws Exception {
+        com.docusign.iam.sdk.models.operations.AddWorkspaceUploadRequestDocumentRequest request =
+            com.docusign.iam.sdk.models.operations.AddWorkspaceUploadRequestDocumentRequest
+                .builder()
+                .accountId(accountId)
+                .workspaceId(workspaceId)
+                .uploadRequestId(uploadRequestId)
+                .addWorkspaceUploadRequestDocumentRequest(addWorkspaceUploadRequestDocumentRequest)
+                .build();
+        RequestOperation<com.docusign.iam.sdk.models.operations.AddWorkspaceUploadRequestDocumentRequest, AddWorkspaceUploadRequestDocumentResponse> operation
+              = new AddWorkspaceUploadRequestDocument.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Complete an upload request
      * 
-     * <p>This operation completes a specific upload request within a workspace and is intended to be called by the user completing the upload request. Only upload requests that are in progress can be completed.
+     * <p>This operation completes a specific upload request within a workspace and is intended to be called
+     * by the user completing the upload request. Only upload requests that are in progress can be
+     * completed.
      * 
      * @return The call builder
      */
@@ -336,7 +445,9 @@ public class WorkspaceUploadRequest {
     /**
      * Complete an upload request
      * 
-     * <p>This operation completes a specific upload request within a workspace and is intended to be called by the user completing the upload request. Only upload requests that are in progress can be completed.
+     * <p>This operation completes a specific upload request within a workspace and is intended to be called
+     * by the user completing the upload request. Only upload requests that are in progress can be
+     * completed.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -354,7 +465,9 @@ public class WorkspaceUploadRequest {
     /**
      * Complete an upload request
      * 
-     * <p>This operation completes a specific upload request within a workspace and is intended to be called by the user completing the upload request. Only upload requests that are in progress can be completed.
+     * <p>This operation completes a specific upload request within a workspace and is intended to be called
+     * by the user completing the upload request. Only upload requests that are in progress can be
+     * completed.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -374,7 +487,7 @@ public class WorkspaceUploadRequest {
                 .uploadRequestId(uploadRequestId)
                 .build();
         RequestOperation<CompleteWorkspaceUploadRequestRequest, CompleteWorkspaceUploadRequestResponse> operation
-              = new CompleteWorkspaceUploadRequest.Sync(sdkConfiguration, options);
+              = new CompleteWorkspaceUploadRequest.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

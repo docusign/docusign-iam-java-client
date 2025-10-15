@@ -28,6 +28,7 @@ import com.docusign.iam.sdk.operations.GetWorkspaceUsers;
 import com.docusign.iam.sdk.operations.RestoreWorkspaceUserAccess;
 import com.docusign.iam.sdk.operations.RevokeWorkspaceUserAccess;
 import com.docusign.iam.sdk.operations.UpdateWorkspaceUser;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
@@ -35,6 +36,7 @@ import java.util.Optional;
 
 
 public class WorkspaceUsers {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     WorkspaceUsers(SDKConfiguration sdkConfiguration) {
@@ -44,9 +46,12 @@ public class WorkspaceUsers {
     /**
      * Retrieves the list of users in the given workspace
      * 
-     * <p>This operations retrieves the users in a workspace. Users sent envelopes or assigned tasks will automatically be added to the workspace with the Participate role.
+     * <p>This operations retrieves the users in a workspace. Users sent envelopes or assigned tasks will
+     * automatically be added to the workspace with the Participate role.
      * 
-     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent requests.
+     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will
+     * include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent
+     * requests.
      * 
      * @return The call builder
      */
@@ -57,9 +62,12 @@ public class WorkspaceUsers {
     /**
      * Retrieves the list of users in the given workspace
      * 
-     * <p>This operations retrieves the users in a workspace. Users sent envelopes or assigned tasks will automatically be added to the workspace with the Participate role.
+     * <p>This operations retrieves the users in a workspace. Users sent envelopes or assigned tasks will
+     * automatically be added to the workspace with the Participate role.
      * 
-     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent requests.
+     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will
+     * include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent
+     * requests.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
@@ -72,9 +80,12 @@ public class WorkspaceUsers {
     /**
      * Retrieves the list of users in the given workspace
      * 
-     * <p>This operations retrieves the users in a workspace. Users sent envelopes or assigned tasks will automatically be added to the workspace with the Participate role.
+     * <p>This operations retrieves the users in a workspace. Users sent envelopes or assigned tasks will
+     * automatically be added to the workspace with the Participate role.
      * 
-     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent requests.
+     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will
+     * include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent
+     * requests.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
@@ -83,16 +94,22 @@ public class WorkspaceUsers {
      */
     public GetWorkspaceUsersResponse getWorkspaceUsers(GetWorkspaceUsersRequest request, Optional<Options> options) throws Exception {
         RequestOperation<GetWorkspaceUsersRequest, GetWorkspaceUsersResponse> operation
-              = new GetWorkspaceUsers.Sync(sdkConfiguration, options);
+              = new GetWorkspaceUsers.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Adds a user to the workspace by email address
      * 
-     * <p>This operation manually adds an internal or external user to a specific workspace by email address. Users within the account are considered "Internal" and may be assigned any role. Users outside the account are considered "External" and may only be assigned the Participate role. This operation is not typically needed for adding external participants to a Workspace as they will be automatically added as tasks are assigned.
+     * <p>This operation manually adds an internal or external user to a specific workspace by email address.
+     * Users within the account are considered "Internal" and may be assigned any role. Users outside the
+     * account are considered "External" and may only be assigned the Participate role.
      * 
-     * <p>Available role IDs can be retrieved via the Assignable Roles operation on a workspace. If the `role_id` is not passed, the user is added with the Participate role.
+     * <p>This operation is not typically needed for adding external participants to a Workspace as they will
+     * be automatically added as tasks are assigned.
+     * 
+     * <p>Available role IDs can be retrieved via the Assignable Roles operation on a workspace. If the
+     * `role_id` is not passed, the user is added with the Participate role.
      * 
      * @return The call builder
      */
@@ -103,9 +120,15 @@ public class WorkspaceUsers {
     /**
      * Adds a user to the workspace by email address
      * 
-     * <p>This operation manually adds an internal or external user to a specific workspace by email address. Users within the account are considered "Internal" and may be assigned any role. Users outside the account are considered "External" and may only be assigned the Participate role. This operation is not typically needed for adding external participants to a Workspace as they will be automatically added as tasks are assigned.
+     * <p>This operation manually adds an internal or external user to a specific workspace by email address.
+     * Users within the account are considered "Internal" and may be assigned any role. Users outside the
+     * account are considered "External" and may only be assigned the Participate role.
      * 
-     * <p>Available role IDs can be retrieved via the Assignable Roles operation on a workspace. If the `role_id` is not passed, the user is added with the Participate role.
+     * <p>This operation is not typically needed for adding external participants to a Workspace as they will
+     * be automatically added as tasks are assigned.
+     * 
+     * <p>Available role IDs can be retrieved via the Assignable Roles operation on a workspace. If the
+     * `role_id` is not passed, the user is added with the Participate role.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -120,9 +143,15 @@ public class WorkspaceUsers {
     /**
      * Adds a user to the workspace by email address
      * 
-     * <p>This operation manually adds an internal or external user to a specific workspace by email address. Users within the account are considered "Internal" and may be assigned any role. Users outside the account are considered "External" and may only be assigned the Participate role. This operation is not typically needed for adding external participants to a Workspace as they will be automatically added as tasks are assigned.
+     * <p>This operation manually adds an internal or external user to a specific workspace by email address.
+     * Users within the account are considered "Internal" and may be assigned any role. Users outside the
+     * account are considered "External" and may only be assigned the Participate role.
      * 
-     * <p>Available role IDs can be retrieved via the Assignable Roles operation on a workspace. If the `role_id` is not passed, the user is added with the Participate role.
+     * <p>This operation is not typically needed for adding external participants to a Workspace as they will
+     * be automatically added as tasks are assigned.
+     * 
+     * <p>Available role IDs can be retrieved via the Assignable Roles operation on a workspace. If the
+     * `role_id` is not passed, the user is added with the Participate role.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -142,14 +171,16 @@ public class WorkspaceUsers {
                 .workspaceUserForCreate(workspaceUserForCreate)
                 .build();
         RequestOperation<AddWorkspaceUserRequest, AddWorkspaceUserResponse> operation
-              = new AddWorkspaceUser.Sync(sdkConfiguration, options);
+              = new AddWorkspaceUser.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Updates the specified user's role
      * 
-     * <p>This operation updates the specified user's role in the workspace. Users within the account are considered "Internal" and may be assigned any role. Users outside the account are considered "External" and may only be assigned "External" roles.
+     * <p>This operation updates the specified user's role in the workspace. Users within the account are
+     * considered "Internal" and may be assigned any role. Users outside the account are considered
+     * "External" and may only be assigned "External" roles.
      * 
      * @return The call builder
      */
@@ -160,7 +191,9 @@ public class WorkspaceUsers {
     /**
      * Updates the specified user's role
      * 
-     * <p>This operation updates the specified user's role in the workspace. Users within the account are considered "Internal" and may be assigned any role. Users outside the account are considered "External" and may only be assigned "External" roles.
+     * <p>This operation updates the specified user's role in the workspace. Users within the account are
+     * considered "Internal" and may be assigned any role. Users outside the account are considered
+     * "External" and may only be assigned "External" roles.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -178,7 +211,9 @@ public class WorkspaceUsers {
     /**
      * Updates the specified user's role
      * 
-     * <p>This operation updates the specified user's role in the workspace. Users within the account are considered "Internal" and may be assigned any role. Users outside the account are considered "External" and may only be assigned "External" roles.
+     * <p>This operation updates the specified user's role in the workspace. Users within the account are
+     * considered "Internal" and may be assigned any role. Users outside the account are considered
+     * "External" and may only be assigned "External" roles.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -201,14 +236,15 @@ public class WorkspaceUsers {
                 .workspaceUserForUpdate(workspaceUserForUpdate)
                 .build();
         RequestOperation<UpdateWorkspaceUserRequest, UpdateWorkspaceUserResponse> operation
-              = new UpdateWorkspaceUser.Sync(sdkConfiguration, options);
+              = new UpdateWorkspaceUser.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Revokes the specified user's access to the workspace
      * 
-     * <p>This operation revokes the specified user's access to the workspace. The optional `revocation_date` may be set to schedule revocation in the future. If not specified, the revocation will be immediate.
+     * <p>This operation revokes the specified user's access to the workspace. The optional `revocation_date`
+     * may be set to schedule revocation in the future. If not specified, the revocation will be immediate.
      * 
      * @return The call builder
      */
@@ -219,7 +255,8 @@ public class WorkspaceUsers {
     /**
      * Revokes the specified user's access to the workspace
      * 
-     * <p>This operation revokes the specified user's access to the workspace. The optional `revocation_date` may be set to schedule revocation in the future. If not specified, the revocation will be immediate.
+     * <p>This operation revokes the specified user's access to the workspace. The optional `revocation_date`
+     * may be set to schedule revocation in the future. If not specified, the revocation will be immediate.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace to revoke access from
@@ -237,7 +274,8 @@ public class WorkspaceUsers {
     /**
      * Revokes the specified user's access to the workspace
      * 
-     * <p>This operation revokes the specified user's access to the workspace. The optional `revocation_date` may be set to schedule revocation in the future. If not specified, the revocation will be immediate.
+     * <p>This operation revokes the specified user's access to the workspace. The optional `revocation_date`
+     * may be set to schedule revocation in the future. If not specified, the revocation will be immediate.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace to revoke access from
@@ -260,14 +298,15 @@ public class WorkspaceUsers {
                 .revokeWorkspaceUserDetails(revokeWorkspaceUserDetails)
                 .build();
         RequestOperation<RevokeWorkspaceUserAccessRequest, RevokeWorkspaceUserAccessResponse> operation
-              = new RevokeWorkspaceUserAccess.Sync(sdkConfiguration, options);
+              = new RevokeWorkspaceUserAccess.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Restores the specified user's access to the workspace
      * 
-     * <p>This operation restores the specified user's access to the workspace. The user must have been previously revoked from the workspace. The access is immediately restored.
+     * <p>This operation restores the specified user's access to the workspace. The user must have been
+     * previously revoked from the workspace. The access is immediately restored.
      * 
      * @return The call builder
      */
@@ -278,7 +317,8 @@ public class WorkspaceUsers {
     /**
      * Restores the specified user's access to the workspace
      * 
-     * <p>This operation restores the specified user's access to the workspace. The user must have been previously revoked from the workspace. The access is immediately restored.
+     * <p>This operation restores the specified user's access to the workspace. The user must have been
+     * previously revoked from the workspace. The access is immediately restored.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace to restore access
@@ -296,7 +336,8 @@ public class WorkspaceUsers {
     /**
      * Restores the specified user's access to the workspace
      * 
-     * <p>This operation restores the specified user's access to the workspace. The user must have been previously revoked from the workspace. The access is immediately restored.
+     * <p>This operation restores the specified user's access to the workspace. The user must have been
+     * previously revoked from the workspace. The access is immediately restored.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace to restore access
@@ -316,7 +357,7 @@ public class WorkspaceUsers {
                 .userId(userId)
                 .build();
         RequestOperation<RestoreWorkspaceUserAccessRequest, RestoreWorkspaceUserAccessResponse> operation
-              = new RestoreWorkspaceUserAccess.Sync(sdkConfiguration, options);
+              = new RestoreWorkspaceUserAccess.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

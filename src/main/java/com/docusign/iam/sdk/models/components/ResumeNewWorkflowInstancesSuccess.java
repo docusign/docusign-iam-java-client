@@ -21,11 +21,12 @@ import java.util.Optional;
  */
 public class ResumeNewWorkflowInstancesSuccess {
     /**
-     * Represents the new state of a workflow's mechanism to permit new workflow instances from being created.
+     * Represents the new state of a workflow's mechanism to permit new workflow instances from being
+     * created.
      * Valid values include:
      * 
-     * <p>  - active
-     *   - paused
+     * <p>- active
+     * - paused
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("status")
@@ -43,11 +44,12 @@ public class ResumeNewWorkflowInstancesSuccess {
     }
 
     /**
-     * Represents the new state of a workflow's mechanism to permit new workflow instances from being created.
+     * Represents the new state of a workflow's mechanism to permit new workflow instances from being
+     * created.
      * Valid values include:
      * 
-     * <p>  - active
-     *   - paused
+     * <p>- active
+     * - paused
      */
     @JsonIgnore
     public Optional<String> status() {
@@ -60,11 +62,12 @@ public class ResumeNewWorkflowInstancesSuccess {
 
 
     /**
-     * Represents the new state of a workflow's mechanism to permit new workflow instances from being created.
+     * Represents the new state of a workflow's mechanism to permit new workflow instances from being
+     * created.
      * Valid values include:
      * 
-     * <p>  - active
-     *   - paused
+     * <p>- active
+     * - paused
      */
     public ResumeNewWorkflowInstancesSuccess withStatus(String status) {
         Utils.checkNotNull(status, "status");
@@ -74,11 +77,12 @@ public class ResumeNewWorkflowInstancesSuccess {
 
 
     /**
-     * Represents the new state of a workflow's mechanism to permit new workflow instances from being created.
+     * Represents the new state of a workflow's mechanism to permit new workflow instances from being
+     * created.
      * Valid values include:
      * 
-     * <p>  - active
-     *   - paused
+     * <p>- active
+     * - paused
      */
     public ResumeNewWorkflowInstancesSuccess withStatus(Optional<String> status) {
         Utils.checkNotNull(status, "status");
@@ -122,11 +126,12 @@ public class ResumeNewWorkflowInstancesSuccess {
 
 
         /**
-         * Represents the new state of a workflow's mechanism to permit new workflow instances from being created.
+         * Represents the new state of a workflow's mechanism to permit new workflow instances from being
+         * created.
          * Valid values include:
          * 
-         * <p>  - active
-         *   - paused
+         * <p>- active
+         * - paused
          */
         public Builder status(String status) {
             Utils.checkNotNull(status, "status");
@@ -135,11 +140,12 @@ public class ResumeNewWorkflowInstancesSuccess {
         }
 
         /**
-         * Represents the new state of a workflow's mechanism to permit new workflow instances from being created.
+         * Represents the new state of a workflow's mechanism to permit new workflow instances from being
+         * created.
          * Valid values include:
          * 
-         * <p>  - active
-         *   - paused
+         * <p>- active
+         * - paused
          */
         public Builder status(Optional<String> status) {
             Utils.checkNotNull(status, "status");

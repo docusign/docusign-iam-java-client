@@ -40,8 +40,10 @@ be triggered.
 
 
 
+
   into all the automated processes available within the Maestro platform.
 - **Input Schema Information**: Each workflow includes its trigger input schema, showing
+
 
 
 
@@ -60,8 +62,10 @@ be triggered.
 
 
 
+
   and user details are included to support tracking and auditing workflows.
 - **Future-Proof**: The operation is designed to be expandable as more workflows are added
+
 
 
 
@@ -150,6 +154,7 @@ the workflow instance, ensuring seamless execution and compliance with workflow 
 
 
 
+
   their data types, and optional default values for easy reference and data validation.
 - **Trigger Event Type Information**: Specifies the type of event required to initiate the workflow
 
@@ -160,8 +165,10 @@ the workflow instance, ensuring seamless execution and compliance with workflow 
 
 
 
+
   (e.g., HTTP), helping developers configure their systems to invoke the workflow appropriately.
 - **Configurable for Custom Triggers**: Suitable for custom configurations, enabling flexibility
+
 
 
 
@@ -257,6 +264,7 @@ interact with or track the running instance.
 
 
 
+
   against the workflow's input schema.
 - **Real-Time Triggering**: Designed to be invoked as part of an event-driven architecture,
 
@@ -267,8 +275,10 @@ interact with or track the running instance.
 
 
 
+
   allowing for workflows to respond to external events.
 - **Tracking and Interaction**: The response includes a URL that allows users to check the status
+
 
 
 

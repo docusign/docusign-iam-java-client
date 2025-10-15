@@ -19,7 +19,8 @@ import java.util.Optional;
 
 public class TabExtensionData {
     /**
-     * A unique UUID for each tab group. Tabs associated with the same model or concept will share the same extensionGroupId.
+     * A unique UUID for each tab group. Tabs associated with the same model or concept will share the same
+     * extensionGroupId.
      */
     @JsonProperty("extensionGroupId")
     private String extensionGroupId;
@@ -148,7 +149,8 @@ public class TabExtensionData {
     }
 
     /**
-     * A unique UUID for each tab group. Tabs associated with the same model or concept will share the same extensionGroupId.
+     * A unique UUID for each tab group. Tabs associated with the same model or concept will share the same
+     * extensionGroupId.
      */
     @JsonIgnore
     public String extensionGroupId() {
@@ -249,7 +251,8 @@ public class TabExtensionData {
 
 
     /**
-     * A unique UUID for each tab group. Tabs associated with the same model or concept will share the same extensionGroupId.
+     * A unique UUID for each tab group. Tabs associated with the same model or concept will share the same
+     * extensionGroupId.
      */
     public TabExtensionData withExtensionGroupId(String extensionGroupId) {
         Utils.checkNotNull(extensionGroupId, "extensionGroupId");
@@ -523,7 +526,8 @@ public class TabExtensionData {
 
 
         /**
-         * A unique UUID for each tab group. Tabs associated with the same model or concept will share the same extensionGroupId.
+         * A unique UUID for each tab group. Tabs associated with the same model or concept will share the same
+         * extensionGroupId.
          */
         public Builder extensionGroupId(String extensionGroupId) {
             Utils.checkNotNull(extensionGroupId, "extensionGroupId");

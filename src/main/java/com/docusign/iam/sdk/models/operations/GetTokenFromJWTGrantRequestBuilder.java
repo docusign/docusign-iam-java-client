@@ -7,6 +7,7 @@ import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 
 import com.docusign.iam.sdk.SDKConfiguration;
 import com.docusign.iam.sdk.operations.GetTokenFromJWTGrant;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -20,6 +21,7 @@ public class GetTokenFromJWTGrantRequestBuilder {
     private Optional<String> serverURL = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public GetTokenFromJWTGrantRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -61,7 +63,9 @@ public class GetTokenFromJWTGrantRequestBuilder {
             .build());
 
         RequestOperation<JWTGrant, GetTokenFromJWTGrantResponse> operation
-              = new GetTokenFromJWTGrant.Sync(sdkConfiguration, serverURL, options);
+              = new GetTokenFromJWTGrant.Sync(
+                                    sdkConfiguration, serverURL, options,
+                                    _headers);
 
         return operation.handleResponse(operation.doRequest(request));
     }

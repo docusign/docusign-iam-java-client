@@ -17,6 +17,7 @@ import com.docusign.iam.sdk.models.operations.GetWorkflowInstancesListResponse;
 import com.docusign.iam.sdk.operations.CancelWorkflowInstance;
 import com.docusign.iam.sdk.operations.GetWorkflowInstance;
 import com.docusign.iam.sdk.operations.GetWorkflowInstancesList;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
@@ -24,6 +25,7 @@ import java.util.Optional;
 
 
 public class WorkflowInstanceManagement {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     WorkflowInstanceManagement(SDKConfiguration sdkConfiguration) {
@@ -33,12 +35,14 @@ public class WorkflowInstanceManagement {
     /**
      * Retrieve All Workflow Instances
      * 
-     * <p>This operation retrieves a list of all available Maestro workflow instances. It returns basic information
+     * <p>This operation retrieves a list of all available Maestro workflow instances. It returns basic
+     * information
      * about each workflow instance, including its unique identifier (`id`), name, status, timestamps, and
      * additional metadata.
      * 
      * <p>The response provides key details that help users understand what workflow instances are in progress
-     * or completed, and the relevant data for each. Each workflow instance entry also includes metadata, such
+     * or completed, and the relevant data for each. Each workflow instance entry also includes metadata,
+     * such
      * as who started it, when it was last modified, and how many steps have been completed.
      * 
      * <p>### Use Cases:
@@ -49,13 +53,13 @@ public class WorkflowInstanceManagement {
      * <p>### Key Features:
      * - **Comprehensive Instance Overview**: Provides a full list of workflow instances, giving visibility
      * 
-     * <p>  into all ongoing and completed workflows within the Maestro platform
+     * <p>into all ongoing and completed workflows within the Maestro platform
      * - **Metadata for Tracking**: Includes helpful metadata like creation time, last modification date,
      * 
-     * <p>  and user details to support audit trails
+     * <p>and user details to support audit trails
      * - **Scalable and Future-Proof**: Designed to handle growing numbers of workflow instances as the
      * 
-     * <p>  platform scales
+     * <p>platform scales
      * 
      * @return The call builder
      */
@@ -66,12 +70,14 @@ public class WorkflowInstanceManagement {
     /**
      * Retrieve All Workflow Instances
      * 
-     * <p>This operation retrieves a list of all available Maestro workflow instances. It returns basic information
+     * <p>This operation retrieves a list of all available Maestro workflow instances. It returns basic
+     * information
      * about each workflow instance, including its unique identifier (`id`), name, status, timestamps, and
      * additional metadata.
      * 
      * <p>The response provides key details that help users understand what workflow instances are in progress
-     * or completed, and the relevant data for each. Each workflow instance entry also includes metadata, such
+     * or completed, and the relevant data for each. Each workflow instance entry also includes metadata,
+     * such
      * as who started it, when it was last modified, and how many steps have been completed.
      * 
      * <p>### Use Cases:
@@ -82,13 +88,13 @@ public class WorkflowInstanceManagement {
      * <p>### Key Features:
      * - **Comprehensive Instance Overview**: Provides a full list of workflow instances, giving visibility
      * 
-     * <p>  into all ongoing and completed workflows within the Maestro platform
+     * <p>into all ongoing and completed workflows within the Maestro platform
      * - **Metadata for Tracking**: Includes helpful metadata like creation time, last modification date,
      * 
-     * <p>  and user details to support audit trails
+     * <p>and user details to support audit trails
      * - **Scalable and Future-Proof**: Designed to handle growing numbers of workflow instances as the
      * 
-     * <p>  platform scales
+     * <p>platform scales
      * 
      * @param accountId The unique identifier of the account.
      * @param workflowId 
@@ -102,12 +108,14 @@ public class WorkflowInstanceManagement {
     /**
      * Retrieve All Workflow Instances
      * 
-     * <p>This operation retrieves a list of all available Maestro workflow instances. It returns basic information
+     * <p>This operation retrieves a list of all available Maestro workflow instances. It returns basic
+     * information
      * about each workflow instance, including its unique identifier (`id`), name, status, timestamps, and
      * additional metadata.
      * 
      * <p>The response provides key details that help users understand what workflow instances are in progress
-     * or completed, and the relevant data for each. Each workflow instance entry also includes metadata, such
+     * or completed, and the relevant data for each. Each workflow instance entry also includes metadata,
+     * such
      * as who started it, when it was last modified, and how many steps have been completed.
      * 
      * <p>### Use Cases:
@@ -118,13 +126,13 @@ public class WorkflowInstanceManagement {
      * <p>### Key Features:
      * - **Comprehensive Instance Overview**: Provides a full list of workflow instances, giving visibility
      * 
-     * <p>  into all ongoing and completed workflows within the Maestro platform
+     * <p>into all ongoing and completed workflows within the Maestro platform
      * - **Metadata for Tracking**: Includes helpful metadata like creation time, last modification date,
      * 
-     * <p>  and user details to support audit trails
+     * <p>and user details to support audit trails
      * - **Scalable and Future-Proof**: Designed to handle growing numbers of workflow instances as the
      * 
-     * <p>  platform scales
+     * <p>platform scales
      * 
      * @param accountId The unique identifier of the account.
      * @param workflowId 
@@ -142,7 +150,7 @@ public class WorkflowInstanceManagement {
                 .workflowId(workflowId)
                 .build();
         RequestOperation<GetWorkflowInstancesListRequest, GetWorkflowInstancesListResponse> operation
-              = new GetWorkflowInstancesList.Sync(sdkConfiguration, options);
+              = new GetWorkflowInstancesList.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -164,9 +172,12 @@ public class WorkflowInstanceManagement {
      * 
      * <p>### Key Features:
      * - **Single Workflow Instance**: Provides direct access to a specific workflow instance by `id`
-     * - **Detailed Status Information**: Includes the workflow's start and end times, status, and other lifecycle timestamps
-     * - **Metadata for Tracking**: Useful metadata like who initiated the workflow (`started_by`) and versioning details
-     * - **Future-Proof**: Designed to be extensible if additional fields or nested information are required over time
+     * - **Detailed Status Information**: Includes the workflow's start and end times, status, and other
+     * lifecycle timestamps
+     * - **Metadata for Tracking**: Useful metadata like who initiated the workflow (`started_by`) and
+     * versioning details
+     * - **Future-Proof**: Designed to be extensible if additional fields or nested information are
+     * required over time
      * 
      * @return The call builder
      */
@@ -192,9 +203,12 @@ public class WorkflowInstanceManagement {
      * 
      * <p>### Key Features:
      * - **Single Workflow Instance**: Provides direct access to a specific workflow instance by `id`
-     * - **Detailed Status Information**: Includes the workflow's start and end times, status, and other lifecycle timestamps
-     * - **Metadata for Tracking**: Useful metadata like who initiated the workflow (`started_by`) and versioning details
-     * - **Future-Proof**: Designed to be extensible if additional fields or nested information are required over time
+     * - **Detailed Status Information**: Includes the workflow's start and end times, status, and other
+     * lifecycle timestamps
+     * - **Metadata for Tracking**: Useful metadata like who initiated the workflow (`started_by`) and
+     * versioning details
+     * - **Future-Proof**: Designed to be extensible if additional fields or nested information are
+     * required over time
      * 
      * @param accountId The unique identifier of the account.
      * @param workflowId 
@@ -227,9 +241,12 @@ public class WorkflowInstanceManagement {
      * 
      * <p>### Key Features:
      * - **Single Workflow Instance**: Provides direct access to a specific workflow instance by `id`
-     * - **Detailed Status Information**: Includes the workflow's start and end times, status, and other lifecycle timestamps
-     * - **Metadata for Tracking**: Useful metadata like who initiated the workflow (`started_by`) and versioning details
-     * - **Future-Proof**: Designed to be extensible if additional fields or nested information are required over time
+     * - **Detailed Status Information**: Includes the workflow's start and end times, status, and other
+     * lifecycle timestamps
+     * - **Metadata for Tracking**: Useful metadata like who initiated the workflow (`started_by`) and
+     * versioning details
+     * - **Future-Proof**: Designed to be extensible if additional fields or nested information are
+     * required over time
      * 
      * @param accountId The unique identifier of the account.
      * @param workflowId 
@@ -249,7 +266,7 @@ public class WorkflowInstanceManagement {
                 .instanceId(instanceId)
                 .build();
         RequestOperation<GetWorkflowInstanceRequest, GetWorkflowInstanceResponse> operation
-              = new GetWorkflowInstance.Sync(sdkConfiguration, options);
+              = new GetWorkflowInstance.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -265,7 +282,8 @@ public class WorkflowInstanceManagement {
      * 
      * <p>### Key Features:
      * - **Immediate Termination**: Ensures the workflow instance no longer processes subsequent steps
-     * - **Clear Feedback**: Returns a confirmation message including both the instance and workflow identifiers
+     * - **Clear Feedback**: Returns a confirmation message including both the instance and workflow
+     * identifiers
      * 
      * @return The call builder
      */
@@ -285,7 +303,8 @@ public class WorkflowInstanceManagement {
      * 
      * <p>### Key Features:
      * - **Immediate Termination**: Ensures the workflow instance no longer processes subsequent steps
-     * - **Clear Feedback**: Returns a confirmation message including both the instance and workflow identifiers
+     * - **Clear Feedback**: Returns a confirmation message including both the instance and workflow
+     * identifiers
      * 
      * @param accountId The unique identifier of the account.
      * @param workflowId 
@@ -312,7 +331,8 @@ public class WorkflowInstanceManagement {
      * 
      * <p>### Key Features:
      * - **Immediate Termination**: Ensures the workflow instance no longer processes subsequent steps
-     * - **Clear Feedback**: Returns a confirmation message including both the instance and workflow identifiers
+     * - **Clear Feedback**: Returns a confirmation message including both the instance and workflow
+     * identifiers
      * 
      * @param accountId The unique identifier of the account.
      * @param workflowId 
@@ -332,7 +352,7 @@ public class WorkflowInstanceManagement {
                 .instanceId(instanceId)
                 .build();
         RequestOperation<CancelWorkflowInstanceRequest, CancelWorkflowInstanceResponse> operation
-              = new CancelWorkflowInstance.Sync(sdkConfiguration, options);
+              = new CancelWorkflowInstance.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

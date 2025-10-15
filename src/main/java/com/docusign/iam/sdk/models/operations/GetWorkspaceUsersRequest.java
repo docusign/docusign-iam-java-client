@@ -47,7 +47,8 @@ public class GetWorkspaceUsersRequest {
     private Optional<String> filter;
 
     /**
-     * Sorts results. Options are `first_name_asc`, `first_name_desc`, `last_name_asc`, `last_name_desc`, `email_asc`, `email_desc`. Defaults to `last_name_desc`
+     * Sorts results. Options are `first_name_asc`, `first_name_desc`, `last_name_asc`, `last_name_desc`,
+     * `email_asc`, `email_desc`. Defaults to `last_name_desc`
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=sort")
     private Optional<? extends GetWorkspaceUsersSortingOption> sort;
@@ -122,7 +123,8 @@ public class GetWorkspaceUsersRequest {
     }
 
     /**
-     * Sorts results. Options are `first_name_asc`, `first_name_desc`, `last_name_asc`, `last_name_desc`, `email_asc`, `email_desc`. Defaults to `last_name_desc`
+     * Sorts results. Options are `first_name_asc`, `first_name_desc`, `last_name_asc`, `last_name_desc`,
+     * `email_asc`, `email_desc`. Defaults to `last_name_desc`
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -211,7 +213,8 @@ public class GetWorkspaceUsersRequest {
     }
 
     /**
-     * Sorts results. Options are `first_name_asc`, `first_name_desc`, `last_name_asc`, `last_name_desc`, `email_asc`, `email_desc`. Defaults to `last_name_desc`
+     * Sorts results. Options are `first_name_asc`, `first_name_desc`, `last_name_asc`, `last_name_desc`,
+     * `email_asc`, `email_desc`. Defaults to `last_name_desc`
      */
     public GetWorkspaceUsersRequest withSort(GetWorkspaceUsersSortingOption sort) {
         Utils.checkNotNull(sort, "sort");
@@ -221,7 +224,8 @@ public class GetWorkspaceUsersRequest {
 
 
     /**
-     * Sorts results. Options are `first_name_asc`, `first_name_desc`, `last_name_asc`, `last_name_desc`, `email_asc`, `email_desc`. Defaults to `last_name_desc`
+     * Sorts results. Options are `first_name_asc`, `first_name_desc`, `last_name_asc`, `last_name_desc`,
+     * `email_asc`, `email_desc`. Defaults to `last_name_desc`
      */
     public GetWorkspaceUsersRequest withSort(Optional<? extends GetWorkspaceUsersSortingOption> sort) {
         Utils.checkNotNull(sort, "sort");
@@ -363,7 +367,8 @@ public class GetWorkspaceUsersRequest {
 
 
         /**
-         * Sorts results. Options are `first_name_asc`, `first_name_desc`, `last_name_asc`, `last_name_desc`, `email_asc`, `email_desc`. Defaults to `last_name_desc`
+         * Sorts results. Options are `first_name_asc`, `first_name_desc`, `last_name_asc`, `last_name_desc`,
+         * `email_asc`, `email_desc`. Defaults to `last_name_desc`
          */
         public Builder sort(GetWorkspaceUsersSortingOption sort) {
             Utils.checkNotNull(sort, "sort");
@@ -372,7 +377,8 @@ public class GetWorkspaceUsersRequest {
         }
 
         /**
-         * Sorts results. Options are `first_name_asc`, `first_name_desc`, `last_name_asc`, `last_name_desc`, `email_asc`, `email_desc`. Defaults to `last_name_desc`
+         * Sorts results. Options are `first_name_asc`, `first_name_desc`, `last_name_asc`, `last_name_desc`,
+         * `email_asc`, `email_desc`. Defaults to `last_name_desc`
          */
         public Builder sort(Optional<? extends GetWorkspaceUsersSortingOption> sort) {
             Utils.checkNotNull(sort, "sort");

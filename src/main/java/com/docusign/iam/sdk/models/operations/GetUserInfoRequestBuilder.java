@@ -7,6 +7,7 @@ import static com.docusign.iam.sdk.operations.Operations.RequestlessOperation;
 
 import com.docusign.iam.sdk.SDKConfiguration;
 import com.docusign.iam.sdk.operations.GetUserInfo;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -19,6 +20,7 @@ public class GetUserInfoRequestBuilder {
     private Optional<String> serverURL = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public GetUserInfoRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -54,7 +56,9 @@ public class GetUserInfoRequestBuilder {
             .build());
 
         RequestlessOperation<GetUserInfoResponse> operation
-            = new GetUserInfo.Sync(sdkConfiguration, serverURL, options);
+            = new GetUserInfo.Sync(
+                                    sdkConfiguration, serverURL, options,
+                                    _headers);
 
         return operation.handleResponse(operation.doRequest());
     }

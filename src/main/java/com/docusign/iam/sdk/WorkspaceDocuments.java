@@ -5,6 +5,9 @@ package com.docusign.iam.sdk;
 
 import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 
+import com.docusign.iam.sdk.models.components.AddWorkspaceDocumentRequest;
+import com.docusign.iam.sdk.models.operations.AddWorkspaceDocumentRequestBuilder;
+import com.docusign.iam.sdk.models.operations.AddWorkspaceDocumentResponse;
 import com.docusign.iam.sdk.models.operations.DeleteWorkspaceDocumentRequest;
 import com.docusign.iam.sdk.models.operations.DeleteWorkspaceDocumentRequestBuilder;
 import com.docusign.iam.sdk.models.operations.DeleteWorkspaceDocumentResponse;
@@ -17,10 +20,12 @@ import com.docusign.iam.sdk.models.operations.GetWorkspaceDocumentResponse;
 import com.docusign.iam.sdk.models.operations.GetWorkspaceDocumentsRequest;
 import com.docusign.iam.sdk.models.operations.GetWorkspaceDocumentsRequestBuilder;
 import com.docusign.iam.sdk.models.operations.GetWorkspaceDocumentsResponse;
+import com.docusign.iam.sdk.operations.AddWorkspaceDocument;
 import com.docusign.iam.sdk.operations.DeleteWorkspaceDocument;
 import com.docusign.iam.sdk.operations.GetWorkspaceDocument;
 import com.docusign.iam.sdk.operations.GetWorkspaceDocumentContents;
 import com.docusign.iam.sdk.operations.GetWorkspaceDocuments;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
@@ -28,6 +33,7 @@ import java.util.Optional;
 
 
 public class WorkspaceDocuments {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     WorkspaceDocuments(SDKConfiguration sdkConfiguration) {
@@ -37,9 +43,13 @@ public class WorkspaceDocuments {
     /**
      * Get documents in the workspace accessible to the calling user
      * 
-     * <p>This operation retrieves the documents in the workspace that are accessible to the calling user. Documents may be added directly or automatically through tasks such as envelopes. Documents may be used to create envelopes.
+     * <p>This operation retrieves the documents in the workspace that are accessible to the calling user.
+     * Documents may be added directly or automatically through tasks such as envelopes. Documents may be
+     * used to create envelopes.
      * 
-     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent requests.
+     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will
+     * include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent
+     * requests.
      * 
      * @return The call builder
      */
@@ -50,9 +60,13 @@ public class WorkspaceDocuments {
     /**
      * Get documents in the workspace accessible to the calling user
      * 
-     * <p>This operation retrieves the documents in the workspace that are accessible to the calling user. Documents may be added directly or automatically through tasks such as envelopes. Documents may be used to create envelopes.
+     * <p>This operation retrieves the documents in the workspace that are accessible to the calling user.
+     * Documents may be added directly or automatically through tasks such as envelopes. Documents may be
+     * used to create envelopes.
      * 
-     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent requests.
+     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will
+     * include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent
+     * requests.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
@@ -65,9 +79,13 @@ public class WorkspaceDocuments {
     /**
      * Get documents in the workspace accessible to the calling user
      * 
-     * <p>This operation retrieves the documents in the workspace that are accessible to the calling user. Documents may be added directly or automatically through tasks such as envelopes. Documents may be used to create envelopes.
+     * <p>This operation retrieves the documents in the workspace that are accessible to the calling user.
+     * Documents may be added directly or automatically through tasks such as envelopes. Documents may be
+     * used to create envelopes.
      * 
-     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent requests.
+     * <p>Pagination is supported by passing `start_position` and `count` in the request. The response will
+     * include `resultSetSize`, `start_position`, and `end_position` which may be utilized for subsequent
+     * requests.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
@@ -76,14 +94,77 @@ public class WorkspaceDocuments {
      */
     public GetWorkspaceDocumentsResponse getWorkspaceDocuments(GetWorkspaceDocumentsRequest request, Optional<Options> options) throws Exception {
         RequestOperation<GetWorkspaceDocumentsRequest, GetWorkspaceDocumentsResponse> operation
-              = new GetWorkspaceDocuments.Sync(sdkConfiguration, options);
+              = new GetWorkspaceDocuments.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Add a document to a workspace via file contents upload
+     * 
+     * <p>This operation adds a document to a workspace via file contents upload. The file is passed in the
+     * request body as a multipart/form-data file. The file name is used as the document name.
+     * 
+     * <p>Once added, it may be used to create an envelope associated with the workspace.
+     * 
+     * @return The call builder
+     */
+    public AddWorkspaceDocumentRequestBuilder addWorkspaceDocument() {
+        return new AddWorkspaceDocumentRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Add a document to a workspace via file contents upload
+     * 
+     * <p>This operation adds a document to a workspace via file contents upload. The file is passed in the
+     * request body as a multipart/form-data file. The file name is used as the document name.
+     * 
+     * <p>Once added, it may be used to create an envelope associated with the workspace.
+     * 
+     * @param accountId The ID of the account
+     * @param workspaceId The ID of the workspace
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public AddWorkspaceDocumentResponse addWorkspaceDocument(String accountId, String workspaceId) throws Exception {
+        return addWorkspaceDocument(accountId, workspaceId, Optional.empty(),
+            Optional.empty());
+    }
+
+    /**
+     * Add a document to a workspace via file contents upload
+     * 
+     * <p>This operation adds a document to a workspace via file contents upload. The file is passed in the
+     * request body as a multipart/form-data file. The file name is used as the document name.
+     * 
+     * <p>Once added, it may be used to create an envelope associated with the workspace.
+     * 
+     * @param accountId The ID of the account
+     * @param workspaceId The ID of the workspace
+     * @param addWorkspaceDocumentRequest 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public AddWorkspaceDocumentResponse addWorkspaceDocument(
+            String accountId, String workspaceId,
+            Optional<? extends AddWorkspaceDocumentRequest> addWorkspaceDocumentRequest, Optional<Options> options) throws Exception {
+        com.docusign.iam.sdk.models.operations.AddWorkspaceDocumentRequest request =
+            com.docusign.iam.sdk.models.operations.AddWorkspaceDocumentRequest
+                .builder()
+                .accountId(accountId)
+                .workspaceId(workspaceId)
+                .addWorkspaceDocumentRequest(addWorkspaceDocumentRequest)
+                .build();
+        RequestOperation<com.docusign.iam.sdk.models.operations.AddWorkspaceDocumentRequest, AddWorkspaceDocumentResponse> operation
+              = new AddWorkspaceDocument.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Get information about the document
      * 
-     * <p>This operation retrieves information about the document. The response includes the document ID, name, and metadata.
+     * <p>This operation retrieves information about the document. The response includes the document ID,
+     * name, and metadata.
      * 
      * @return The call builder
      */
@@ -94,7 +175,8 @@ public class WorkspaceDocuments {
     /**
      * Get information about the document
      * 
-     * <p>This operation retrieves information about the document. The response includes the document ID, name, and metadata.
+     * <p>This operation retrieves information about the document. The response includes the document ID,
+     * name, and metadata.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -112,7 +194,8 @@ public class WorkspaceDocuments {
     /**
      * Get information about the document
      * 
-     * <p>This operation retrieves information about the document. The response includes the document ID, name, and metadata.
+     * <p>This operation retrieves information about the document. The response includes the document ID,
+     * name, and metadata.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -132,7 +215,7 @@ public class WorkspaceDocuments {
                 .documentId(documentId)
                 .build();
         RequestOperation<GetWorkspaceDocumentRequest, GetWorkspaceDocumentResponse> operation
-              = new GetWorkspaceDocument.Sync(sdkConfiguration, options);
+              = new GetWorkspaceDocument.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -188,14 +271,15 @@ public class WorkspaceDocuments {
                 .documentId(documentId)
                 .build();
         RequestOperation<DeleteWorkspaceDocumentRequest, DeleteWorkspaceDocumentResponse> operation
-              = new DeleteWorkspaceDocument.Sync(sdkConfiguration, options);
+              = new DeleteWorkspaceDocument.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Get the file contents of the document
      * 
-     * <p>This operation retrieves the file contents of the document. The file is returned as a stream in the response body. The Content-Disposition response header contains the document name as the `filename`.
+     * <p>This operation retrieves the file contents of the document. The file is returned as a stream in the
+     * response body. The Content-Disposition response header contains the document name as the `filename`.
      * 
      * @return The call builder
      */
@@ -206,7 +290,8 @@ public class WorkspaceDocuments {
     /**
      * Get the file contents of the document
      * 
-     * <p>This operation retrieves the file contents of the document. The file is returned as a stream in the response body. The Content-Disposition response header contains the document name as the `filename`.
+     * <p>This operation retrieves the file contents of the document. The file is returned as a stream in the
+     * response body. The Content-Disposition response header contains the document name as the `filename`.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -224,7 +309,8 @@ public class WorkspaceDocuments {
     /**
      * Get the file contents of the document
      * 
-     * <p>This operation retrieves the file contents of the document. The file is returned as a stream in the response body. The Content-Disposition response header contains the document name as the `filename`.
+     * <p>This operation retrieves the file contents of the document. The file is returned as a stream in the
+     * response body. The Content-Disposition response header contains the document name as the `filename`.
      * 
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
@@ -244,7 +330,7 @@ public class WorkspaceDocuments {
                 .documentId(documentId)
                 .build();
         RequestOperation<GetWorkspaceDocumentContentsRequest, GetWorkspaceDocumentContentsResponse> operation
-              = new GetWorkspaceDocumentContents.Sync(sdkConfiguration, options);
+              = new GetWorkspaceDocumentContents.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

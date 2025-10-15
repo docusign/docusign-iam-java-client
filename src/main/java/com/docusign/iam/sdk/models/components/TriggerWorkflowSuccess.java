@@ -65,8 +65,8 @@ public class TriggerWorkflowSuccess {
     private JsonNullable<OffsetDateTime> responseTimestamp;
 
     /**
-     * The duration of time, in milliseconds, that the server took to process and respond 
-     * to the request. This is measured from the time the server received the request 
+     * The duration of time, in milliseconds, that the server took to process and respond
+     * to the request. This is measured from the time the server received the request
      * until the time the response was sent.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -152,8 +152,8 @@ public class TriggerWorkflowSuccess {
     }
 
     /**
-     * The duration of time, in milliseconds, that the server took to process and respond 
-     * to the request. This is measured from the time the server received the request 
+     * The duration of time, in milliseconds, that the server took to process and respond
+     * to the request. This is measured from the time the server received the request
      * until the time the response was sent.
      */
     @JsonIgnore
@@ -275,8 +275,8 @@ public class TriggerWorkflowSuccess {
     }
 
     /**
-     * The duration of time, in milliseconds, that the server took to process and respond 
-     * to the request. This is measured from the time the server received the request 
+     * The duration of time, in milliseconds, that the server took to process and respond
+     * to the request. This is measured from the time the server received the request
      * until the time the response was sent.
      */
     public TriggerWorkflowSuccess withResponseDurationMs(int responseDurationMs) {
@@ -286,8 +286,8 @@ public class TriggerWorkflowSuccess {
     }
 
     /**
-     * The duration of time, in milliseconds, that the server took to process and respond 
-     * to the request. This is measured from the time the server received the request 
+     * The duration of time, in milliseconds, that the server took to process and respond
+     * to the request. This is measured from the time the server received the request
      * until the time the response was sent.
      */
     public TriggerWorkflowSuccess withResponseDurationMs(JsonNullable<Integer> responseDurationMs) {
@@ -470,8 +470,8 @@ public class TriggerWorkflowSuccess {
 
 
         /**
-         * The duration of time, in milliseconds, that the server took to process and respond 
-         * to the request. This is measured from the time the server received the request 
+         * The duration of time, in milliseconds, that the server took to process and respond
+         * to the request. This is measured from the time the server received the request
          * until the time the response was sent.
          */
         public Builder responseDurationMs(int responseDurationMs) {
@@ -481,8 +481,8 @@ public class TriggerWorkflowSuccess {
         }
 
         /**
-         * The duration of time, in milliseconds, that the server took to process and respond 
-         * to the request. This is measured from the time the server received the request 
+         * The duration of time, in milliseconds, that the server took to process and respond
+         * to the request. This is measured from the time the server received the request
          * until the time the response was sent.
          */
         public Builder responseDurationMs(JsonNullable<Integer> responseDurationMs) {

@@ -17,7 +17,8 @@ import java.util.Optional;
 /**
  * AuthorizationCodeGrant
  * 
- * <p>This grant optionally uses Proof Key for Code Exchange (PKCE) to authenticate securely without requiring a client secret.
+ * <p>This grant optionally uses Proof Key for Code Exchange (PKCE) to authenticate securely without
+ * requiring a client secret.
  */
 public class AuthorizationCodeGrant {
     /**

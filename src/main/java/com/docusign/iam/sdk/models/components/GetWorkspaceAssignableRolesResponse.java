@@ -48,7 +48,8 @@ public class GetWorkspaceAssignableRolesResponse {
     private JsonNullable<Integer> endPosition;
 
     /**
-     * The total number of roles applicable to the request regardless of pagination. It may not always be computed
+     * The total number of roles applicable to the request regardless of pagination. It may not always be
+     * computed
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("total_row_count")
@@ -122,7 +123,8 @@ public class GetWorkspaceAssignableRolesResponse {
     }
 
     /**
-     * The total number of roles applicable to the request regardless of pagination. It may not always be computed
+     * The total number of roles applicable to the request regardless of pagination. It may not always be
+     * computed
      */
     @JsonIgnore
     public JsonNullable<Integer> totalRowCount() {
@@ -216,7 +218,8 @@ public class GetWorkspaceAssignableRolesResponse {
     }
 
     /**
-     * The total number of roles applicable to the request regardless of pagination. It may not always be computed
+     * The total number of roles applicable to the request regardless of pagination. It may not always be
+     * computed
      */
     public GetWorkspaceAssignableRolesResponse withTotalRowCount(int totalRowCount) {
         Utils.checkNotNull(totalRowCount, "totalRowCount");
@@ -225,7 +228,8 @@ public class GetWorkspaceAssignableRolesResponse {
     }
 
     /**
-     * The total number of roles applicable to the request regardless of pagination. It may not always be computed
+     * The total number of roles applicable to the request regardless of pagination. It may not always be
+     * computed
      */
     public GetWorkspaceAssignableRolesResponse withTotalRowCount(JsonNullable<Integer> totalRowCount) {
         Utils.checkNotNull(totalRowCount, "totalRowCount");
@@ -384,7 +388,8 @@ public class GetWorkspaceAssignableRolesResponse {
 
 
         /**
-         * The total number of roles applicable to the request regardless of pagination. It may not always be computed
+         * The total number of roles applicable to the request regardless of pagination. It may not always be
+         * computed
          */
         public Builder totalRowCount(int totalRowCount) {
             Utils.checkNotNull(totalRowCount, "totalRowCount");
@@ -393,7 +398,8 @@ public class GetWorkspaceAssignableRolesResponse {
         }
 
         /**
-         * The total number of roles applicable to the request regardless of pagination. It may not always be computed
+         * The total number of roles applicable to the request regardless of pagination. It may not always be
+         * computed
          */
         public Builder totalRowCount(JsonNullable<Integer> totalRowCount) {
             Utils.checkNotNull(totalRowCount, "totalRowCount");

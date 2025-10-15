@@ -23,8 +23,10 @@ import java.util.Map;
 /**
  * TriggerInputs
  * 
- * <p>A key-value pair where the key is the `field_name` defined in the `trigger_input_schema` of the workflow definition,
- * and the value is the actual input data. Supported types include string, number, boolean, object, or array.
+ * <p>A key-value pair where the key is the `field_name` defined in the `trigger_input_schema` of the
+ * workflow definition,
+ * and the value is the actual input data. Supported types include string, number, boolean, object, or
+ * array.
  */
 @JsonDeserialize(using = TriggerInputs._Deserializer.class)
 public class TriggerInputs {

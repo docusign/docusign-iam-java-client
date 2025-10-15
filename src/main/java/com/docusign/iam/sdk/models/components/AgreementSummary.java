@@ -20,7 +20,7 @@ import java.util.Optional;
  */
 public class AgreementSummary {
     /**
-     * An AI-generated summary of the agreement. This summary is provided for convenience 
+     * An AI-generated summary of the agreement. This summary is provided for convenience
      * and may not capture every detail of the original agreement.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -39,7 +39,7 @@ public class AgreementSummary {
     }
 
     /**
-     * An AI-generated summary of the agreement. This summary is provided for convenience 
+     * An AI-generated summary of the agreement. This summary is provided for convenience
      * and may not capture every detail of the original agreement.
      */
     @JsonIgnore
@@ -53,7 +53,7 @@ public class AgreementSummary {
 
 
     /**
-     * An AI-generated summary of the agreement. This summary is provided for convenience 
+     * An AI-generated summary of the agreement. This summary is provided for convenience
      * and may not capture every detail of the original agreement.
      */
     public AgreementSummary withSummary(String summary) {
@@ -64,7 +64,7 @@ public class AgreementSummary {
 
 
     /**
-     * An AI-generated summary of the agreement. This summary is provided for convenience 
+     * An AI-generated summary of the agreement. This summary is provided for convenience
      * and may not capture every detail of the original agreement.
      */
     public AgreementSummary withSummary(Optional<String> summary) {
@@ -109,7 +109,7 @@ public class AgreementSummary {
 
 
         /**
-         * An AI-generated summary of the agreement. This summary is provided for convenience 
+         * An AI-generated summary of the agreement. This summary is provided for convenience
          * and may not capture every detail of the original agreement.
          */
         public Builder summary(String summary) {
@@ -119,7 +119,7 @@ public class AgreementSummary {
         }
 
         /**
-         * An AI-generated summary of the agreement. This summary is provided for convenience 
+         * An AI-generated summary of the agreement. This summary is provided for convenience
          * and may not capture every detail of the original agreement.
          */
         public Builder summary(Optional<String> summary) {

@@ -7,6 +7,7 @@ import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 
 import com.docusign.iam.sdk.SDKConfiguration;
 import com.docusign.iam.sdk.operations.DeleteWorkspaceUploadRequest;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -21,6 +22,7 @@ public class DeleteWorkspaceUploadRequestRequestBuilder {
     private String uploadRequestId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public DeleteWorkspaceUploadRequestRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -72,7 +74,7 @@ public class DeleteWorkspaceUploadRequestRequestBuilder {
             .build());
 
         RequestOperation<DeleteWorkspaceUploadRequestRequest, DeleteWorkspaceUploadRequestResponse> operation
-              = new DeleteWorkspaceUploadRequest.Sync(sdkConfiguration, options);
+              = new DeleteWorkspaceUploadRequest.Sync(sdkConfiguration, options, _headers);
         DeleteWorkspaceUploadRequestRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

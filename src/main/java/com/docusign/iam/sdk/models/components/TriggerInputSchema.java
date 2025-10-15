@@ -17,7 +17,8 @@ import java.util.Optional;
 /**
  * TriggerInputSchema
  * 
- * <p>Array of fields required as inputs to trigger the workflow, including field names, data types, and default values.
+ * <p>Array of fields required as inputs to trigger the workflow, including field names, data types, and
+ * default values.
  */
 public class TriggerInputSchema {
     /**
