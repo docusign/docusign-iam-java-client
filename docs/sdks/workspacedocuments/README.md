@@ -6,6 +6,7 @@
 ### Available Operations
 
 * [getWorkspaceDocuments](#getworkspacedocuments) - Get documents in the workspace accessible to the calling user
+* [addWorkspaceDocument](#addworkspacedocument) - Add a document to a workspace via file contents upload
 * [getWorkspaceDocument](#getworkspacedocument) - Get information about the document
 * [deleteWorkspaceDocument](#deleteworkspacedocument) - Deletes a document in the workspace
 * [getWorkspaceDocumentContents](#getworkspacedocumentcontents) - Get the file contents of the document
@@ -61,6 +62,60 @@ public class Application {
 ### Response
 
 **[GetWorkspaceDocumentsResponse](../../models/operations/GetWorkspaceDocumentsResponse.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models/errors/ErrorDetails | 400, 401                   | application/json           |
+| models/errors/ErrorDetails | 500                        | application/json           |
+| models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
+
+## addWorkspaceDocument
+
+This operation adds a document to a workspace via file contents upload. The file is passed in the request body as a multipart/form-data file. The file name is used as the document name.
+
+Once added, it may be used to create an envelope associated with the workspace.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="addWorkspaceDocument" method="post" path="/v1/accounts/{accountId}/workspaces/{workspaceId}/documents" -->
+```java
+package hello.world;
+
+import com.docusign.iam.sdk.IamClient;
+import com.docusign.iam.sdk.models.errors.ErrorDetails;
+import com.docusign.iam.sdk.models.operations.AddWorkspaceDocumentResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ErrorDetails, ErrorDetails, Exception {
+
+        IamClient sdk = IamClient.builder()
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
+            .build();
+
+        AddWorkspaceDocumentResponse res = sdk.workspaces().workspaceDocuments().addWorkspaceDocument()
+                .accountId("5eddb8e1-d00e-47c4-9ed6-3b1c8915ae0d")
+                .workspaceId("7f9e0991-b6d1-4de8-bfa5-7724e59a3087")
+                .call();
+
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                        | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `accountId`                                                                                      | *String*                                                                                         | :heavy_check_mark:                                                                               | The ID of the account                                                                            |
+| `workspaceId`                                                                                    | *String*                                                                                         | :heavy_check_mark:                                                                               | The ID of the workspace                                                                          |
+| `addWorkspaceDocumentRequest`                                                                    | [Optional\<AddWorkspaceDocumentRequest>](../../models/components/AddWorkspaceDocumentRequest.md) | :heavy_minus_sign:                                                                               | N/A                                                                                              |
+
+### Response
+
+**[AddWorkspaceDocumentResponse](../../models/operations/AddWorkspaceDocumentResponse.md)**
 
 ### Errors
 

@@ -25,7 +25,8 @@ import org.openapitools.jackson.nullable.JsonNullable;
 /**
  * Provisions
  * 
- * <p>"The conditions or rules written in a legal agreement. The set of possible provisions is determined by the agreement type."
+ * <p>"The conditions or rules written in a legal agreement. The set of possible provisions is determined
+ * by the agreement type."
  */
 public class Provisions {
     /**
@@ -57,14 +58,16 @@ public class Provisions {
     private JsonNullable<String> confidentialityObligationPeriod;
 
     /**
-     * The governing law clause identifies the substantive law that will govern the rights and obligations of the parties to the agreement.
+     * The governing law clause identifies the substantive law that will govern the rights and obligations
+     * of the parties to the agreement.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("governing_law")
     private JsonNullable<String> governingLaw;
 
     /**
-     * A jurisdiction clause expressly sets out which courts or tribunals have the power to hear a dispute which arises under the agreement.
+     * A jurisdiction clause expressly sets out which courts or tribunals have the power to hear a dispute
+     * which arises under the agreement.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("jurisdiction")
@@ -175,7 +178,8 @@ public class Provisions {
     private JsonNullable<String> renewalNoticePeriod;
 
     /**
-     * Calculated field based on renewal notice period. (agreement expiration date - renewal notice period duration)
+     * Calculated field based on renewal notice period. (agreement expiration date - renewal notice period
+     * duration)
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("renewal_notice_date")
@@ -206,7 +210,8 @@ public class Provisions {
     private JsonNullable<String> renewalAdditionalInfo;
 
     /**
-     * The specific duration that a party has to give notice before terminating the agreement due to a significant breach or violation of terms. 
+     * The specific duration that a party has to give notice before terminating the agreement due to a
+     * significant breach or violation of terms.
      * This period allows the other party to address the cause or prepare for termination.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -214,7 +219,8 @@ public class Provisions {
     private JsonNullable<String> terminationPeriodForCause;
 
     /**
-     * Specifies the required notice period that a party must provide before terminating the agreement for convenience, without cause, under the terms outlined in the contract.
+     * Specifies the required notice period that a party must provide before terminating the agreement for
+     * convenience, without cause, under the terms outlined in the contract.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("termination_period_for_convenience")
@@ -235,7 +241,8 @@ public class Provisions {
     private JsonNullable<OffsetDateTime> expirationDate;
 
     /**
-     * The date when the agreement is signed by all parties, making it officially binding. This is not necessarily the same as the effective date.
+     * The date when the agreement is signed by all parties, making it officially binding. This is not
+     * necessarily the same as the effective date.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("execution_date")
@@ -395,7 +402,8 @@ public class Provisions {
     }
 
     /**
-     * The governing law clause identifies the substantive law that will govern the rights and obligations of the parties to the agreement.
+     * The governing law clause identifies the substantive law that will govern the rights and obligations
+     * of the parties to the agreement.
      */
     @JsonIgnore
     public JsonNullable<String> governingLaw() {
@@ -403,7 +411,8 @@ public class Provisions {
     }
 
     /**
-     * A jurisdiction clause expressly sets out which courts or tribunals have the power to hear a dispute which arises under the agreement.
+     * A jurisdiction clause expressly sets out which courts or tribunals have the power to hear a dispute
+     * which arises under the agreement.
      */
     @JsonIgnore
     public JsonNullable<String> jurisdiction() {
@@ -532,7 +541,8 @@ public class Provisions {
     }
 
     /**
-     * Calculated field based on renewal notice period. (agreement expiration date - renewal notice period duration)
+     * Calculated field based on renewal notice period. (agreement expiration date - renewal notice period
+     * duration)
      */
     @JsonIgnore
     public JsonNullable<OffsetDateTime> renewalNoticeDate() {
@@ -566,7 +576,8 @@ public class Provisions {
     }
 
     /**
-     * The specific duration that a party has to give notice before terminating the agreement due to a significant breach or violation of terms. 
+     * The specific duration that a party has to give notice before terminating the agreement due to a
+     * significant breach or violation of terms.
      * This period allows the other party to address the cause or prepare for termination.
      */
     @JsonIgnore
@@ -575,7 +586,8 @@ public class Provisions {
     }
 
     /**
-     * Specifies the required notice period that a party must provide before terminating the agreement for convenience, without cause, under the terms outlined in the contract.
+     * Specifies the required notice period that a party must provide before terminating the agreement for
+     * convenience, without cause, under the terms outlined in the contract.
      */
     @JsonIgnore
     public JsonNullable<String> terminationPeriodForConvenience() {
@@ -599,7 +611,8 @@ public class Provisions {
     }
 
     /**
-     * The date when the agreement is signed by all parties, making it officially binding. This is not necessarily the same as the effective date.
+     * The date when the agreement is signed by all parties, making it officially binding. This is not
+     * necessarily the same as the effective date.
      */
     @JsonIgnore
     public JsonNullable<OffsetDateTime> executionDate() {
@@ -695,7 +708,8 @@ public class Provisions {
     }
 
     /**
-     * The governing law clause identifies the substantive law that will govern the rights and obligations of the parties to the agreement.
+     * The governing law clause identifies the substantive law that will govern the rights and obligations
+     * of the parties to the agreement.
      */
     public Provisions withGoverningLaw(String governingLaw) {
         Utils.checkNotNull(governingLaw, "governingLaw");
@@ -704,7 +718,8 @@ public class Provisions {
     }
 
     /**
-     * The governing law clause identifies the substantive law that will govern the rights and obligations of the parties to the agreement.
+     * The governing law clause identifies the substantive law that will govern the rights and obligations
+     * of the parties to the agreement.
      */
     public Provisions withGoverningLaw(JsonNullable<String> governingLaw) {
         Utils.checkNotNull(governingLaw, "governingLaw");
@@ -713,7 +728,8 @@ public class Provisions {
     }
 
     /**
-     * A jurisdiction clause expressly sets out which courts or tribunals have the power to hear a dispute which arises under the agreement.
+     * A jurisdiction clause expressly sets out which courts or tribunals have the power to hear a dispute
+     * which arises under the agreement.
      */
     public Provisions withJurisdiction(String jurisdiction) {
         Utils.checkNotNull(jurisdiction, "jurisdiction");
@@ -722,7 +738,8 @@ public class Provisions {
     }
 
     /**
-     * A jurisdiction clause expressly sets out which courts or tribunals have the power to hear a dispute which arises under the agreement.
+     * A jurisdiction clause expressly sets out which courts or tribunals have the power to hear a dispute
+     * which arises under the agreement.
      */
     public Provisions withJurisdiction(JsonNullable<String> jurisdiction) {
         Utils.checkNotNull(jurisdiction, "jurisdiction");
@@ -996,7 +1013,8 @@ public class Provisions {
     }
 
     /**
-     * Calculated field based on renewal notice period. (agreement expiration date - renewal notice period duration)
+     * Calculated field based on renewal notice period. (agreement expiration date - renewal notice period
+     * duration)
      */
     public Provisions withRenewalNoticeDate(OffsetDateTime renewalNoticeDate) {
         Utils.checkNotNull(renewalNoticeDate, "renewalNoticeDate");
@@ -1005,7 +1023,8 @@ public class Provisions {
     }
 
     /**
-     * Calculated field based on renewal notice period. (agreement expiration date - renewal notice period duration)
+     * Calculated field based on renewal notice period. (agreement expiration date - renewal notice period
+     * duration)
      */
     public Provisions withRenewalNoticeDate(JsonNullable<OffsetDateTime> renewalNoticeDate) {
         Utils.checkNotNull(renewalNoticeDate, "renewalNoticeDate");
@@ -1075,7 +1094,8 @@ public class Provisions {
     }
 
     /**
-     * The specific duration that a party has to give notice before terminating the agreement due to a significant breach or violation of terms. 
+     * The specific duration that a party has to give notice before terminating the agreement due to a
+     * significant breach or violation of terms.
      * This period allows the other party to address the cause or prepare for termination.
      */
     public Provisions withTerminationPeriodForCause(String terminationPeriodForCause) {
@@ -1085,7 +1105,8 @@ public class Provisions {
     }
 
     /**
-     * The specific duration that a party has to give notice before terminating the agreement due to a significant breach or violation of terms. 
+     * The specific duration that a party has to give notice before terminating the agreement due to a
+     * significant breach or violation of terms.
      * This period allows the other party to address the cause or prepare for termination.
      */
     public Provisions withTerminationPeriodForCause(JsonNullable<String> terminationPeriodForCause) {
@@ -1095,7 +1116,8 @@ public class Provisions {
     }
 
     /**
-     * Specifies the required notice period that a party must provide before terminating the agreement for convenience, without cause, under the terms outlined in the contract.
+     * Specifies the required notice period that a party must provide before terminating the agreement for
+     * convenience, without cause, under the terms outlined in the contract.
      */
     public Provisions withTerminationPeriodForConvenience(String terminationPeriodForConvenience) {
         Utils.checkNotNull(terminationPeriodForConvenience, "terminationPeriodForConvenience");
@@ -1104,7 +1126,8 @@ public class Provisions {
     }
 
     /**
-     * Specifies the required notice period that a party must provide before terminating the agreement for convenience, without cause, under the terms outlined in the contract.
+     * Specifies the required notice period that a party must provide before terminating the agreement for
+     * convenience, without cause, under the terms outlined in the contract.
      */
     public Provisions withTerminationPeriodForConvenience(JsonNullable<String> terminationPeriodForConvenience) {
         Utils.checkNotNull(terminationPeriodForConvenience, "terminationPeriodForConvenience");
@@ -1149,7 +1172,8 @@ public class Provisions {
     }
 
     /**
-     * The date when the agreement is signed by all parties, making it officially binding. This is not necessarily the same as the effective date.
+     * The date when the agreement is signed by all parties, making it officially binding. This is not
+     * necessarily the same as the effective date.
      */
     public Provisions withExecutionDate(OffsetDateTime executionDate) {
         Utils.checkNotNull(executionDate, "executionDate");
@@ -1158,7 +1182,8 @@ public class Provisions {
     }
 
     /**
-     * The date when the agreement is signed by all parties, making it officially binding. This is not necessarily the same as the effective date.
+     * The date when the agreement is signed by all parties, making it officially binding. This is not
+     * necessarily the same as the effective date.
      */
     public Provisions withExecutionDate(JsonNullable<OffsetDateTime> executionDate) {
         Utils.checkNotNull(executionDate, "executionDate");
@@ -1430,7 +1455,8 @@ public class Provisions {
 
 
         /**
-         * The governing law clause identifies the substantive law that will govern the rights and obligations of the parties to the agreement.
+         * The governing law clause identifies the substantive law that will govern the rights and obligations
+         * of the parties to the agreement.
          */
         public Builder governingLaw(String governingLaw) {
             Utils.checkNotNull(governingLaw, "governingLaw");
@@ -1439,7 +1465,8 @@ public class Provisions {
         }
 
         /**
-         * The governing law clause identifies the substantive law that will govern the rights and obligations of the parties to the agreement.
+         * The governing law clause identifies the substantive law that will govern the rights and obligations
+         * of the parties to the agreement.
          */
         public Builder governingLaw(JsonNullable<String> governingLaw) {
             Utils.checkNotNull(governingLaw, "governingLaw");
@@ -1449,7 +1476,8 @@ public class Provisions {
 
 
         /**
-         * A jurisdiction clause expressly sets out which courts or tribunals have the power to hear a dispute which arises under the agreement.
+         * A jurisdiction clause expressly sets out which courts or tribunals have the power to hear a dispute
+         * which arises under the agreement.
          */
         public Builder jurisdiction(String jurisdiction) {
             Utils.checkNotNull(jurisdiction, "jurisdiction");
@@ -1458,7 +1486,8 @@ public class Provisions {
         }
 
         /**
-         * A jurisdiction clause expressly sets out which courts or tribunals have the power to hear a dispute which arises under the agreement.
+         * A jurisdiction clause expressly sets out which courts or tribunals have the power to hear a dispute
+         * which arises under the agreement.
          */
         public Builder jurisdiction(JsonNullable<String> jurisdiction) {
             Utils.checkNotNull(jurisdiction, "jurisdiction");
@@ -1747,7 +1776,8 @@ public class Provisions {
 
 
         /**
-         * Calculated field based on renewal notice period. (agreement expiration date - renewal notice period duration)
+         * Calculated field based on renewal notice period. (agreement expiration date - renewal notice period
+         * duration)
          */
         public Builder renewalNoticeDate(OffsetDateTime renewalNoticeDate) {
             Utils.checkNotNull(renewalNoticeDate, "renewalNoticeDate");
@@ -1756,7 +1786,8 @@ public class Provisions {
         }
 
         /**
-         * Calculated field based on renewal notice period. (agreement expiration date - renewal notice period duration)
+         * Calculated field based on renewal notice period. (agreement expiration date - renewal notice period
+         * duration)
          */
         public Builder renewalNoticeDate(JsonNullable<OffsetDateTime> renewalNoticeDate) {
             Utils.checkNotNull(renewalNoticeDate, "renewalNoticeDate");
@@ -1830,7 +1861,8 @@ public class Provisions {
 
 
         /**
-         * The specific duration that a party has to give notice before terminating the agreement due to a significant breach or violation of terms. 
+         * The specific duration that a party has to give notice before terminating the agreement due to a
+         * significant breach or violation of terms.
          * This period allows the other party to address the cause or prepare for termination.
          */
         public Builder terminationPeriodForCause(String terminationPeriodForCause) {
@@ -1840,7 +1872,8 @@ public class Provisions {
         }
 
         /**
-         * The specific duration that a party has to give notice before terminating the agreement due to a significant breach or violation of terms. 
+         * The specific duration that a party has to give notice before terminating the agreement due to a
+         * significant breach or violation of terms.
          * This period allows the other party to address the cause or prepare for termination.
          */
         public Builder terminationPeriodForCause(JsonNullable<String> terminationPeriodForCause) {
@@ -1851,7 +1884,8 @@ public class Provisions {
 
 
         /**
-         * Specifies the required notice period that a party must provide before terminating the agreement for convenience, without cause, under the terms outlined in the contract.
+         * Specifies the required notice period that a party must provide before terminating the agreement for
+         * convenience, without cause, under the terms outlined in the contract.
          */
         public Builder terminationPeriodForConvenience(String terminationPeriodForConvenience) {
             Utils.checkNotNull(terminationPeriodForConvenience, "terminationPeriodForConvenience");
@@ -1860,7 +1894,8 @@ public class Provisions {
         }
 
         /**
-         * Specifies the required notice period that a party must provide before terminating the agreement for convenience, without cause, under the terms outlined in the contract.
+         * Specifies the required notice period that a party must provide before terminating the agreement for
+         * convenience, without cause, under the terms outlined in the contract.
          */
         public Builder terminationPeriodForConvenience(JsonNullable<String> terminationPeriodForConvenience) {
             Utils.checkNotNull(terminationPeriodForConvenience, "terminationPeriodForConvenience");
@@ -1908,7 +1943,8 @@ public class Provisions {
 
 
         /**
-         * The date when the agreement is signed by all parties, making it officially binding. This is not necessarily the same as the effective date.
+         * The date when the agreement is signed by all parties, making it officially binding. This is not
+         * necessarily the same as the effective date.
          */
         public Builder executionDate(OffsetDateTime executionDate) {
             Utils.checkNotNull(executionDate, "executionDate");
@@ -1917,7 +1953,8 @@ public class Provisions {
         }
 
         /**
-         * The date when the agreement is signed by all parties, making it officially binding. This is not necessarily the same as the effective date.
+         * The date when the agreement is signed by all parties, making it officially binding. This is not
+         * necessarily the same as the effective date.
          */
         public Builder executionDate(JsonNullable<OffsetDateTime> executionDate) {
             Utils.checkNotNull(executionDate, "executionDate");

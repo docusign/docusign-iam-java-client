@@ -16,6 +16,7 @@ import com.docusign.iam.sdk.models.operations.GetTokenFromPublicAuthCodeResponse
 import com.docusign.iam.sdk.utils.BackoffStrategy;
 import com.docusign.iam.sdk.utils.HTTPClient;
 import com.docusign.iam.sdk.utils.HTTPRequest;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Hook.AfterErrorContextImpl;
 import com.docusign.iam.sdk.utils.Hook.AfterSuccessContextImpl;
 import com.docusign.iam.sdk.utils.Hook.BeforeRequestContextImpl;
@@ -61,11 +62,13 @@ public class GetTokenFromPublicAuthCode {
         final List<String> retryStatusCodes;
         final RetryConfig retryConfig;
         final HTTPClient client;
+        final Headers _headers;
 
         public Base(
                 SDKConfiguration sdkConfiguration, Optional<String> serverURL,
-                Optional<Options> options) {
+                Optional<Options> options, Headers _headers) {
             this.sdkConfiguration = sdkConfiguration;
+            this._headers =_headers;
             this.baseUrl = serverURL
                     .filter(u -> !u.isBlank())
                     .orElse(Utils.templateUrl(
@@ -98,7 +101,7 @@ public class GetTokenFromPublicAuthCode {
                     this.sdkConfiguration,
                     this.baseUrl,
                     "GetTokenFromPublicAuthCode",
-                    java.util.Optional.of(java.util.List.of()),
+                    java.util.Optional.empty(),
                     securitySource());
         }
 
@@ -107,7 +110,7 @@ public class GetTokenFromPublicAuthCode {
                     this.sdkConfiguration,
                     this.baseUrl,
                     "GetTokenFromPublicAuthCode",
-                    java.util.Optional.of(java.util.List.of()),
+                    java.util.Optional.empty(),
                     securitySource());
         }
 
@@ -116,7 +119,7 @@ public class GetTokenFromPublicAuthCode {
                     this.sdkConfiguration,
                     this.baseUrl,
                     "GetTokenFromPublicAuthCode",
-                    java.util.Optional.of(java.util.List.of()),
+                    java.util.Optional.empty(),
                     securitySource());
         }
         <T, U>HttpRequest buildRequest(T request, TypeReference<U> typeReference) throws Exception {
@@ -139,6 +142,7 @@ public class GetTokenFromPublicAuthCode {
             req.setBody(Optional.ofNullable(serializedRequestBody));
             req.addHeader("Accept", "application/json")
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
+            _headers.forEach((k, list) -> list.forEach(v -> req.addHeader(k, v)));
             Utils.configureSecurity(req, this.sdkConfiguration.securitySource().getSecurity());
 
             return req.build();
@@ -149,10 +153,10 @@ public class GetTokenFromPublicAuthCode {
             implements RequestOperation<PublicAuthCodeGrantRequestBody, GetTokenFromPublicAuthCodeResponse> {
         public Sync(
                 SDKConfiguration sdkConfiguration, Optional<String> serverURL,
-                Optional<Options> options) {
+                Optional<Options> options, Headers _headers) {
             super(
                   sdkConfiguration, serverURL,
-                  options);
+                  options, _headers);
         }
 
         private HttpRequest onBuildRequest(PublicAuthCodeGrantRequestBody request) throws Exception {

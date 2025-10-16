@@ -7,6 +7,7 @@ import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 
 import com.docusign.iam.sdk.SDKConfiguration;
 import com.docusign.iam.sdk.operations.CancelWorkflowInstance;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -21,6 +22,7 @@ public class CancelWorkflowInstanceRequestBuilder {
     private String instanceId;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public CancelWorkflowInstanceRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -72,7 +74,7 @@ public class CancelWorkflowInstanceRequestBuilder {
             .build());
 
         RequestOperation<CancelWorkflowInstanceRequest, CancelWorkflowInstanceResponse> operation
-              = new CancelWorkflowInstance.Sync(sdkConfiguration, options);
+              = new CancelWorkflowInstance.Sync(sdkConfiguration, options, _headers);
         CancelWorkflowInstanceRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

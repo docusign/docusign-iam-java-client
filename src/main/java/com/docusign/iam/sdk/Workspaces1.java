@@ -3,7 +3,11 @@
  */
 package com.docusign.iam.sdk;
 
+import com.docusign.iam.sdk.utils.Headers;
+
+
 public class Workspaces1 {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
     private final WorkspaceDocuments workspaceDocuments;
     private final WorkspaceUploadRequest workspaceUploadRequest;

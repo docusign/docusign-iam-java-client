@@ -8,6 +8,7 @@ import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 import com.docusign.iam.sdk.SDKConfiguration;
 import com.docusign.iam.sdk.models.components.WorkspaceUserForUpdate;
 import com.docusign.iam.sdk.operations.UpdateWorkspaceUser;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -23,6 +24,7 @@ public class UpdateWorkspaceUserRequestBuilder {
     private Optional<? extends WorkspaceUserForUpdate> workspaceUserForUpdate = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public UpdateWorkspaceUserRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -87,7 +89,7 @@ public class UpdateWorkspaceUserRequestBuilder {
             .build());
 
         RequestOperation<UpdateWorkspaceUserRequest, UpdateWorkspaceUserResponse> operation
-              = new UpdateWorkspaceUser.Sync(sdkConfiguration, options);
+              = new UpdateWorkspaceUser.Sync(sdkConfiguration, options, _headers);
         UpdateWorkspaceUserRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

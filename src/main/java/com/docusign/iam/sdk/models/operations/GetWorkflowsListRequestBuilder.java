@@ -7,6 +7,7 @@ import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 
 import com.docusign.iam.sdk.SDKConfiguration;
 import com.docusign.iam.sdk.operations.GetWorkflowsList;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -20,6 +21,7 @@ public class GetWorkflowsListRequestBuilder {
     private Optional<? extends Status> status = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public GetWorkflowsListRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -70,7 +72,7 @@ public class GetWorkflowsListRequestBuilder {
             .build());
 
         RequestOperation<GetWorkflowsListRequest, GetWorkflowsListResponse> operation
-              = new GetWorkflowsList.Sync(sdkConfiguration, options);
+              = new GetWorkflowsList.Sync(sdkConfiguration, options, _headers);
         GetWorkflowsListRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

@@ -9,6 +9,7 @@ import com.docusign.iam.sdk.models.operations.ConnectedFieldsApiGetTabGroupsRequ
 import com.docusign.iam.sdk.models.operations.ConnectedFieldsApiGetTabGroupsRequestBuilder;
 import com.docusign.iam.sdk.models.operations.ConnectedFieldsApiGetTabGroupsResponse;
 import com.docusign.iam.sdk.operations.ConnectedFieldsApiGetTabGroups;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 
 public class TabInfo {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     TabInfo(SDKConfiguration sdkConfiguration) {
@@ -25,9 +27,11 @@ public class TabInfo {
     /**
      * Returns all tabs associated with the given account
      * 
-     * <p>Returns all tabs associated with the given account. 
+     * <p>Returns all tabs associated with the given account.
      * 
-     * <p> **Note**: Unlike the Connected Fields UI, this endpoint returns only fields that are either mandatory or have the **IsRequiredForVerifyingType** &lt;a href="https://concerto.accordproject.org/docs/design/specification/model-decorators/" target="_blank"&gt;decorator&lt;/a&gt;
+     * <p>**Note**: Unlike the Connected Fields UI, this endpoint returns only fields that are either
+     * mandatory or have the **IsRequiredForVerifyingType** <a
+     * href="https://concerto.accordproject.org/docs/design/specification/model-decorators/">decorator</a>
      * 
      * @return The call builder
      */
@@ -38,9 +42,11 @@ public class TabInfo {
     /**
      * Returns all tabs associated with the given account
      * 
-     * <p>Returns all tabs associated with the given account. 
+     * <p>Returns all tabs associated with the given account.
      * 
-     * <p> **Note**: Unlike the Connected Fields UI, this endpoint returns only fields that are either mandatory or have the **IsRequiredForVerifyingType** &lt;a href="https://concerto.accordproject.org/docs/design/specification/model-decorators/" target="_blank"&gt;decorator&lt;/a&gt;
+     * <p>**Note**: Unlike the Connected Fields UI, this endpoint returns only fields that are either
+     * mandatory or have the **IsRequiredForVerifyingType** <a
+     * href="https://concerto.accordproject.org/docs/design/specification/model-decorators/">decorator</a>
      * 
      * @param accountId 
      * @return The response from the API call
@@ -53,9 +59,11 @@ public class TabInfo {
     /**
      * Returns all tabs associated with the given account
      * 
-     * <p>Returns all tabs associated with the given account. 
+     * <p>Returns all tabs associated with the given account.
      * 
-     * <p> **Note**: Unlike the Connected Fields UI, this endpoint returns only fields that are either mandatory or have the **IsRequiredForVerifyingType** &lt;a href="https://concerto.accordproject.org/docs/design/specification/model-decorators/" target="_blank"&gt;decorator&lt;/a&gt;
+     * <p>**Note**: Unlike the Connected Fields UI, this endpoint returns only fields that are either
+     * mandatory or have the **IsRequiredForVerifyingType** <a
+     * href="https://concerto.accordproject.org/docs/design/specification/model-decorators/">decorator</a>
      * 
      * @param accountId 
      * @param appId 
@@ -73,7 +81,7 @@ public class TabInfo {
                 .appId(appId)
                 .build();
         RequestOperation<ConnectedFieldsApiGetTabGroupsRequest, ConnectedFieldsApiGetTabGroupsResponse> operation
-              = new ConnectedFieldsApiGetTabGroups.Sync(sdkConfiguration, options);
+              = new ConnectedFieldsApiGetTabGroups.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

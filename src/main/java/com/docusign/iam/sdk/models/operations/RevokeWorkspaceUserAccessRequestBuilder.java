@@ -8,6 +8,7 @@ import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 import com.docusign.iam.sdk.SDKConfiguration;
 import com.docusign.iam.sdk.models.components.RevokeWorkspaceUserDetails;
 import com.docusign.iam.sdk.operations.RevokeWorkspaceUserAccess;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -23,6 +24,7 @@ public class RevokeWorkspaceUserAccessRequestBuilder {
     private Optional<? extends RevokeWorkspaceUserDetails> revokeWorkspaceUserDetails = Optional.empty();
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public RevokeWorkspaceUserAccessRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -87,7 +89,7 @@ public class RevokeWorkspaceUserAccessRequestBuilder {
             .build());
 
         RequestOperation<RevokeWorkspaceUserAccessRequest, RevokeWorkspaceUserAccessResponse> operation
-              = new RevokeWorkspaceUserAccess.Sync(sdkConfiguration, options);
+              = new RevokeWorkspaceUserAccess.Sync(sdkConfiguration, options, _headers);
         RevokeWorkspaceUserAccessRequest request = buildRequest();
 
         return operation.handleResponse(operation.doRequest(request));

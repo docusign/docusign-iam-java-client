@@ -17,7 +17,8 @@ import org.openapitools.jackson.nullable.JsonNullable;
 
 public class RevokeWorkspaceUserDetails {
     /**
-     * The optional date in the future to initiate the revocation. If not specified, the revocation will be immediate
+     * The optional date in the future to initiate the revocation. If not specified, the revocation will be
+     * immediate
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("revocation_date")
@@ -35,7 +36,8 @@ public class RevokeWorkspaceUserDetails {
     }
 
     /**
-     * The optional date in the future to initiate the revocation. If not specified, the revocation will be immediate
+     * The optional date in the future to initiate the revocation. If not specified, the revocation will be
+     * immediate
      */
     @JsonIgnore
     public JsonNullable<OffsetDateTime> revocationDate() {
@@ -48,7 +50,8 @@ public class RevokeWorkspaceUserDetails {
 
 
     /**
-     * The optional date in the future to initiate the revocation. If not specified, the revocation will be immediate
+     * The optional date in the future to initiate the revocation. If not specified, the revocation will be
+     * immediate
      */
     public RevokeWorkspaceUserDetails withRevocationDate(OffsetDateTime revocationDate) {
         Utils.checkNotNull(revocationDate, "revocationDate");
@@ -57,7 +60,8 @@ public class RevokeWorkspaceUserDetails {
     }
 
     /**
-     * The optional date in the future to initiate the revocation. If not specified, the revocation will be immediate
+     * The optional date in the future to initiate the revocation. If not specified, the revocation will be
+     * immediate
      */
     public RevokeWorkspaceUserDetails withRevocationDate(JsonNullable<OffsetDateTime> revocationDate) {
         Utils.checkNotNull(revocationDate, "revocationDate");
@@ -101,7 +105,8 @@ public class RevokeWorkspaceUserDetails {
 
 
         /**
-         * The optional date in the future to initiate the revocation. If not specified, the revocation will be immediate
+         * The optional date in the future to initiate the revocation. If not specified, the revocation will be
+         * immediate
          */
         public Builder revocationDate(OffsetDateTime revocationDate) {
             Utils.checkNotNull(revocationDate, "revocationDate");
@@ -110,7 +115,8 @@ public class RevokeWorkspaceUserDetails {
         }
 
         /**
-         * The optional date in the future to initiate the revocation. If not specified, the revocation will be immediate
+         * The optional date in the future to initiate the revocation. If not specified, the revocation will be
+         * immediate
          */
         public Builder revocationDate(JsonNullable<OffsetDateTime> revocationDate) {
             Utils.checkNotNull(revocationDate, "revocationDate");

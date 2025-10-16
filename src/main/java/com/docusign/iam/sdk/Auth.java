@@ -27,6 +27,7 @@ import com.docusign.iam.sdk.operations.GetTokenFromJWTGrant;
 import com.docusign.iam.sdk.operations.GetTokenFromPublicAuthCode;
 import com.docusign.iam.sdk.operations.GetTokenFromRefreshToken;
 import com.docusign.iam.sdk.operations.GetUserInfo;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
@@ -34,6 +35,7 @@ import java.util.Optional;
 
 
 public class Auth {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     Auth(SDKConfiguration sdkConfiguration) {
@@ -93,7 +95,7 @@ public class Auth {
         RequestOperation<ConfidentialAuthCodeGrantRequestBody, GetTokenFromConfidentialAuthCodeResponse> operation
               = new GetTokenFromConfidentialAuthCode.Sync(
                                     sdkConfiguration, security, serverURL,
-                                    options);
+                                    options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -145,7 +147,9 @@ public class Auth {
             PublicAuthCodeGrantRequestBody request, Optional<String> serverURL,
             Optional<Options> options) throws Exception {
         RequestOperation<PublicAuthCodeGrantRequestBody, GetTokenFromPublicAuthCodeResponse> operation
-              = new GetTokenFromPublicAuthCode.Sync(sdkConfiguration, serverURL, options);
+              = new GetTokenFromPublicAuthCode.Sync(
+                                    sdkConfiguration, serverURL, options,
+                                    _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -206,7 +210,9 @@ public class Auth {
             JWTGrant request, Optional<String> serverURL,
             Optional<Options> options) throws Exception {
         RequestOperation<JWTGrant, GetTokenFromJWTGrantResponse> operation
-              = new GetTokenFromJWTGrant.Sync(sdkConfiguration, serverURL, options);
+              = new GetTokenFromJWTGrant.Sync(
+                                    sdkConfiguration, serverURL, options,
+                                    _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -266,7 +272,7 @@ public class Auth {
         RequestOperation<AuthorizationCodeGrant, GetTokenFromRefreshTokenResponse> operation
               = new GetTokenFromRefreshToken.Sync(
                                     sdkConfiguration, security, serverURL,
-                                    options);
+                                    options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -311,7 +317,9 @@ public class Auth {
      */
     public GetUserInfoResponse getUserInfo(Optional<String> serverURL, Optional<Options> options) throws Exception {
         RequestlessOperation<GetUserInfoResponse> operation
-            = new GetUserInfo.Sync(sdkConfiguration, serverURL, options);
+            = new GetUserInfo.Sync(
+                                    sdkConfiguration, serverURL, options,
+                                    _headers);
         return operation.handleResponse(operation.doRequest());
     }
 

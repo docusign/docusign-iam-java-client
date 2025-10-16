@@ -24,7 +24,8 @@ public class CreateWorkspaceBody {
     private Optional<String> name;
 
     /**
-     * A GUID value that identifies a brand. For more information, see &lt;a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/branding/"&gt;Branding&lt;/a&gt;
+     * A GUID value that identifies a brand. For more information, see <a
+     * href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/branding/">Branding</a>
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("brand_id")
@@ -53,7 +54,8 @@ public class CreateWorkspaceBody {
     }
 
     /**
-     * A GUID value that identifies a brand. For more information, see &lt;a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/branding/"&gt;Branding&lt;/a&gt;
+     * A GUID value that identifies a brand. For more information, see <a
+     * href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/branding/">Branding</a>
      */
     @JsonIgnore
     public JsonNullable<String> brandId() {
@@ -85,7 +87,8 @@ public class CreateWorkspaceBody {
     }
 
     /**
-     * A GUID value that identifies a brand. For more information, see &lt;a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/branding/"&gt;Branding&lt;/a&gt;
+     * A GUID value that identifies a brand. For more information, see <a
+     * href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/branding/">Branding</a>
      */
     public CreateWorkspaceBody withBrandId(String brandId) {
         Utils.checkNotNull(brandId, "brandId");
@@ -94,7 +97,8 @@ public class CreateWorkspaceBody {
     }
 
     /**
-     * A GUID value that identifies a brand. For more information, see &lt;a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/branding/"&gt;Branding&lt;/a&gt;
+     * A GUID value that identifies a brand. For more information, see <a
+     * href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/branding/">Branding</a>
      */
     public CreateWorkspaceBody withBrandId(JsonNullable<String> brandId) {
         Utils.checkNotNull(brandId, "brandId");
@@ -161,7 +165,8 @@ public class CreateWorkspaceBody {
 
 
         /**
-         * A GUID value that identifies a brand. For more information, see &lt;a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/branding/"&gt;Branding&lt;/a&gt;
+         * A GUID value that identifies a brand. For more information, see <a
+         * href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/branding/">Branding</a>
          */
         public Builder brandId(String brandId) {
             Utils.checkNotNull(brandId, "brandId");
@@ -170,7 +175,8 @@ public class CreateWorkspaceBody {
         }
 
         /**
-         * A GUID value that identifies a brand. For more information, see &lt;a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/branding/"&gt;Branding&lt;/a&gt;
+         * A GUID value that identifies a brand. For more information, see <a
+         * href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/branding/">Branding</a>
          */
         public Builder brandId(JsonNullable<String> brandId) {
             Utils.checkNotNull(brandId, "brandId");

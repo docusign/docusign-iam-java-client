@@ -7,6 +7,7 @@ import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 
 import com.docusign.iam.sdk.SDKConfiguration;
 import com.docusign.iam.sdk.operations.GetWorkspaceAssignableRoles;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
@@ -18,6 +19,7 @@ public class GetWorkspaceAssignableRolesRequestBuilder {
     private GetWorkspaceAssignableRolesRequest request;
     private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
+    private final Headers _headers = new Headers(); 
 
     public GetWorkspaceAssignableRolesRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
@@ -47,7 +49,7 @@ public class GetWorkspaceAssignableRolesRequestBuilder {
             .build());
 
         RequestOperation<GetWorkspaceAssignableRolesRequest, GetWorkspaceAssignableRolesResponse> operation
-              = new GetWorkspaceAssignableRoles.Sync(sdkConfiguration, options);
+              = new GetWorkspaceAssignableRoles.Sync(sdkConfiguration, options, _headers);
 
         return operation.handleResponse(operation.doRequest(request));
     }

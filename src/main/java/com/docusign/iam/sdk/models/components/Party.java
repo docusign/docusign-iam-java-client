@@ -16,7 +16,8 @@ import org.openapitools.jackson.nullable.JsonNullable;
 /**
  * Party
  * 
- * <p>A party is a person, group, or organization that is involved in a contract and has legally binding obligations and responsibilities. They also seek to benefit from the agreement.
+ * <p>A party is a person, group, or organization that is involved in a contract and has legally binding
+ * obligations and responsibilities. They also seek to benefit from the agreement.
  */
 public class Party {
     /**

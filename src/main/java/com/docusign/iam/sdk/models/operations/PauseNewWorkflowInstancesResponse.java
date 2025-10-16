@@ -34,7 +34,8 @@ public class PauseNewWorkflowInstancesResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Indicates that a workflow has been successfully paused. New instances of this workflow will not be created.
+     * Indicates that a workflow has been successfully paused. New instances of this workflow will not be
+     * created.
      * Existing workflow instances will be unaffected.
      */
     private Optional<? extends PauseNewWorkflowInstancesSuccess> pauseNewWorkflowInstancesSuccess;
@@ -88,7 +89,8 @@ public class PauseNewWorkflowInstancesResponse implements Response {
     }
 
     /**
-     * Indicates that a workflow has been successfully paused. New instances of this workflow will not be created.
+     * Indicates that a workflow has been successfully paused. New instances of this workflow will not be
+     * created.
      * Existing workflow instances will be unaffected.
      */
     @SuppressWarnings("unchecked")
@@ -130,7 +132,8 @@ public class PauseNewWorkflowInstancesResponse implements Response {
     }
 
     /**
-     * Indicates that a workflow has been successfully paused. New instances of this workflow will not be created.
+     * Indicates that a workflow has been successfully paused. New instances of this workflow will not be
+     * created.
      * Existing workflow instances will be unaffected.
      */
     public PauseNewWorkflowInstancesResponse withPauseNewWorkflowInstancesSuccess(PauseNewWorkflowInstancesSuccess pauseNewWorkflowInstancesSuccess) {
@@ -141,7 +144,8 @@ public class PauseNewWorkflowInstancesResponse implements Response {
 
 
     /**
-     * Indicates that a workflow has been successfully paused. New instances of this workflow will not be created.
+     * Indicates that a workflow has been successfully paused. New instances of this workflow will not be
+     * created.
      * Existing workflow instances will be unaffected.
      */
     public PauseNewWorkflowInstancesResponse withPauseNewWorkflowInstancesSuccess(Optional<? extends PauseNewWorkflowInstancesSuccess> pauseNewWorkflowInstancesSuccess) {
@@ -229,7 +233,8 @@ public class PauseNewWorkflowInstancesResponse implements Response {
 
 
         /**
-         * Indicates that a workflow has been successfully paused. New instances of this workflow will not be created.
+         * Indicates that a workflow has been successfully paused. New instances of this workflow will not be
+         * created.
          * Existing workflow instances will be unaffected.
          */
         public Builder pauseNewWorkflowInstancesSuccess(PauseNewWorkflowInstancesSuccess pauseNewWorkflowInstancesSuccess) {
@@ -239,7 +244,8 @@ public class PauseNewWorkflowInstancesResponse implements Response {
         }
 
         /**
-         * Indicates that a workflow has been successfully paused. New instances of this workflow will not be created.
+         * Indicates that a workflow has been successfully paused. New instances of this workflow will not be
+         * created.
          * Existing workflow instances will be unaffected.
          */
         public Builder pauseNewWorkflowInstancesSuccess(Optional<? extends PauseNewWorkflowInstancesSuccess> pauseNewWorkflowInstancesSuccess) {

@@ -15,6 +15,7 @@ import com.docusign.iam.sdk.models.operations.CreateWorkspaceResponse;
 import com.docusign.iam.sdk.utils.BackoffStrategy;
 import com.docusign.iam.sdk.utils.HTTPClient;
 import com.docusign.iam.sdk.utils.HTTPRequest;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Hook.AfterErrorContextImpl;
 import com.docusign.iam.sdk.utils.Hook.AfterSuccessContextImpl;
 import com.docusign.iam.sdk.utils.Hook.BeforeRequestContextImpl;
@@ -45,9 +46,13 @@ public class CreateWorkspace {
         final List<String> retryStatusCodes;
         final RetryConfig retryConfig;
         final HTTPClient client;
+        final Headers _headers;
 
-        public Base(SDKConfiguration sdkConfiguration, Optional<Options> options) {
+        public Base(
+                SDKConfiguration sdkConfiguration, Optional<Options> options,
+                Headers _headers) {
             this.sdkConfiguration = sdkConfiguration;
+            this._headers =_headers;
             this.baseUrl = this.sdkConfiguration.serverUrl();
             this.securitySource = this.sdkConfiguration.securitySource();
             options
@@ -76,7 +81,7 @@ public class CreateWorkspace {
                     this.sdkConfiguration,
                     this.baseUrl,
                     "createWorkspace",
-                    java.util.Optional.of(java.util.List.of()),
+                    java.util.Optional.empty(),
                     securitySource());
         }
 
@@ -85,7 +90,7 @@ public class CreateWorkspace {
                     this.sdkConfiguration,
                     this.baseUrl,
                     "createWorkspace",
-                    java.util.Optional.of(java.util.List.of()),
+                    java.util.Optional.empty(),
                     securitySource());
         }
 
@@ -94,7 +99,7 @@ public class CreateWorkspace {
                     this.sdkConfiguration,
                     this.baseUrl,
                     "createWorkspace",
-                    java.util.Optional.of(java.util.List.of()),
+                    java.util.Optional.empty(),
                     securitySource());
         }
         <T, U>HttpRequest buildRequest(T request, Class<T> klass, TypeReference<U> typeReference) throws Exception {
@@ -119,6 +124,7 @@ public class CreateWorkspace {
             req.setBody(Optional.ofNullable(serializedRequestBody));
             req.addHeader("Accept", "application/json")
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
+            _headers.forEach((k, list) -> list.forEach(v -> req.addHeader(k, v)));
             Utils.configureSecurity(req, this.sdkConfiguration.securitySource().getSecurity());
 
             return req.build();
@@ -127,8 +133,12 @@ public class CreateWorkspace {
 
     public static class Sync extends Base
             implements RequestOperation<CreateWorkspaceRequest, CreateWorkspaceResponse> {
-        public Sync(SDKConfiguration sdkConfiguration, Optional<Options> options) {
-            super(sdkConfiguration, options);
+        public Sync(
+                SDKConfiguration sdkConfiguration, Optional<Options> options,
+                Headers _headers) {
+            super(
+                  sdkConfiguration, options,
+                  _headers);
         }
 
         private HttpRequest onBuildRequest(CreateWorkspaceRequest request) throws Exception {

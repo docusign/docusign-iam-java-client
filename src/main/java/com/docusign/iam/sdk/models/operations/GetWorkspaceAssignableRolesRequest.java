@@ -33,7 +33,8 @@ public class GetWorkspaceAssignableRolesRequest {
     private Optional<String> filter;
 
     /**
-     * The index position within the total result set from which to start returning values. The default value is 0
+     * The index position within the total result set from which to start returning values. The default
+     * value is 0
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=start_position")
     private Optional<Integer> startPosition;
@@ -95,7 +96,8 @@ public class GetWorkspaceAssignableRolesRequest {
     }
 
     /**
-     * The index position within the total result set from which to start returning values. The default value is 0
+     * The index position within the total result set from which to start returning values. The default
+     * value is 0
      */
     @JsonIgnore
     public Optional<Integer> startPosition() {
@@ -153,7 +155,8 @@ public class GetWorkspaceAssignableRolesRequest {
     }
 
     /**
-     * The index position within the total result set from which to start returning values. The default value is 0
+     * The index position within the total result set from which to start returning values. The default
+     * value is 0
      */
     public GetWorkspaceAssignableRolesRequest withStartPosition(int startPosition) {
         Utils.checkNotNull(startPosition, "startPosition");
@@ -163,7 +166,8 @@ public class GetWorkspaceAssignableRolesRequest {
 
 
     /**
-     * The index position within the total result set from which to start returning values. The default value is 0
+     * The index position within the total result set from which to start returning values. The default
+     * value is 0
      */
     public GetWorkspaceAssignableRolesRequest withStartPosition(Optional<Integer> startPosition) {
         Utils.checkNotNull(startPosition, "startPosition");
@@ -282,7 +286,8 @@ public class GetWorkspaceAssignableRolesRequest {
 
 
         /**
-         * The index position within the total result set from which to start returning values. The default value is 0
+         * The index position within the total result set from which to start returning values. The default
+         * value is 0
          */
         public Builder startPosition(int startPosition) {
             Utils.checkNotNull(startPosition, "startPosition");
@@ -291,7 +296,8 @@ public class GetWorkspaceAssignableRolesRequest {
         }
 
         /**
-         * The index position within the total result set from which to start returning values. The default value is 0
+         * The index position within the total result set from which to start returning values. The default
+         * value is 0
          */
         public Builder startPosition(Optional<Integer> startPosition) {
             Utils.checkNotNull(startPosition, "startPosition");

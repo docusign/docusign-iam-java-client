@@ -26,6 +26,7 @@ import com.docusign.iam.sdk.operations.GetWorkflowTriggerRequirements;
 import com.docusign.iam.sdk.operations.GetWorkflowsList;
 import com.docusign.iam.sdk.operations.PauseNewWorkflowInstances;
 import com.docusign.iam.sdk.operations.ResumePausedWorkflow;
+import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import java.lang.Exception;
 import java.lang.String;
@@ -33,6 +34,7 @@ import java.util.Optional;
 
 
 public class Workflows {
+    private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
 
     Workflows(SDKConfiguration sdkConfiguration) {
@@ -62,16 +64,16 @@ public class Workflows {
      * <p>### Key Features:
      * - **Comprehensive Workflow Overview**: Provides a full list of workflows, giving visibility
      * 
-     * <p>  into all the automated processes available within the Maestro platform.
+     * <p>into all the automated processes available within the Maestro platform.
      * - **Input Schema Information**: Each workflow includes its trigger input schema, showing
      * 
-     * <p>  what data must be provided when triggering the workflow.
+     * <p>what data must be provided when triggering the workflow.
      * - **Metadata for Tracking**: Useful metadata like creation time, last modification date,
      * 
-     * <p>  and user details are included to support tracking and auditing workflows.
+     * <p>and user details are included to support tracking and auditing workflows.
      * - **Future-Proof**: The operation is designed to be expandable as more workflows are added
      * 
-     * <p>  or the platform grows, ensuring scalability in the workflow management process.
+     * <p>or the platform grows, ensuring scalability in the workflow management process.
      * 
      * @return The call builder
      */
@@ -102,16 +104,16 @@ public class Workflows {
      * <p>### Key Features:
      * - **Comprehensive Workflow Overview**: Provides a full list of workflows, giving visibility
      * 
-     * <p>  into all the automated processes available within the Maestro platform.
+     * <p>into all the automated processes available within the Maestro platform.
      * - **Input Schema Information**: Each workflow includes its trigger input schema, showing
      * 
-     * <p>  what data must be provided when triggering the workflow.
+     * <p>what data must be provided when triggering the workflow.
      * - **Metadata for Tracking**: Useful metadata like creation time, last modification date,
      * 
-     * <p>  and user details are included to support tracking and auditing workflows.
+     * <p>and user details are included to support tracking and auditing workflows.
      * - **Future-Proof**: The operation is designed to be expandable as more workflows are added
      * 
-     * <p>  or the platform grows, ensuring scalability in the workflow management process.
+     * <p>or the platform grows, ensuring scalability in the workflow management process.
      * 
      * @param accountId The unique identifier of the account.
      * @return The response from the API call
@@ -144,16 +146,16 @@ public class Workflows {
      * <p>### Key Features:
      * - **Comprehensive Workflow Overview**: Provides a full list of workflows, giving visibility
      * 
-     * <p>  into all the automated processes available within the Maestro platform.
+     * <p>into all the automated processes available within the Maestro platform.
      * - **Input Schema Information**: Each workflow includes its trigger input schema, showing
      * 
-     * <p>  what data must be provided when triggering the workflow.
+     * <p>what data must be provided when triggering the workflow.
      * - **Metadata for Tracking**: Useful metadata like creation time, last modification date,
      * 
-     * <p>  and user details are included to support tracking and auditing workflows.
+     * <p>and user details are included to support tracking and auditing workflows.
      * - **Future-Proof**: The operation is designed to be expandable as more workflows are added
      * 
-     * <p>  or the platform grows, ensuring scalability in the workflow management process.
+     * <p>or the platform grows, ensuring scalability in the workflow management process.
      * 
      * @param accountId The unique identifier of the account.
      * @param status Filter workflows by their status. If provided, only workflows with the specified status will be returned.
@@ -178,7 +180,7 @@ public class Workflows {
                 .status(status)
                 .build();
         RequestOperation<GetWorkflowsListRequest, GetWorkflowsListResponse> operation
-              = new GetWorkflowsList.Sync(sdkConfiguration, options);
+              = new GetWorkflowsList.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -187,7 +189,8 @@ public class Workflows {
      * 
      * <p>This operation retrieves the configuration and input requirements necessary to trigger a specific
      * Maestro workflow. It provides detailed information about the `trigger_event_type`, such as HTTP
-     * or other supported types, and specifies the required input schema, including field names, data types,
+     * or other supported types, and specifies the required input schema, including field names, data
+     * types,
      * and any default values.
      * 
      * <p>This information is essential for understanding the data and parameters required to initiate the
@@ -202,13 +205,13 @@ public class Workflows {
      * <p>### Key Features:
      * - **Detailed Trigger Input Requirements**: Provides an exhaustive schema of required fields,
      * 
-     * <p>  their data types, and optional default values for easy reference and data validation.
+     * <p>their data types, and optional default values for easy reference and data validation.
      * - **Trigger Event Type Information**: Specifies the type of event required to initiate the workflow
      * 
-     * <p>  (e.g., HTTP), helping developers configure their systems to invoke the workflow appropriately.
+     * <p>(e.g., HTTP), helping developers configure their systems to invoke the workflow appropriately.
      * - **Configurable for Custom Triggers**: Suitable for custom configurations, enabling flexibility
      * 
-     * <p>  in how workflows can be triggered according to system needs.
+     * <p>in how workflows can be triggered according to system needs.
      * 
      * @return The call builder
      */
@@ -221,7 +224,8 @@ public class Workflows {
      * 
      * <p>This operation retrieves the configuration and input requirements necessary to trigger a specific
      * Maestro workflow. It provides detailed information about the `trigger_event_type`, such as HTTP
-     * or other supported types, and specifies the required input schema, including field names, data types,
+     * or other supported types, and specifies the required input schema, including field names, data
+     * types,
      * and any default values.
      * 
      * <p>This information is essential for understanding the data and parameters required to initiate the
@@ -236,13 +240,13 @@ public class Workflows {
      * <p>### Key Features:
      * - **Detailed Trigger Input Requirements**: Provides an exhaustive schema of required fields,
      * 
-     * <p>  their data types, and optional default values for easy reference and data validation.
+     * <p>their data types, and optional default values for easy reference and data validation.
      * - **Trigger Event Type Information**: Specifies the type of event required to initiate the workflow
      * 
-     * <p>  (e.g., HTTP), helping developers configure their systems to invoke the workflow appropriately.
+     * <p>(e.g., HTTP), helping developers configure their systems to invoke the workflow appropriately.
      * - **Configurable for Custom Triggers**: Suitable for custom configurations, enabling flexibility
      * 
-     * <p>  in how workflows can be triggered according to system needs.
+     * <p>in how workflows can be triggered according to system needs.
      * 
      * @param accountId The unique identifier of the account.
      * @param workflowId 
@@ -258,7 +262,8 @@ public class Workflows {
      * 
      * <p>This operation retrieves the configuration and input requirements necessary to trigger a specific
      * Maestro workflow. It provides detailed information about the `trigger_event_type`, such as HTTP
-     * or other supported types, and specifies the required input schema, including field names, data types,
+     * or other supported types, and specifies the required input schema, including field names, data
+     * types,
      * and any default values.
      * 
      * <p>This information is essential for understanding the data and parameters required to initiate the
@@ -273,13 +278,13 @@ public class Workflows {
      * <p>### Key Features:
      * - **Detailed Trigger Input Requirements**: Provides an exhaustive schema of required fields,
      * 
-     * <p>  their data types, and optional default values for easy reference and data validation.
+     * <p>their data types, and optional default values for easy reference and data validation.
      * - **Trigger Event Type Information**: Specifies the type of event required to initiate the workflow
      * 
-     * <p>  (e.g., HTTP), helping developers configure their systems to invoke the workflow appropriately.
+     * <p>(e.g., HTTP), helping developers configure their systems to invoke the workflow appropriately.
      * - **Configurable for Custom Triggers**: Suitable for custom configurations, enabling flexibility
      * 
-     * <p>  in how workflows can be triggered according to system needs.
+     * <p>in how workflows can be triggered according to system needs.
      * 
      * @param accountId The unique identifier of the account.
      * @param workflowId 
@@ -297,7 +302,7 @@ public class Workflows {
                 .workflowId(workflowId)
                 .build();
         RequestOperation<GetWorkflowTriggerRequirementsRequest, GetWorkflowTriggerRequirementsResponse> operation
-              = new GetWorkflowTriggerRequirements.Sync(sdkConfiguration, options);
+              = new GetWorkflowTriggerRequirements.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -326,16 +331,17 @@ public class Workflows {
      * - Sending notifications based on user interactions in other systems.
      * 
      * <p>### Key Features:
-     * - **Automated Execution**: Once triggered, the workflow runs until a step requires manual intervention.
+     * - **Automated Execution**: Once triggered, the workflow runs until a step requires manual
+     * intervention.
      * - **Input-Driven**: Workflow execution is based on the provided input data, which is validated
      * 
-     * <p>  against the workflow's input schema.
+     * <p>against the workflow's input schema.
      * - **Real-Time Triggering**: Designed to be invoked as part of an event-driven architecture,
      * 
-     * <p>  allowing for workflows to respond to external events.
+     * <p>allowing for workflows to respond to external events.
      * - **Tracking and Interaction**: The response includes a URL that allows users to check the status
      * 
-     * <p>  of the workflow instance or take further actions while it runs.
+     * <p>of the workflow instance or take further actions while it runs.
      * 
      * @return The call builder
      */
@@ -368,16 +374,17 @@ public class Workflows {
      * - Sending notifications based on user interactions in other systems.
      * 
      * <p>### Key Features:
-     * - **Automated Execution**: Once triggered, the workflow runs until a step requires manual intervention.
+     * - **Automated Execution**: Once triggered, the workflow runs until a step requires manual
+     * intervention.
      * - **Input-Driven**: Workflow execution is based on the provided input data, which is validated
      * 
-     * <p>  against the workflow's input schema.
+     * <p>against the workflow's input schema.
      * - **Real-Time Triggering**: Designed to be invoked as part of an event-driven architecture,
      * 
-     * <p>  allowing for workflows to respond to external events.
+     * <p>allowing for workflows to respond to external events.
      * - **Tracking and Interaction**: The response includes a URL that allows users to check the status
      * 
-     * <p>  of the workflow instance or take further actions while it runs.
+     * <p>of the workflow instance or take further actions while it runs.
      * 
      * @param accountId The unique identifier of the account.
      * @param workflowId 
@@ -423,16 +430,17 @@ public class Workflows {
      * - Sending notifications based on user interactions in other systems.
      * 
      * <p>### Key Features:
-     * - **Automated Execution**: Once triggered, the workflow runs until a step requires manual intervention.
+     * - **Automated Execution**: Once triggered, the workflow runs until a step requires manual
+     * intervention.
      * - **Input-Driven**: Workflow execution is based on the provided input data, which is validated
      * 
-     * <p>  against the workflow's input schema.
+     * <p>against the workflow's input schema.
      * - **Real-Time Triggering**: Designed to be invoked as part of an event-driven architecture,
      * 
-     * <p>  allowing for workflows to respond to external events.
+     * <p>allowing for workflows to respond to external events.
      * - **Tracking and Interaction**: The response includes a URL that allows users to check the status
      * 
-     * <p>  of the workflow instance or take further actions while it runs.
+     * <p>of the workflow instance or take further actions while it runs.
      * 
      * @param accountId The unique identifier of the account.
      * @param workflowId 
@@ -458,14 +466,15 @@ public class Workflows {
                 .triggerWorkflow(triggerWorkflow)
                 .build();
         RequestOperation<TriggerWorkflowRequest, TriggerWorkflowResponse> operation
-              = new com.docusign.iam.sdk.operations.TriggerWorkflow.Sync(sdkConfiguration, options);
+              = new com.docusign.iam.sdk.operations.TriggerWorkflow.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
     /**
      * Pause an Active Workflow
      * 
-     * <p>This operation pauses new workflow instances from being created. Any running workflows instances will be unaffected.
+     * <p>This operation pauses new workflow instances from being created. Any running workflows instances
+     * will be unaffected.
      * 
      * @return The call builder
      */
@@ -476,7 +485,8 @@ public class Workflows {
     /**
      * Pause an Active Workflow
      * 
-     * <p>This operation pauses new workflow instances from being created. Any running workflows instances will be unaffected.
+     * <p>This operation pauses new workflow instances from being created. Any running workflows instances
+     * will be unaffected.
      * 
      * @param accountId The unique identifier of the account.
      * @param workflowId 
@@ -490,7 +500,8 @@ public class Workflows {
     /**
      * Pause an Active Workflow
      * 
-     * <p>This operation pauses new workflow instances from being created. Any running workflows instances will be unaffected.
+     * <p>This operation pauses new workflow instances from being created. Any running workflows instances
+     * will be unaffected.
      * 
      * @param accountId The unique identifier of the account.
      * @param workflowId 
@@ -508,7 +519,7 @@ public class Workflows {
                 .workflowId(workflowId)
                 .build();
         RequestOperation<PauseNewWorkflowInstancesRequest, PauseNewWorkflowInstancesResponse> operation
-              = new PauseNewWorkflowInstances.Sync(sdkConfiguration, options);
+              = new PauseNewWorkflowInstances.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -558,7 +569,7 @@ public class Workflows {
                 .workflowId(workflowId)
                 .build();
         RequestOperation<ResumePausedWorkflowRequest, ResumePausedWorkflowResponse> operation
-              = new ResumePausedWorkflow.Sync(sdkConfiguration, options);
+              = new ResumePausedWorkflow.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
