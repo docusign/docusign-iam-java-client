@@ -5,6 +5,7 @@ package com.docusign.iam.sdk.operations;
 
 import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 import static com.docusign.iam.sdk.utils.Retries.NonRetryableException;
+import static com.docusign.iam.sdk.utils.Exceptions.unchecked;
 
 import com.docusign.iam.sdk.SDKConfiguration;
 import com.docusign.iam.sdk.SecuritySource;
@@ -143,7 +144,7 @@ public class GetWorkflowTriggerRequirements {
         }
 
         @Override
-        public HttpResponse<InputStream> doRequest(GetWorkflowTriggerRequirementsRequest request) throws Exception {
+        public HttpResponse<InputStream> doRequest(GetWorkflowTriggerRequirementsRequest request) {
             Retries retries = Retries.builder()
                     .action(() -> {
                         HttpRequest r;
@@ -165,12 +166,12 @@ public class GetWorkflowTriggerRequirements {
                     .retryConfig(retryConfig)
                     .statusCodes(retryStatusCodes)
                     .build();
-            return onSuccess(retries.run());
+            return unchecked(() -> onSuccess(retries.run())).get();
         }
 
 
         @Override
-        public GetWorkflowTriggerRequirementsResponse handleResponse(HttpResponse<InputStream> response) throws Exception {
+        public GetWorkflowTriggerRequirementsResponse handleResponse(HttpResponse<InputStream> response) {
             String contentType = response
                     .headers()
                     .firstValue("Content-Type")
@@ -186,76 +187,34 @@ public class GetWorkflowTriggerRequirements {
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    WorkflowTriggerRequirementsSuccess out = Utils.mapper().readValue(
-                            response.body(),
-                            new TypeReference<>() {
-                            });
-                    res.withWorkflowTriggerRequirementsSuccess(out);
-                    return res;
+                    return res.withWorkflowTriggerRequirementsSuccess(Utils.unmarshal(response, new TypeReference<WorkflowTriggerRequirementsSuccess>() {}));
                 } else {
-                    throw new APIException(
-                            response,
-                            response.statusCode(),
-                            "Unexpected content-type received: " + contentType,
-                            Utils.extractByteArrayFromBody(response));
+                    throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            
             if (Utils.statusCodeMatches(response.statusCode(), "400", "403", "404")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    Error out = Utils.mapper().readValue(
-                            response.body(),
-                            new TypeReference<>() {
-                            });
-                    throw out;
+                    throw Error.from(response);
                 } else {
-                    throw new APIException(
-                            response,
-                            response.statusCode(),
-                            "Unexpected content-type received: " + contentType,
-                            Utils.extractByteArrayFromBody(response));
+                    throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            
             if (Utils.statusCodeMatches(response.statusCode(), "500")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    Error out = Utils.mapper().readValue(
-                            response.body(),
-                            new TypeReference<>() {
-                            });
-                    throw out;
+                    throw Error.from(response);
                 } else {
-                    throw new APIException(
-                            response,
-                            response.statusCode(),
-                            "Unexpected content-type received: " + contentType,
-                            Utils.extractByteArrayFromBody(response));
+                    throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            
             if (Utils.statusCodeMatches(response.statusCode(), "401", "4XX")) {
                 // no content
-                throw new APIException(
-                        response,
-                        response.statusCode(),
-                        "API error occurred",
-                        Utils.extractByteArrayFromBody(response));
+                throw APIException.from("API error occurred", response);
             }
-            
             if (Utils.statusCodeMatches(response.statusCode(), "5XX")) {
                 // no content
-                throw new APIException(
-                        response,
-                        response.statusCode(),
-                        "API error occurred",
-                        Utils.extractByteArrayFromBody(response));
+                throw APIException.from("API error occurred", response);
             }
-            
-            throw new APIException(
-                    response,
-                    response.statusCode(),
-                    "Unexpected status code received: " + response.statusCode(),
-                    Utils.extractByteArrayFromBody(response));
+            throw APIException.from("Unexpected status code received: " + response.statusCode(), response);
         }
     }
 }

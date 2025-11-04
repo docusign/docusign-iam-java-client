@@ -12,7 +12,6 @@ import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -58,7 +57,7 @@ public class GetTokenFromPublicAuthCodeRequestBuilder {
         return this;
     }
 
-    public GetTokenFromPublicAuthCodeResponse call() throws Exception {
+    public GetTokenFromPublicAuthCodeResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());

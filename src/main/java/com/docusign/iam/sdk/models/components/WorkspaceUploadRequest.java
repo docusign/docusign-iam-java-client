@@ -73,14 +73,16 @@ public class WorkspaceUploadRequest {
     /**
      * The date the upload request was created
      */
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("created_date")
-    private OffsetDateTime createdDate;
+    private Optional<OffsetDateTime> createdDate;
 
     /**
      * The date the upload request was last updated
      */
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("updated_date")
-    private OffsetDateTime updatedDate;
+    private Optional<OffsetDateTime> updatedDate;
 
     /**
      * The due date for the upload request
@@ -131,8 +133,8 @@ public class WorkspaceUploadRequest {
             @JsonProperty("status") WorkspaceUploadRequestStatus status,
             @JsonProperty("documents") Optional<? extends List<WorkspaceUploadRequestDocument>> documents,
             @JsonProperty("assignments") Optional<? extends List<WorkspaceUploadRequestAssignment>> assignments,
-            @JsonProperty("created_date") OffsetDateTime createdDate,
-            @JsonProperty("updated_date") OffsetDateTime updatedDate,
+            @JsonProperty("created_date") Optional<OffsetDateTime> createdDate,
+            @JsonProperty("updated_date") Optional<OffsetDateTime> updatedDate,
             @JsonProperty("due_date") JsonNullable<OffsetDateTime> dueDate,
             @JsonProperty("sent_date") JsonNullable<OffsetDateTime> sentDate,
             @JsonProperty("completed_date") JsonNullable<OffsetDateTime> completedDate,
@@ -178,15 +180,13 @@ public class WorkspaceUploadRequest {
             String workspaceId,
             WorkspaceUploadRequestOwner uploadRequestOwner,
             WorkspaceUploadRequestStatus status,
-            OffsetDateTime createdDate,
-            OffsetDateTime updatedDate,
             boolean canView,
             boolean canEdit,
             boolean canDelete) {
         this(uploadRequestId, workspaceId, Optional.empty(),
             JsonNullable.undefined(), uploadRequestOwner, status,
-            Optional.empty(), Optional.empty(), createdDate,
-            updatedDate, JsonNullable.undefined(), JsonNullable.undefined(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), canView, canEdit,
             canDelete);
     }
@@ -258,7 +258,7 @@ public class WorkspaceUploadRequest {
      * The date the upload request was created
      */
     @JsonIgnore
-    public OffsetDateTime createdDate() {
+    public Optional<OffsetDateTime> createdDate() {
         return createdDate;
     }
 
@@ -266,7 +266,7 @@ public class WorkspaceUploadRequest {
      * The date the upload request was last updated
      */
     @JsonIgnore
-    public OffsetDateTime updatedDate() {
+    public Optional<OffsetDateTime> updatedDate() {
         return updatedDate;
     }
 
@@ -436,6 +436,16 @@ public class WorkspaceUploadRequest {
      */
     public WorkspaceUploadRequest withCreatedDate(OffsetDateTime createdDate) {
         Utils.checkNotNull(createdDate, "createdDate");
+        this.createdDate = Optional.ofNullable(createdDate);
+        return this;
+    }
+
+
+    /**
+     * The date the upload request was created
+     */
+    public WorkspaceUploadRequest withCreatedDate(Optional<OffsetDateTime> createdDate) {
+        Utils.checkNotNull(createdDate, "createdDate");
         this.createdDate = createdDate;
         return this;
     }
@@ -444,6 +454,16 @@ public class WorkspaceUploadRequest {
      * The date the upload request was last updated
      */
     public WorkspaceUploadRequest withUpdatedDate(OffsetDateTime updatedDate) {
+        Utils.checkNotNull(updatedDate, "updatedDate");
+        this.updatedDate = Optional.ofNullable(updatedDate);
+        return this;
+    }
+
+
+    /**
+     * The date the upload request was last updated
+     */
+    public WorkspaceUploadRequest withUpdatedDate(Optional<OffsetDateTime> updatedDate) {
         Utils.checkNotNull(updatedDate, "updatedDate");
         this.updatedDate = updatedDate;
         return this;
@@ -609,9 +629,9 @@ public class WorkspaceUploadRequest {
 
         private Optional<? extends List<WorkspaceUploadRequestAssignment>> assignments = Optional.empty();
 
-        private OffsetDateTime createdDate;
+        private Optional<OffsetDateTime> createdDate = Optional.empty();
 
-        private OffsetDateTime updatedDate;
+        private Optional<OffsetDateTime> updatedDate = Optional.empty();
 
         private JsonNullable<OffsetDateTime> dueDate = JsonNullable.undefined();
 
@@ -748,6 +768,15 @@ public class WorkspaceUploadRequest {
          */
         public Builder createdDate(OffsetDateTime createdDate) {
             Utils.checkNotNull(createdDate, "createdDate");
+            this.createdDate = Optional.ofNullable(createdDate);
+            return this;
+        }
+
+        /**
+         * The date the upload request was created
+         */
+        public Builder createdDate(Optional<OffsetDateTime> createdDate) {
+            Utils.checkNotNull(createdDate, "createdDate");
             this.createdDate = createdDate;
             return this;
         }
@@ -757,6 +786,15 @@ public class WorkspaceUploadRequest {
          * The date the upload request was last updated
          */
         public Builder updatedDate(OffsetDateTime updatedDate) {
+            Utils.checkNotNull(updatedDate, "updatedDate");
+            this.updatedDate = Optional.ofNullable(updatedDate);
+            return this;
+        }
+
+        /**
+         * The date the upload request was last updated
+         */
+        public Builder updatedDate(Optional<OffsetDateTime> updatedDate) {
             Utils.checkNotNull(updatedDate, "updatedDate");
             this.updatedDate = updatedDate;
             return this;

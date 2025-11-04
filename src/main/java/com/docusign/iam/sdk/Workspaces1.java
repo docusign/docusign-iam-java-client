@@ -9,6 +9,7 @@ import com.docusign.iam.sdk.utils.Headers;
 public class Workspaces1 {
     private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
+    private final WorkspaceBrands workspaceBrands;
     private final WorkspaceDocuments workspaceDocuments;
     private final WorkspaceUploadRequest workspaceUploadRequest;
     private final WorkspaceUsers workspaceUsers;
@@ -16,10 +17,15 @@ public class Workspaces1 {
 
     Workspaces1(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+        this.workspaceBrands = new WorkspaceBrands(this.sdkConfiguration);
         this.workspaceDocuments = new WorkspaceDocuments(this.sdkConfiguration);
         this.workspaceUploadRequest = new WorkspaceUploadRequest(this.sdkConfiguration);
         this.workspaceUsers = new WorkspaceUsers(this.sdkConfiguration);
         this.workspaces = new Workspaces2(this.sdkConfiguration);
+    }
+
+    public final WorkspaceBrands workspaceBrands() {
+        return workspaceBrands;
     }
 
     public final WorkspaceDocuments workspaceDocuments() {

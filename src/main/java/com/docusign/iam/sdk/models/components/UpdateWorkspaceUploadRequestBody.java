@@ -13,6 +13,7 @@ import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -93,9 +94,8 @@ public class UpdateWorkspaceUploadRequestBody {
     /**
      * The due date for the upload request (editable)
      */
-    @JsonInclude(Include.ALWAYS)
     @JsonProperty("due_date")
-    private Optional<String> dueDate;
+    private OffsetDateTime dueDate;
 
     /**
      * The date the upload request was sent
@@ -144,7 +144,7 @@ public class UpdateWorkspaceUploadRequestBody {
             @JsonProperty("assignments") JsonNullable<? extends List<WorkspaceUploadRequestAssignment>> assignments,
             @JsonProperty("created_date") JsonNullable<String> createdDate,
             @JsonProperty("updated_date") JsonNullable<String> updatedDate,
-            @JsonProperty("due_date") Optional<String> dueDate,
+            @JsonProperty("due_date") OffsetDateTime dueDate,
             @JsonProperty("sent_date") JsonNullable<String> sentDate,
             @JsonProperty("completed_date") JsonNullable<String> completedDate,
             @JsonProperty("can_view") JsonNullable<Boolean> canView,
@@ -185,11 +185,12 @@ public class UpdateWorkspaceUploadRequestBody {
     }
     
     public UpdateWorkspaceUploadRequestBody(
-            WorkspaceUploadRequestStatus status) {
+            WorkspaceUploadRequestStatus status,
+            OffsetDateTime dueDate) {
         this(JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
             Optional.empty(), Optional.empty(), status,
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined(), dueDate, JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined());
     }
@@ -278,7 +279,7 @@ public class UpdateWorkspaceUploadRequestBody {
      * The due date for the upload request (editable)
      */
     @JsonIgnore
-    public Optional<String> dueDate() {
+    public OffsetDateTime dueDate() {
         return dueDate;
     }
 
@@ -498,17 +499,7 @@ public class UpdateWorkspaceUploadRequestBody {
     /**
      * The due date for the upload request (editable)
      */
-    public UpdateWorkspaceUploadRequestBody withDueDate(String dueDate) {
-        Utils.checkNotNull(dueDate, "dueDate");
-        this.dueDate = Optional.ofNullable(dueDate);
-        return this;
-    }
-
-
-    /**
-     * The due date for the upload request (editable)
-     */
-    public UpdateWorkspaceUploadRequestBody withDueDate(Optional<String> dueDate) {
+    public UpdateWorkspaceUploadRequestBody withDueDate(OffsetDateTime dueDate) {
         Utils.checkNotNull(dueDate, "dueDate");
         this.dueDate = dueDate;
         return this;
@@ -687,7 +678,7 @@ public class UpdateWorkspaceUploadRequestBody {
 
         private JsonNullable<String> updatedDate = JsonNullable.undefined();
 
-        private Optional<String> dueDate = Optional.empty();
+        private OffsetDateTime dueDate;
 
         private JsonNullable<String> sentDate = JsonNullable.undefined();
 
@@ -882,16 +873,7 @@ public class UpdateWorkspaceUploadRequestBody {
         /**
          * The due date for the upload request (editable)
          */
-        public Builder dueDate(String dueDate) {
-            Utils.checkNotNull(dueDate, "dueDate");
-            this.dueDate = Optional.ofNullable(dueDate);
-            return this;
-        }
-
-        /**
-         * The due date for the upload request (editable)
-         */
-        public Builder dueDate(Optional<String> dueDate) {
+        public Builder dueDate(OffsetDateTime dueDate) {
             Utils.checkNotNull(dueDate, "dueDate");
             this.dueDate = dueDate;
             return this;

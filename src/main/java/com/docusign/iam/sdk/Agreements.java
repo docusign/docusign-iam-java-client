@@ -23,7 +23,6 @@ import com.docusign.iam.sdk.operations.GetAgreement;
 import com.docusign.iam.sdk.operations.GetAgreementsList;
 import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -128,9 +127,9 @@ public class Agreements {
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetAgreementsListResponse getAgreementsList(GetAgreementsListRequest request) throws Exception {
+    public GetAgreementsListResponse getAgreementsList(GetAgreementsListRequest request) {
         return getAgreementsList(request, Optional.empty());
     }
 
@@ -179,9 +178,9 @@ public class Agreements {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetAgreementsListResponse getAgreementsList(GetAgreementsListRequest request, Optional<Options> options) throws Exception {
+    public GetAgreementsListResponse getAgreementsList(GetAgreementsListRequest request, Optional<Options> options) {
         RequestOperation<GetAgreementsListRequest, GetAgreementsListResponse> operation
               = new GetAgreementsList.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
@@ -294,9 +293,9 @@ public class Agreements {
      * @param accountId 
      * @param agreementId 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetAgreementResponse getAgreement(String accountId, String agreementId) throws Exception {
+    public GetAgreementResponse getAgreement(String accountId, String agreementId) {
         return getAgreement(accountId, agreementId, Optional.empty());
     }
 
@@ -353,11 +352,11 @@ public class Agreements {
      * @param agreementId 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetAgreementResponse getAgreement(
             String accountId, String agreementId,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         GetAgreementRequest request =
             GetAgreementRequest
                 .builder()
@@ -390,9 +389,9 @@ public class Agreements {
      * @param accountId 
      * @param agreementId 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteAgreementResponse deleteAgreement(String accountId, String agreementId) throws Exception {
+    public DeleteAgreementResponse deleteAgreement(String accountId, String agreementId) {
         return deleteAgreement(accountId, agreementId, Optional.empty());
     }
 
@@ -406,11 +405,11 @@ public class Agreements {
      * @param agreementId 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public DeleteAgreementResponse deleteAgreement(
             String accountId, String agreementId,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         DeleteAgreementRequest request =
             DeleteAgreementRequest
                 .builder()
@@ -455,9 +454,9 @@ public class Agreements {
      * @param accountId 
      * @param agreementId 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateAgreementSummaryResponse createAgreementSummary(String accountId, String agreementId) throws Exception {
+    public CreateAgreementSummaryResponse createAgreementSummary(String accountId, String agreementId) {
         return createAgreementSummary(accountId, agreementId, Optional.empty());
     }
 
@@ -477,11 +476,11 @@ public class Agreements {
      * @param agreementId 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public CreateAgreementSummaryResponse createAgreementSummary(
             String accountId, String agreementId,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         CreateAgreementSummaryRequest request =
             CreateAgreementSummaryRequest
                 .builder()

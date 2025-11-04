@@ -9,154 +9,128 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.annotation.Nullable;
+import java.io.InputStream;
+import java.lang.Deprecated;
 import java.lang.Override;
-import java.lang.RuntimeException;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.lang.Throwable;
+import java.net.http.HttpResponse;
+import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-/**
- * ErrorDetails
- * 
- * <p>The error response object for the Workspaces API
- */
 @SuppressWarnings("serial")
-public class ErrorDetails extends RuntimeException {
-    /**
-     * A brief message describing the error condition
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("message")
-    private JsonNullable<String> message;
+public class ErrorDetails extends IamClientError {
 
-    /**
-     * A standardized code that generalizes the specific error
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("error_code")
-    private JsonNullable<String> errorCode;
+    @Nullable
+    private final Data data;
 
-    @JsonCreator
+    @Nullable
+    private final Throwable deserializationException;
+
     public ErrorDetails(
-            @JsonProperty("message") JsonNullable<String> message,
-            @JsonProperty("error_code") JsonNullable<String> errorCode) {
-        super("API error occurred");
-        Utils.checkNotNull(message, "message");
-        Utils.checkNotNull(errorCode, "errorCode");
-        this.message = message;
-        this.errorCode = errorCode;
-    }
-    
-    public ErrorDetails() {
-        this(JsonNullable.undefined(), JsonNullable.undefined());
+                int code,
+                byte[] body,
+                HttpResponse<?> rawResponse,
+                @Nullable Data data,
+                @Nullable Throwable deserializationException) {
+        super("API error occurred", code, body, rawResponse, null);
+        this.data = data;
+        this.deserializationException = deserializationException;
     }
 
     /**
-     * A brief message describing the error condition
-     */
-    @JsonIgnore
-    public JsonNullable<String> message() {
-        return message;
-    }
-
-    @JsonIgnore
-    @Override
-    public String getMessage() {
-        return Utils.valueOrNull(message);
-    }
-
-    /**
-     * A standardized code that generalizes the specific error
-     */
-    @JsonIgnore
-    public JsonNullable<String> errorCode() {
-        return errorCode;
-    }
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
-
-    /**
-     * A brief message describing the error condition
-     */
-    public ErrorDetails withMessage(String message) {
-        Utils.checkNotNull(message, "message");
-        this.message = JsonNullable.of(message);
-        return this;
-    }
-
-    /**
-     * A brief message describing the error condition
-     */
-    public ErrorDetails withMessage(JsonNullable<String> message) {
-        Utils.checkNotNull(message, "message");
-        this.message = message;
-        return this;
-    }
-
-    /**
-     * A standardized code that generalizes the specific error
-     */
-    public ErrorDetails withErrorCode(String errorCode) {
-        Utils.checkNotNull(errorCode, "errorCode");
-        this.errorCode = JsonNullable.of(errorCode);
-        return this;
-    }
-
-    /**
-     * A standardized code that generalizes the specific error
-     */
-    public ErrorDetails withErrorCode(JsonNullable<String> errorCode) {
-        Utils.checkNotNull(errorCode, "errorCode");
-        this.errorCode = errorCode;
-        return this;
-    }
-
-    @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
+    * Parse a response into an instance of ErrorDetails. If deserialization of the response body fails,
+    * the resulting ErrorDetails instance will have a null data() value and a non-null deserializationException().
+    */
+    public static ErrorDetails from(HttpResponse<InputStream> response) {
+        try {
+            byte[] bytes = Utils.extractByteArrayFromBody(response);
+            Data data = Utils.mapper().readValue(bytes, Data.class);
+            return new ErrorDetails(response.statusCode(), bytes, response, data, null);
+        } catch (Exception e) {
+            return new ErrorDetails(response.statusCode(), null, response, null, e);
         }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
+    }
+
+    /**
+     * A standardized code that generalizes the specific error
+     */
+    @Deprecated
+    public Optional<JsonNullable<String>> errorCode() {
+        return data().map(Data::errorCode);
+    }
+
+    public Optional<Data> data() {
+        return Optional.ofNullable(data);
+    }
+
+    /**
+     * Returns the exception if an error occurs while deserializing the response body.
+     */
+    public Optional<Throwable> deserializationException() {
+        return Optional.ofNullable(deserializationException);
+    }
+    /**
+     * Data
+     * 
+     * <p>The error response object for the Workspaces API
+     */
+    public static class Data {
+        /**
+         * A brief message describing the error condition
+         */
+        @JsonInclude(Include.NON_ABSENT)
+        @JsonProperty("message")
+        private JsonNullable<String> message;
+
+        /**
+         * A standardized code that generalizes the specific error
+         */
+        @JsonInclude(Include.NON_ABSENT)
+        @JsonProperty("error_code")
+        private JsonNullable<String> errorCode;
+
+        @JsonCreator
+        public Data(
+                @JsonProperty("message") JsonNullable<String> message,
+                @JsonProperty("error_code") JsonNullable<String> errorCode) {
+            Utils.checkNotNull(message, "message");
+            Utils.checkNotNull(errorCode, "errorCode");
+            this.message = message;
+            this.errorCode = errorCode;
         }
-        ErrorDetails other = (ErrorDetails) o;
-        return 
-            Utils.enhancedDeepEquals(this.message, other.message) &&
-            Utils.enhancedDeepEquals(this.errorCode, other.errorCode);
-    }
-    
-    @Override
-    public int hashCode() {
-        return Utils.enhancedHash(
-            message, errorCode);
-    }
-    
-    @Override
-    public String toString() {
-        return Utils.toString(ErrorDetails.class,
-                "message", message,
-                "errorCode", errorCode);
-    }
+        
+        public Data() {
+            this(JsonNullable.undefined(), JsonNullable.undefined());
+        }
 
-    @SuppressWarnings("UnusedReturnValue")
-    public final static class Builder {
+        /**
+         * A brief message describing the error condition
+         */
+        @JsonIgnore
+        public JsonNullable<String> message() {
+            return message;
+        }
 
-        private JsonNullable<String> message = JsonNullable.undefined();
+        /**
+         * A standardized code that generalizes the specific error
+         */
+        @JsonIgnore
+        public JsonNullable<String> errorCode() {
+            return errorCode;
+        }
 
-        private JsonNullable<String> errorCode = JsonNullable.undefined();
-
-        private Builder() {
-          // force use of static builder() method
+        public static Builder builder() {
+            return new Builder();
         }
 
 
         /**
          * A brief message describing the error condition
          */
-        public Builder message(String message) {
+        public Data withMessage(String message) {
             Utils.checkNotNull(message, "message");
             this.message = JsonNullable.of(message);
             return this;
@@ -165,17 +139,16 @@ public class ErrorDetails extends RuntimeException {
         /**
          * A brief message describing the error condition
          */
-        public Builder message(JsonNullable<String> message) {
+        public Data withMessage(JsonNullable<String> message) {
             Utils.checkNotNull(message, "message");
             this.message = message;
             return this;
         }
 
-
         /**
          * A standardized code that generalizes the specific error
          */
-        public Builder errorCode(String errorCode) {
+        public Data withErrorCode(String errorCode) {
             Utils.checkNotNull(errorCode, "errorCode");
             this.errorCode = JsonNullable.of(errorCode);
             return this;
@@ -184,18 +157,96 @@ public class ErrorDetails extends RuntimeException {
         /**
          * A standardized code that generalizes the specific error
          */
-        public Builder errorCode(JsonNullable<String> errorCode) {
+        public Data withErrorCode(JsonNullable<String> errorCode) {
             Utils.checkNotNull(errorCode, "errorCode");
             this.errorCode = errorCode;
             return this;
         }
 
-        public ErrorDetails build() {
-
-            return new ErrorDetails(
+        @Override
+        public boolean equals(java.lang.Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            Data other = (Data) o;
+            return 
+                Utils.enhancedDeepEquals(this.message, other.message) &&
+                Utils.enhancedDeepEquals(this.errorCode, other.errorCode);
+        }
+        
+        @Override
+        public int hashCode() {
+            return Utils.enhancedHash(
                 message, errorCode);
         }
+        
+        @Override
+        public String toString() {
+            return Utils.toString(Data.class,
+                    "message", message,
+                    "errorCode", errorCode);
+        }
 
+        @SuppressWarnings("UnusedReturnValue")
+        public final static class Builder {
+
+            private JsonNullable<String> message = JsonNullable.undefined();
+
+            private JsonNullable<String> errorCode = JsonNullable.undefined();
+
+            private Builder() {
+              // force use of static builder() method
+            }
+
+
+            /**
+             * A brief message describing the error condition
+             */
+            public Builder message(String message) {
+                Utils.checkNotNull(message, "message");
+                this.message = JsonNullable.of(message);
+                return this;
+            }
+
+            /**
+             * A brief message describing the error condition
+             */
+            public Builder message(JsonNullable<String> message) {
+                Utils.checkNotNull(message, "message");
+                this.message = message;
+                return this;
+            }
+
+
+            /**
+             * A standardized code that generalizes the specific error
+             */
+            public Builder errorCode(String errorCode) {
+                Utils.checkNotNull(errorCode, "errorCode");
+                this.errorCode = JsonNullable.of(errorCode);
+                return this;
+            }
+
+            /**
+             * A standardized code that generalizes the specific error
+             */
+            public Builder errorCode(JsonNullable<String> errorCode) {
+                Utils.checkNotNull(errorCode, "errorCode");
+                this.errorCode = errorCode;
+                return this;
+            }
+
+            public Data build() {
+
+                return new Data(
+                    message, errorCode);
+            }
+
+        }
     }
+
 }
 

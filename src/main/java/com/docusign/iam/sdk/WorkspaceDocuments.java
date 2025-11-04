@@ -27,7 +27,6 @@ import com.docusign.iam.sdk.operations.GetWorkspaceDocumentContents;
 import com.docusign.iam.sdk.operations.GetWorkspaceDocuments;
 import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -70,9 +69,9 @@ public class WorkspaceDocuments {
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetWorkspaceDocumentsResponse getWorkspaceDocuments(GetWorkspaceDocumentsRequest request) throws Exception {
+    public GetWorkspaceDocumentsResponse getWorkspaceDocuments(GetWorkspaceDocumentsRequest request) {
         return getWorkspaceDocuments(request, Optional.empty());
     }
 
@@ -90,9 +89,9 @@ public class WorkspaceDocuments {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetWorkspaceDocumentsResponse getWorkspaceDocuments(GetWorkspaceDocumentsRequest request, Optional<Options> options) throws Exception {
+    public GetWorkspaceDocumentsResponse getWorkspaceDocuments(GetWorkspaceDocumentsRequest request, Optional<Options> options) {
         RequestOperation<GetWorkspaceDocumentsRequest, GetWorkspaceDocumentsResponse> operation
               = new GetWorkspaceDocuments.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
@@ -123,9 +122,9 @@ public class WorkspaceDocuments {
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public AddWorkspaceDocumentResponse addWorkspaceDocument(String accountId, String workspaceId) throws Exception {
+    public AddWorkspaceDocumentResponse addWorkspaceDocument(String accountId, String workspaceId) {
         return addWorkspaceDocument(accountId, workspaceId, Optional.empty(),
             Optional.empty());
     }
@@ -143,11 +142,11 @@ public class WorkspaceDocuments {
      * @param addWorkspaceDocumentRequest 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public AddWorkspaceDocumentResponse addWorkspaceDocument(
             String accountId, String workspaceId,
-            Optional<? extends AddWorkspaceDocumentRequest> addWorkspaceDocumentRequest, Optional<Options> options) throws Exception {
+            Optional<? extends AddWorkspaceDocumentRequest> addWorkspaceDocumentRequest, Optional<Options> options) {
         com.docusign.iam.sdk.models.operations.AddWorkspaceDocumentRequest request =
             com.docusign.iam.sdk.models.operations.AddWorkspaceDocumentRequest
                 .builder()
@@ -182,11 +181,11 @@ public class WorkspaceDocuments {
      * @param workspaceId The ID of the workspace
      * @param documentId The ID of the document
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetWorkspaceDocumentResponse getWorkspaceDocument(
             String accountId, String workspaceId,
-            String documentId) throws Exception {
+            String documentId) {
         return getWorkspaceDocument(accountId, workspaceId, documentId,
             Optional.empty());
     }
@@ -202,11 +201,11 @@ public class WorkspaceDocuments {
      * @param documentId The ID of the document
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetWorkspaceDocumentResponse getWorkspaceDocument(
             String accountId, String workspaceId,
-            String documentId, Optional<Options> options) throws Exception {
+            String documentId, Optional<Options> options) {
         GetWorkspaceDocumentRequest request =
             GetWorkspaceDocumentRequest
                 .builder()
@@ -239,11 +238,11 @@ public class WorkspaceDocuments {
      * @param workspaceId The ID of the workspace
      * @param documentId The ID of the document
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public DeleteWorkspaceDocumentResponse deleteWorkspaceDocument(
             String accountId, String workspaceId,
-            String documentId) throws Exception {
+            String documentId) {
         return deleteWorkspaceDocument(accountId, workspaceId, documentId,
             Optional.empty());
     }
@@ -258,11 +257,11 @@ public class WorkspaceDocuments {
      * @param documentId The ID of the document
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public DeleteWorkspaceDocumentResponse deleteWorkspaceDocument(
             String accountId, String workspaceId,
-            String documentId, Optional<Options> options) throws Exception {
+            String documentId, Optional<Options> options) {
         DeleteWorkspaceDocumentRequest request =
             DeleteWorkspaceDocumentRequest
                 .builder()
@@ -297,11 +296,11 @@ public class WorkspaceDocuments {
      * @param workspaceId The ID of the workspace
      * @param documentId The ID of the document
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetWorkspaceDocumentContentsResponse getWorkspaceDocumentContents(
             String accountId, String workspaceId,
-            String documentId) throws Exception {
+            String documentId) {
         return getWorkspaceDocumentContents(accountId, workspaceId, documentId,
             Optional.empty());
     }
@@ -317,11 +316,11 @@ public class WorkspaceDocuments {
      * @param documentId The ID of the document
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetWorkspaceDocumentContentsResponse getWorkspaceDocumentContents(
             String accountId, String workspaceId,
-            String documentId, Optional<Options> options) throws Exception {
+            String documentId, Optional<Options> options) {
         GetWorkspaceDocumentContentsRequest request =
             GetWorkspaceDocumentContentsRequest
                 .builder()

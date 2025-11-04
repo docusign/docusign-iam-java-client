@@ -11,7 +11,6 @@ import com.docusign.iam.sdk.models.operations.ConnectedFieldsApiGetTabGroupsResp
 import com.docusign.iam.sdk.operations.ConnectedFieldsApiGetTabGroups;
 import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -50,9 +49,9 @@ public class TabInfo {
      * 
      * @param accountId 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ConnectedFieldsApiGetTabGroupsResponse getConnectedFieldsTabGroups(String accountId) throws Exception {
+    public ConnectedFieldsApiGetTabGroupsResponse getConnectedFieldsTabGroups(String accountId) {
         return getConnectedFieldsTabGroups(accountId, Optional.empty(), Optional.empty());
     }
 
@@ -69,11 +68,11 @@ public class TabInfo {
      * @param appId 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public ConnectedFieldsApiGetTabGroupsResponse getConnectedFieldsTabGroups(
             String accountId, Optional<String> appId,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         ConnectedFieldsApiGetTabGroupsRequest request =
             ConnectedFieldsApiGetTabGroupsRequest
                 .builder()

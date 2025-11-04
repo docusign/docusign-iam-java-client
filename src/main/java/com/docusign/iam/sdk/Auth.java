@@ -29,7 +29,6 @@ import com.docusign.iam.sdk.operations.GetTokenFromRefreshToken;
 import com.docusign.iam.sdk.operations.GetUserInfo;
 import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -67,9 +66,9 @@ public class Auth {
      * @param request The request object containing all the parameters for the API call.
      * @param security The security details to use for authentication.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetTokenFromConfidentialAuthCodeResponse getTokenFromConfidentialAuthCode(ConfidentialAuthCodeGrantRequestBody request, GetTokenFromConfidentialAuthCodeSecurity security) throws Exception {
+    public GetTokenFromConfidentialAuthCodeResponse getTokenFromConfidentialAuthCode(ConfidentialAuthCodeGrantRequestBody request, GetTokenFromConfidentialAuthCodeSecurity security) {
         return getTokenFromConfidentialAuthCode(request, security, Optional.empty(),
             Optional.empty());
     }
@@ -87,11 +86,11 @@ public class Auth {
      * @param serverURL Overrides the server URL.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetTokenFromConfidentialAuthCodeResponse getTokenFromConfidentialAuthCode(
             ConfidentialAuthCodeGrantRequestBody request, GetTokenFromConfidentialAuthCodeSecurity security,
-            Optional<String> serverURL, Optional<Options> options) throws Exception {
+            Optional<String> serverURL, Optional<Options> options) {
         RequestOperation<ConfidentialAuthCodeGrantRequestBody, GetTokenFromConfidentialAuthCodeResponse> operation
               = new GetTokenFromConfidentialAuthCode.Sync(
                                     sdkConfiguration, security, serverURL,
@@ -123,9 +122,9 @@ public class Auth {
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetTokenFromPublicAuthCodeResponse getTokenFromPublicAuthCode(PublicAuthCodeGrantRequestBody request) throws Exception {
+    public GetTokenFromPublicAuthCodeResponse getTokenFromPublicAuthCode(PublicAuthCodeGrantRequestBody request) {
         return getTokenFromPublicAuthCode(request, Optional.empty(), Optional.empty());
     }
 
@@ -141,11 +140,11 @@ public class Auth {
      * @param serverURL Overrides the server URL.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetTokenFromPublicAuthCodeResponse getTokenFromPublicAuthCode(
             PublicAuthCodeGrantRequestBody request, Optional<String> serverURL,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         RequestOperation<PublicAuthCodeGrantRequestBody, GetTokenFromPublicAuthCodeResponse> operation
               = new GetTokenFromPublicAuthCode.Sync(
                                     sdkConfiguration, serverURL, options,
@@ -183,9 +182,9 @@ public class Auth {
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetTokenFromJWTGrantResponse getTokenFromJwtGrant(JWTGrant request) throws Exception {
+    public GetTokenFromJWTGrantResponse getTokenFromJwtGrant(JWTGrant request) {
         return getTokenFromJwtGrant(request, Optional.empty(), Optional.empty());
     }
 
@@ -204,11 +203,11 @@ public class Auth {
      * @param serverURL Overrides the server URL.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetTokenFromJWTGrantResponse getTokenFromJwtGrant(
             JWTGrant request, Optional<String> serverURL,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         RequestOperation<JWTGrant, GetTokenFromJWTGrantResponse> operation
               = new GetTokenFromJWTGrant.Sync(
                                     sdkConfiguration, serverURL, options,
@@ -243,9 +242,9 @@ public class Auth {
      * @param request The request object containing all the parameters for the API call.
      * @param security The security details to use for authentication.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetTokenFromRefreshTokenResponse getTokenFromRefreshToken(AuthorizationCodeGrant request, GetTokenFromRefreshTokenSecurity security) throws Exception {
+    public GetTokenFromRefreshTokenResponse getTokenFromRefreshToken(AuthorizationCodeGrant request, GetTokenFromRefreshTokenSecurity security) {
         return getTokenFromRefreshToken(request, security, Optional.empty(),
             Optional.empty());
     }
@@ -264,11 +263,11 @@ public class Auth {
      * @param serverURL Overrides the server URL.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetTokenFromRefreshTokenResponse getTokenFromRefreshToken(
             AuthorizationCodeGrant request, GetTokenFromRefreshTokenSecurity security,
-            Optional<String> serverURL, Optional<Options> options) throws Exception {
+            Optional<String> serverURL, Optional<Options> options) {
         RequestOperation<AuthorizationCodeGrant, GetTokenFromRefreshTokenResponse> operation
               = new GetTokenFromRefreshToken.Sync(
                                     sdkConfiguration, security, serverURL,
@@ -297,9 +296,9 @@ public class Auth {
      * For the production environment, the URI is https://account.docusign.com/oauth/userinfo
      * 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetUserInfoResponse getUserInfoDirect() throws Exception {
+    public GetUserInfoResponse getUserInfoDirect() {
         return getUserInfo(Optional.empty(), Optional.empty());
     }
 
@@ -313,9 +312,9 @@ public class Auth {
      * @param serverURL Overrides the server URL.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetUserInfoResponse getUserInfo(Optional<String> serverURL, Optional<Options> options) throws Exception {
+    public GetUserInfoResponse getUserInfo(Optional<String> serverURL, Optional<Options> options) {
         RequestlessOperation<GetUserInfoResponse> operation
             = new GetUserInfo.Sync(
                                     sdkConfiguration, serverURL, options,

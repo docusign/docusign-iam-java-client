@@ -9,250 +9,314 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.annotation.Nullable;
+import java.io.InputStream;
+import java.lang.Deprecated;
 import java.lang.Override;
-import java.lang.RuntimeException;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.lang.Throwable;
+import java.net.http.HttpResponse;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 
-/**
- * Error
- * 
- * <p>Bad Request - The request could not be understood or was missing required parameters.
- */
 @SuppressWarnings("serial")
-public class Error extends RuntimeException {
-    /**
-     * A message describing the error.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("error")
-    private Optional<String> error;
+public class Error extends IamClientError {
 
-    /**
-     * HTTP status code for the error.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("code")
-    private Optional<String> code;
+    @Nullable
+    private final Data data;
 
-    /**
-     * The timestamp when the error occurred.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("timestamp")
-    private Optional<OffsetDateTime> timestamp;
+    @Nullable
+    private final Throwable deserializationException;
 
-    @JsonCreator
     public Error(
-            @JsonProperty("error") Optional<String> error,
-            @JsonProperty("code") Optional<String> code,
-            @JsonProperty("timestamp") Optional<OffsetDateTime> timestamp) {
-        super("API error occurred");
-        Utils.checkNotNull(error, "error");
-        Utils.checkNotNull(code, "code");
-        Utils.checkNotNull(timestamp, "timestamp");
-        this.error = error;
-        this.code = code;
-        this.timestamp = timestamp;
+                int code,
+                byte[] body,
+                HttpResponse<?> rawResponse,
+                @Nullable Data data,
+                @Nullable Throwable deserializationException) {
+        super("API error occurred", code, body, rawResponse, null);
+        this.data = data;
+        this.deserializationException = deserializationException;
     }
-    
-    public Error() {
-        this(Optional.empty(), Optional.empty(), Optional.empty());
+
+    /**
+    * Parse a response into an instance of Error. If deserialization of the response body fails,
+    * the resulting Error instance will have a null data() value and a non-null deserializationException().
+    */
+    public static Error from(HttpResponse<InputStream> response) {
+        try {
+            byte[] bytes = Utils.extractByteArrayFromBody(response);
+            Data data = Utils.mapper().readValue(bytes, Data.class);
+            return new Error(response.statusCode(), bytes, response, data, null);
+        } catch (Exception e) {
+            return new Error(response.statusCode(), null, response, null, e);
+        }
     }
 
     /**
      * A message describing the error.
      */
-    @JsonIgnore
+    @Deprecated
     public Optional<String> error() {
-        return error;
-    }
-
-    /**
-     * HTTP status code for the error.
-     */
-    @JsonIgnore
-    public Optional<String> code() {
-        return code;
+        return data().flatMap(Data::error);
     }
 
     /**
      * The timestamp when the error occurred.
      */
-    @JsonIgnore
+    @Deprecated
     public Optional<OffsetDateTime> timestamp() {
-        return timestamp;
+        return data().flatMap(Data::timestamp);
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
-
-    /**
-     * A message describing the error.
-     */
-    public Error withError(String error) {
-        Utils.checkNotNull(error, "error");
-        this.error = Optional.ofNullable(error);
-        return this;
-    }
-
-
-    /**
-     * A message describing the error.
-     */
-    public Error withError(Optional<String> error) {
-        Utils.checkNotNull(error, "error");
-        this.error = error;
-        return this;
+    public Optional<Data> data() {
+        return Optional.ofNullable(data);
     }
 
     /**
-     * HTTP status code for the error.
+     * Returns the exception if an error occurs while deserializing the response body.
      */
-    public Error withCode(String code) {
-        Utils.checkNotNull(code, "code");
-        this.code = Optional.ofNullable(code);
-        return this;
+    public Optional<Throwable> deserializationException() {
+        return Optional.ofNullable(deserializationException);
     }
-
-
     /**
-     * HTTP status code for the error.
+     * Data
+     * 
+     * <p>Bad Request - The request could not be understood or was missing required parameters.
      */
-    public Error withCode(Optional<String> code) {
-        Utils.checkNotNull(code, "code");
-        this.code = code;
-        return this;
-    }
+    public static class Data {
+        /**
+         * A message describing the error.
+         */
+        @JsonInclude(Include.NON_ABSENT)
+        @JsonProperty("error")
+        private Optional<String> error;
 
-    /**
-     * The timestamp when the error occurred.
-     */
-    public Error withTimestamp(OffsetDateTime timestamp) {
-        Utils.checkNotNull(timestamp, "timestamp");
-        this.timestamp = Optional.ofNullable(timestamp);
-        return this;
-    }
+        /**
+         * HTTP status code for the error.
+         */
+        @JsonInclude(Include.NON_ABSENT)
+        @JsonProperty("code")
+        private Optional<String> code;
 
+        /**
+         * The timestamp when the error occurred.
+         */
+        @JsonInclude(Include.NON_ABSENT)
+        @JsonProperty("timestamp")
+        private Optional<OffsetDateTime> timestamp;
 
-    /**
-     * The timestamp when the error occurred.
-     */
-    public Error withTimestamp(Optional<OffsetDateTime> timestamp) {
-        Utils.checkNotNull(timestamp, "timestamp");
-        this.timestamp = timestamp;
-        return this;
-    }
-
-    @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
+        @JsonCreator
+        public Data(
+                @JsonProperty("error") Optional<String> error,
+                @JsonProperty("code") Optional<String> code,
+                @JsonProperty("timestamp") Optional<OffsetDateTime> timestamp) {
+            Utils.checkNotNull(error, "error");
+            Utils.checkNotNull(code, "code");
+            Utils.checkNotNull(timestamp, "timestamp");
+            this.error = error;
+            this.code = code;
+            this.timestamp = timestamp;
         }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
+        
+        public Data() {
+            this(Optional.empty(), Optional.empty(), Optional.empty());
         }
-        Error other = (Error) o;
-        return 
-            Utils.enhancedDeepEquals(this.error, other.error) &&
-            Utils.enhancedDeepEquals(this.code, other.code) &&
-            Utils.enhancedDeepEquals(this.timestamp, other.timestamp);
-    }
-    
-    @Override
-    public int hashCode() {
-        return Utils.enhancedHash(
-            error, code, timestamp);
-    }
-    
-    @Override
-    public String toString() {
-        return Utils.toString(Error.class,
-                "error", error,
-                "code", code,
-                "timestamp", timestamp);
-    }
 
-    @SuppressWarnings("UnusedReturnValue")
-    public final static class Builder {
+        /**
+         * A message describing the error.
+         */
+        @JsonIgnore
+        public Optional<String> error() {
+            return error;
+        }
 
-        private Optional<String> error = Optional.empty();
+        /**
+         * HTTP status code for the error.
+         */
+        @JsonIgnore
+        public Optional<String> code() {
+            return code;
+        }
 
-        private Optional<String> code = Optional.empty();
+        /**
+         * The timestamp when the error occurred.
+         */
+        @JsonIgnore
+        public Optional<OffsetDateTime> timestamp() {
+            return timestamp;
+        }
 
-        private Optional<OffsetDateTime> timestamp = Optional.empty();
-
-        private Builder() {
-          // force use of static builder() method
+        public static Builder builder() {
+            return new Builder();
         }
 
 
         /**
          * A message describing the error.
          */
-        public Builder error(String error) {
+        public Data withError(String error) {
             Utils.checkNotNull(error, "error");
             this.error = Optional.ofNullable(error);
             return this;
         }
 
+
         /**
          * A message describing the error.
          */
-        public Builder error(Optional<String> error) {
+        public Data withError(Optional<String> error) {
             Utils.checkNotNull(error, "error");
             this.error = error;
             return this;
         }
 
-
         /**
          * HTTP status code for the error.
          */
-        public Builder code(String code) {
+        public Data withCode(String code) {
             Utils.checkNotNull(code, "code");
             this.code = Optional.ofNullable(code);
             return this;
         }
 
+
         /**
          * HTTP status code for the error.
          */
-        public Builder code(Optional<String> code) {
+        public Data withCode(Optional<String> code) {
             Utils.checkNotNull(code, "code");
             this.code = code;
             return this;
         }
 
-
         /**
          * The timestamp when the error occurred.
          */
-        public Builder timestamp(OffsetDateTime timestamp) {
+        public Data withTimestamp(OffsetDateTime timestamp) {
             Utils.checkNotNull(timestamp, "timestamp");
             this.timestamp = Optional.ofNullable(timestamp);
             return this;
         }
 
+
         /**
          * The timestamp when the error occurred.
          */
-        public Builder timestamp(Optional<OffsetDateTime> timestamp) {
+        public Data withTimestamp(Optional<OffsetDateTime> timestamp) {
             Utils.checkNotNull(timestamp, "timestamp");
             this.timestamp = timestamp;
             return this;
         }
 
-        public Error build() {
-
-            return new Error(
+        @Override
+        public boolean equals(java.lang.Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            Data other = (Data) o;
+            return 
+                Utils.enhancedDeepEquals(this.error, other.error) &&
+                Utils.enhancedDeepEquals(this.code, other.code) &&
+                Utils.enhancedDeepEquals(this.timestamp, other.timestamp);
+        }
+        
+        @Override
+        public int hashCode() {
+            return Utils.enhancedHash(
                 error, code, timestamp);
         }
+        
+        @Override
+        public String toString() {
+            return Utils.toString(Data.class,
+                    "error", error,
+                    "code", code,
+                    "timestamp", timestamp);
+        }
 
+        @SuppressWarnings("UnusedReturnValue")
+        public final static class Builder {
+
+            private Optional<String> error = Optional.empty();
+
+            private Optional<String> code = Optional.empty();
+
+            private Optional<OffsetDateTime> timestamp = Optional.empty();
+
+            private Builder() {
+              // force use of static builder() method
+            }
+
+
+            /**
+             * A message describing the error.
+             */
+            public Builder error(String error) {
+                Utils.checkNotNull(error, "error");
+                this.error = Optional.ofNullable(error);
+                return this;
+            }
+
+            /**
+             * A message describing the error.
+             */
+            public Builder error(Optional<String> error) {
+                Utils.checkNotNull(error, "error");
+                this.error = error;
+                return this;
+            }
+
+
+            /**
+             * HTTP status code for the error.
+             */
+            public Builder code(String code) {
+                Utils.checkNotNull(code, "code");
+                this.code = Optional.ofNullable(code);
+                return this;
+            }
+
+            /**
+             * HTTP status code for the error.
+             */
+            public Builder code(Optional<String> code) {
+                Utils.checkNotNull(code, "code");
+                this.code = code;
+                return this;
+            }
+
+
+            /**
+             * The timestamp when the error occurred.
+             */
+            public Builder timestamp(OffsetDateTime timestamp) {
+                Utils.checkNotNull(timestamp, "timestamp");
+                this.timestamp = Optional.ofNullable(timestamp);
+                return this;
+            }
+
+            /**
+             * The timestamp when the error occurred.
+             */
+            public Builder timestamp(Optional<OffsetDateTime> timestamp) {
+                Utils.checkNotNull(timestamp, "timestamp");
+                this.timestamp = timestamp;
+                return this;
+            }
+
+            public Data build() {
+
+                return new Data(
+                    error, code, timestamp);
+            }
+
+        }
     }
+
 }
 

@@ -7,6 +7,7 @@
 
 * [getWorkspaces](#getworkspaces) - Gets workspaces available to the calling user
 * [createWorkspace](#createworkspace) - Creates a new workspace
+* [updateWorkspace](#updateworkspace) - Updates an existing workspace
 * [getWorkspace](#getworkspace) - Returns details about the workspace
 * [getWorkspaceAssignableRoles](#getworkspaceassignableroles) - Returns the roles the caller can assign to workspace users
 * [createWorkspaceEnvelope](#createworkspaceenvelope) - Creates an envelope with the given documents. Returns the ID of the created envelope
@@ -118,6 +119,65 @@ public class Application {
 ### Response
 
 **[CreateWorkspaceResponse](../../models/operations/CreateWorkspaceResponse.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models/errors/ErrorDetails | 400, 401                   | application/json           |
+| models/errors/ErrorDetails | 500                        | application/json           |
+| models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
+
+## updateWorkspace
+
+This operation updates details about a specific workspace. It returns the workspace's unique identifier (ID), name, and metadata such as when it was created and by whom.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="updateWorkspace" method="put" path="/v1/accounts/{accountId}/workspaces/{workspaceId}" -->
+```java
+package hello.world;
+
+import com.docusign.iam.sdk.IamClient;
+import com.docusign.iam.sdk.models.components.UpdateWorkspaceBody;
+import com.docusign.iam.sdk.models.errors.ErrorDetails;
+import com.docusign.iam.sdk.models.operations.UpdateWorkspaceResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ErrorDetails, ErrorDetails, Exception {
+
+        IamClient sdk = IamClient.builder()
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
+            .build();
+
+        UpdateWorkspaceResponse res = sdk.workspaces().workspaces().updateWorkspace()
+                .accountId("a03ca946-93ee-47cf-8cbe-a53c7e3284bf")
+                .workspaceId("c41ace15-4a79-4fe4-84bb-81adc9c7df98")
+                .updateWorkspaceBody(UpdateWorkspaceBody.builder()
+                    .name("<value>")
+                    .build())
+                .call();
+
+        if (res.updateWorkspaceResponse().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                             | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `accountId`                                                           | *String*                                                              | :heavy_check_mark:                                                    | The ID of the account                                                 |
+| `workspaceId`                                                         | *String*                                                              | :heavy_check_mark:                                                    | The ID of the workspace                                               |
+| `updateWorkspaceBody`                                                 | [UpdateWorkspaceBody](../../models/components/UpdateWorkspaceBody.md) | :heavy_check_mark:                                                    | N/A                                                                   |
+
+### Response
+
+**[UpdateWorkspaceResponse](../../models/operations/UpdateWorkspaceResponse.md)**
 
 ### Errors
 

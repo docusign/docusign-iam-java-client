@@ -68,3 +68,13 @@ Based on:
 - [java v1.0.0-beta.6] .
 ### Releases
 - [Maven Central v1.0.0-beta.6] https://central.sonatype.com/artifact/com.docusign/iam-sdk/1.0.0-beta.6 - .
+
+## 2025-10-17 12:40:18
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.637.0 (2.727.4) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [java v1.0.0-beta.7] .
+### Releases
+- [Maven Central v1.0.0-beta.7] https://central.sonatype.com/artifact/com.docusign/iam-sdk/1.0.0-beta.7 - .

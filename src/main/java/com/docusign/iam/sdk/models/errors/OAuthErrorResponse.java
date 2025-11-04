@@ -9,149 +9,208 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.annotation.Nullable;
+import java.io.InputStream;
+import java.lang.Deprecated;
 import java.lang.Override;
-import java.lang.RuntimeException;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.lang.Throwable;
+import java.net.http.HttpResponse;
+import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-
 @SuppressWarnings("serial")
-public class OAuthErrorResponse extends RuntimeException {
+public class OAuthErrorResponse extends IamClientError {
 
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("error")
-    private JsonNullable<String> error;
+    @Nullable
+    private final Data data;
 
+    @Nullable
+    private final Throwable deserializationException;
 
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("error_description")
-    private JsonNullable<String> errorDescription;
-
-    @JsonCreator
     public OAuthErrorResponse(
-            @JsonProperty("error") JsonNullable<String> error,
-            @JsonProperty("error_description") JsonNullable<String> errorDescription) {
-        super("API error occurred");
-        Utils.checkNotNull(error, "error");
-        Utils.checkNotNull(errorDescription, "errorDescription");
-        this.error = error;
-        this.errorDescription = errorDescription;
-    }
-    
-    public OAuthErrorResponse() {
-        this(JsonNullable.undefined(), JsonNullable.undefined());
+                int code,
+                byte[] body,
+                HttpResponse<?> rawResponse,
+                @Nullable Data data,
+                @Nullable Throwable deserializationException) {
+        super("API error occurred", code, body, rawResponse, null);
+        this.data = data;
+        this.deserializationException = deserializationException;
     }
 
-    @JsonIgnore
-    public JsonNullable<String> error() {
-        return error;
-    }
-
-    @JsonIgnore
-    public JsonNullable<String> errorDescription() {
-        return errorDescription;
-    }
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
-
-    public OAuthErrorResponse withError(String error) {
-        Utils.checkNotNull(error, "error");
-        this.error = JsonNullable.of(error);
-        return this;
-    }
-
-    public OAuthErrorResponse withError(JsonNullable<String> error) {
-        Utils.checkNotNull(error, "error");
-        this.error = error;
-        return this;
-    }
-
-    public OAuthErrorResponse withErrorDescription(String errorDescription) {
-        Utils.checkNotNull(errorDescription, "errorDescription");
-        this.errorDescription = JsonNullable.of(errorDescription);
-        return this;
-    }
-
-    public OAuthErrorResponse withErrorDescription(JsonNullable<String> errorDescription) {
-        Utils.checkNotNull(errorDescription, "errorDescription");
-        this.errorDescription = errorDescription;
-        return this;
-    }
-
-    @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
+    /**
+    * Parse a response into an instance of OAuthErrorResponse. If deserialization of the response body fails,
+    * the resulting OAuthErrorResponse instance will have a null data() value and a non-null deserializationException().
+    */
+    public static OAuthErrorResponse from(HttpResponse<InputStream> response) {
+        try {
+            byte[] bytes = Utils.extractByteArrayFromBody(response);
+            Data data = Utils.mapper().readValue(bytes, Data.class);
+            return new OAuthErrorResponse(response.statusCode(), bytes, response, data, null);
+        } catch (Exception e) {
+            return new OAuthErrorResponse(response.statusCode(), null, response, null, e);
         }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
+    }
+
+    @Deprecated
+    public Optional<JsonNullable<String>> error() {
+        return data().map(Data::error);
+    }
+
+    @Deprecated
+    public Optional<JsonNullable<String>> errorDescription() {
+        return data().map(Data::errorDescription);
+    }
+
+    public Optional<Data> data() {
+        return Optional.ofNullable(data);
+    }
+
+    /**
+     * Returns the exception if an error occurs while deserializing the response body.
+     */
+    public Optional<Throwable> deserializationException() {
+        return Optional.ofNullable(deserializationException);
+    }
+
+    public static class Data {
+
+        @JsonInclude(Include.NON_ABSENT)
+        @JsonProperty("error")
+        private JsonNullable<String> error;
+
+
+        @JsonInclude(Include.NON_ABSENT)
+        @JsonProperty("error_description")
+        private JsonNullable<String> errorDescription;
+
+        @JsonCreator
+        public Data(
+                @JsonProperty("error") JsonNullable<String> error,
+                @JsonProperty("error_description") JsonNullable<String> errorDescription) {
+            Utils.checkNotNull(error, "error");
+            Utils.checkNotNull(errorDescription, "errorDescription");
+            this.error = error;
+            this.errorDescription = errorDescription;
         }
-        OAuthErrorResponse other = (OAuthErrorResponse) o;
-        return 
-            Utils.enhancedDeepEquals(this.error, other.error) &&
-            Utils.enhancedDeepEquals(this.errorDescription, other.errorDescription);
-    }
-    
-    @Override
-    public int hashCode() {
-        return Utils.enhancedHash(
-            error, errorDescription);
-    }
-    
-    @Override
-    public String toString() {
-        return Utils.toString(OAuthErrorResponse.class,
-                "error", error,
-                "errorDescription", errorDescription);
-    }
+        
+        public Data() {
+            this(JsonNullable.undefined(), JsonNullable.undefined());
+        }
 
-    @SuppressWarnings("UnusedReturnValue")
-    public final static class Builder {
+        @JsonIgnore
+        public JsonNullable<String> error() {
+            return error;
+        }
 
-        private JsonNullable<String> error = JsonNullable.undefined();
+        @JsonIgnore
+        public JsonNullable<String> errorDescription() {
+            return errorDescription;
+        }
 
-        private JsonNullable<String> errorDescription = JsonNullable.undefined();
-
-        private Builder() {
-          // force use of static builder() method
+        public static Builder builder() {
+            return new Builder();
         }
 
 
-        public Builder error(String error) {
+        public Data withError(String error) {
             Utils.checkNotNull(error, "error");
             this.error = JsonNullable.of(error);
             return this;
         }
 
-        public Builder error(JsonNullable<String> error) {
+        public Data withError(JsonNullable<String> error) {
             Utils.checkNotNull(error, "error");
             this.error = error;
             return this;
         }
 
-
-        public Builder errorDescription(String errorDescription) {
+        public Data withErrorDescription(String errorDescription) {
             Utils.checkNotNull(errorDescription, "errorDescription");
             this.errorDescription = JsonNullable.of(errorDescription);
             return this;
         }
 
-        public Builder errorDescription(JsonNullable<String> errorDescription) {
+        public Data withErrorDescription(JsonNullable<String> errorDescription) {
             Utils.checkNotNull(errorDescription, "errorDescription");
             this.errorDescription = errorDescription;
             return this;
         }
 
-        public OAuthErrorResponse build() {
-
-            return new OAuthErrorResponse(
+        @Override
+        public boolean equals(java.lang.Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            Data other = (Data) o;
+            return 
+                Utils.enhancedDeepEquals(this.error, other.error) &&
+                Utils.enhancedDeepEquals(this.errorDescription, other.errorDescription);
+        }
+        
+        @Override
+        public int hashCode() {
+            return Utils.enhancedHash(
                 error, errorDescription);
         }
+        
+        @Override
+        public String toString() {
+            return Utils.toString(Data.class,
+                    "error", error,
+                    "errorDescription", errorDescription);
+        }
 
+        @SuppressWarnings("UnusedReturnValue")
+        public final static class Builder {
+
+            private JsonNullable<String> error = JsonNullable.undefined();
+
+            private JsonNullable<String> errorDescription = JsonNullable.undefined();
+
+            private Builder() {
+              // force use of static builder() method
+            }
+
+
+            public Builder error(String error) {
+                Utils.checkNotNull(error, "error");
+                this.error = JsonNullable.of(error);
+                return this;
+            }
+
+            public Builder error(JsonNullable<String> error) {
+                Utils.checkNotNull(error, "error");
+                this.error = error;
+                return this;
+            }
+
+
+            public Builder errorDescription(String errorDescription) {
+                Utils.checkNotNull(errorDescription, "errorDescription");
+                this.errorDescription = JsonNullable.of(errorDescription);
+                return this;
+            }
+
+            public Builder errorDescription(JsonNullable<String> errorDescription) {
+                Utils.checkNotNull(errorDescription, "errorDescription");
+                this.errorDescription = errorDescription;
+                return this;
+            }
+
+            public Data build() {
+
+                return new Data(
+                    error, errorDescription);
+            }
+
+        }
     }
+
 }
 
