@@ -5,6 +5,7 @@ package com.docusign.iam.sdk.operations;
 
 import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 import static com.docusign.iam.sdk.utils.Retries.NonRetryableException;
+import static com.docusign.iam.sdk.utils.Exceptions.unchecked;
 
 import com.docusign.iam.sdk.SDKConfiguration;
 import com.docusign.iam.sdk.SecuritySource;
@@ -30,6 +31,7 @@ import com.docusign.iam.sdk.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
 import java.lang.Exception;
+import java.lang.IllegalArgumentException;
 import java.lang.Object;
 import java.lang.String;
 import java.net.http.HttpRequest;
@@ -142,7 +144,7 @@ public class GetTokenFromConfidentialAuthCode {
                     "form",
                     false);
             if (serializedRequestBody == null) {
-                throw new Exception("Request body is required");
+                throw new IllegalArgumentException("Request body is required");
             }
             req.setBody(Optional.ofNullable(serializedRequestBody));
             req.addHeader("Accept", "application/json")
@@ -183,7 +185,7 @@ public class GetTokenFromConfidentialAuthCode {
         }
 
         @Override
-        public HttpResponse<InputStream> doRequest(ConfidentialAuthCodeGrantRequestBody request) throws Exception {
+        public HttpResponse<InputStream> doRequest(ConfidentialAuthCodeGrantRequestBody request) {
             Retries retries = Retries.builder()
                     .action(() -> {
                         HttpRequest r;
@@ -205,12 +207,12 @@ public class GetTokenFromConfidentialAuthCode {
                     .retryConfig(retryConfig)
                     .statusCodes(retryStatusCodes)
                     .build();
-            return onSuccess(retries.run());
+            return unchecked(() -> onSuccess(retries.run())).get();
         }
 
 
         @Override
-        public GetTokenFromConfidentialAuthCodeResponse handleResponse(HttpResponse<InputStream> response) throws Exception {
+        public GetTokenFromConfidentialAuthCodeResponse handleResponse(HttpResponse<InputStream> response) {
             String contentType = response
                     .headers()
                     .firstValue("Content-Type")
@@ -226,60 +228,27 @@ public class GetTokenFromConfidentialAuthCode {
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    AuthorizationCodeGrantResponse out = Utils.mapper().readValue(
-                            response.body(),
-                            new TypeReference<>() {
-                            });
-                    res.withAuthorizationCodeGrantResponse(out);
-                    return res;
+                    return res.withAuthorizationCodeGrantResponse(Utils.unmarshal(response, new TypeReference<AuthorizationCodeGrantResponse>() {}));
                 } else {
-                    throw new APIException(
-                            response,
-                            response.statusCode(),
-                            "Unexpected content-type received: " + contentType,
-                            Utils.extractByteArrayFromBody(response));
+                    throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            
             if (Utils.statusCodeMatches(response.statusCode(), "400")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    OAuthErrorResponse out = Utils.mapper().readValue(
-                            response.body(),
-                            new TypeReference<>() {
-                            });
-                    throw out;
+                    throw OAuthErrorResponse.from(response);
                 } else {
-                    throw new APIException(
-                            response,
-                            response.statusCode(),
-                            "Unexpected content-type received: " + contentType,
-                            Utils.extractByteArrayFromBody(response));
+                    throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            
             if (Utils.statusCodeMatches(response.statusCode(), "4XX")) {
                 // no content
-                throw new APIException(
-                        response,
-                        response.statusCode(),
-                        "API error occurred",
-                        Utils.extractByteArrayFromBody(response));
+                throw APIException.from("API error occurred", response);
             }
-            
             if (Utils.statusCodeMatches(response.statusCode(), "5XX")) {
                 // no content
-                throw new APIException(
-                        response,
-                        response.statusCode(),
-                        "API error occurred",
-                        Utils.extractByteArrayFromBody(response));
+                throw APIException.from("API error occurred", response);
             }
-            
-            throw new APIException(
-                    response,
-                    response.statusCode(),
-                    "Unexpected status code received: " + response.statusCode(),
-                    Utils.extractByteArrayFromBody(response));
+            throw APIException.from("Unexpected status code received: " + response.statusCode(), response);
         }
     }
 }

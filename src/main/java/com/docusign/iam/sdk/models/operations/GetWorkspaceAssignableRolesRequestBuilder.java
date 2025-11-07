@@ -11,7 +11,6 @@ import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
-import java.lang.Exception;
 import java.util.Optional;
 
 public class GetWorkspaceAssignableRolesRequestBuilder {
@@ -43,7 +42,7 @@ public class GetWorkspaceAssignableRolesRequestBuilder {
         return this;
     }
 
-    public GetWorkspaceAssignableRolesResponse call() throws Exception {
+    public GetWorkspaceAssignableRolesResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());

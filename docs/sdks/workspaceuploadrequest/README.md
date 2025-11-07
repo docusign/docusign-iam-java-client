@@ -207,6 +207,7 @@ import com.docusign.iam.sdk.models.components.WorkspaceUploadRequestStatus;
 import com.docusign.iam.sdk.models.errors.ErrorDetails;
 import com.docusign.iam.sdk.models.operations.UpdateWorkspaceUploadRequestResponse;
 import java.lang.Exception;
+import java.time.OffsetDateTime;
 
 public class Application {
 
@@ -224,7 +225,7 @@ public class Application {
                     .name("<value>")
                     .description("at providence phew furthermore save digitize than how circa never")
                     .status(WorkspaceUploadRequestStatus.OVERDUE)
-                    .dueDate("<value>")
+                    .dueDate(OffsetDateTime.parse("<value>"))
                     .build())
                 .call();
 

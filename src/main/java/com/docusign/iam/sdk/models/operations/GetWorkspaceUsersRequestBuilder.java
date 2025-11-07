@@ -11,7 +11,6 @@ import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
-import java.lang.Exception;
 import java.util.Optional;
 
 public class GetWorkspaceUsersRequestBuilder {
@@ -43,7 +42,7 @@ public class GetWorkspaceUsersRequestBuilder {
         return this;
     }
 
-    public GetWorkspaceUsersResponse call() throws Exception {
+    public GetWorkspaceUsersResponse call() {
         Optional<Options> options = Optional.of(Options.builder()
             .retryConfig(retryConfig)
             .build());

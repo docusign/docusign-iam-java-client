@@ -30,7 +30,6 @@ import com.docusign.iam.sdk.operations.RevokeWorkspaceUserAccess;
 import com.docusign.iam.sdk.operations.UpdateWorkspaceUser;
 import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -71,9 +70,9 @@ public class WorkspaceUsers {
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetWorkspaceUsersResponse getWorkspaceUsers(GetWorkspaceUsersRequest request) throws Exception {
+    public GetWorkspaceUsersResponse getWorkspaceUsers(GetWorkspaceUsersRequest request) {
         return getWorkspaceUsers(request, Optional.empty());
     }
 
@@ -90,9 +89,9 @@ public class WorkspaceUsers {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetWorkspaceUsersResponse getWorkspaceUsers(GetWorkspaceUsersRequest request, Optional<Options> options) throws Exception {
+    public GetWorkspaceUsersResponse getWorkspaceUsers(GetWorkspaceUsersRequest request, Optional<Options> options) {
         RequestOperation<GetWorkspaceUsersRequest, GetWorkspaceUsersResponse> operation
               = new GetWorkspaceUsers.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
@@ -133,9 +132,9 @@ public class WorkspaceUsers {
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public AddWorkspaceUserResponse addWorkspaceUser(String accountId, String workspaceId) throws Exception {
+    public AddWorkspaceUserResponse addWorkspaceUser(String accountId, String workspaceId) {
         return addWorkspaceUser(accountId, workspaceId, Optional.empty(),
             Optional.empty());
     }
@@ -158,11 +157,11 @@ public class WorkspaceUsers {
      * @param workspaceUserForCreate 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public AddWorkspaceUserResponse addWorkspaceUser(
             String accountId, String workspaceId,
-            Optional<? extends WorkspaceUserForCreate> workspaceUserForCreate, Optional<Options> options) throws Exception {
+            Optional<? extends WorkspaceUserForCreate> workspaceUserForCreate, Optional<Options> options) {
         AddWorkspaceUserRequest request =
             AddWorkspaceUserRequest
                 .builder()
@@ -199,11 +198,11 @@ public class WorkspaceUsers {
      * @param workspaceId The ID of the workspace
      * @param userId The ID of the user to update
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public UpdateWorkspaceUserResponse updateWorkspaceUser(
             String accountId, String workspaceId,
-            String userId) throws Exception {
+            String userId) {
         return updateWorkspaceUser(accountId, workspaceId, userId,
             Optional.empty(), Optional.empty());
     }
@@ -221,12 +220,12 @@ public class WorkspaceUsers {
      * @param workspaceUserForUpdate 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public UpdateWorkspaceUserResponse updateWorkspaceUser(
             String accountId, String workspaceId,
             String userId, Optional<? extends WorkspaceUserForUpdate> workspaceUserForUpdate,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         UpdateWorkspaceUserRequest request =
             UpdateWorkspaceUserRequest
                 .builder()
@@ -262,11 +261,11 @@ public class WorkspaceUsers {
      * @param workspaceId The ID of the workspace to revoke access from
      * @param userId The ID of the user to be revoked from the workspace
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public RevokeWorkspaceUserAccessResponse revokeWorkspaceUserAccess(
             String accountId, String workspaceId,
-            String userId) throws Exception {
+            String userId) {
         return revokeWorkspaceUserAccess(accountId, workspaceId, userId,
             Optional.empty(), Optional.empty());
     }
@@ -283,12 +282,12 @@ public class WorkspaceUsers {
      * @param revokeWorkspaceUserDetails 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public RevokeWorkspaceUserAccessResponse revokeWorkspaceUserAccess(
             String accountId, String workspaceId,
             String userId, Optional<? extends RevokeWorkspaceUserDetails> revokeWorkspaceUserDetails,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         RevokeWorkspaceUserAccessRequest request =
             RevokeWorkspaceUserAccessRequest
                 .builder()
@@ -324,11 +323,11 @@ public class WorkspaceUsers {
      * @param workspaceId The ID of the workspace to restore access
      * @param userId The ID of the user to be restored to the workspace
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public RestoreWorkspaceUserAccessResponse restoreWorkspaceUserAccess(
             String accountId, String workspaceId,
-            String userId) throws Exception {
+            String userId) {
         return restoreWorkspaceUserAccess(accountId, workspaceId, userId,
             Optional.empty());
     }
@@ -344,11 +343,11 @@ public class WorkspaceUsers {
      * @param userId The ID of the user to be restored to the workspace
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public RestoreWorkspaceUserAccessResponse restoreWorkspaceUserAccess(
             String accountId, String workspaceId,
-            String userId, Optional<Options> options) throws Exception {
+            String userId, Optional<Options> options) {
         RestoreWorkspaceUserAccessRequest request =
             RestoreWorkspaceUserAccessRequest
                 .builder()

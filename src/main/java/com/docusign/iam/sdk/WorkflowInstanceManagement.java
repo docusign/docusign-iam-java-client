@@ -19,7 +19,6 @@ import com.docusign.iam.sdk.operations.GetWorkflowInstance;
 import com.docusign.iam.sdk.operations.GetWorkflowInstancesList;
 import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -99,9 +98,9 @@ public class WorkflowInstanceManagement {
      * @param accountId The unique identifier of the account.
      * @param workflowId 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetWorkflowInstancesListResponse getWorkflowInstancesList(String accountId, String workflowId) throws Exception {
+    public GetWorkflowInstancesListResponse getWorkflowInstancesList(String accountId, String workflowId) {
         return getWorkflowInstancesList(accountId, workflowId, Optional.empty());
     }
 
@@ -138,11 +137,11 @@ public class WorkflowInstanceManagement {
      * @param workflowId 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetWorkflowInstancesListResponse getWorkflowInstancesList(
             String accountId, String workflowId,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         GetWorkflowInstancesListRequest request =
             GetWorkflowInstancesListRequest
                 .builder()
@@ -214,11 +213,11 @@ public class WorkflowInstanceManagement {
      * @param workflowId 
      * @param instanceId Unique identifier for the workflow instance
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetWorkflowInstanceResponse getWorkflowInstance(
             String accountId, String workflowId,
-            String instanceId) throws Exception {
+            String instanceId) {
         return getWorkflowInstance(accountId, workflowId, instanceId,
             Optional.empty());
     }
@@ -253,11 +252,11 @@ public class WorkflowInstanceManagement {
      * @param instanceId Unique identifier for the workflow instance
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetWorkflowInstanceResponse getWorkflowInstance(
             String accountId, String workflowId,
-            String instanceId, Optional<Options> options) throws Exception {
+            String instanceId, Optional<Options> options) {
         GetWorkflowInstanceRequest request =
             GetWorkflowInstanceRequest
                 .builder()
@@ -310,11 +309,11 @@ public class WorkflowInstanceManagement {
      * @param workflowId 
      * @param instanceId Unique identifier for the workflow instance
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public CancelWorkflowInstanceResponse cancelWorkflowInstance(
             String accountId, String workflowId,
-            String instanceId) throws Exception {
+            String instanceId) {
         return cancelWorkflowInstance(accountId, workflowId, instanceId,
             Optional.empty());
     }
@@ -339,11 +338,11 @@ public class WorkflowInstanceManagement {
      * @param instanceId Unique identifier for the workflow instance
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public CancelWorkflowInstanceResponse cancelWorkflowInstance(
             String accountId, String workflowId,
-            String instanceId, Optional<Options> options) throws Exception {
+            String instanceId, Optional<Options> options) {
         CancelWorkflowInstanceRequest request =
             CancelWorkflowInstanceRequest
                 .builder()

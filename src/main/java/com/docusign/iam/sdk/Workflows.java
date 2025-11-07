@@ -28,7 +28,6 @@ import com.docusign.iam.sdk.operations.PauseNewWorkflowInstances;
 import com.docusign.iam.sdk.operations.ResumePausedWorkflow;
 import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -117,9 +116,9 @@ public class Workflows {
      * 
      * @param accountId The unique identifier of the account.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetWorkflowsListResponse getWorkflowsList(String accountId) throws Exception {
+    public GetWorkflowsListResponse getWorkflowsList(String accountId) {
         return getWorkflowsList(accountId, Optional.empty(), Optional.empty());
     }
 
@@ -168,11 +167,11 @@ public class Workflows {
      *         
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetWorkflowsListResponse getWorkflowsList(
             String accountId, Optional<? extends Status> status,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         GetWorkflowsListRequest request =
             GetWorkflowsListRequest
                 .builder()
@@ -251,9 +250,9 @@ public class Workflows {
      * @param accountId The unique identifier of the account.
      * @param workflowId 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetWorkflowTriggerRequirementsResponse getWorkflowTriggerRequirements(String accountId, String workflowId) throws Exception {
+    public GetWorkflowTriggerRequirementsResponse getWorkflowTriggerRequirements(String accountId, String workflowId) {
         return getWorkflowTriggerRequirements(accountId, workflowId, Optional.empty());
     }
 
@@ -290,11 +289,11 @@ public class Workflows {
      * @param workflowId 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetWorkflowTriggerRequirementsResponse getWorkflowTriggerRequirements(
             String accountId, String workflowId,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         GetWorkflowTriggerRequirementsRequest request =
             GetWorkflowTriggerRequirementsRequest
                 .builder()
@@ -396,11 +395,11 @@ public class Workflows {
      *         - `trigger_inputs` contains the key-value pairs corresponding to the inputs required by the workflow, as described in the `trigger_input_schema` from the workflow definition.
      *         
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public TriggerWorkflowResponse triggerWorkflow(
             String accountId, String workflowId,
-            TriggerWorkflow triggerWorkflow) throws Exception {
+            TriggerWorkflow triggerWorkflow) {
         return triggerWorkflow(accountId, workflowId, triggerWorkflow,
             Optional.empty());
     }
@@ -453,11 +452,11 @@ public class Workflows {
      *         
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public TriggerWorkflowResponse triggerWorkflow(
             String accountId, String workflowId,
-            TriggerWorkflow triggerWorkflow, Optional<Options> options) throws Exception {
+            TriggerWorkflow triggerWorkflow, Optional<Options> options) {
         TriggerWorkflowRequest request =
             TriggerWorkflowRequest
                 .builder()
@@ -491,9 +490,9 @@ public class Workflows {
      * @param accountId The unique identifier of the account.
      * @param workflowId 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public PauseNewWorkflowInstancesResponse pauseNewWorkflowInstances(String accountId, String workflowId) throws Exception {
+    public PauseNewWorkflowInstancesResponse pauseNewWorkflowInstances(String accountId, String workflowId) {
         return pauseNewWorkflowInstances(accountId, workflowId, Optional.empty());
     }
 
@@ -507,11 +506,11 @@ public class Workflows {
      * @param workflowId 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public PauseNewWorkflowInstancesResponse pauseNewWorkflowInstances(
             String accountId, String workflowId,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         PauseNewWorkflowInstancesRequest request =
             PauseNewWorkflowInstancesRequest
                 .builder()
@@ -542,9 +541,9 @@ public class Workflows {
      * @param accountId The unique identifier of the account.
      * @param workflowId 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public ResumePausedWorkflowResponse resumePausedWorkflow(String accountId, String workflowId) throws Exception {
+    public ResumePausedWorkflowResponse resumePausedWorkflow(String accountId, String workflowId) {
         return resumePausedWorkflow(accountId, workflowId, Optional.empty());
     }
 
@@ -557,11 +556,11 @@ public class Workflows {
      * @param workflowId 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public ResumePausedWorkflowResponse resumePausedWorkflow(
             String accountId, String workflowId,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         ResumePausedWorkflowRequest request =
             ResumePausedWorkflowRequest
                 .builder()

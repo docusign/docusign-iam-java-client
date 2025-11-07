@@ -5,6 +5,7 @@ package com.docusign.iam.sdk.operations;
 
 import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 import static com.docusign.iam.sdk.utils.Retries.NonRetryableException;
+import static com.docusign.iam.sdk.utils.Exceptions.unchecked;
 
 import com.docusign.iam.sdk.SDKConfiguration;
 import com.docusign.iam.sdk.SecuritySource;
@@ -147,7 +148,7 @@ public class GetWorkspaceAssignableRoles {
         }
 
         @Override
-        public HttpResponse<InputStream> doRequest(GetWorkspaceAssignableRolesRequest request) throws Exception {
+        public HttpResponse<InputStream> doRequest(GetWorkspaceAssignableRolesRequest request) {
             Retries retries = Retries.builder()
                     .action(() -> {
                         HttpRequest r;
@@ -169,12 +170,12 @@ public class GetWorkspaceAssignableRoles {
                     .retryConfig(retryConfig)
                     .statusCodes(retryStatusCodes)
                     .build();
-            return onSuccess(retries.run());
+            return unchecked(() -> onSuccess(retries.run())).get();
         }
 
 
         @Override
-        public GetWorkspaceAssignableRolesResponse handleResponse(HttpResponse<InputStream> response) throws Exception {
+        public GetWorkspaceAssignableRolesResponse handleResponse(HttpResponse<InputStream> response) {
             String contentType = response
                     .headers()
                     .firstValue("Content-Type")
@@ -190,76 +191,34 @@ public class GetWorkspaceAssignableRoles {
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    com.docusign.iam.sdk.models.components.GetWorkspaceAssignableRolesResponse out = Utils.mapper().readValue(
-                            response.body(),
-                            new TypeReference<>() {
-                            });
-                    res.withGetWorkspaceAssignableRolesResponse(out);
-                    return res;
+                    return res.withGetWorkspaceAssignableRolesResponse(Utils.unmarshal(response, new TypeReference<com.docusign.iam.sdk.models.components.GetWorkspaceAssignableRolesResponse>() {}));
                 } else {
-                    throw new APIException(
-                            response,
-                            response.statusCode(),
-                            "Unexpected content-type received: " + contentType,
-                            Utils.extractByteArrayFromBody(response));
+                    throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            
             if (Utils.statusCodeMatches(response.statusCode(), "400", "401")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    ErrorDetails out = Utils.mapper().readValue(
-                            response.body(),
-                            new TypeReference<>() {
-                            });
-                    throw out;
+                    throw ErrorDetails.from(response);
                 } else {
-                    throw new APIException(
-                            response,
-                            response.statusCode(),
-                            "Unexpected content-type received: " + contentType,
-                            Utils.extractByteArrayFromBody(response));
+                    throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            
             if (Utils.statusCodeMatches(response.statusCode(), "500")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    ErrorDetails out = Utils.mapper().readValue(
-                            response.body(),
-                            new TypeReference<>() {
-                            });
-                    throw out;
+                    throw ErrorDetails.from(response);
                 } else {
-                    throw new APIException(
-                            response,
-                            response.statusCode(),
-                            "Unexpected content-type received: " + contentType,
-                            Utils.extractByteArrayFromBody(response));
+                    throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            
             if (Utils.statusCodeMatches(response.statusCode(), "4XX")) {
                 // no content
-                throw new APIException(
-                        response,
-                        response.statusCode(),
-                        "API error occurred",
-                        Utils.extractByteArrayFromBody(response));
+                throw APIException.from("API error occurred", response);
             }
-            
             if (Utils.statusCodeMatches(response.statusCode(), "5XX")) {
                 // no content
-                throw new APIException(
-                        response,
-                        response.statusCode(),
-                        "API error occurred",
-                        Utils.extractByteArrayFromBody(response));
+                throw APIException.from("API error occurred", response);
             }
-            
-            throw new APIException(
-                    response,
-                    response.statusCode(),
-                    "Unexpected status code received: " + response.statusCode(),
-                    Utils.extractByteArrayFromBody(response));
+            throw APIException.from("Unexpected status code received: " + response.statusCode(), response);
         }
     }
 }

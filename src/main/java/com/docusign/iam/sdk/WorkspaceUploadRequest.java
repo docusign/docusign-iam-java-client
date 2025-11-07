@@ -37,7 +37,6 @@ import com.docusign.iam.sdk.operations.GetWorkspaceUploadRequests;
 import com.docusign.iam.sdk.operations.UpdateWorkspaceUploadRequest;
 import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
-import java.lang.Exception;
 import java.lang.String;
 import java.util.Optional;
 
@@ -74,11 +73,11 @@ public class WorkspaceUploadRequest {
      * @param workspaceId The ID of the workspace
      * @param createWorkspaceUploadRequestBody 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public CreateWorkspaceUploadRequestResponse createWorkspaceUploadRequest(
             String accountId, String workspaceId,
-            CreateWorkspaceUploadRequestBody createWorkspaceUploadRequestBody) throws Exception {
+            CreateWorkspaceUploadRequestBody createWorkspaceUploadRequestBody) {
         return createWorkspaceUploadRequest(accountId, workspaceId, createWorkspaceUploadRequestBody,
             Optional.empty());
     }
@@ -95,11 +94,11 @@ public class WorkspaceUploadRequest {
      * @param createWorkspaceUploadRequestBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public CreateWorkspaceUploadRequestResponse createWorkspaceUploadRequest(
             String accountId, String workspaceId,
-            CreateWorkspaceUploadRequestBody createWorkspaceUploadRequestBody, Optional<Options> options) throws Exception {
+            CreateWorkspaceUploadRequestBody createWorkspaceUploadRequestBody, Optional<Options> options) {
         CreateWorkspaceUploadRequestRequest request =
             CreateWorkspaceUploadRequestRequest
                 .builder()
@@ -135,9 +134,9 @@ public class WorkspaceUploadRequest {
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetWorkspaceUploadRequestsResponse getWorkspaceUploadRequests(String accountId, String workspaceId) throws Exception {
+    public GetWorkspaceUploadRequestsResponse getWorkspaceUploadRequests(String accountId, String workspaceId) {
         return getWorkspaceUploadRequests(accountId, workspaceId, Optional.empty());
     }
 
@@ -152,11 +151,11 @@ public class WorkspaceUploadRequest {
      * @param workspaceId The ID of the workspace
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetWorkspaceUploadRequestsResponse getWorkspaceUploadRequests(
             String accountId, String workspaceId,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         GetWorkspaceUploadRequestsRequest request =
             GetWorkspaceUploadRequestsRequest
                 .builder()
@@ -192,11 +191,11 @@ public class WorkspaceUploadRequest {
      * @param workspaceId The ID of the workspace
      * @param uploadRequestId The ID of the upload request
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetWorkspaceUploadRequestResponse getWorkspaceUploadRequest(
             String accountId, String workspaceId,
-            String uploadRequestId) throws Exception {
+            String uploadRequestId) {
         return getWorkspaceUploadRequest(accountId, workspaceId, uploadRequestId,
             Optional.empty());
     }
@@ -213,11 +212,11 @@ public class WorkspaceUploadRequest {
      * @param uploadRequestId The ID of the upload request
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetWorkspaceUploadRequestResponse getWorkspaceUploadRequest(
             String accountId, String workspaceId,
-            String uploadRequestId, Optional<Options> options) throws Exception {
+            String uploadRequestId, Optional<Options> options) {
         GetWorkspaceUploadRequestRequest request =
             GetWorkspaceUploadRequestRequest
                 .builder()
@@ -261,11 +260,11 @@ public class WorkspaceUploadRequest {
      * @param uploadRequestId The ID of the upload request to update
      * @param updateWorkspaceUploadRequestBody Upload request details for update operations
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public UpdateWorkspaceUploadRequestResponse updateWorkspaceUploadRequest(
             String accountId, String workspaceId,
-            String uploadRequestId, UpdateWorkspaceUploadRequestBody updateWorkspaceUploadRequestBody) throws Exception {
+            String uploadRequestId, UpdateWorkspaceUploadRequestBody updateWorkspaceUploadRequestBody) {
         return updateWorkspaceUploadRequest(accountId, workspaceId, uploadRequestId,
             updateWorkspaceUploadRequestBody, Optional.empty());
     }
@@ -286,12 +285,12 @@ public class WorkspaceUploadRequest {
      * @param updateWorkspaceUploadRequestBody Upload request details for update operations
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public UpdateWorkspaceUploadRequestResponse updateWorkspaceUploadRequest(
             String accountId, String workspaceId,
             String uploadRequestId, UpdateWorkspaceUploadRequestBody updateWorkspaceUploadRequestBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         UpdateWorkspaceUploadRequestRequest request =
             UpdateWorkspaceUploadRequestRequest
                 .builder()
@@ -327,11 +326,11 @@ public class WorkspaceUploadRequest {
      * @param workspaceId The ID of the workspace
      * @param uploadRequestId The ID of the upload request to delete
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public DeleteWorkspaceUploadRequestResponse deleteWorkspaceUploadRequest(
             String accountId, String workspaceId,
-            String uploadRequestId) throws Exception {
+            String uploadRequestId) {
         return deleteWorkspaceUploadRequest(accountId, workspaceId, uploadRequestId,
             Optional.empty());
     }
@@ -347,11 +346,11 @@ public class WorkspaceUploadRequest {
      * @param uploadRequestId The ID of the upload request to delete
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public DeleteWorkspaceUploadRequestResponse deleteWorkspaceUploadRequest(
             String accountId, String workspaceId,
-            String uploadRequestId, Optional<Options> options) throws Exception {
+            String uploadRequestId, Optional<Options> options) {
         DeleteWorkspaceUploadRequestRequest request =
             DeleteWorkspaceUploadRequestRequest
                 .builder()
@@ -388,11 +387,11 @@ public class WorkspaceUploadRequest {
      * @param workspaceId The ID of the workspace
      * @param uploadRequestId The ID of the upload request
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public AddWorkspaceUploadRequestDocumentResponse addWorkspaceUploadRequestDocument(
             String accountId, String workspaceId,
-            String uploadRequestId) throws Exception {
+            String uploadRequestId) {
         return addWorkspaceUploadRequestDocument(accountId, workspaceId, uploadRequestId,
             Optional.empty(), Optional.empty());
     }
@@ -410,12 +409,12 @@ public class WorkspaceUploadRequest {
      * @param addWorkspaceUploadRequestDocumentRequest 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public AddWorkspaceUploadRequestDocumentResponse addWorkspaceUploadRequestDocument(
             String accountId, String workspaceId,
             String uploadRequestId, Optional<? extends AddWorkspaceUploadRequestDocumentRequest> addWorkspaceUploadRequestDocumentRequest,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         com.docusign.iam.sdk.models.operations.AddWorkspaceUploadRequestDocumentRequest request =
             com.docusign.iam.sdk.models.operations.AddWorkspaceUploadRequestDocumentRequest
                 .builder()
@@ -453,11 +452,11 @@ public class WorkspaceUploadRequest {
      * @param workspaceId The ID of the workspace
      * @param uploadRequestId The ID of the upload request to complete
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public CompleteWorkspaceUploadRequestResponse completeWorkspaceUploadRequest(
             String accountId, String workspaceId,
-            String uploadRequestId) throws Exception {
+            String uploadRequestId) {
         return completeWorkspaceUploadRequest(accountId, workspaceId, uploadRequestId,
             Optional.empty());
     }
@@ -474,11 +473,11 @@ public class WorkspaceUploadRequest {
      * @param uploadRequestId The ID of the upload request to complete
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public CompleteWorkspaceUploadRequestResponse completeWorkspaceUploadRequest(
             String accountId, String workspaceId,
-            String uploadRequestId, Optional<Options> options) throws Exception {
+            String uploadRequestId, Optional<Options> options) {
         CompleteWorkspaceUploadRequestRequest request =
             CompleteWorkspaceUploadRequestRequest
                 .builder()

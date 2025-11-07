@@ -6,6 +6,7 @@ package com.docusign.iam.sdk;
 import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 
 import com.docusign.iam.sdk.models.components.CreateWorkspaceBody;
+import com.docusign.iam.sdk.models.components.UpdateWorkspaceBody;
 import com.docusign.iam.sdk.models.components.WorkspaceEnvelopeForCreate;
 import com.docusign.iam.sdk.models.operations.CreateWorkspaceEnvelopeRequest;
 import com.docusign.iam.sdk.models.operations.CreateWorkspaceEnvelopeRequestBuilder;
@@ -25,15 +26,18 @@ import com.docusign.iam.sdk.models.operations.GetWorkspaceResponse;
 import com.docusign.iam.sdk.models.operations.GetWorkspacesRequest;
 import com.docusign.iam.sdk.models.operations.GetWorkspacesRequestBuilder;
 import com.docusign.iam.sdk.models.operations.GetWorkspacesResponse;
+import com.docusign.iam.sdk.models.operations.UpdateWorkspaceRequest;
+import com.docusign.iam.sdk.models.operations.UpdateWorkspaceRequestBuilder;
+import com.docusign.iam.sdk.models.operations.UpdateWorkspaceResponse;
 import com.docusign.iam.sdk.operations.CreateWorkspace;
 import com.docusign.iam.sdk.operations.CreateWorkspaceEnvelope;
 import com.docusign.iam.sdk.operations.GetWorkspace;
 import com.docusign.iam.sdk.operations.GetWorkspaceAssignableRoles;
 import com.docusign.iam.sdk.operations.GetWorkspaceEnvelopes;
 import com.docusign.iam.sdk.operations.GetWorkspaces;
+import com.docusign.iam.sdk.operations.UpdateWorkspace;
 import com.docusign.iam.sdk.utils.Headers;
 import com.docusign.iam.sdk.utils.Options;
-import java.lang.Exception;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Optional;
@@ -77,9 +81,9 @@ public class Workspaces2 {
      * 
      * @param accountId The ID of the account
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetWorkspacesResponse getWorkspaces(String accountId) throws Exception {
+    public GetWorkspacesResponse getWorkspaces(String accountId) {
         return getWorkspaces(accountId, Optional.empty(), Optional.empty(),
             Optional.empty());
     }
@@ -100,11 +104,11 @@ public class Workspaces2 {
      * @param startPosition Position of the first item in the total results. Defaults to 0
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetWorkspacesResponse getWorkspaces(
             String accountId, Optional<Integer> count,
-            Optional<Integer> startPosition, Optional<Options> options) throws Exception {
+            Optional<Integer> startPosition, Optional<Options> options) {
         GetWorkspacesRequest request =
             GetWorkspacesRequest
                 .builder()
@@ -144,9 +148,9 @@ public class Workspaces2 {
      * @param accountId The ID of the account
      * @param createWorkspaceBody 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public CreateWorkspaceResponse createWorkspace(String accountId, CreateWorkspaceBody createWorkspaceBody) throws Exception {
+    public CreateWorkspaceResponse createWorkspace(String accountId, CreateWorkspaceBody createWorkspaceBody) {
         return createWorkspace(accountId, createWorkspaceBody, Optional.empty());
     }
 
@@ -163,11 +167,11 @@ public class Workspaces2 {
      * @param createWorkspaceBody 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public CreateWorkspaceResponse createWorkspace(
             String accountId, CreateWorkspaceBody createWorkspaceBody,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         CreateWorkspaceRequest request =
             CreateWorkspaceRequest
                 .builder()
@@ -176,6 +180,65 @@ public class Workspaces2 {
                 .build();
         RequestOperation<CreateWorkspaceRequest, CreateWorkspaceResponse> operation
               = new CreateWorkspace.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Updates an existing workspace
+     * 
+     * <p>This operation updates details about a specific workspace. It returns the workspace's unique
+     * identifier (ID), name, and metadata such as when it was created and by whom.
+     * 
+     * @return The call builder
+     */
+    public UpdateWorkspaceRequestBuilder updateWorkspace() {
+        return new UpdateWorkspaceRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Updates an existing workspace
+     * 
+     * <p>This operation updates details about a specific workspace. It returns the workspace's unique
+     * identifier (ID), name, and metadata such as when it was created and by whom.
+     * 
+     * @param accountId The ID of the account
+     * @param workspaceId The ID of the workspace
+     * @param updateWorkspaceBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateWorkspaceResponse updateWorkspace(
+            String accountId, String workspaceId,
+            UpdateWorkspaceBody updateWorkspaceBody) {
+        return updateWorkspace(accountId, workspaceId, updateWorkspaceBody,
+            Optional.empty());
+    }
+
+    /**
+     * Updates an existing workspace
+     * 
+     * <p>This operation updates details about a specific workspace. It returns the workspace's unique
+     * identifier (ID), name, and metadata such as when it was created and by whom.
+     * 
+     * @param accountId The ID of the account
+     * @param workspaceId The ID of the workspace
+     * @param updateWorkspaceBody 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public UpdateWorkspaceResponse updateWorkspace(
+            String accountId, String workspaceId,
+            UpdateWorkspaceBody updateWorkspaceBody, Optional<Options> options) {
+        UpdateWorkspaceRequest request =
+            UpdateWorkspaceRequest
+                .builder()
+                .accountId(accountId)
+                .workspaceId(workspaceId)
+                .updateWorkspaceBody(updateWorkspaceBody)
+                .build();
+        RequestOperation<UpdateWorkspaceRequest, UpdateWorkspaceResponse> operation
+              = new UpdateWorkspace.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -200,9 +263,9 @@ public class Workspaces2 {
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetWorkspaceResponse getWorkspace(String accountId, String workspaceId) throws Exception {
+    public GetWorkspaceResponse getWorkspace(String accountId, String workspaceId) {
         return getWorkspace(accountId, workspaceId, Optional.empty());
     }
 
@@ -216,11 +279,11 @@ public class Workspaces2 {
      * @param workspaceId The ID of the workspace
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetWorkspaceResponse getWorkspace(
             String accountId, String workspaceId,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         GetWorkspaceRequest request =
             GetWorkspaceRequest
                 .builder()
@@ -268,9 +331,9 @@ public class Workspaces2 {
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetWorkspaceAssignableRolesResponse getWorkspaceAssignableRoles(GetWorkspaceAssignableRolesRequest request) throws Exception {
+    public GetWorkspaceAssignableRolesResponse getWorkspaceAssignableRoles(GetWorkspaceAssignableRolesRequest request) {
         return getWorkspaceAssignableRoles(request, Optional.empty());
     }
 
@@ -291,9 +354,9 @@ public class Workspaces2 {
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetWorkspaceAssignableRolesResponse getWorkspaceAssignableRoles(GetWorkspaceAssignableRolesRequest request, Optional<Options> options) throws Exception {
+    public GetWorkspaceAssignableRolesResponse getWorkspaceAssignableRoles(GetWorkspaceAssignableRolesRequest request, Optional<Options> options) {
         RequestOperation<GetWorkspaceAssignableRolesRequest, GetWorkspaceAssignableRolesResponse> operation
               = new GetWorkspaceAssignableRoles.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
@@ -349,11 +412,11 @@ public class Workspaces2 {
      * @param workspaceId The ID of the workspace
      * @param workspaceEnvelopeForCreate 
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public CreateWorkspaceEnvelopeResponse createWorkspaceEnvelope(
             String accountId, String workspaceId,
-            WorkspaceEnvelopeForCreate workspaceEnvelopeForCreate) throws Exception {
+            WorkspaceEnvelopeForCreate workspaceEnvelopeForCreate) {
         return createWorkspaceEnvelope(accountId, workspaceId, workspaceEnvelopeForCreate,
             Optional.empty());
     }
@@ -383,11 +446,11 @@ public class Workspaces2 {
      * @param workspaceEnvelopeForCreate 
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public CreateWorkspaceEnvelopeResponse createWorkspaceEnvelope(
             String accountId, String workspaceId,
-            WorkspaceEnvelopeForCreate workspaceEnvelopeForCreate, Optional<Options> options) throws Exception {
+            WorkspaceEnvelopeForCreate workspaceEnvelopeForCreate, Optional<Options> options) {
         CreateWorkspaceEnvelopeRequest request =
             CreateWorkspaceEnvelopeRequest
                 .builder()
@@ -433,9 +496,9 @@ public class Workspaces2 {
      * @param accountId The ID of the account
      * @param workspaceId The ID of the workspace
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
-    public GetWorkspaceEnvelopesResponse getWorkspaceEnvelopes(String accountId, String workspaceId) throws Exception {
+    public GetWorkspaceEnvelopesResponse getWorkspaceEnvelopes(String accountId, String workspaceId) {
         return getWorkspaceEnvelopes(accountId, workspaceId, Optional.empty());
     }
 
@@ -455,11 +518,11 @@ public class Workspaces2 {
      * @param workspaceId The ID of the workspace
      * @param options additional options
      * @return The response from the API call
-     * @throws Exception if the API call fails
+     * @throws RuntimeException subclass if the API call fails
      */
     public GetWorkspaceEnvelopesResponse getWorkspaceEnvelopes(
             String accountId, String workspaceId,
-            Optional<Options> options) throws Exception {
+            Optional<Options> options) {
         GetWorkspaceEnvelopesRequest request =
             GetWorkspaceEnvelopesRequest
                 .builder()

@@ -54,7 +54,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.docusign:iam-sdk:1.0.0-beta.6'
+implementation 'com.docusign:iam-sdk:1.0.0-beta.7'
 ```
 
 Maven:
@@ -62,7 +62,7 @@ Maven:
 <dependency>
     <groupId>com.docusign</groupId>
     <artifactId>iam-sdk</artifactId>
-    <version>1.0.0-beta.6</version>
+    <version>1.0.0-beta.7</version>
 </dependency>
 ```
 
@@ -312,6 +312,11 @@ var res = sdk.auth().getUserInfo().call();
 * [deleteAgreement](docs/sdks/agreements/README.md#deleteagreement) - Delete a specific agreement
 * [createAgreementSummary](docs/sdks/agreements/README.md#createagreementsummary) - Create an AI-generated summary of an agreement document
 
+#### [workspaces().workspaceBrands()](docs/sdks/workspacebrands/README.md)
+
+* [getWorkspaceBrand](docs/sdks/workspacebrands/README.md#getworkspacebrand) - Returns details about the brand set for a workspace
+* [updateWorkspaceBrand](docs/sdks/workspacebrands/README.md#updateworkspacebrand) - Updates brand for an existing workspace
+
 #### [workspaces().workspaceDocuments()](docs/sdks/workspacedocuments/README.md)
 
 * [getWorkspaceDocuments](docs/sdks/workspacedocuments/README.md#getworkspacedocuments) - Get documents in the workspace accessible to the calling user
@@ -324,6 +329,7 @@ var res = sdk.auth().getUserInfo().call();
 
 * [getWorkspaces](docs/sdks/workspaces2/README.md#getworkspaces) - Gets workspaces available to the calling user
 * [createWorkspace](docs/sdks/workspaces2/README.md#createworkspace) - Creates a new workspace
+* [updateWorkspace](docs/sdks/workspaces2/README.md#updateworkspace) - Updates an existing workspace
 * [getWorkspace](docs/sdks/workspaces2/README.md#getworkspace) - Returns details about the workspace
 * [getWorkspaceAssignableRoles](docs/sdks/workspaces2/README.md#getworkspaceassignableroles) - Returns the roles the caller can assign to workspace users
 * [createWorkspaceEnvelope](docs/sdks/workspaces2/README.md#createworkspaceenvelope) - Creates an envelope with the given documents. Returns the ID of the created envelope
@@ -461,15 +467,19 @@ public class Application {
 
 Handling errors in this SDK should largely match your expectations. All operations return a response object or raise an exception.
 
-By default, an API error will throw a `models/errors/APIException` exception. When custom error responses are specified for an operation, the SDK may also throw their associated exception. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `getTokenFromConfidentialAuthCode` method throws the following exceptions:
 
-| Error Type                       | Status Code | Content Type     |
-| -------------------------------- | ----------- | ---------------- |
-| models/errors/OAuthErrorResponse | 400         | application/json |
-| models/errors/APIException       | 4XX, 5XX    | \*/\*            |
+[`IamClientError`](./src/main/java/models/errors/IamClientError.java) is the base class for all HTTP error responses. It has the following properties:
+
+| Method           | Type                        | Description                                                              |
+| ---------------- | --------------------------- | ------------------------------------------------------------------------ |
+| `message()`      | `String`                    | Error message                                                            |
+| `code()`         | `int`                       | HTTP response status code eg `404`                                       |
+| `headers`        | `Map<String, List<String>>` | HTTP response headers                                                    |
+| `body()`         | `byte[]`                    | HTTP body as a byte array. Can be empty array if no body is returned.    |
+| `bodyAsString()` | `String`                    | HTTP body as a UTF-8 string. Can be empty string if no body is returned. |
+| `rawResponse()`  | `HttpResponse<?>`           | Raw HTTP response (body already read and not available for re-read)      |
 
 ### Example
-
 ```java
 package hello.world;
 
@@ -505,6 +515,29 @@ public class Application {
     }
 }
 ```
+
+### Error Classes
+**Primary error:**
+* [`IamClientError`](./src/main/java/models/errors/IamClientError.java): The base class for HTTP error responses.
+
+<details><summary>Less common errors (9)</summary>
+
+<br />
+
+**Network errors:**
+* `java.io.IOException` (always wrapped by `java.io.UncheckedIOException`). Commonly encountered subclasses of
+`IOException` include `java.net.ConnectException`, `java.net.SocketTimeoutException`, `EOFException` (there are
+many more subclasses in the JDK platform).
+
+**Inherit from [`IamClientError`](./src/main/java/models/errors/IamClientError.java)**:
+* [`com.docusign.iam.sdk.models.errors.ErrorDetails`](./src/main/java/models/errors/com.docusign.iam.sdk.models.errors.ErrorDetails.java): The error response object for the Workspaces API. Applicable to 26 of 44 methods.*
+* [`com.docusign.iam.sdk.models.errors.Error`](./src/main/java/models/errors/com.docusign.iam.sdk.models.errors.Error.java): Bad Request - The request could not be understood or was missing required parameters. Applicable to 11 of 44 methods.*
+* [`com.docusign.iam.sdk.models.errors.OAuthErrorResponse`](./src/main/java/models/errors/com.docusign.iam.sdk.models.errors.OAuthErrorResponse.java): Status code `400`. Applicable to 5 of 44 methods.*
+
+
+</details>
+
+\* Check [the method documentation](#available-resources-and-operations) to see if the error is applicable.
 <!-- End Error Handling [errors] -->
 
 <!-- Start Server Selection [server] -->
