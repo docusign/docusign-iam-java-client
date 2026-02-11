@@ -3,15 +3,18 @@
  */
 package com.docusign.iam.sdk.models.components;
 
+import com.docusign.iam.sdk.utils.LazySingletonValue;
 import com.docusign.iam.sdk.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -29,82 +32,12 @@ import org.openapitools.jackson.nullable.JsonNullable;
  * to offer a full representation of the structure and context of an agreement.
  */
 public class Agreement {
-
-    @JsonProperty("id")
-    private String id;
-
     /**
-     * Title of the agreement document, summarizing its purpose.
+     * Hypermedia controls (HATEOAS) for agreement specific links to resources.
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("title")
-    private JsonNullable<String> title;
-
-    /**
-     * The file name of the agreement.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("file_name")
-    private JsonNullable<String> fileName;
-
-    /**
-     * The type of agreement.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("type")
-    private JsonNullable<String> type;
-
-    /**
-     * Server-defined category based on the agreement type.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("category")
-    private JsonNullable<String> category;
-
-    /**
-     * A detailed summary of the agreement's key provisions and scope.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("summary")
-    private JsonNullable<String> summary;
-
-    /**
-     * Current status of the agreement (e.g., PENDING, COMPLETE, INACTIVE)
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("status")
-    private JsonNullable<String> status;
-
-    /**
-     * A list of parties involved in the agreement.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("parties")
-    private JsonNullable<? extends List<Party>> parties;
-
-    /**
-     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined
-     * by the agreement type."
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("provisions")
-    private JsonNullable<? extends Provisions> provisions;
-
-    /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
-     * booleans, numbers, arrays, or objects
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("custom_provisions")
-    private JsonNullable<? extends Map<String, CustomProperty>> customProvisions;
-
-    /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
-     * booleans, numbers, arrays, or objects
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("additional_user_defined_data")
-    private JsonNullable<? extends Map<String, CustomProperty>> additionalUserDefinedData;
+    @JsonProperty("_links")
+    private JsonNullable<? extends AgreementLinks> links;
 
     /**
      * A generic map/dict. The key is a string, and the value can be of any type, including strings,
@@ -122,10 +55,47 @@ public class Agreement {
     @JsonProperty("additional_custom_esign_data")
     private JsonNullable<? extends Map<String, CustomProperty>> additionalCustomEsignData;
 
+    /**
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("additional_user_defined_data")
+    private JsonNullable<? extends Map<String, CustomProperty>> additionalUserDefinedData;
+
+    /**
+     * Server-defined category based on the agreement type.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("category")
+    private JsonNullable<String> category;
+
+    /**
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("custom_provisions")
+    private JsonNullable<? extends Map<String, CustomProperty>> customProvisions;
+
+    /**
+     * The id the original agreement document.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("document_id")
+    private JsonNullable<String> documentId;
+
+    /**
+     * The file name of the agreement.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("file_name")
+    private JsonNullable<String> fileName;
+
 
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("related_agreement_documents")
-    private Optional<? extends RelatedAgreementDocuments> relatedAgreementDocuments;
+    @JsonProperty("id")
+    private Optional<String> id;
 
     /**
      * List of languages applicable to the agreement, identified using BCP-47 language codes.
@@ -134,12 +104,56 @@ public class Agreement {
     @JsonProperty("languages")
     private JsonNullable<? extends List<String>> languages;
 
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("linked_data")
+    private Optional<? extends List<LinkedData>> linkedData;
+
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("metadata")
+    private Optional<? extends ResourceMetadata> metadata;
+
     /**
-     * The name of the source system who creates this entity, e.g. eSign, CLM, or Salesforce.
+     * A list of parties involved in the agreement.
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("source_name")
-    private JsonNullable<String> sourceName;
+    @JsonProperty("parties")
+    private JsonNullable<? extends List<Party>> parties;
+
+    /**
+     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined
+     * by the agreement type."
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("provisions")
+    private JsonNullable<? extends Provisions> provisions;
+
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("related_agreement_documents")
+    private Optional<? extends RelatedAgreementDocuments> relatedAgreementDocuments;
+
+    /**
+     * The date when the agreement extraction review was completed.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("review_completed_at")
+    private JsonNullable<OffsetDateTime> reviewCompletedAt;
+
+    /**
+     * The review status of the agreement, indicating whether it has been complete or pending.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("review_status")
+    private JsonNullable<String> reviewStatus;
+
+    /**
+     * The Account ID of the source system who creates this entity, e.g. eSign Account ID
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("source_account_id")
+    private JsonNullable<String> sourceAccountId;
 
     /**
      * The ID of the entity in the source system that this entity is associated with. For example, it could
@@ -150,179 +164,134 @@ public class Agreement {
     private JsonNullable<String> sourceId;
 
     /**
-     * The Account ID of the source system who creates this entity, e.g. eSign Account ID
+     * The name of the source system which created this agreement, e.g. eSign, CLM, or Salesforce.
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("source_account_id")
-    private JsonNullable<String> sourceAccountId;
-
-
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("metadata")
-    private Optional<? extends ResourceMetadata> metadata;
-
-    @JsonCreator
-    public Agreement(
-            @JsonProperty("id") String id,
-            @JsonProperty("title") JsonNullable<String> title,
-            @JsonProperty("file_name") JsonNullable<String> fileName,
-            @JsonProperty("type") JsonNullable<String> type,
-            @JsonProperty("category") JsonNullable<String> category,
-            @JsonProperty("summary") JsonNullable<String> summary,
-            @JsonProperty("status") JsonNullable<String> status,
-            @JsonProperty("parties") JsonNullable<? extends List<Party>> parties,
-            @JsonProperty("provisions") JsonNullable<? extends Provisions> provisions,
-            @JsonProperty("custom_provisions") JsonNullable<? extends Map<String, CustomProperty>> customProvisions,
-            @JsonProperty("additional_user_defined_data") JsonNullable<? extends Map<String, CustomProperty>> additionalUserDefinedData,
-            @JsonProperty("additional_custom_clm_data") JsonNullable<? extends Map<String, CustomProperty>> additionalCustomClmData,
-            @JsonProperty("additional_custom_esign_data") JsonNullable<? extends Map<String, CustomProperty>> additionalCustomEsignData,
-            @JsonProperty("related_agreement_documents") Optional<? extends RelatedAgreementDocuments> relatedAgreementDocuments,
-            @JsonProperty("languages") JsonNullable<? extends List<String>> languages,
-            @JsonProperty("source_name") JsonNullable<String> sourceName,
-            @JsonProperty("source_id") JsonNullable<String> sourceId,
-            @JsonProperty("source_account_id") JsonNullable<String> sourceAccountId,
-            @JsonProperty("metadata") Optional<? extends ResourceMetadata> metadata) {
-        Utils.checkNotNull(id, "id");
-        Utils.checkNotNull(title, "title");
-        Utils.checkNotNull(fileName, "fileName");
-        Utils.checkNotNull(type, "type");
-        Utils.checkNotNull(category, "category");
-        Utils.checkNotNull(summary, "summary");
-        Utils.checkNotNull(status, "status");
-        Utils.checkNotNull(parties, "parties");
-        Utils.checkNotNull(provisions, "provisions");
-        Utils.checkNotNull(customProvisions, "customProvisions");
-        Utils.checkNotNull(additionalUserDefinedData, "additionalUserDefinedData");
-        Utils.checkNotNull(additionalCustomClmData, "additionalCustomClmData");
-        Utils.checkNotNull(additionalCustomEsignData, "additionalCustomEsignData");
-        Utils.checkNotNull(relatedAgreementDocuments, "relatedAgreementDocuments");
-        Utils.checkNotNull(languages, "languages");
-        Utils.checkNotNull(sourceName, "sourceName");
-        Utils.checkNotNull(sourceId, "sourceId");
-        Utils.checkNotNull(sourceAccountId, "sourceAccountId");
-        Utils.checkNotNull(metadata, "metadata");
-        this.id = id;
-        this.title = title;
-        this.fileName = fileName;
-        this.type = type;
-        this.category = category;
-        this.summary = summary;
-        this.status = status;
-        this.parties = parties;
-        this.provisions = provisions;
-        this.customProvisions = customProvisions;
-        this.additionalUserDefinedData = additionalUserDefinedData;
-        this.additionalCustomClmData = additionalCustomClmData;
-        this.additionalCustomEsignData = additionalCustomEsignData;
-        this.relatedAgreementDocuments = relatedAgreementDocuments;
-        this.languages = languages;
-        this.sourceName = sourceName;
-        this.sourceId = sourceId;
-        this.sourceAccountId = sourceAccountId;
-        this.metadata = metadata;
-    }
-    
-    public Agreement(
-            String id) {
-        this(id, JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            Optional.empty());
-    }
-
-    @JsonIgnore
-    public String id() {
-        return id;
-    }
-
-    /**
-     * Title of the agreement document, summarizing its purpose.
-     */
-    @JsonIgnore
-    public JsonNullable<String> title() {
-        return title;
-    }
-
-    /**
-     * The file name of the agreement.
-     */
-    @JsonIgnore
-    public JsonNullable<String> fileName() {
-        return fileName;
-    }
-
-    /**
-     * The type of agreement.
-     */
-    @JsonIgnore
-    public JsonNullable<String> type() {
-        return type;
-    }
-
-    /**
-     * Server-defined category based on the agreement type.
-     */
-    @JsonIgnore
-    public JsonNullable<String> category() {
-        return category;
-    }
-
-    /**
-     * A detailed summary of the agreement's key provisions and scope.
-     */
-    @JsonIgnore
-    public JsonNullable<String> summary() {
-        return summary;
-    }
+    @JsonProperty("source_name")
+    private JsonNullable<String> sourceName;
 
     /**
      * Current status of the agreement (e.g., PENDING, COMPLETE, INACTIVE)
      */
-    @JsonIgnore
-    public JsonNullable<String> status() {
-        return status;
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("status")
+    private JsonNullable<String> status;
+
+    /**
+     * A detailed summary of the agreement's key provisions and scope.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("summary")
+    private JsonNullable<String> summary;
+
+    /**
+     * Title of the agreement document, summarizing its purpose.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("title")
+    private JsonNullable<String> title;
+
+    /**
+     * The type of agreement.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("type")
+    private JsonNullable<String> type;
+
+    @JsonCreator
+    public Agreement(
+            @JsonProperty("_links") JsonNullable<? extends AgreementLinks> links,
+            @JsonProperty("additional_custom_clm_data") JsonNullable<? extends Map<String, CustomProperty>> additionalCustomClmData,
+            @JsonProperty("additional_custom_esign_data") JsonNullable<? extends Map<String, CustomProperty>> additionalCustomEsignData,
+            @JsonProperty("additional_user_defined_data") JsonNullable<? extends Map<String, CustomProperty>> additionalUserDefinedData,
+            @JsonProperty("category") JsonNullable<String> category,
+            @JsonProperty("custom_provisions") JsonNullable<? extends Map<String, CustomProperty>> customProvisions,
+            @JsonProperty("document_id") JsonNullable<String> documentId,
+            @JsonProperty("file_name") JsonNullable<String> fileName,
+            @JsonProperty("id") Optional<String> id,
+            @JsonProperty("languages") JsonNullable<? extends List<String>> languages,
+            @JsonProperty("linked_data") Optional<? extends List<LinkedData>> linkedData,
+            @JsonProperty("metadata") Optional<? extends ResourceMetadata> metadata,
+            @JsonProperty("parties") JsonNullable<? extends List<Party>> parties,
+            @JsonProperty("provisions") JsonNullable<? extends Provisions> provisions,
+            @JsonProperty("related_agreement_documents") Optional<? extends RelatedAgreementDocuments> relatedAgreementDocuments,
+            @JsonProperty("review_completed_at") JsonNullable<OffsetDateTime> reviewCompletedAt,
+            @JsonProperty("review_status") JsonNullable<String> reviewStatus,
+            @JsonProperty("source_account_id") JsonNullable<String> sourceAccountId,
+            @JsonProperty("source_id") JsonNullable<String> sourceId,
+            @JsonProperty("source_name") JsonNullable<String> sourceName,
+            @JsonProperty("status") JsonNullable<String> status,
+            @JsonProperty("summary") JsonNullable<String> summary,
+            @JsonProperty("title") JsonNullable<String> title,
+            @JsonProperty("type") JsonNullable<String> type) {
+        Utils.checkNotNull(links, "links");
+        Utils.checkNotNull(additionalCustomClmData, "additionalCustomClmData");
+        Utils.checkNotNull(additionalCustomEsignData, "additionalCustomEsignData");
+        Utils.checkNotNull(additionalUserDefinedData, "additionalUserDefinedData");
+        Utils.checkNotNull(category, "category");
+        Utils.checkNotNull(customProvisions, "customProvisions");
+        Utils.checkNotNull(documentId, "documentId");
+        Utils.checkNotNull(fileName, "fileName");
+        Utils.checkNotNull(id, "id");
+        Utils.checkNotNull(languages, "languages");
+        Utils.checkNotNull(linkedData, "linkedData");
+        Utils.checkNotNull(metadata, "metadata");
+        Utils.checkNotNull(parties, "parties");
+        Utils.checkNotNull(provisions, "provisions");
+        Utils.checkNotNull(relatedAgreementDocuments, "relatedAgreementDocuments");
+        Utils.checkNotNull(reviewCompletedAt, "reviewCompletedAt");
+        Utils.checkNotNull(reviewStatus, "reviewStatus");
+        Utils.checkNotNull(sourceAccountId, "sourceAccountId");
+        Utils.checkNotNull(sourceId, "sourceId");
+        Utils.checkNotNull(sourceName, "sourceName");
+        Utils.checkNotNull(status, "status");
+        Utils.checkNotNull(summary, "summary");
+        Utils.checkNotNull(title, "title");
+        Utils.checkNotNull(type, "type");
+        this.links = links;
+        this.additionalCustomClmData = additionalCustomClmData;
+        this.additionalCustomEsignData = additionalCustomEsignData;
+        this.additionalUserDefinedData = additionalUserDefinedData;
+        this.category = category;
+        this.customProvisions = customProvisions;
+        this.documentId = documentId;
+        this.fileName = fileName;
+        this.id = id;
+        this.languages = languages;
+        this.linkedData = linkedData;
+        this.metadata = metadata;
+        this.parties = parties;
+        this.provisions = provisions;
+        this.relatedAgreementDocuments = relatedAgreementDocuments;
+        this.reviewCompletedAt = reviewCompletedAt;
+        this.reviewStatus = reviewStatus;
+        this.sourceAccountId = sourceAccountId;
+        this.sourceId = sourceId;
+        this.sourceName = sourceName;
+        this.status = status;
+        this.summary = summary;
+        this.title = title;
+        this.type = type;
+    }
+    
+    public Agreement() {
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
+            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
-     * A list of parties involved in the agreement.
+     * Hypermedia controls (HATEOAS) for agreement specific links to resources.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<List<Party>> parties() {
-        return (JsonNullable<List<Party>>) parties;
-    }
-
-    /**
-     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined
-     * by the agreement type."
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public JsonNullable<Provisions> provisions() {
-        return (JsonNullable<Provisions>) provisions;
-    }
-
-    /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
-     * booleans, numbers, arrays, or objects
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public JsonNullable<Map<String, CustomProperty>> customProvisions() {
-        return (JsonNullable<Map<String, CustomProperty>>) customProvisions;
-    }
-
-    /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
-     * booleans, numbers, arrays, or objects
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public JsonNullable<Map<String, CustomProperty>> additionalUserDefinedData() {
-        return (JsonNullable<Map<String, CustomProperty>>) additionalUserDefinedData;
+    public JsonNullable<AgreementLinks> links() {
+        return (JsonNullable<AgreementLinks>) links;
     }
 
     /**
@@ -345,10 +314,53 @@ public class Agreement {
         return (JsonNullable<Map<String, CustomProperty>>) additionalCustomEsignData;
     }
 
+    /**
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
+     */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<RelatedAgreementDocuments> relatedAgreementDocuments() {
-        return (Optional<RelatedAgreementDocuments>) relatedAgreementDocuments;
+    public JsonNullable<Map<String, CustomProperty>> additionalUserDefinedData() {
+        return (JsonNullable<Map<String, CustomProperty>>) additionalUserDefinedData;
+    }
+
+    /**
+     * Server-defined category based on the agreement type.
+     */
+    @JsonIgnore
+    public JsonNullable<String> category() {
+        return category;
+    }
+
+    /**
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<Map<String, CustomProperty>> customProvisions() {
+        return (JsonNullable<Map<String, CustomProperty>>) customProvisions;
+    }
+
+    /**
+     * The id the original agreement document.
+     */
+    @JsonIgnore
+    public JsonNullable<String> documentId() {
+        return documentId;
+    }
+
+    /**
+     * The file name of the agreement.
+     */
+    @JsonIgnore
+    public JsonNullable<String> fileName() {
+        return fileName;
+    }
+
+    @JsonIgnore
+    public Optional<String> id() {
+        return id;
     }
 
     /**
@@ -360,12 +372,65 @@ public class Agreement {
         return (JsonNullable<List<String>>) languages;
     }
 
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<LinkedData>> linkedData() {
+        return (Optional<List<LinkedData>>) linkedData;
+    }
+
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<ResourceMetadata> metadata() {
+        return (Optional<ResourceMetadata>) metadata;
+    }
+
     /**
-     * The name of the source system who creates this entity, e.g. eSign, CLM, or Salesforce.
+     * A list of parties involved in the agreement.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<List<Party>> parties() {
+        return (JsonNullable<List<Party>>) parties;
+    }
+
+    /**
+     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined
+     * by the agreement type."
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<Provisions> provisions() {
+        return (JsonNullable<Provisions>) provisions;
+    }
+
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<RelatedAgreementDocuments> relatedAgreementDocuments() {
+        return (Optional<RelatedAgreementDocuments>) relatedAgreementDocuments;
+    }
+
+    /**
+     * The date when the agreement extraction review was completed.
      */
     @JsonIgnore
-    public JsonNullable<String> sourceName() {
-        return sourceName;
+    public JsonNullable<OffsetDateTime> reviewCompletedAt() {
+        return reviewCompletedAt;
+    }
+
+    /**
+     * The review status of the agreement, indicating whether it has been complete or pending.
+     */
+    @JsonIgnore
+    public JsonNullable<String> reviewStatus() {
+        return reviewStatus;
+    }
+
+    /**
+     * The Account ID of the source system who creates this entity, e.g. eSign Account ID
+     */
+    @JsonIgnore
+    public JsonNullable<String> sourceAccountId() {
+        return sourceAccountId;
     }
 
     /**
@@ -378,17 +443,43 @@ public class Agreement {
     }
 
     /**
-     * The Account ID of the source system who creates this entity, e.g. eSign Account ID
+     * The name of the source system which created this agreement, e.g. eSign, CLM, or Salesforce.
      */
     @JsonIgnore
-    public JsonNullable<String> sourceAccountId() {
-        return sourceAccountId;
+    public JsonNullable<String> sourceName() {
+        return sourceName;
     }
 
-    @SuppressWarnings("unchecked")
+    /**
+     * Current status of the agreement (e.g., PENDING, COMPLETE, INACTIVE)
+     */
     @JsonIgnore
-    public Optional<ResourceMetadata> metadata() {
-        return (Optional<ResourceMetadata>) metadata;
+    public JsonNullable<String> status() {
+        return status;
+    }
+
+    /**
+     * A detailed summary of the agreement's key provisions and scope.
+     */
+    @JsonIgnore
+    public JsonNullable<String> summary() {
+        return summary;
+    }
+
+    /**
+     * Title of the agreement document, summarizing its purpose.
+     */
+    @JsonIgnore
+    public JsonNullable<String> title() {
+        return title;
+    }
+
+    /**
+     * The type of agreement.
+     */
+    @JsonIgnore
+    public JsonNullable<String> type() {
+        return type;
     }
 
     public static Builder builder() {
@@ -396,195 +487,21 @@ public class Agreement {
     }
 
 
-    public Agreement withId(String id) {
-        Utils.checkNotNull(id, "id");
-        this.id = id;
+    /**
+     * Hypermedia controls (HATEOAS) for agreement specific links to resources.
+     */
+    public Agreement withLinks(AgreementLinks links) {
+        Utils.checkNotNull(links, "links");
+        this.links = JsonNullable.of(links);
         return this;
     }
 
     /**
-     * Title of the agreement document, summarizing its purpose.
+     * Hypermedia controls (HATEOAS) for agreement specific links to resources.
      */
-    public Agreement withTitle(String title) {
-        Utils.checkNotNull(title, "title");
-        this.title = JsonNullable.of(title);
-        return this;
-    }
-
-    /**
-     * Title of the agreement document, summarizing its purpose.
-     */
-    public Agreement withTitle(JsonNullable<String> title) {
-        Utils.checkNotNull(title, "title");
-        this.title = title;
-        return this;
-    }
-
-    /**
-     * The file name of the agreement.
-     */
-    public Agreement withFileName(String fileName) {
-        Utils.checkNotNull(fileName, "fileName");
-        this.fileName = JsonNullable.of(fileName);
-        return this;
-    }
-
-    /**
-     * The file name of the agreement.
-     */
-    public Agreement withFileName(JsonNullable<String> fileName) {
-        Utils.checkNotNull(fileName, "fileName");
-        this.fileName = fileName;
-        return this;
-    }
-
-    /**
-     * The type of agreement.
-     */
-    public Agreement withType(String type) {
-        Utils.checkNotNull(type, "type");
-        this.type = JsonNullable.of(type);
-        return this;
-    }
-
-    /**
-     * The type of agreement.
-     */
-    public Agreement withType(JsonNullable<String> type) {
-        Utils.checkNotNull(type, "type");
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * Server-defined category based on the agreement type.
-     */
-    public Agreement withCategory(String category) {
-        Utils.checkNotNull(category, "category");
-        this.category = JsonNullable.of(category);
-        return this;
-    }
-
-    /**
-     * Server-defined category based on the agreement type.
-     */
-    public Agreement withCategory(JsonNullable<String> category) {
-        Utils.checkNotNull(category, "category");
-        this.category = category;
-        return this;
-    }
-
-    /**
-     * A detailed summary of the agreement's key provisions and scope.
-     */
-    public Agreement withSummary(String summary) {
-        Utils.checkNotNull(summary, "summary");
-        this.summary = JsonNullable.of(summary);
-        return this;
-    }
-
-    /**
-     * A detailed summary of the agreement's key provisions and scope.
-     */
-    public Agreement withSummary(JsonNullable<String> summary) {
-        Utils.checkNotNull(summary, "summary");
-        this.summary = summary;
-        return this;
-    }
-
-    /**
-     * Current status of the agreement (e.g., PENDING, COMPLETE, INACTIVE)
-     */
-    public Agreement withStatus(String status) {
-        Utils.checkNotNull(status, "status");
-        this.status = JsonNullable.of(status);
-        return this;
-    }
-
-    /**
-     * Current status of the agreement (e.g., PENDING, COMPLETE, INACTIVE)
-     */
-    public Agreement withStatus(JsonNullable<String> status) {
-        Utils.checkNotNull(status, "status");
-        this.status = status;
-        return this;
-    }
-
-    /**
-     * A list of parties involved in the agreement.
-     */
-    public Agreement withParties(List<Party> parties) {
-        Utils.checkNotNull(parties, "parties");
-        this.parties = JsonNullable.of(parties);
-        return this;
-    }
-
-    /**
-     * A list of parties involved in the agreement.
-     */
-    public Agreement withParties(JsonNullable<? extends List<Party>> parties) {
-        Utils.checkNotNull(parties, "parties");
-        this.parties = parties;
-        return this;
-    }
-
-    /**
-     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined
-     * by the agreement type."
-     */
-    public Agreement withProvisions(Provisions provisions) {
-        Utils.checkNotNull(provisions, "provisions");
-        this.provisions = JsonNullable.of(provisions);
-        return this;
-    }
-
-    /**
-     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined
-     * by the agreement type."
-     */
-    public Agreement withProvisions(JsonNullable<? extends Provisions> provisions) {
-        Utils.checkNotNull(provisions, "provisions");
-        this.provisions = provisions;
-        return this;
-    }
-
-    /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
-     * booleans, numbers, arrays, or objects
-     */
-    public Agreement withCustomProvisions(Map<String, CustomProperty> customProvisions) {
-        Utils.checkNotNull(customProvisions, "customProvisions");
-        this.customProvisions = JsonNullable.of(customProvisions);
-        return this;
-    }
-
-    /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
-     * booleans, numbers, arrays, or objects
-     */
-    public Agreement withCustomProvisions(JsonNullable<? extends Map<String, CustomProperty>> customProvisions) {
-        Utils.checkNotNull(customProvisions, "customProvisions");
-        this.customProvisions = customProvisions;
-        return this;
-    }
-
-    /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
-     * booleans, numbers, arrays, or objects
-     */
-    public Agreement withAdditionalUserDefinedData(Map<String, CustomProperty> additionalUserDefinedData) {
-        Utils.checkNotNull(additionalUserDefinedData, "additionalUserDefinedData");
-        this.additionalUserDefinedData = JsonNullable.of(additionalUserDefinedData);
-        return this;
-    }
-
-    /**
-     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
-     * booleans, numbers, arrays, or objects
-     */
-    public Agreement withAdditionalUserDefinedData(JsonNullable<? extends Map<String, CustomProperty>> additionalUserDefinedData) {
-        Utils.checkNotNull(additionalUserDefinedData, "additionalUserDefinedData");
-        this.additionalUserDefinedData = additionalUserDefinedData;
+    public Agreement withLinks(JsonNullable<? extends AgreementLinks> links) {
+        Utils.checkNotNull(links, "links");
+        this.links = links;
         return this;
     }
 
@@ -628,16 +545,110 @@ public class Agreement {
         return this;
     }
 
-    public Agreement withRelatedAgreementDocuments(RelatedAgreementDocuments relatedAgreementDocuments) {
-        Utils.checkNotNull(relatedAgreementDocuments, "relatedAgreementDocuments");
-        this.relatedAgreementDocuments = Optional.ofNullable(relatedAgreementDocuments);
+    /**
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
+     */
+    public Agreement withAdditionalUserDefinedData(Map<String, CustomProperty> additionalUserDefinedData) {
+        Utils.checkNotNull(additionalUserDefinedData, "additionalUserDefinedData");
+        this.additionalUserDefinedData = JsonNullable.of(additionalUserDefinedData);
+        return this;
+    }
+
+    /**
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
+     */
+    public Agreement withAdditionalUserDefinedData(JsonNullable<? extends Map<String, CustomProperty>> additionalUserDefinedData) {
+        Utils.checkNotNull(additionalUserDefinedData, "additionalUserDefinedData");
+        this.additionalUserDefinedData = additionalUserDefinedData;
+        return this;
+    }
+
+    /**
+     * Server-defined category based on the agreement type.
+     */
+    public Agreement withCategory(String category) {
+        Utils.checkNotNull(category, "category");
+        this.category = JsonNullable.of(category);
+        return this;
+    }
+
+    /**
+     * Server-defined category based on the agreement type.
+     */
+    public Agreement withCategory(JsonNullable<String> category) {
+        Utils.checkNotNull(category, "category");
+        this.category = category;
+        return this;
+    }
+
+    /**
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
+     */
+    public Agreement withCustomProvisions(Map<String, CustomProperty> customProvisions) {
+        Utils.checkNotNull(customProvisions, "customProvisions");
+        this.customProvisions = JsonNullable.of(customProvisions);
+        return this;
+    }
+
+    /**
+     * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+     * booleans, numbers, arrays, or objects
+     */
+    public Agreement withCustomProvisions(JsonNullable<? extends Map<String, CustomProperty>> customProvisions) {
+        Utils.checkNotNull(customProvisions, "customProvisions");
+        this.customProvisions = customProvisions;
+        return this;
+    }
+
+    /**
+     * The id the original agreement document.
+     */
+    public Agreement withDocumentId(String documentId) {
+        Utils.checkNotNull(documentId, "documentId");
+        this.documentId = JsonNullable.of(documentId);
+        return this;
+    }
+
+    /**
+     * The id the original agreement document.
+     */
+    public Agreement withDocumentId(JsonNullable<String> documentId) {
+        Utils.checkNotNull(documentId, "documentId");
+        this.documentId = documentId;
+        return this;
+    }
+
+    /**
+     * The file name of the agreement.
+     */
+    public Agreement withFileName(String fileName) {
+        Utils.checkNotNull(fileName, "fileName");
+        this.fileName = JsonNullable.of(fileName);
+        return this;
+    }
+
+    /**
+     * The file name of the agreement.
+     */
+    public Agreement withFileName(JsonNullable<String> fileName) {
+        Utils.checkNotNull(fileName, "fileName");
+        this.fileName = fileName;
+        return this;
+    }
+
+    public Agreement withId(String id) {
+        Utils.checkNotNull(id, "id");
+        this.id = Optional.ofNullable(id);
         return this;
     }
 
 
-    public Agreement withRelatedAgreementDocuments(Optional<? extends RelatedAgreementDocuments> relatedAgreementDocuments) {
-        Utils.checkNotNull(relatedAgreementDocuments, "relatedAgreementDocuments");
-        this.relatedAgreementDocuments = relatedAgreementDocuments;
+    public Agreement withId(Optional<String> id) {
+        Utils.checkNotNull(id, "id");
+        this.id = id;
         return this;
     }
 
@@ -659,21 +670,134 @@ public class Agreement {
         return this;
     }
 
-    /**
-     * The name of the source system who creates this entity, e.g. eSign, CLM, or Salesforce.
-     */
-    public Agreement withSourceName(String sourceName) {
-        Utils.checkNotNull(sourceName, "sourceName");
-        this.sourceName = JsonNullable.of(sourceName);
+    public Agreement withLinkedData(List<LinkedData> linkedData) {
+        Utils.checkNotNull(linkedData, "linkedData");
+        this.linkedData = Optional.ofNullable(linkedData);
+        return this;
+    }
+
+
+    public Agreement withLinkedData(Optional<? extends List<LinkedData>> linkedData) {
+        Utils.checkNotNull(linkedData, "linkedData");
+        this.linkedData = linkedData;
+        return this;
+    }
+
+    public Agreement withMetadata(ResourceMetadata metadata) {
+        Utils.checkNotNull(metadata, "metadata");
+        this.metadata = Optional.ofNullable(metadata);
+        return this;
+    }
+
+
+    public Agreement withMetadata(Optional<? extends ResourceMetadata> metadata) {
+        Utils.checkNotNull(metadata, "metadata");
+        this.metadata = metadata;
         return this;
     }
 
     /**
-     * The name of the source system who creates this entity, e.g. eSign, CLM, or Salesforce.
+     * A list of parties involved in the agreement.
      */
-    public Agreement withSourceName(JsonNullable<String> sourceName) {
-        Utils.checkNotNull(sourceName, "sourceName");
-        this.sourceName = sourceName;
+    public Agreement withParties(List<Party> parties) {
+        Utils.checkNotNull(parties, "parties");
+        this.parties = JsonNullable.of(parties);
+        return this;
+    }
+
+    /**
+     * A list of parties involved in the agreement.
+     */
+    public Agreement withParties(JsonNullable<? extends List<Party>> parties) {
+        Utils.checkNotNull(parties, "parties");
+        this.parties = parties;
+        return this;
+    }
+
+    /**
+     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined
+     * by the agreement type."
+     */
+    public Agreement withProvisions(Provisions provisions) {
+        Utils.checkNotNull(provisions, "provisions");
+        this.provisions = JsonNullable.of(provisions);
+        return this;
+    }
+
+    /**
+     * "The conditions or rules written in a legal agreement. The set of possible provisions is determined
+     * by the agreement type."
+     */
+    public Agreement withProvisions(JsonNullable<? extends Provisions> provisions) {
+        Utils.checkNotNull(provisions, "provisions");
+        this.provisions = provisions;
+        return this;
+    }
+
+    public Agreement withRelatedAgreementDocuments(RelatedAgreementDocuments relatedAgreementDocuments) {
+        Utils.checkNotNull(relatedAgreementDocuments, "relatedAgreementDocuments");
+        this.relatedAgreementDocuments = Optional.ofNullable(relatedAgreementDocuments);
+        return this;
+    }
+
+
+    public Agreement withRelatedAgreementDocuments(Optional<? extends RelatedAgreementDocuments> relatedAgreementDocuments) {
+        Utils.checkNotNull(relatedAgreementDocuments, "relatedAgreementDocuments");
+        this.relatedAgreementDocuments = relatedAgreementDocuments;
+        return this;
+    }
+
+    /**
+     * The date when the agreement extraction review was completed.
+     */
+    public Agreement withReviewCompletedAt(OffsetDateTime reviewCompletedAt) {
+        Utils.checkNotNull(reviewCompletedAt, "reviewCompletedAt");
+        this.reviewCompletedAt = JsonNullable.of(reviewCompletedAt);
+        return this;
+    }
+
+    /**
+     * The date when the agreement extraction review was completed.
+     */
+    public Agreement withReviewCompletedAt(JsonNullable<OffsetDateTime> reviewCompletedAt) {
+        Utils.checkNotNull(reviewCompletedAt, "reviewCompletedAt");
+        this.reviewCompletedAt = reviewCompletedAt;
+        return this;
+    }
+
+    /**
+     * The review status of the agreement, indicating whether it has been complete or pending.
+     */
+    public Agreement withReviewStatus(String reviewStatus) {
+        Utils.checkNotNull(reviewStatus, "reviewStatus");
+        this.reviewStatus = JsonNullable.of(reviewStatus);
+        return this;
+    }
+
+    /**
+     * The review status of the agreement, indicating whether it has been complete or pending.
+     */
+    public Agreement withReviewStatus(JsonNullable<String> reviewStatus) {
+        Utils.checkNotNull(reviewStatus, "reviewStatus");
+        this.reviewStatus = reviewStatus;
+        return this;
+    }
+
+    /**
+     * The Account ID of the source system who creates this entity, e.g. eSign Account ID
+     */
+    public Agreement withSourceAccountId(String sourceAccountId) {
+        Utils.checkNotNull(sourceAccountId, "sourceAccountId");
+        this.sourceAccountId = JsonNullable.of(sourceAccountId);
+        return this;
+    }
+
+    /**
+     * The Account ID of the source system who creates this entity, e.g. eSign Account ID
+     */
+    public Agreement withSourceAccountId(JsonNullable<String> sourceAccountId) {
+        Utils.checkNotNull(sourceAccountId, "sourceAccountId");
+        this.sourceAccountId = sourceAccountId;
         return this;
     }
 
@@ -698,33 +822,92 @@ public class Agreement {
     }
 
     /**
-     * The Account ID of the source system who creates this entity, e.g. eSign Account ID
+     * The name of the source system which created this agreement, e.g. eSign, CLM, or Salesforce.
      */
-    public Agreement withSourceAccountId(String sourceAccountId) {
-        Utils.checkNotNull(sourceAccountId, "sourceAccountId");
-        this.sourceAccountId = JsonNullable.of(sourceAccountId);
+    public Agreement withSourceName(String sourceName) {
+        Utils.checkNotNull(sourceName, "sourceName");
+        this.sourceName = JsonNullable.of(sourceName);
         return this;
     }
 
     /**
-     * The Account ID of the source system who creates this entity, e.g. eSign Account ID
+     * The name of the source system which created this agreement, e.g. eSign, CLM, or Salesforce.
      */
-    public Agreement withSourceAccountId(JsonNullable<String> sourceAccountId) {
-        Utils.checkNotNull(sourceAccountId, "sourceAccountId");
-        this.sourceAccountId = sourceAccountId;
+    public Agreement withSourceName(JsonNullable<String> sourceName) {
+        Utils.checkNotNull(sourceName, "sourceName");
+        this.sourceName = sourceName;
         return this;
     }
 
-    public Agreement withMetadata(ResourceMetadata metadata) {
-        Utils.checkNotNull(metadata, "metadata");
-        this.metadata = Optional.ofNullable(metadata);
+    /**
+     * Current status of the agreement (e.g., PENDING, COMPLETE, INACTIVE)
+     */
+    public Agreement withStatus(String status) {
+        Utils.checkNotNull(status, "status");
+        this.status = JsonNullable.of(status);
         return this;
     }
 
+    /**
+     * Current status of the agreement (e.g., PENDING, COMPLETE, INACTIVE)
+     */
+    public Agreement withStatus(JsonNullable<String> status) {
+        Utils.checkNotNull(status, "status");
+        this.status = status;
+        return this;
+    }
 
-    public Agreement withMetadata(Optional<? extends ResourceMetadata> metadata) {
-        Utils.checkNotNull(metadata, "metadata");
-        this.metadata = metadata;
+    /**
+     * A detailed summary of the agreement's key provisions and scope.
+     */
+    public Agreement withSummary(String summary) {
+        Utils.checkNotNull(summary, "summary");
+        this.summary = JsonNullable.of(summary);
+        return this;
+    }
+
+    /**
+     * A detailed summary of the agreement's key provisions and scope.
+     */
+    public Agreement withSummary(JsonNullable<String> summary) {
+        Utils.checkNotNull(summary, "summary");
+        this.summary = summary;
+        return this;
+    }
+
+    /**
+     * Title of the agreement document, summarizing its purpose.
+     */
+    public Agreement withTitle(String title) {
+        Utils.checkNotNull(title, "title");
+        this.title = JsonNullable.of(title);
+        return this;
+    }
+
+    /**
+     * Title of the agreement document, summarizing its purpose.
+     */
+    public Agreement withTitle(JsonNullable<String> title) {
+        Utils.checkNotNull(title, "title");
+        this.title = title;
+        return this;
+    }
+
+    /**
+     * The type of agreement.
+     */
+    public Agreement withType(String type) {
+        Utils.checkNotNull(type, "type");
+        this.type = JsonNullable.of(type);
+        return this;
+    }
+
+    /**
+     * The type of agreement.
+     */
+    public Agreement withType(JsonNullable<String> type) {
+        Utils.checkNotNull(type, "type");
+        this.type = type;
         return this;
     }
 
@@ -738,308 +921,145 @@ public class Agreement {
         }
         Agreement other = (Agreement) o;
         return 
-            Utils.enhancedDeepEquals(this.id, other.id) &&
-            Utils.enhancedDeepEquals(this.title, other.title) &&
-            Utils.enhancedDeepEquals(this.fileName, other.fileName) &&
-            Utils.enhancedDeepEquals(this.type, other.type) &&
-            Utils.enhancedDeepEquals(this.category, other.category) &&
-            Utils.enhancedDeepEquals(this.summary, other.summary) &&
-            Utils.enhancedDeepEquals(this.status, other.status) &&
-            Utils.enhancedDeepEquals(this.parties, other.parties) &&
-            Utils.enhancedDeepEquals(this.provisions, other.provisions) &&
-            Utils.enhancedDeepEquals(this.customProvisions, other.customProvisions) &&
-            Utils.enhancedDeepEquals(this.additionalUserDefinedData, other.additionalUserDefinedData) &&
+            Utils.enhancedDeepEquals(this.links, other.links) &&
             Utils.enhancedDeepEquals(this.additionalCustomClmData, other.additionalCustomClmData) &&
             Utils.enhancedDeepEquals(this.additionalCustomEsignData, other.additionalCustomEsignData) &&
-            Utils.enhancedDeepEquals(this.relatedAgreementDocuments, other.relatedAgreementDocuments) &&
+            Utils.enhancedDeepEquals(this.additionalUserDefinedData, other.additionalUserDefinedData) &&
+            Utils.enhancedDeepEquals(this.category, other.category) &&
+            Utils.enhancedDeepEquals(this.customProvisions, other.customProvisions) &&
+            Utils.enhancedDeepEquals(this.documentId, other.documentId) &&
+            Utils.enhancedDeepEquals(this.fileName, other.fileName) &&
+            Utils.enhancedDeepEquals(this.id, other.id) &&
             Utils.enhancedDeepEquals(this.languages, other.languages) &&
-            Utils.enhancedDeepEquals(this.sourceName, other.sourceName) &&
-            Utils.enhancedDeepEquals(this.sourceId, other.sourceId) &&
+            Utils.enhancedDeepEquals(this.linkedData, other.linkedData) &&
+            Utils.enhancedDeepEquals(this.metadata, other.metadata) &&
+            Utils.enhancedDeepEquals(this.parties, other.parties) &&
+            Utils.enhancedDeepEquals(this.provisions, other.provisions) &&
+            Utils.enhancedDeepEquals(this.relatedAgreementDocuments, other.relatedAgreementDocuments) &&
+            Utils.enhancedDeepEquals(this.reviewCompletedAt, other.reviewCompletedAt) &&
+            Utils.enhancedDeepEquals(this.reviewStatus, other.reviewStatus) &&
             Utils.enhancedDeepEquals(this.sourceAccountId, other.sourceAccountId) &&
-            Utils.enhancedDeepEquals(this.metadata, other.metadata);
+            Utils.enhancedDeepEquals(this.sourceId, other.sourceId) &&
+            Utils.enhancedDeepEquals(this.sourceName, other.sourceName) &&
+            Utils.enhancedDeepEquals(this.status, other.status) &&
+            Utils.enhancedDeepEquals(this.summary, other.summary) &&
+            Utils.enhancedDeepEquals(this.title, other.title) &&
+            Utils.enhancedDeepEquals(this.type, other.type);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            id, title, fileName,
-            type, category, summary,
-            status, parties, provisions,
-            customProvisions, additionalUserDefinedData, additionalCustomClmData,
-            additionalCustomEsignData, relatedAgreementDocuments, languages,
-            sourceName, sourceId, sourceAccountId,
-            metadata);
+            links, additionalCustomClmData, additionalCustomEsignData,
+            additionalUserDefinedData, category, customProvisions,
+            documentId, fileName, id,
+            languages, linkedData, metadata,
+            parties, provisions, relatedAgreementDocuments,
+            reviewCompletedAt, reviewStatus, sourceAccountId,
+            sourceId, sourceName, status,
+            summary, title, type);
     }
     
     @Override
     public String toString() {
         return Utils.toString(Agreement.class,
-                "id", id,
-                "title", title,
-                "fileName", fileName,
-                "type", type,
-                "category", category,
-                "summary", summary,
-                "status", status,
-                "parties", parties,
-                "provisions", provisions,
-                "customProvisions", customProvisions,
-                "additionalUserDefinedData", additionalUserDefinedData,
+                "links", links,
                 "additionalCustomClmData", additionalCustomClmData,
                 "additionalCustomEsignData", additionalCustomEsignData,
-                "relatedAgreementDocuments", relatedAgreementDocuments,
+                "additionalUserDefinedData", additionalUserDefinedData,
+                "category", category,
+                "customProvisions", customProvisions,
+                "documentId", documentId,
+                "fileName", fileName,
+                "id", id,
                 "languages", languages,
-                "sourceName", sourceName,
-                "sourceId", sourceId,
+                "linkedData", linkedData,
+                "metadata", metadata,
+                "parties", parties,
+                "provisions", provisions,
+                "relatedAgreementDocuments", relatedAgreementDocuments,
+                "reviewCompletedAt", reviewCompletedAt,
+                "reviewStatus", reviewStatus,
                 "sourceAccountId", sourceAccountId,
-                "metadata", metadata);
+                "sourceId", sourceId,
+                "sourceName", sourceName,
+                "status", status,
+                "summary", summary,
+                "title", title,
+                "type", type);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private String id;
-
-        private JsonNullable<String> title = JsonNullable.undefined();
-
-        private JsonNullable<String> fileName = JsonNullable.undefined();
-
-        private JsonNullable<String> type = JsonNullable.undefined();
-
-        private JsonNullable<String> category = JsonNullable.undefined();
-
-        private JsonNullable<String> summary = JsonNullable.undefined();
-
-        private JsonNullable<String> status = JsonNullable.undefined();
-
-        private JsonNullable<? extends List<Party>> parties = JsonNullable.undefined();
-
-        private JsonNullable<? extends Provisions> provisions = JsonNullable.undefined();
-
-        private JsonNullable<? extends Map<String, CustomProperty>> customProvisions = JsonNullable.undefined();
-
-        private JsonNullable<? extends Map<String, CustomProperty>> additionalUserDefinedData = JsonNullable.undefined();
+        private JsonNullable<? extends AgreementLinks> links = JsonNullable.undefined();
 
         private JsonNullable<? extends Map<String, CustomProperty>> additionalCustomClmData = JsonNullable.undefined();
 
         private JsonNullable<? extends Map<String, CustomProperty>> additionalCustomEsignData = JsonNullable.undefined();
 
-        private Optional<? extends RelatedAgreementDocuments> relatedAgreementDocuments = Optional.empty();
+        private JsonNullable<? extends Map<String, CustomProperty>> additionalUserDefinedData = JsonNullable.undefined();
+
+        private JsonNullable<String> category = JsonNullable.undefined();
+
+        private JsonNullable<? extends Map<String, CustomProperty>> customProvisions = JsonNullable.undefined();
+
+        private JsonNullable<String> documentId = JsonNullable.undefined();
+
+        private JsonNullable<String> fileName = JsonNullable.undefined();
+
+        private Optional<String> id;
 
         private JsonNullable<? extends List<String>> languages = JsonNullable.undefined();
 
-        private JsonNullable<String> sourceName = JsonNullable.undefined();
+        private Optional<? extends List<LinkedData>> linkedData = Optional.empty();
 
-        private JsonNullable<String> sourceId = JsonNullable.undefined();
+        private Optional<? extends ResourceMetadata> metadata = Optional.empty();
+
+        private JsonNullable<? extends List<Party>> parties = JsonNullable.undefined();
+
+        private JsonNullable<? extends Provisions> provisions = JsonNullable.undefined();
+
+        private Optional<? extends RelatedAgreementDocuments> relatedAgreementDocuments = Optional.empty();
+
+        private JsonNullable<OffsetDateTime> reviewCompletedAt = JsonNullable.undefined();
+
+        private JsonNullable<String> reviewStatus = JsonNullable.undefined();
 
         private JsonNullable<String> sourceAccountId = JsonNullable.undefined();
 
-        private Optional<? extends ResourceMetadata> metadata = Optional.empty();
+        private JsonNullable<String> sourceId = JsonNullable.undefined();
+
+        private JsonNullable<String> sourceName = JsonNullable.undefined();
+
+        private JsonNullable<String> status = JsonNullable.undefined();
+
+        private JsonNullable<String> summary = JsonNullable.undefined();
+
+        private JsonNullable<String> title = JsonNullable.undefined();
+
+        private JsonNullable<String> type = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
         }
 
 
-        public Builder id(String id) {
-            Utils.checkNotNull(id, "id");
-            this.id = id;
-            return this;
-        }
-
-
         /**
-         * Title of the agreement document, summarizing its purpose.
+         * Hypermedia controls (HATEOAS) for agreement specific links to resources.
          */
-        public Builder title(String title) {
-            Utils.checkNotNull(title, "title");
-            this.title = JsonNullable.of(title);
+        public Builder links(AgreementLinks links) {
+            Utils.checkNotNull(links, "links");
+            this.links = JsonNullable.of(links);
             return this;
         }
 
         /**
-         * Title of the agreement document, summarizing its purpose.
+         * Hypermedia controls (HATEOAS) for agreement specific links to resources.
          */
-        public Builder title(JsonNullable<String> title) {
-            Utils.checkNotNull(title, "title");
-            this.title = title;
-            return this;
-        }
-
-
-        /**
-         * The file name of the agreement.
-         */
-        public Builder fileName(String fileName) {
-            Utils.checkNotNull(fileName, "fileName");
-            this.fileName = JsonNullable.of(fileName);
-            return this;
-        }
-
-        /**
-         * The file name of the agreement.
-         */
-        public Builder fileName(JsonNullable<String> fileName) {
-            Utils.checkNotNull(fileName, "fileName");
-            this.fileName = fileName;
-            return this;
-        }
-
-
-        /**
-         * The type of agreement.
-         */
-        public Builder type(String type) {
-            Utils.checkNotNull(type, "type");
-            this.type = JsonNullable.of(type);
-            return this;
-        }
-
-        /**
-         * The type of agreement.
-         */
-        public Builder type(JsonNullable<String> type) {
-            Utils.checkNotNull(type, "type");
-            this.type = type;
-            return this;
-        }
-
-
-        /**
-         * Server-defined category based on the agreement type.
-         */
-        public Builder category(String category) {
-            Utils.checkNotNull(category, "category");
-            this.category = JsonNullable.of(category);
-            return this;
-        }
-
-        /**
-         * Server-defined category based on the agreement type.
-         */
-        public Builder category(JsonNullable<String> category) {
-            Utils.checkNotNull(category, "category");
-            this.category = category;
-            return this;
-        }
-
-
-        /**
-         * A detailed summary of the agreement's key provisions and scope.
-         */
-        public Builder summary(String summary) {
-            Utils.checkNotNull(summary, "summary");
-            this.summary = JsonNullable.of(summary);
-            return this;
-        }
-
-        /**
-         * A detailed summary of the agreement's key provisions and scope.
-         */
-        public Builder summary(JsonNullable<String> summary) {
-            Utils.checkNotNull(summary, "summary");
-            this.summary = summary;
-            return this;
-        }
-
-
-        /**
-         * Current status of the agreement (e.g., PENDING, COMPLETE, INACTIVE)
-         */
-        public Builder status(String status) {
-            Utils.checkNotNull(status, "status");
-            this.status = JsonNullable.of(status);
-            return this;
-        }
-
-        /**
-         * Current status of the agreement (e.g., PENDING, COMPLETE, INACTIVE)
-         */
-        public Builder status(JsonNullable<String> status) {
-            Utils.checkNotNull(status, "status");
-            this.status = status;
-            return this;
-        }
-
-
-        /**
-         * A list of parties involved in the agreement.
-         */
-        public Builder parties(List<Party> parties) {
-            Utils.checkNotNull(parties, "parties");
-            this.parties = JsonNullable.of(parties);
-            return this;
-        }
-
-        /**
-         * A list of parties involved in the agreement.
-         */
-        public Builder parties(JsonNullable<? extends List<Party>> parties) {
-            Utils.checkNotNull(parties, "parties");
-            this.parties = parties;
-            return this;
-        }
-
-
-        /**
-         * "The conditions or rules written in a legal agreement. The set of possible provisions is determined
-         * by the agreement type."
-         */
-        public Builder provisions(Provisions provisions) {
-            Utils.checkNotNull(provisions, "provisions");
-            this.provisions = JsonNullable.of(provisions);
-            return this;
-        }
-
-        /**
-         * "The conditions or rules written in a legal agreement. The set of possible provisions is determined
-         * by the agreement type."
-         */
-        public Builder provisions(JsonNullable<? extends Provisions> provisions) {
-            Utils.checkNotNull(provisions, "provisions");
-            this.provisions = provisions;
-            return this;
-        }
-
-
-        /**
-         * A generic map/dict. The key is a string, and the value can be of any type, including strings,
-         * booleans, numbers, arrays, or objects
-         */
-        public Builder customProvisions(Map<String, CustomProperty> customProvisions) {
-            Utils.checkNotNull(customProvisions, "customProvisions");
-            this.customProvisions = JsonNullable.of(customProvisions);
-            return this;
-        }
-
-        /**
-         * A generic map/dict. The key is a string, and the value can be of any type, including strings,
-         * booleans, numbers, arrays, or objects
-         */
-        public Builder customProvisions(JsonNullable<? extends Map<String, CustomProperty>> customProvisions) {
-            Utils.checkNotNull(customProvisions, "customProvisions");
-            this.customProvisions = customProvisions;
-            return this;
-        }
-
-
-        /**
-         * A generic map/dict. The key is a string, and the value can be of any type, including strings,
-         * booleans, numbers, arrays, or objects
-         */
-        public Builder additionalUserDefinedData(Map<String, CustomProperty> additionalUserDefinedData) {
-            Utils.checkNotNull(additionalUserDefinedData, "additionalUserDefinedData");
-            this.additionalUserDefinedData = JsonNullable.of(additionalUserDefinedData);
-            return this;
-        }
-
-        /**
-         * A generic map/dict. The key is a string, and the value can be of any type, including strings,
-         * booleans, numbers, arrays, or objects
-         */
-        public Builder additionalUserDefinedData(JsonNullable<? extends Map<String, CustomProperty>> additionalUserDefinedData) {
-            Utils.checkNotNull(additionalUserDefinedData, "additionalUserDefinedData");
-            this.additionalUserDefinedData = additionalUserDefinedData;
+        public Builder links(JsonNullable<? extends AgreementLinks> links) {
+            Utils.checkNotNull(links, "links");
+            this.links = links;
             return this;
         }
 
@@ -1086,15 +1106,114 @@ public class Agreement {
         }
 
 
-        public Builder relatedAgreementDocuments(RelatedAgreementDocuments relatedAgreementDocuments) {
-            Utils.checkNotNull(relatedAgreementDocuments, "relatedAgreementDocuments");
-            this.relatedAgreementDocuments = Optional.ofNullable(relatedAgreementDocuments);
+        /**
+         * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+         * booleans, numbers, arrays, or objects
+         */
+        public Builder additionalUserDefinedData(Map<String, CustomProperty> additionalUserDefinedData) {
+            Utils.checkNotNull(additionalUserDefinedData, "additionalUserDefinedData");
+            this.additionalUserDefinedData = JsonNullable.of(additionalUserDefinedData);
             return this;
         }
 
-        public Builder relatedAgreementDocuments(Optional<? extends RelatedAgreementDocuments> relatedAgreementDocuments) {
-            Utils.checkNotNull(relatedAgreementDocuments, "relatedAgreementDocuments");
-            this.relatedAgreementDocuments = relatedAgreementDocuments;
+        /**
+         * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+         * booleans, numbers, arrays, or objects
+         */
+        public Builder additionalUserDefinedData(JsonNullable<? extends Map<String, CustomProperty>> additionalUserDefinedData) {
+            Utils.checkNotNull(additionalUserDefinedData, "additionalUserDefinedData");
+            this.additionalUserDefinedData = additionalUserDefinedData;
+            return this;
+        }
+
+
+        /**
+         * Server-defined category based on the agreement type.
+         */
+        public Builder category(String category) {
+            Utils.checkNotNull(category, "category");
+            this.category = JsonNullable.of(category);
+            return this;
+        }
+
+        /**
+         * Server-defined category based on the agreement type.
+         */
+        public Builder category(JsonNullable<String> category) {
+            Utils.checkNotNull(category, "category");
+            this.category = category;
+            return this;
+        }
+
+
+        /**
+         * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+         * booleans, numbers, arrays, or objects
+         */
+        public Builder customProvisions(Map<String, CustomProperty> customProvisions) {
+            Utils.checkNotNull(customProvisions, "customProvisions");
+            this.customProvisions = JsonNullable.of(customProvisions);
+            return this;
+        }
+
+        /**
+         * A generic map/dict. The key is a string, and the value can be of any type, including strings,
+         * booleans, numbers, arrays, or objects
+         */
+        public Builder customProvisions(JsonNullable<? extends Map<String, CustomProperty>> customProvisions) {
+            Utils.checkNotNull(customProvisions, "customProvisions");
+            this.customProvisions = customProvisions;
+            return this;
+        }
+
+
+        /**
+         * The id the original agreement document.
+         */
+        public Builder documentId(String documentId) {
+            Utils.checkNotNull(documentId, "documentId");
+            this.documentId = JsonNullable.of(documentId);
+            return this;
+        }
+
+        /**
+         * The id the original agreement document.
+         */
+        public Builder documentId(JsonNullable<String> documentId) {
+            Utils.checkNotNull(documentId, "documentId");
+            this.documentId = documentId;
+            return this;
+        }
+
+
+        /**
+         * The file name of the agreement.
+         */
+        public Builder fileName(String fileName) {
+            Utils.checkNotNull(fileName, "fileName");
+            this.fileName = JsonNullable.of(fileName);
+            return this;
+        }
+
+        /**
+         * The file name of the agreement.
+         */
+        public Builder fileName(JsonNullable<String> fileName) {
+            Utils.checkNotNull(fileName, "fileName");
+            this.fileName = fileName;
+            return this;
+        }
+
+
+        public Builder id(String id) {
+            Utils.checkNotNull(id, "id");
+            this.id = Optional.ofNullable(id);
+            return this;
+        }
+
+        public Builder id(Optional<String> id) {
+            Utils.checkNotNull(id, "id");
+            this.id = id;
             return this;
         }
 
@@ -1118,21 +1237,138 @@ public class Agreement {
         }
 
 
+        public Builder linkedData(List<LinkedData> linkedData) {
+            Utils.checkNotNull(linkedData, "linkedData");
+            this.linkedData = Optional.ofNullable(linkedData);
+            return this;
+        }
+
+        public Builder linkedData(Optional<? extends List<LinkedData>> linkedData) {
+            Utils.checkNotNull(linkedData, "linkedData");
+            this.linkedData = linkedData;
+            return this;
+        }
+
+
+        public Builder metadata(ResourceMetadata metadata) {
+            Utils.checkNotNull(metadata, "metadata");
+            this.metadata = Optional.ofNullable(metadata);
+            return this;
+        }
+
+        public Builder metadata(Optional<? extends ResourceMetadata> metadata) {
+            Utils.checkNotNull(metadata, "metadata");
+            this.metadata = metadata;
+            return this;
+        }
+
+
         /**
-         * The name of the source system who creates this entity, e.g. eSign, CLM, or Salesforce.
+         * A list of parties involved in the agreement.
          */
-        public Builder sourceName(String sourceName) {
-            Utils.checkNotNull(sourceName, "sourceName");
-            this.sourceName = JsonNullable.of(sourceName);
+        public Builder parties(List<Party> parties) {
+            Utils.checkNotNull(parties, "parties");
+            this.parties = JsonNullable.of(parties);
             return this;
         }
 
         /**
-         * The name of the source system who creates this entity, e.g. eSign, CLM, or Salesforce.
+         * A list of parties involved in the agreement.
          */
-        public Builder sourceName(JsonNullable<String> sourceName) {
-            Utils.checkNotNull(sourceName, "sourceName");
-            this.sourceName = sourceName;
+        public Builder parties(JsonNullable<? extends List<Party>> parties) {
+            Utils.checkNotNull(parties, "parties");
+            this.parties = parties;
+            return this;
+        }
+
+
+        /**
+         * "The conditions or rules written in a legal agreement. The set of possible provisions is determined
+         * by the agreement type."
+         */
+        public Builder provisions(Provisions provisions) {
+            Utils.checkNotNull(provisions, "provisions");
+            this.provisions = JsonNullable.of(provisions);
+            return this;
+        }
+
+        /**
+         * "The conditions or rules written in a legal agreement. The set of possible provisions is determined
+         * by the agreement type."
+         */
+        public Builder provisions(JsonNullable<? extends Provisions> provisions) {
+            Utils.checkNotNull(provisions, "provisions");
+            this.provisions = provisions;
+            return this;
+        }
+
+
+        public Builder relatedAgreementDocuments(RelatedAgreementDocuments relatedAgreementDocuments) {
+            Utils.checkNotNull(relatedAgreementDocuments, "relatedAgreementDocuments");
+            this.relatedAgreementDocuments = Optional.ofNullable(relatedAgreementDocuments);
+            return this;
+        }
+
+        public Builder relatedAgreementDocuments(Optional<? extends RelatedAgreementDocuments> relatedAgreementDocuments) {
+            Utils.checkNotNull(relatedAgreementDocuments, "relatedAgreementDocuments");
+            this.relatedAgreementDocuments = relatedAgreementDocuments;
+            return this;
+        }
+
+
+        /**
+         * The date when the agreement extraction review was completed.
+         */
+        public Builder reviewCompletedAt(OffsetDateTime reviewCompletedAt) {
+            Utils.checkNotNull(reviewCompletedAt, "reviewCompletedAt");
+            this.reviewCompletedAt = JsonNullable.of(reviewCompletedAt);
+            return this;
+        }
+
+        /**
+         * The date when the agreement extraction review was completed.
+         */
+        public Builder reviewCompletedAt(JsonNullable<OffsetDateTime> reviewCompletedAt) {
+            Utils.checkNotNull(reviewCompletedAt, "reviewCompletedAt");
+            this.reviewCompletedAt = reviewCompletedAt;
+            return this;
+        }
+
+
+        /**
+         * The review status of the agreement, indicating whether it has been complete or pending.
+         */
+        public Builder reviewStatus(String reviewStatus) {
+            Utils.checkNotNull(reviewStatus, "reviewStatus");
+            this.reviewStatus = JsonNullable.of(reviewStatus);
+            return this;
+        }
+
+        /**
+         * The review status of the agreement, indicating whether it has been complete or pending.
+         */
+        public Builder reviewStatus(JsonNullable<String> reviewStatus) {
+            Utils.checkNotNull(reviewStatus, "reviewStatus");
+            this.reviewStatus = reviewStatus;
+            return this;
+        }
+
+
+        /**
+         * The Account ID of the source system who creates this entity, e.g. eSign Account ID
+         */
+        public Builder sourceAccountId(String sourceAccountId) {
+            Utils.checkNotNull(sourceAccountId, "sourceAccountId");
+            this.sourceAccountId = JsonNullable.of(sourceAccountId);
+            return this;
+        }
+
+        /**
+         * The Account ID of the source system who creates this entity, e.g. eSign Account ID
+         */
+        public Builder sourceAccountId(JsonNullable<String> sourceAccountId) {
+            Utils.checkNotNull(sourceAccountId, "sourceAccountId");
+            this.sourceAccountId = sourceAccountId;
             return this;
         }
 
@@ -1159,47 +1395,120 @@ public class Agreement {
 
 
         /**
-         * The Account ID of the source system who creates this entity, e.g. eSign Account ID
+         * The name of the source system which created this agreement, e.g. eSign, CLM, or Salesforce.
          */
-        public Builder sourceAccountId(String sourceAccountId) {
-            Utils.checkNotNull(sourceAccountId, "sourceAccountId");
-            this.sourceAccountId = JsonNullable.of(sourceAccountId);
+        public Builder sourceName(String sourceName) {
+            Utils.checkNotNull(sourceName, "sourceName");
+            this.sourceName = JsonNullable.of(sourceName);
             return this;
         }
 
         /**
-         * The Account ID of the source system who creates this entity, e.g. eSign Account ID
+         * The name of the source system which created this agreement, e.g. eSign, CLM, or Salesforce.
          */
-        public Builder sourceAccountId(JsonNullable<String> sourceAccountId) {
-            Utils.checkNotNull(sourceAccountId, "sourceAccountId");
-            this.sourceAccountId = sourceAccountId;
+        public Builder sourceName(JsonNullable<String> sourceName) {
+            Utils.checkNotNull(sourceName, "sourceName");
+            this.sourceName = sourceName;
             return this;
         }
 
 
-        public Builder metadata(ResourceMetadata metadata) {
-            Utils.checkNotNull(metadata, "metadata");
-            this.metadata = Optional.ofNullable(metadata);
+        /**
+         * Current status of the agreement (e.g., PENDING, COMPLETE, INACTIVE)
+         */
+        public Builder status(String status) {
+            Utils.checkNotNull(status, "status");
+            this.status = JsonNullable.of(status);
             return this;
         }
 
-        public Builder metadata(Optional<? extends ResourceMetadata> metadata) {
-            Utils.checkNotNull(metadata, "metadata");
-            this.metadata = metadata;
+        /**
+         * Current status of the agreement (e.g., PENDING, COMPLETE, INACTIVE)
+         */
+        public Builder status(JsonNullable<String> status) {
+            Utils.checkNotNull(status, "status");
+            this.status = status;
+            return this;
+        }
+
+
+        /**
+         * A detailed summary of the agreement's key provisions and scope.
+         */
+        public Builder summary(String summary) {
+            Utils.checkNotNull(summary, "summary");
+            this.summary = JsonNullable.of(summary);
+            return this;
+        }
+
+        /**
+         * A detailed summary of the agreement's key provisions and scope.
+         */
+        public Builder summary(JsonNullable<String> summary) {
+            Utils.checkNotNull(summary, "summary");
+            this.summary = summary;
+            return this;
+        }
+
+
+        /**
+         * Title of the agreement document, summarizing its purpose.
+         */
+        public Builder title(String title) {
+            Utils.checkNotNull(title, "title");
+            this.title = JsonNullable.of(title);
+            return this;
+        }
+
+        /**
+         * Title of the agreement document, summarizing its purpose.
+         */
+        public Builder title(JsonNullable<String> title) {
+            Utils.checkNotNull(title, "title");
+            this.title = title;
+            return this;
+        }
+
+
+        /**
+         * The type of agreement.
+         */
+        public Builder type(String type) {
+            Utils.checkNotNull(type, "type");
+            this.type = JsonNullable.of(type);
+            return this;
+        }
+
+        /**
+         * The type of agreement.
+         */
+        public Builder type(JsonNullable<String> type) {
+            Utils.checkNotNull(type, "type");
+            this.type = type;
             return this;
         }
 
         public Agreement build() {
+            if (id == null) {
+                id = _SINGLETON_VALUE_Id.value();
+            }
 
             return new Agreement(
-                id, title, fileName,
-                type, category, summary,
-                status, parties, provisions,
-                customProvisions, additionalUserDefinedData, additionalCustomClmData,
-                additionalCustomEsignData, relatedAgreementDocuments, languages,
-                sourceName, sourceId, sourceAccountId,
-                metadata);
+                links, additionalCustomClmData, additionalCustomEsignData,
+                additionalUserDefinedData, category, customProvisions,
+                documentId, fileName, id,
+                languages, linkedData, metadata,
+                parties, provisions, relatedAgreementDocuments,
+                reviewCompletedAt, reviewStatus, sourceAccountId,
+                sourceId, sourceName, status,
+                summary, title, type);
         }
 
+
+        private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_Id =
+                new LazySingletonValue<>(
+                        "id",
+                        "\"00000000-0000-0000-0000-000000000000\"",
+                        new TypeReference<Optional<String>>() {});
     }
 }

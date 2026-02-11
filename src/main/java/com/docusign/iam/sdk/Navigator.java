@@ -10,14 +10,20 @@ public class Navigator {
     private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
     private final Agreements agreements;
+    private final BulkJob bulkJob;
 
     Navigator(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
         this.agreements = new Agreements(this.sdkConfiguration);
+        this.bulkJob = new BulkJob(this.sdkConfiguration);
     }
 
     public final Agreements agreements() {
         return agreements;
+    }
+
+    public final BulkJob bulkJob() {
+        return bulkJob;
     }
 
 }

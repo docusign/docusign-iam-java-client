@@ -198,14 +198,14 @@ public class GetAgreementsList {
                 }
             }
             if (Utils.statusCodeMatches(response.statusCode(), "400", "403", "404")) {
-                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                if (Utils.contentTypeMatches(contentType, "application/problem+json")) {
                     throw Error.from(response);
                 } else {
                     throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
             if (Utils.statusCodeMatches(response.statusCode(), "500")) {
-                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                if (Utils.contentTypeMatches(contentType, "application/problem+json")) {
                     throw Error.from(response);
                 } else {
                     throw APIException.from("Unexpected content-type received: " + contentType, response);

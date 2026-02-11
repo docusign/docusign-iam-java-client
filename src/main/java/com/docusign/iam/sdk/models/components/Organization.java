@@ -19,12 +19,12 @@ public class Organization {
 
 
     @JsonProperty("links")
-    private List<Link> links;
+    private List<UserInfoLink> links;
 
     @JsonCreator
     public Organization(
             @JsonProperty("organization_id") String organizationId,
-            @JsonProperty("links") List<Link> links) {
+            @JsonProperty("links") List<UserInfoLink> links) {
         Utils.checkNotNull(organizationId, "organizationId");
         Utils.checkNotNull(links, "links");
         this.organizationId = organizationId;
@@ -37,7 +37,7 @@ public class Organization {
     }
 
     @JsonIgnore
-    public List<Link> links() {
+    public List<UserInfoLink> links() {
         return links;
     }
 
@@ -52,7 +52,7 @@ public class Organization {
         return this;
     }
 
-    public Organization withLinks(List<Link> links) {
+    public Organization withLinks(List<UserInfoLink> links) {
         Utils.checkNotNull(links, "links");
         this.links = links;
         return this;
@@ -90,7 +90,7 @@ public class Organization {
 
         private String organizationId;
 
-        private List<Link> links;
+        private List<UserInfoLink> links;
 
         private Builder() {
           // force use of static builder() method
@@ -104,7 +104,7 @@ public class Organization {
         }
 
 
-        public Builder links(List<Link> links) {
+        public Builder links(List<UserInfoLink> links) {
             Utils.checkNotNull(links, "links");
             this.links = links;
             return this;

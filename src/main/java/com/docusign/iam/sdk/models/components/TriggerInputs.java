@@ -32,7 +32,7 @@ import java.util.Map;
 public class TriggerInputs {
 
     @JsonValue
-    private TypedObject value;
+    private final TypedObject value;
     
     private TriggerInputs(TypedObject value) {
         this.value = value;
@@ -40,27 +40,25 @@ public class TriggerInputs {
 
     public static TriggerInputs of(String value) {
         Utils.checkNotNull(value, "value");
-        return new TriggerInputs(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<String>(){}));
+        return new TriggerInputs(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
 
     public static TriggerInputs of(double value) {
-        Utils.checkNotNull(value, "value");
-        return new TriggerInputs(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<java.lang.Double>(){}));
+        return new TriggerInputs(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
 
     public static TriggerInputs of(boolean value) {
-        Utils.checkNotNull(value, "value");
-        return new TriggerInputs(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<java.lang.Boolean>(){}));
+        return new TriggerInputs(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
 
     public static TriggerInputs of(Map<String, Object> value) {
         Utils.checkNotNull(value, "value");
-        return new TriggerInputs(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<Map<String, Object>>(){}));
+        return new TriggerInputs(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
 
     public static TriggerInputs of(List<Object> value) {
         Utils.checkNotNull(value, "value");
-        return new TriggerInputs(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<List<Object>>(){}));
+        return new TriggerInputs(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
     
     /**
@@ -86,7 +84,7 @@ public class TriggerInputs {
      **/ 
     public java.lang.Object value() {
         return value.value();
-    }    
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -97,7 +95,7 @@ public class TriggerInputs {
             return false;
         }
         TriggerInputs other = (TriggerInputs) o;
-        return Utils.enhancedDeepEquals(this.value.value(), other.value.value()); 
+        return Utils.enhancedDeepEquals(this.value.value(), other.value.value());
     }
     
     @Override
@@ -110,11 +108,11 @@ public class TriggerInputs {
 
         public _Deserializer() {
             super(TriggerInputs.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<List<Object>>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<Map<String, Object>>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<Boolean>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<String>() {}, JsonShape.DEFAULT),
                   TypeReferenceWithShape.of(new TypeReference<Double>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<String>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<Boolean>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<Map<String, Object>>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<List<Object>>() {}, JsonShape.DEFAULT));
         }
     }
     
@@ -123,6 +121,6 @@ public class TriggerInputs {
         return Utils.toString(TriggerInputs.class,
                 "value", value);
     }
- 
+
 }
 

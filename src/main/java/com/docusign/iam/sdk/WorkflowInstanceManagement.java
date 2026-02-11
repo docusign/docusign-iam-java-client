@@ -51,14 +51,11 @@ public class WorkflowInstanceManagement {
      * 
      * <p>### Key Features:
      * - **Comprehensive Instance Overview**: Provides a full list of workflow instances, giving visibility
-     * 
-     * <p>into all ongoing and completed workflows within the Maestro platform
+     * into all ongoing and completed workflows within the Maestro platform
      * - **Metadata for Tracking**: Includes helpful metadata like creation time, last modification date,
-     * 
-     * <p>and user details to support audit trails
+     * and user details to support audit trails
      * - **Scalable and Future-Proof**: Designed to handle growing numbers of workflow instances as the
-     * 
-     * <p>platform scales
+     * platform scales
      * 
      * @return The call builder
      */
@@ -86,14 +83,11 @@ public class WorkflowInstanceManagement {
      * 
      * <p>### Key Features:
      * - **Comprehensive Instance Overview**: Provides a full list of workflow instances, giving visibility
-     * 
-     * <p>into all ongoing and completed workflows within the Maestro platform
+     * into all ongoing and completed workflows within the Maestro platform
      * - **Metadata for Tracking**: Includes helpful metadata like creation time, last modification date,
-     * 
-     * <p>and user details to support audit trails
+     * and user details to support audit trails
      * - **Scalable and Future-Proof**: Designed to handle growing numbers of workflow instances as the
-     * 
-     * <p>platform scales
+     * platform scales
      * 
      * @param accountId The unique identifier of the account.
      * @param workflowId 
@@ -124,14 +118,11 @@ public class WorkflowInstanceManagement {
      * 
      * <p>### Key Features:
      * - **Comprehensive Instance Overview**: Provides a full list of workflow instances, giving visibility
-     * 
-     * <p>into all ongoing and completed workflows within the Maestro platform
+     * into all ongoing and completed workflows within the Maestro platform
      * - **Metadata for Tracking**: Includes helpful metadata like creation time, last modification date,
-     * 
-     * <p>and user details to support audit trails
+     * and user details to support audit trails
      * - **Scalable and Future-Proof**: Designed to handle growing numbers of workflow instances as the
-     * 
-     * <p>platform scales
+     * platform scales
      * 
      * @param accountId The unique identifier of the account.
      * @param workflowId 

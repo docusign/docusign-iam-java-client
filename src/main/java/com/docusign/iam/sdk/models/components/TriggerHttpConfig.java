@@ -13,6 +13,7 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * TriggerHttpConfig
@@ -33,12 +34,12 @@ public class TriggerHttpConfig {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("url")
-    private Optional<String> url;
+    private JsonNullable<String> url;
 
     @JsonCreator
     public TriggerHttpConfig(
             @JsonProperty("method") Optional<? extends Method> method,
-            @JsonProperty("url") Optional<String> url) {
+            @JsonProperty("url") JsonNullable<String> url) {
         Utils.checkNotNull(method, "method");
         Utils.checkNotNull(url, "url");
         this.method = method;
@@ -46,7 +47,7 @@ public class TriggerHttpConfig {
     }
     
     public TriggerHttpConfig() {
-        this(Optional.empty(), Optional.empty());
+        this(Optional.empty(), JsonNullable.undefined());
     }
 
     /**
@@ -60,7 +61,7 @@ public class TriggerHttpConfig {
     }
 
     @JsonIgnore
-    public Optional<String> url() {
+    public JsonNullable<String> url() {
         return url;
     }
 
@@ -92,12 +93,11 @@ public class TriggerHttpConfig {
 
     public TriggerHttpConfig withUrl(String url) {
         Utils.checkNotNull(url, "url");
-        this.url = Optional.ofNullable(url);
+        this.url = JsonNullable.of(url);
         return this;
     }
 
-
-    public TriggerHttpConfig withUrl(Optional<String> url) {
+    public TriggerHttpConfig withUrl(JsonNullable<String> url) {
         Utils.checkNotNull(url, "url");
         this.url = url;
         return this;
@@ -135,7 +135,7 @@ public class TriggerHttpConfig {
 
         private Optional<? extends Method> method = Optional.empty();
 
-        private Optional<String> url = Optional.empty();
+        private JsonNullable<String> url = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -165,11 +165,11 @@ public class TriggerHttpConfig {
 
         public Builder url(String url) {
             Utils.checkNotNull(url, "url");
-            this.url = Optional.ofNullable(url);
+            this.url = JsonNullable.of(url);
             return this;
         }
 
-        public Builder url(Optional<String> url) {
+        public Builder url(JsonNullable<String> url) {
             Utils.checkNotNull(url, "url");
             this.url = url;
             return this;

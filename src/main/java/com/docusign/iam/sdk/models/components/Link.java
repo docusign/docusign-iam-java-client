@@ -10,31 +10,28 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.Override;
 import java.lang.String;
 
-
+/**
+ * Link
+ * 
+ * <p>A URL that references a specific resource.
+ */
 public class Link {
-
-    @JsonProperty("rel")
-    private String rel;
-
-
+    /**
+     * The URL for the referenced page.
+     */
     @JsonProperty("href")
     private String href;
 
     @JsonCreator
     public Link(
-            @JsonProperty("rel") String rel,
             @JsonProperty("href") String href) {
-        Utils.checkNotNull(rel, "rel");
         Utils.checkNotNull(href, "href");
-        this.rel = rel;
         this.href = href;
     }
 
-    @JsonIgnore
-    public String rel() {
-        return rel;
-    }
-
+    /**
+     * The URL for the referenced page.
+     */
     @JsonIgnore
     public String href() {
         return href;
@@ -45,12 +42,9 @@ public class Link {
     }
 
 
-    public Link withRel(String rel) {
-        Utils.checkNotNull(rel, "rel");
-        this.rel = rel;
-        return this;
-    }
-
+    /**
+     * The URL for the referenced page.
+     */
     public Link withHref(String href) {
         Utils.checkNotNull(href, "href");
         this.href = href;
@@ -67,27 +61,23 @@ public class Link {
         }
         Link other = (Link) o;
         return 
-            Utils.enhancedDeepEquals(this.rel, other.rel) &&
             Utils.enhancedDeepEquals(this.href, other.href);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            rel, href);
+            href);
     }
     
     @Override
     public String toString() {
         return Utils.toString(Link.class,
-                "rel", rel,
                 "href", href);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
-
-        private String rel;
 
         private String href;
 
@@ -96,13 +86,9 @@ public class Link {
         }
 
 
-        public Builder rel(String rel) {
-            Utils.checkNotNull(rel, "rel");
-            this.rel = rel;
-            return this;
-        }
-
-
+        /**
+         * The URL for the referenced page.
+         */
         public Builder href(String href) {
             Utils.checkNotNull(href, "href");
             this.href = href;
@@ -112,7 +98,7 @@ public class Link {
         public Link build() {
 
             return new Link(
-                rel, href);
+                href);
         }
 
     }

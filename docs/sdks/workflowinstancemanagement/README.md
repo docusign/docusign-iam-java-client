@@ -1,5 +1,4 @@
-# WorkflowInstanceManagement
-(*maestro().workflowInstanceManagement()*)
+# Maestro.WorkflowInstanceManagement
 
 ## Overview
 
@@ -26,37 +25,10 @@ as who started it, when it was last modified, and how many steps have been compl
 
 ### Key Features:
 - **Comprehensive Instance Overview**: Provides a full list of workflow instances, giving visibility
-
-
-
-
-
-
-
-
-
   into all ongoing and completed workflows within the Maestro platform
 - **Metadata for Tracking**: Includes helpful metadata like creation time, last modification date,
-
-
-
-
-
-
-
-
-
   and user details to support audit trails
 - **Scalable and Future-Proof**: Designed to handle growing numbers of workflow instances as the
-
-
-
-
-
-
-
-
-
   platform scales
 
 
@@ -142,7 +114,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Error, Error, Exception {
+    public static void main(String[] args) throws Error, Exception {
 
         IamClient sdk = IamClient.builder()
                 .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
@@ -208,7 +180,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Error, Error, Exception {
+    public static void main(String[] args) throws Error, Exception {
 
         IamClient sdk = IamClient.builder()
                 .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))

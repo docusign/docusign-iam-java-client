@@ -24,7 +24,7 @@ import java.util.Map;
 public class CustomProperty {
 
     @JsonValue
-    private TypedObject value;
+    private final TypedObject value;
     
     private CustomProperty(TypedObject value) {
         this.value = value;
@@ -32,27 +32,25 @@ public class CustomProperty {
 
     public static CustomProperty of(String value) {
         Utils.checkNotNull(value, "value");
-        return new CustomProperty(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<String>(){}));
+        return new CustomProperty(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
 
     public static CustomProperty of(double value) {
-        Utils.checkNotNull(value, "value");
-        return new CustomProperty(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<java.lang.Double>(){}));
+        return new CustomProperty(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
 
     public static CustomProperty of(boolean value) {
-        Utils.checkNotNull(value, "value");
-        return new CustomProperty(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<java.lang.Boolean>(){}));
+        return new CustomProperty(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
 
     public static CustomProperty of(Map<String, Object> value) {
         Utils.checkNotNull(value, "value");
-        return new CustomProperty(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<Map<String, Object>>(){}));
+        return new CustomProperty(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
 
     public static CustomProperty of(List<Object> value) {
         Utils.checkNotNull(value, "value");
-        return new CustomProperty(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<List<Object>>(){}));
+        return new CustomProperty(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
     
     /**
@@ -78,7 +76,7 @@ public class CustomProperty {
      **/ 
     public java.lang.Object value() {
         return value.value();
-    }    
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -89,7 +87,7 @@ public class CustomProperty {
             return false;
         }
         CustomProperty other = (CustomProperty) o;
-        return Utils.enhancedDeepEquals(this.value.value(), other.value.value()); 
+        return Utils.enhancedDeepEquals(this.value.value(), other.value.value());
     }
     
     @Override
@@ -102,11 +100,11 @@ public class CustomProperty {
 
         public _Deserializer() {
             super(CustomProperty.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<List<Object>>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<Map<String, Object>>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<Boolean>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<String>() {}, JsonShape.DEFAULT),
                   TypeReferenceWithShape.of(new TypeReference<Double>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<String>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<Boolean>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<Map<String, Object>>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<List<Object>>() {}, JsonShape.DEFAULT));
         }
     }
     
@@ -115,6 +113,6 @@ public class CustomProperty {
         return Utils.toString(CustomProperty.class,
                 "value", value);
     }
- 
+
 }
 

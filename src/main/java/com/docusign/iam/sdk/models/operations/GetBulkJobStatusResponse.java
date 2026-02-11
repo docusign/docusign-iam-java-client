@@ -3,7 +3,7 @@
  */
 package com.docusign.iam.sdk.models.operations;
 
-import com.docusign.iam.sdk.models.components.AgreementSummary;
+import com.docusign.iam.sdk.models.components.BulkJob;
 import com.docusign.iam.sdk.utils.Response;
 import com.docusign.iam.sdk.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -17,7 +17,7 @@ import java.net.http.HttpResponse;
 import java.util.Optional;
 
 
-public class CreateAgreementSummaryResponse implements Response {
+public class GetBulkJobStatusResponse implements Response {
     /**
      * HTTP response content type for this operation
      */
@@ -34,27 +34,27 @@ public class CreateAgreementSummaryResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * A JSON object containing an AI generated summary of an agreement document.
+     * The bulk job status and details
      */
-    private Optional<? extends AgreementSummary> agreementSummary;
+    private Optional<? extends BulkJob> bulkJob;
 
     @JsonCreator
-    public CreateAgreementSummaryResponse(
+    public GetBulkJobStatusResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends AgreementSummary> agreementSummary) {
+            Optional<? extends BulkJob> bulkJob) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(agreementSummary, "agreementSummary");
+        Utils.checkNotNull(bulkJob, "bulkJob");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.agreementSummary = agreementSummary;
+        this.bulkJob = bulkJob;
     }
     
-    public CreateAgreementSummaryResponse(
+    public GetBulkJobStatusResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
@@ -87,12 +87,12 @@ public class CreateAgreementSummaryResponse implements Response {
     }
 
     /**
-     * A JSON object containing an AI generated summary of an agreement document.
+     * The bulk job status and details
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<AgreementSummary> agreementSummary() {
-        return (Optional<AgreementSummary>) agreementSummary;
+    public Optional<BulkJob> bulkJob() {
+        return (Optional<BulkJob>) bulkJob;
     }
 
     public static Builder builder() {
@@ -103,7 +103,7 @@ public class CreateAgreementSummaryResponse implements Response {
     /**
      * HTTP response content type for this operation
      */
-    public CreateAgreementSummaryResponse withContentType(String contentType) {
+    public GetBulkJobStatusResponse withContentType(String contentType) {
         Utils.checkNotNull(contentType, "contentType");
         this.contentType = contentType;
         return this;
@@ -112,7 +112,7 @@ public class CreateAgreementSummaryResponse implements Response {
     /**
      * HTTP response status code for this operation
      */
-    public CreateAgreementSummaryResponse withStatusCode(int statusCode) {
+    public GetBulkJobStatusResponse withStatusCode(int statusCode) {
         Utils.checkNotNull(statusCode, "statusCode");
         this.statusCode = statusCode;
         return this;
@@ -121,28 +121,28 @@ public class CreateAgreementSummaryResponse implements Response {
     /**
      * Raw HTTP response; suitable for custom response parsing
      */
-    public CreateAgreementSummaryResponse withRawResponse(HttpResponse<InputStream> rawResponse) {
+    public GetBulkJobStatusResponse withRawResponse(HttpResponse<InputStream> rawResponse) {
         Utils.checkNotNull(rawResponse, "rawResponse");
         this.rawResponse = rawResponse;
         return this;
     }
 
     /**
-     * A JSON object containing an AI generated summary of an agreement document.
+     * The bulk job status and details
      */
-    public CreateAgreementSummaryResponse withAgreementSummary(AgreementSummary agreementSummary) {
-        Utils.checkNotNull(agreementSummary, "agreementSummary");
-        this.agreementSummary = Optional.ofNullable(agreementSummary);
+    public GetBulkJobStatusResponse withBulkJob(BulkJob bulkJob) {
+        Utils.checkNotNull(bulkJob, "bulkJob");
+        this.bulkJob = Optional.ofNullable(bulkJob);
         return this;
     }
 
 
     /**
-     * A JSON object containing an AI generated summary of an agreement document.
+     * The bulk job status and details
      */
-    public CreateAgreementSummaryResponse withAgreementSummary(Optional<? extends AgreementSummary> agreementSummary) {
-        Utils.checkNotNull(agreementSummary, "agreementSummary");
-        this.agreementSummary = agreementSummary;
+    public GetBulkJobStatusResponse withBulkJob(Optional<? extends BulkJob> bulkJob) {
+        Utils.checkNotNull(bulkJob, "bulkJob");
+        this.bulkJob = bulkJob;
         return this;
     }
 
@@ -154,28 +154,28 @@ public class CreateAgreementSummaryResponse implements Response {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        CreateAgreementSummaryResponse other = (CreateAgreementSummaryResponse) o;
+        GetBulkJobStatusResponse other = (GetBulkJobStatusResponse) o;
         return 
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.agreementSummary, other.agreementSummary);
+            Utils.enhancedDeepEquals(this.bulkJob, other.bulkJob);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            agreementSummary);
+            bulkJob);
     }
     
     @Override
     public String toString() {
-        return Utils.toString(CreateAgreementSummaryResponse.class,
+        return Utils.toString(GetBulkJobStatusResponse.class,
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "agreementSummary", agreementSummary);
+                "bulkJob", bulkJob);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -187,7 +187,7 @@ public class CreateAgreementSummaryResponse implements Response {
 
         private HttpResponse<InputStream> rawResponse;
 
-        private Optional<? extends AgreementSummary> agreementSummary = Optional.empty();
+        private Optional<? extends BulkJob> bulkJob = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -225,28 +225,28 @@ public class CreateAgreementSummaryResponse implements Response {
 
 
         /**
-         * A JSON object containing an AI generated summary of an agreement document.
+         * The bulk job status and details
          */
-        public Builder agreementSummary(AgreementSummary agreementSummary) {
-            Utils.checkNotNull(agreementSummary, "agreementSummary");
-            this.agreementSummary = Optional.ofNullable(agreementSummary);
+        public Builder bulkJob(BulkJob bulkJob) {
+            Utils.checkNotNull(bulkJob, "bulkJob");
+            this.bulkJob = Optional.ofNullable(bulkJob);
             return this;
         }
 
         /**
-         * A JSON object containing an AI generated summary of an agreement document.
+         * The bulk job status and details
          */
-        public Builder agreementSummary(Optional<? extends AgreementSummary> agreementSummary) {
-            Utils.checkNotNull(agreementSummary, "agreementSummary");
-            this.agreementSummary = agreementSummary;
+        public Builder bulkJob(Optional<? extends BulkJob> bulkJob) {
+            Utils.checkNotNull(bulkJob, "bulkJob");
+            this.bulkJob = bulkJob;
             return this;
         }
 
-        public CreateAgreementSummaryResponse build() {
+        public GetBulkJobStatusResponse build() {
 
-            return new CreateAgreementSummaryResponse(
+            return new GetBulkJobStatusResponse(
                 contentType, statusCode, rawResponse,
-                agreementSummary);
+                bulkJob);
         }
 
     }

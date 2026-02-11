@@ -8,9 +8,11 @@ import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 import com.docusign.iam.sdk.SDKConfiguration;
 import com.docusign.iam.sdk.operations.ResumePausedWorkflow;
 import com.docusign.iam.sdk.utils.Headers;
+import com.docusign.iam.sdk.utils.LazySingletonValue;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.RetryConfig;
 import com.docusign.iam.sdk.utils.Utils;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.String;
 import java.util.Optional;
 
@@ -52,6 +54,12 @@ public class ResumePausedWorkflowRequestBuilder {
 
 
     private ResumePausedWorkflowRequest buildRequest() {
+        if (accountId == null) {
+            accountId = _SINGLETON_VALUE_AccountId.value();
+        }
+        if (workflowId == null) {
+            workflowId = _SINGLETON_VALUE_WorkflowId.value();
+        }
 
         ResumePausedWorkflowRequest request = new ResumePausedWorkflowRequest(accountId,
             workflowId);
@@ -70,4 +78,16 @@ public class ResumePausedWorkflowRequestBuilder {
 
         return operation.handleResponse(operation.doRequest(request));
     }
+
+    private static final LazySingletonValue<String> _SINGLETON_VALUE_AccountId =
+            new LazySingletonValue<>(
+                    "accountId",
+                    "\"00000000-0000-0000-0000-000000000000\"",
+                    new TypeReference<String>() {});
+
+    private static final LazySingletonValue<String> _SINGLETON_VALUE_WorkflowId =
+            new LazySingletonValue<>(
+                    "workflowId",
+                    "\"00000000-0000-0000-0000-000000000000\"",
+                    new TypeReference<String>() {});
 }

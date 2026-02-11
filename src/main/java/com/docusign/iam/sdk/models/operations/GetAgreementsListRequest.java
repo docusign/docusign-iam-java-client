@@ -3,15 +3,16 @@
  */
 package com.docusign.iam.sdk.models.operations;
 
+import com.docusign.iam.sdk.utils.LazySingletonValue;
 import com.docusign.iam.sdk.utils.SpeakeasyMetadata;
 import com.docusign.iam.sdk.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.List;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -34,6 +35,23 @@ public class GetAgreementsListRequest {
     private JsonNullable<String> ctoken;
 
     /**
+     * OData filter expression for complex queries. Supports:
+     * - Comparison operators: `eq`, `ne`, `gt`, `ge`, `lt`, `le`
+     * - Logical operators: `and`, `or`
+     * - In operator: `in` (e.g., `type in ('Msa','Sow')`)
+     * 
+     * <p>**Note**: Use forward slash `/` to navigate nested properties (e.g., `provisions/effective_date`),
+     * not dot notation.
+     * 
+     * <p>Examples:
+     * - `status eq 'COMPLETE' and provisions/effective_date ge 2025-01-01`
+     * - `parties/name_in_agreement eq 'Acme Corp' or parties/name_in_agreement eq 'Beta Ltd'`
+     * - `provisions/renewal_type in ('EVERGREEN','AUTO_RENEW')`
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=$filter")
+    private Optional<String> dollarFilter;
+
+    /**
      * Field to sort the agreements by.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=sort")
@@ -52,10 +70,31 @@ public class GetAgreementsListRequest {
     private Optional<String> id;
 
     /**
+     * List of document IDs to filter by (comma-separated), use operators (=, [in]) with an UUID format.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=document_id")
+    private Optional<String> documentId;
+
+    /**
      * Status of the agreement.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=status")
     private Optional<String> status;
+
+    /**
+     * Review status of the agreement Supported values include:
+     * - COMPLETE
+     * - PENDING
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=review_status")
+    private Optional<String> reviewStatus;
+
+    /**
+     * Extraction review completed at date. Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO
+     * 8601 DateTime string (e.g., `YYYY-MM-DD`).
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=review_completed_at")
+    private Optional<String> reviewCompletedAt;
 
     /**
      * Filter by party display name in the agreement.
@@ -84,10 +123,10 @@ public class GetAgreementsListRequest {
     private Optional<String> relatedAgreementDocumentsParentAgreementDocumentId;
 
     /**
-     * List of BCP-47 language tags
+     * List of BCP-47 language tags (comma-separated). Use operators (`=`) with a string format.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=languages")
-    private Optional<? extends List<String>> languages;
+    private Optional<String> languages;
 
     /**
      * Filter by effective date range (also available via `effective_date` key). Use operators (`=`, `gte`,
@@ -134,15 +173,19 @@ public class GetAgreementsListRequest {
             String accountId,
             JsonNullable<Integer> limit,
             JsonNullable<String> ctoken,
+            Optional<String> dollarFilter,
             Optional<String> sort,
             Optional<? extends Direction> direction,
             Optional<String> id,
+            Optional<String> documentId,
             Optional<String> status,
+            Optional<String> reviewStatus,
+            Optional<String> reviewCompletedAt,
             Optional<String> partiesNameInAgreement,
             Optional<String> metadataCreatedAt,
             Optional<String> title,
             Optional<String> relatedAgreementDocumentsParentAgreementDocumentId,
-            Optional<? extends List<String>> languages,
+            Optional<String> languages,
             Optional<String> provisionsEffectiveDate,
             Optional<String> provisionsExpirationDate,
             Optional<String> provisionsExecutionDate,
@@ -152,10 +195,14 @@ public class GetAgreementsListRequest {
         Utils.checkNotNull(accountId, "accountId");
         Utils.checkNotNull(limit, "limit");
         Utils.checkNotNull(ctoken, "ctoken");
+        Utils.checkNotNull(dollarFilter, "dollarFilter");
         Utils.checkNotNull(sort, "sort");
         Utils.checkNotNull(direction, "direction");
         Utils.checkNotNull(id, "id");
+        Utils.checkNotNull(documentId, "documentId");
         Utils.checkNotNull(status, "status");
+        Utils.checkNotNull(reviewStatus, "reviewStatus");
+        Utils.checkNotNull(reviewCompletedAt, "reviewCompletedAt");
         Utils.checkNotNull(partiesNameInAgreement, "partiesNameInAgreement");
         Utils.checkNotNull(metadataCreatedAt, "metadataCreatedAt");
         Utils.checkNotNull(title, "title");
@@ -170,10 +217,14 @@ public class GetAgreementsListRequest {
         this.accountId = accountId;
         this.limit = limit;
         this.ctoken = ctoken;
+        this.dollarFilter = dollarFilter;
         this.sort = sort;
         this.direction = direction;
         this.id = id;
+        this.documentId = documentId;
         this.status = status;
+        this.reviewStatus = reviewStatus;
+        this.reviewCompletedAt = reviewCompletedAt;
         this.partiesNameInAgreement = partiesNameInAgreement;
         this.metadataCreatedAt = metadataCreatedAt;
         this.title = title;
@@ -194,7 +245,9 @@ public class GetAgreementsListRequest {
             Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty(), Optional.empty());
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     @JsonIgnore
@@ -216,6 +269,25 @@ public class GetAgreementsListRequest {
     @JsonIgnore
     public JsonNullable<String> ctoken() {
         return ctoken;
+    }
+
+    /**
+     * OData filter expression for complex queries. Supports:
+     * - Comparison operators: `eq`, `ne`, `gt`, `ge`, `lt`, `le`
+     * - Logical operators: `and`, `or`
+     * - In operator: `in` (e.g., `type in ('Msa','Sow')`)
+     * 
+     * <p>**Note**: Use forward slash `/` to navigate nested properties (e.g., `provisions/effective_date`),
+     * not dot notation.
+     * 
+     * <p>Examples:
+     * - `status eq 'COMPLETE' and provisions/effective_date ge 2025-01-01`
+     * - `parties/name_in_agreement eq 'Acme Corp' or parties/name_in_agreement eq 'Beta Ltd'`
+     * - `provisions/renewal_type in ('EVERGREEN','AUTO_RENEW')`
+     */
+    @JsonIgnore
+    public Optional<String> dollarFilter() {
+        return dollarFilter;
     }
 
     /**
@@ -244,11 +316,38 @@ public class GetAgreementsListRequest {
     }
 
     /**
+     * List of document IDs to filter by (comma-separated), use operators (=, [in]) with an UUID format.
+     */
+    @JsonIgnore
+    public Optional<String> documentId() {
+        return documentId;
+    }
+
+    /**
      * Status of the agreement.
      */
     @JsonIgnore
     public Optional<String> status() {
         return status;
+    }
+
+    /**
+     * Review status of the agreement Supported values include:
+     * - COMPLETE
+     * - PENDING
+     */
+    @JsonIgnore
+    public Optional<String> reviewStatus() {
+        return reviewStatus;
+    }
+
+    /**
+     * Extraction review completed at date. Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO
+     * 8601 DateTime string (e.g., `YYYY-MM-DD`).
+     */
+    @JsonIgnore
+    public Optional<String> reviewCompletedAt() {
+        return reviewCompletedAt;
     }
 
     /**
@@ -286,12 +385,11 @@ public class GetAgreementsListRequest {
     }
 
     /**
-     * List of BCP-47 language tags
+     * List of BCP-47 language tags (comma-separated). Use operators (`=`) with a string format.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<String>> languages() {
-        return (Optional<List<String>>) languages;
+    public Optional<String> languages() {
+        return languages;
     }
 
     /**
@@ -394,6 +492,47 @@ public class GetAgreementsListRequest {
     }
 
     /**
+     * OData filter expression for complex queries. Supports:
+     * - Comparison operators: `eq`, `ne`, `gt`, `ge`, `lt`, `le`
+     * - Logical operators: `and`, `or`
+     * - In operator: `in` (e.g., `type in ('Msa','Sow')`)
+     * 
+     * <p>**Note**: Use forward slash `/` to navigate nested properties (e.g., `provisions/effective_date`),
+     * not dot notation.
+     * 
+     * <p>Examples:
+     * - `status eq 'COMPLETE' and provisions/effective_date ge 2025-01-01`
+     * - `parties/name_in_agreement eq 'Acme Corp' or parties/name_in_agreement eq 'Beta Ltd'`
+     * - `provisions/renewal_type in ('EVERGREEN','AUTO_RENEW')`
+     */
+    public GetAgreementsListRequest withDollarFilter(String dollarFilter) {
+        Utils.checkNotNull(dollarFilter, "dollarFilter");
+        this.dollarFilter = Optional.ofNullable(dollarFilter);
+        return this;
+    }
+
+
+    /**
+     * OData filter expression for complex queries. Supports:
+     * - Comparison operators: `eq`, `ne`, `gt`, `ge`, `lt`, `le`
+     * - Logical operators: `and`, `or`
+     * - In operator: `in` (e.g., `type in ('Msa','Sow')`)
+     * 
+     * <p>**Note**: Use forward slash `/` to navigate nested properties (e.g., `provisions/effective_date`),
+     * not dot notation.
+     * 
+     * <p>Examples:
+     * - `status eq 'COMPLETE' and provisions/effective_date ge 2025-01-01`
+     * - `parties/name_in_agreement eq 'Acme Corp' or parties/name_in_agreement eq 'Beta Ltd'`
+     * - `provisions/renewal_type in ('EVERGREEN','AUTO_RENEW')`
+     */
+    public GetAgreementsListRequest withDollarFilter(Optional<String> dollarFilter) {
+        Utils.checkNotNull(dollarFilter, "dollarFilter");
+        this.dollarFilter = dollarFilter;
+        return this;
+    }
+
+    /**
      * Field to sort the agreements by.
      */
     public GetAgreementsListRequest withSort(String sort) {
@@ -451,6 +590,25 @@ public class GetAgreementsListRequest {
     }
 
     /**
+     * List of document IDs to filter by (comma-separated), use operators (=, [in]) with an UUID format.
+     */
+    public GetAgreementsListRequest withDocumentId(String documentId) {
+        Utils.checkNotNull(documentId, "documentId");
+        this.documentId = Optional.ofNullable(documentId);
+        return this;
+    }
+
+
+    /**
+     * List of document IDs to filter by (comma-separated), use operators (=, [in]) with an UUID format.
+     */
+    public GetAgreementsListRequest withDocumentId(Optional<String> documentId) {
+        Utils.checkNotNull(documentId, "documentId");
+        this.documentId = documentId;
+        return this;
+    }
+
+    /**
      * Status of the agreement.
      */
     public GetAgreementsListRequest withStatus(String status) {
@@ -466,6 +624,50 @@ public class GetAgreementsListRequest {
     public GetAgreementsListRequest withStatus(Optional<String> status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
+        return this;
+    }
+
+    /**
+     * Review status of the agreement Supported values include:
+     * - COMPLETE
+     * - PENDING
+     */
+    public GetAgreementsListRequest withReviewStatus(String reviewStatus) {
+        Utils.checkNotNull(reviewStatus, "reviewStatus");
+        this.reviewStatus = Optional.ofNullable(reviewStatus);
+        return this;
+    }
+
+
+    /**
+     * Review status of the agreement Supported values include:
+     * - COMPLETE
+     * - PENDING
+     */
+    public GetAgreementsListRequest withReviewStatus(Optional<String> reviewStatus) {
+        Utils.checkNotNull(reviewStatus, "reviewStatus");
+        this.reviewStatus = reviewStatus;
+        return this;
+    }
+
+    /**
+     * Extraction review completed at date. Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO
+     * 8601 DateTime string (e.g., `YYYY-MM-DD`).
+     */
+    public GetAgreementsListRequest withReviewCompletedAt(String reviewCompletedAt) {
+        Utils.checkNotNull(reviewCompletedAt, "reviewCompletedAt");
+        this.reviewCompletedAt = Optional.ofNullable(reviewCompletedAt);
+        return this;
+    }
+
+
+    /**
+     * Extraction review completed at date. Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO
+     * 8601 DateTime string (e.g., `YYYY-MM-DD`).
+     */
+    public GetAgreementsListRequest withReviewCompletedAt(Optional<String> reviewCompletedAt) {
+        Utils.checkNotNull(reviewCompletedAt, "reviewCompletedAt");
+        this.reviewCompletedAt = reviewCompletedAt;
         return this;
     }
 
@@ -550,9 +752,9 @@ public class GetAgreementsListRequest {
     }
 
     /**
-     * List of BCP-47 language tags
+     * List of BCP-47 language tags (comma-separated). Use operators (`=`) with a string format.
      */
-    public GetAgreementsListRequest withLanguages(List<String> languages) {
+    public GetAgreementsListRequest withLanguages(String languages) {
         Utils.checkNotNull(languages, "languages");
         this.languages = Optional.ofNullable(languages);
         return this;
@@ -560,9 +762,9 @@ public class GetAgreementsListRequest {
 
 
     /**
-     * List of BCP-47 language tags
+     * List of BCP-47 language tags (comma-separated). Use operators (`=`) with a string format.
      */
-    public GetAgreementsListRequest withLanguages(Optional<? extends List<String>> languages) {
+    public GetAgreementsListRequest withLanguages(Optional<String> languages) {
         Utils.checkNotNull(languages, "languages");
         this.languages = languages;
         return this;
@@ -703,10 +905,14 @@ public class GetAgreementsListRequest {
             Utils.enhancedDeepEquals(this.accountId, other.accountId) &&
             Utils.enhancedDeepEquals(this.limit, other.limit) &&
             Utils.enhancedDeepEquals(this.ctoken, other.ctoken) &&
+            Utils.enhancedDeepEquals(this.dollarFilter, other.dollarFilter) &&
             Utils.enhancedDeepEquals(this.sort, other.sort) &&
             Utils.enhancedDeepEquals(this.direction, other.direction) &&
             Utils.enhancedDeepEquals(this.id, other.id) &&
+            Utils.enhancedDeepEquals(this.documentId, other.documentId) &&
             Utils.enhancedDeepEquals(this.status, other.status) &&
+            Utils.enhancedDeepEquals(this.reviewStatus, other.reviewStatus) &&
+            Utils.enhancedDeepEquals(this.reviewCompletedAt, other.reviewCompletedAt) &&
             Utils.enhancedDeepEquals(this.partiesNameInAgreement, other.partiesNameInAgreement) &&
             Utils.enhancedDeepEquals(this.metadataCreatedAt, other.metadataCreatedAt) &&
             Utils.enhancedDeepEquals(this.title, other.title) &&
@@ -724,11 +930,13 @@ public class GetAgreementsListRequest {
     public int hashCode() {
         return Utils.enhancedHash(
             accountId, limit, ctoken,
-            sort, direction, id,
-            status, partiesNameInAgreement, metadataCreatedAt,
-            title, relatedAgreementDocumentsParentAgreementDocumentId, languages,
-            provisionsEffectiveDate, provisionsExpirationDate, provisionsExecutionDate,
-            provisionsTermLength, sourceName, sourceId);
+            dollarFilter, sort, direction,
+            id, documentId, status,
+            reviewStatus, reviewCompletedAt, partiesNameInAgreement,
+            metadataCreatedAt, title, relatedAgreementDocumentsParentAgreementDocumentId,
+            languages, provisionsEffectiveDate, provisionsExpirationDate,
+            provisionsExecutionDate, provisionsTermLength, sourceName,
+            sourceId);
     }
     
     @Override
@@ -737,10 +945,14 @@ public class GetAgreementsListRequest {
                 "accountId", accountId,
                 "limit", limit,
                 "ctoken", ctoken,
+                "dollarFilter", dollarFilter,
                 "sort", sort,
                 "direction", direction,
                 "id", id,
+                "documentId", documentId,
                 "status", status,
+                "reviewStatus", reviewStatus,
+                "reviewCompletedAt", reviewCompletedAt,
                 "partiesNameInAgreement", partiesNameInAgreement,
                 "metadataCreatedAt", metadataCreatedAt,
                 "title", title,
@@ -759,9 +971,11 @@ public class GetAgreementsListRequest {
 
         private String accountId;
 
-        private JsonNullable<Integer> limit = JsonNullable.undefined();
+        private JsonNullable<Integer> limit;
 
         private JsonNullable<String> ctoken = JsonNullable.undefined();
+
+        private Optional<String> dollarFilter = Optional.empty();
 
         private Optional<String> sort = Optional.empty();
 
@@ -769,7 +983,13 @@ public class GetAgreementsListRequest {
 
         private Optional<String> id = Optional.empty();
 
+        private Optional<String> documentId = Optional.empty();
+
         private Optional<String> status = Optional.empty();
+
+        private Optional<String> reviewStatus = Optional.empty();
+
+        private Optional<String> reviewCompletedAt = Optional.empty();
 
         private Optional<String> partiesNameInAgreement = Optional.empty();
 
@@ -779,7 +999,7 @@ public class GetAgreementsListRequest {
 
         private Optional<String> relatedAgreementDocumentsParentAgreementDocumentId = Optional.empty();
 
-        private Optional<? extends List<String>> languages = Optional.empty();
+        private Optional<String> languages = Optional.empty();
 
         private Optional<String> provisionsEffectiveDate = Optional.empty();
 
@@ -844,6 +1064,47 @@ public class GetAgreementsListRequest {
 
 
         /**
+         * OData filter expression for complex queries. Supports:
+         * - Comparison operators: `eq`, `ne`, `gt`, `ge`, `lt`, `le`
+         * - Logical operators: `and`, `or`
+         * - In operator: `in` (e.g., `type in ('Msa','Sow')`)
+         * 
+         * <p>**Note**: Use forward slash `/` to navigate nested properties (e.g., `provisions/effective_date`),
+         * not dot notation.
+         * 
+         * <p>Examples:
+         * - `status eq 'COMPLETE' and provisions/effective_date ge 2025-01-01`
+         * - `parties/name_in_agreement eq 'Acme Corp' or parties/name_in_agreement eq 'Beta Ltd'`
+         * - `provisions/renewal_type in ('EVERGREEN','AUTO_RENEW')`
+         */
+        public Builder dollarFilter(String dollarFilter) {
+            Utils.checkNotNull(dollarFilter, "dollarFilter");
+            this.dollarFilter = Optional.ofNullable(dollarFilter);
+            return this;
+        }
+
+        /**
+         * OData filter expression for complex queries. Supports:
+         * - Comparison operators: `eq`, `ne`, `gt`, `ge`, `lt`, `le`
+         * - Logical operators: `and`, `or`
+         * - In operator: `in` (e.g., `type in ('Msa','Sow')`)
+         * 
+         * <p>**Note**: Use forward slash `/` to navigate nested properties (e.g., `provisions/effective_date`),
+         * not dot notation.
+         * 
+         * <p>Examples:
+         * - `status eq 'COMPLETE' and provisions/effective_date ge 2025-01-01`
+         * - `parties/name_in_agreement eq 'Acme Corp' or parties/name_in_agreement eq 'Beta Ltd'`
+         * - `provisions/renewal_type in ('EVERGREEN','AUTO_RENEW')`
+         */
+        public Builder dollarFilter(Optional<String> dollarFilter) {
+            Utils.checkNotNull(dollarFilter, "dollarFilter");
+            this.dollarFilter = dollarFilter;
+            return this;
+        }
+
+
+        /**
          * Field to sort the agreements by.
          */
         public Builder sort(String sort) {
@@ -901,6 +1162,25 @@ public class GetAgreementsListRequest {
 
 
         /**
+         * List of document IDs to filter by (comma-separated), use operators (=, [in]) with an UUID format.
+         */
+        public Builder documentId(String documentId) {
+            Utils.checkNotNull(documentId, "documentId");
+            this.documentId = Optional.ofNullable(documentId);
+            return this;
+        }
+
+        /**
+         * List of document IDs to filter by (comma-separated), use operators (=, [in]) with an UUID format.
+         */
+        public Builder documentId(Optional<String> documentId) {
+            Utils.checkNotNull(documentId, "documentId");
+            this.documentId = documentId;
+            return this;
+        }
+
+
+        /**
          * Status of the agreement.
          */
         public Builder status(String status) {
@@ -915,6 +1195,50 @@ public class GetAgreementsListRequest {
         public Builder status(Optional<String> status) {
             Utils.checkNotNull(status, "status");
             this.status = status;
+            return this;
+        }
+
+
+        /**
+         * Review status of the agreement Supported values include:
+         * - COMPLETE
+         * - PENDING
+         */
+        public Builder reviewStatus(String reviewStatus) {
+            Utils.checkNotNull(reviewStatus, "reviewStatus");
+            this.reviewStatus = Optional.ofNullable(reviewStatus);
+            return this;
+        }
+
+        /**
+         * Review status of the agreement Supported values include:
+         * - COMPLETE
+         * - PENDING
+         */
+        public Builder reviewStatus(Optional<String> reviewStatus) {
+            Utils.checkNotNull(reviewStatus, "reviewStatus");
+            this.reviewStatus = reviewStatus;
+            return this;
+        }
+
+
+        /**
+         * Extraction review completed at date. Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO
+         * 8601 DateTime string (e.g., `YYYY-MM-DD`).
+         */
+        public Builder reviewCompletedAt(String reviewCompletedAt) {
+            Utils.checkNotNull(reviewCompletedAt, "reviewCompletedAt");
+            this.reviewCompletedAt = Optional.ofNullable(reviewCompletedAt);
+            return this;
+        }
+
+        /**
+         * Extraction review completed at date. Use operators (`=`, `gte`, `gt`, `lte`, `le`, `ne`) with an ISO
+         * 8601 DateTime string (e.g., `YYYY-MM-DD`).
+         */
+        public Builder reviewCompletedAt(Optional<String> reviewCompletedAt) {
+            Utils.checkNotNull(reviewCompletedAt, "reviewCompletedAt");
+            this.reviewCompletedAt = reviewCompletedAt;
             return this;
         }
 
@@ -1000,18 +1324,18 @@ public class GetAgreementsListRequest {
 
 
         /**
-         * List of BCP-47 language tags
+         * List of BCP-47 language tags (comma-separated). Use operators (`=`) with a string format.
          */
-        public Builder languages(List<String> languages) {
+        public Builder languages(String languages) {
             Utils.checkNotNull(languages, "languages");
             this.languages = Optional.ofNullable(languages);
             return this;
         }
 
         /**
-         * List of BCP-47 language tags
+         * List of BCP-47 language tags (comma-separated). Use operators (`=`) with a string format.
          */
-        public Builder languages(Optional<? extends List<String>> languages) {
+        public Builder languages(Optional<String> languages) {
             Utils.checkNotNull(languages, "languages");
             this.languages = languages;
             return this;
@@ -1140,15 +1464,35 @@ public class GetAgreementsListRequest {
         }
 
         public GetAgreementsListRequest build() {
+            if (accountId == null) {
+                accountId = _SINGLETON_VALUE_AccountId.value();
+            }
+            if (limit == null) {
+                limit = _SINGLETON_VALUE_Limit.value();
+            }
 
             return new GetAgreementsListRequest(
                 accountId, limit, ctoken,
-                sort, direction, id,
-                status, partiesNameInAgreement, metadataCreatedAt,
-                title, relatedAgreementDocumentsParentAgreementDocumentId, languages,
-                provisionsEffectiveDate, provisionsExpirationDate, provisionsExecutionDate,
-                provisionsTermLength, sourceName, sourceId);
+                dollarFilter, sort, direction,
+                id, documentId, status,
+                reviewStatus, reviewCompletedAt, partiesNameInAgreement,
+                metadataCreatedAt, title, relatedAgreementDocumentsParentAgreementDocumentId,
+                languages, provisionsEffectiveDate, provisionsExpirationDate,
+                provisionsExecutionDate, provisionsTermLength, sourceName,
+                sourceId);
         }
 
+
+        private static final LazySingletonValue<String> _SINGLETON_VALUE_AccountId =
+                new LazySingletonValue<>(
+                        "accountId",
+                        "\"00000000-0000-0000-0000-000000000000\"",
+                        new TypeReference<String>() {});
+
+        private static final LazySingletonValue<JsonNullable<Integer>> _SINGLETON_VALUE_Limit =
+                new LazySingletonValue<>(
+                        "limit",
+                        "25",
+                        new TypeReference<JsonNullable<Integer>>() {});
     }
 }

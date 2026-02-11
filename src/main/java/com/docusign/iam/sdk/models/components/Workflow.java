@@ -3,12 +3,14 @@
  */
 package com.docusign.iam.sdk.models.components;
 
+import com.docusign.iam.sdk.utils.LazySingletonValue;
 import com.docusign.iam.sdk.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
@@ -220,11 +222,11 @@ public class Workflow {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Optional<String> id = Optional.empty();
+        private Optional<String> id;
 
         private Optional<String> name = Optional.empty();
 
-        private Optional<String> accountId = Optional.empty();
+        private Optional<String> accountId;
 
         private Optional<String> status = Optional.empty();
 
@@ -312,11 +314,29 @@ public class Workflow {
         }
 
         public Workflow build() {
+            if (id == null) {
+                id = _SINGLETON_VALUE_Id.value();
+            }
+            if (accountId == null) {
+                accountId = _SINGLETON_VALUE_AccountId.value();
+            }
 
             return new Workflow(
                 id, name, accountId,
                 status, metadata);
         }
 
+
+        private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_Id =
+                new LazySingletonValue<>(
+                        "id",
+                        "\"00000000-0000-0000-0000-000000000000\"",
+                        new TypeReference<Optional<String>>() {});
+
+        private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_AccountId =
+                new LazySingletonValue<>(
+                        "account_id",
+                        "\"00000000-0000-0000-0000-000000000000\"",
+                        new TypeReference<Optional<String>>() {});
     }
 }

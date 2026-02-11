@@ -1,5 +1,4 @@
-# WorkspaceBrands
-(*workspaces().workspaceBrands()*)
+# Workspaces.WorkspaceBrands
 
 ## Overview
 
@@ -25,7 +24,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ErrorDetails, ErrorDetails, Exception {
+    public static void main(String[] args) throws ErrorDetails, Exception {
 
         IamClient sdk = IamClient.builder()
                 .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
@@ -80,7 +79,7 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ErrorDetails, ErrorDetails, Exception {
+    public static void main(String[] args) throws ErrorDetails, Exception {
 
         IamClient sdk = IamClient.builder()
                 .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))

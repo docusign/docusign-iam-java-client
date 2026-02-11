@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nullable;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
@@ -87,18 +88,18 @@ public class Error extends IamClientError {
      */
     public static class Data {
         /**
+         * HTTP status code for the error.
+         */
+        @JsonInclude(Include.NON_ABSENT)
+        @JsonProperty("code")
+        private Optional<Long> code;
+
+        /**
          * A message describing the error.
          */
         @JsonInclude(Include.NON_ABSENT)
         @JsonProperty("error")
         private Optional<String> error;
-
-        /**
-         * HTTP status code for the error.
-         */
-        @JsonInclude(Include.NON_ABSENT)
-        @JsonProperty("code")
-        private Optional<String> code;
 
         /**
          * The timestamp when the error occurred.
@@ -109,14 +110,14 @@ public class Error extends IamClientError {
 
         @JsonCreator
         public Data(
+                @JsonProperty("code") Optional<Long> code,
                 @JsonProperty("error") Optional<String> error,
-                @JsonProperty("code") Optional<String> code,
                 @JsonProperty("timestamp") Optional<OffsetDateTime> timestamp) {
-            Utils.checkNotNull(error, "error");
             Utils.checkNotNull(code, "code");
+            Utils.checkNotNull(error, "error");
             Utils.checkNotNull(timestamp, "timestamp");
-            this.error = error;
             this.code = code;
+            this.error = error;
             this.timestamp = timestamp;
         }
         
@@ -125,19 +126,19 @@ public class Error extends IamClientError {
         }
 
         /**
+         * HTTP status code for the error.
+         */
+        @JsonIgnore
+        public Optional<Long> code() {
+            return code;
+        }
+
+        /**
          * A message describing the error.
          */
         @JsonIgnore
         public Optional<String> error() {
             return error;
-        }
-
-        /**
-         * HTTP status code for the error.
-         */
-        @JsonIgnore
-        public Optional<String> code() {
-            return code;
         }
 
         /**
@@ -152,6 +153,25 @@ public class Error extends IamClientError {
             return new Builder();
         }
 
+
+        /**
+         * HTTP status code for the error.
+         */
+        public Data withCode(long code) {
+            Utils.checkNotNull(code, "code");
+            this.code = Optional.ofNullable(code);
+            return this;
+        }
+
+
+        /**
+         * HTTP status code for the error.
+         */
+        public Data withCode(Optional<Long> code) {
+            Utils.checkNotNull(code, "code");
+            this.code = code;
+            return this;
+        }
 
         /**
          * A message describing the error.
@@ -169,25 +189,6 @@ public class Error extends IamClientError {
         public Data withError(Optional<String> error) {
             Utils.checkNotNull(error, "error");
             this.error = error;
-            return this;
-        }
-
-        /**
-         * HTTP status code for the error.
-         */
-        public Data withCode(String code) {
-            Utils.checkNotNull(code, "code");
-            this.code = Optional.ofNullable(code);
-            return this;
-        }
-
-
-        /**
-         * HTTP status code for the error.
-         */
-        public Data withCode(Optional<String> code) {
-            Utils.checkNotNull(code, "code");
-            this.code = code;
             return this;
         }
 
@@ -220,36 +221,55 @@ public class Error extends IamClientError {
             }
             Data other = (Data) o;
             return 
-                Utils.enhancedDeepEquals(this.error, other.error) &&
                 Utils.enhancedDeepEquals(this.code, other.code) &&
+                Utils.enhancedDeepEquals(this.error, other.error) &&
                 Utils.enhancedDeepEquals(this.timestamp, other.timestamp);
         }
         
         @Override
         public int hashCode() {
             return Utils.enhancedHash(
-                error, code, timestamp);
+                code, error, timestamp);
         }
         
         @Override
         public String toString() {
             return Utils.toString(Data.class,
-                    "error", error,
                     "code", code,
+                    "error", error,
                     "timestamp", timestamp);
         }
 
         @SuppressWarnings("UnusedReturnValue")
         public final static class Builder {
 
-            private Optional<String> error = Optional.empty();
+            private Optional<Long> code = Optional.empty();
 
-            private Optional<String> code = Optional.empty();
+            private Optional<String> error = Optional.empty();
 
             private Optional<OffsetDateTime> timestamp = Optional.empty();
 
             private Builder() {
               // force use of static builder() method
+            }
+
+
+            /**
+             * HTTP status code for the error.
+             */
+            public Builder code(long code) {
+                Utils.checkNotNull(code, "code");
+                this.code = Optional.ofNullable(code);
+                return this;
+            }
+
+            /**
+             * HTTP status code for the error.
+             */
+            public Builder code(Optional<Long> code) {
+                Utils.checkNotNull(code, "code");
+                this.code = code;
+                return this;
             }
 
 
@@ -268,25 +288,6 @@ public class Error extends IamClientError {
             public Builder error(Optional<String> error) {
                 Utils.checkNotNull(error, "error");
                 this.error = error;
-                return this;
-            }
-
-
-            /**
-             * HTTP status code for the error.
-             */
-            public Builder code(String code) {
-                Utils.checkNotNull(code, "code");
-                this.code = Optional.ofNullable(code);
-                return this;
-            }
-
-            /**
-             * HTTP status code for the error.
-             */
-            public Builder code(Optional<String> code) {
-                Utils.checkNotNull(code, "code");
-                this.code = code;
                 return this;
             }
 
@@ -312,7 +313,7 @@ public class Error extends IamClientError {
             public Data build() {
 
                 return new Data(
-                    error, code, timestamp);
+                    code, error, timestamp);
             }
 
         }
