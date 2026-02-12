@@ -53,13 +53,6 @@ public class ResourceMetadata {
     private JsonNullable<String> requestId;
 
     /**
-     * The timestamp indicating when the response was generated.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("response_timestamp")
-    private JsonNullable<OffsetDateTime> responseTimestamp;
-
-    /**
      * The duration of time, in milliseconds, that the server took to process and respond
      * to the request. This is measured from the time the server received the request
      * until the time the response was sent.
@@ -68,6 +61,13 @@ public class ResourceMetadata {
     @JsonProperty("response_duration_ms")
     private JsonNullable<Integer> responseDurationMs;
 
+    /**
+     * The timestamp indicating when the response was generated.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("response_timestamp")
+    private JsonNullable<OffsetDateTime> responseTimestamp;
+
     @JsonCreator
     public ResourceMetadata(
             @JsonProperty("created_at") JsonNullable<OffsetDateTime> createdAt,
@@ -75,22 +75,22 @@ public class ResourceMetadata {
             @JsonProperty("modified_at") JsonNullable<OffsetDateTime> modifiedAt,
             @JsonProperty("modified_by") JsonNullable<String> modifiedBy,
             @JsonProperty("request_id") JsonNullable<String> requestId,
-            @JsonProperty("response_timestamp") JsonNullable<OffsetDateTime> responseTimestamp,
-            @JsonProperty("response_duration_ms") JsonNullable<Integer> responseDurationMs) {
+            @JsonProperty("response_duration_ms") JsonNullable<Integer> responseDurationMs,
+            @JsonProperty("response_timestamp") JsonNullable<OffsetDateTime> responseTimestamp) {
         Utils.checkNotNull(createdAt, "createdAt");
         Utils.checkNotNull(createdBy, "createdBy");
         Utils.checkNotNull(modifiedAt, "modifiedAt");
         Utils.checkNotNull(modifiedBy, "modifiedBy");
         Utils.checkNotNull(requestId, "requestId");
-        Utils.checkNotNull(responseTimestamp, "responseTimestamp");
         Utils.checkNotNull(responseDurationMs, "responseDurationMs");
+        Utils.checkNotNull(responseTimestamp, "responseTimestamp");
         this.createdAt = createdAt;
         this.createdBy = createdBy;
         this.modifiedAt = modifiedAt;
         this.modifiedBy = modifiedBy;
         this.requestId = requestId;
-        this.responseTimestamp = responseTimestamp;
         this.responseDurationMs = responseDurationMs;
+        this.responseTimestamp = responseTimestamp;
     }
     
     public ResourceMetadata() {
@@ -140,14 +140,6 @@ public class ResourceMetadata {
     }
 
     /**
-     * The timestamp indicating when the response was generated.
-     */
-    @JsonIgnore
-    public JsonNullable<OffsetDateTime> responseTimestamp() {
-        return responseTimestamp;
-    }
-
-    /**
      * The duration of time, in milliseconds, that the server took to process and respond
      * to the request. This is measured from the time the server received the request
      * until the time the response was sent.
@@ -155,6 +147,14 @@ public class ResourceMetadata {
     @JsonIgnore
     public JsonNullable<Integer> responseDurationMs() {
         return responseDurationMs;
+    }
+
+    /**
+     * The timestamp indicating when the response was generated.
+     */
+    @JsonIgnore
+    public JsonNullable<OffsetDateTime> responseTimestamp() {
+        return responseTimestamp;
     }
 
     public static Builder builder() {
@@ -253,24 +253,6 @@ public class ResourceMetadata {
     }
 
     /**
-     * The timestamp indicating when the response was generated.
-     */
-    public ResourceMetadata withResponseTimestamp(OffsetDateTime responseTimestamp) {
-        Utils.checkNotNull(responseTimestamp, "responseTimestamp");
-        this.responseTimestamp = JsonNullable.of(responseTimestamp);
-        return this;
-    }
-
-    /**
-     * The timestamp indicating when the response was generated.
-     */
-    public ResourceMetadata withResponseTimestamp(JsonNullable<OffsetDateTime> responseTimestamp) {
-        Utils.checkNotNull(responseTimestamp, "responseTimestamp");
-        this.responseTimestamp = responseTimestamp;
-        return this;
-    }
-
-    /**
      * The duration of time, in milliseconds, that the server took to process and respond
      * to the request. This is measured from the time the server received the request
      * until the time the response was sent.
@@ -292,6 +274,24 @@ public class ResourceMetadata {
         return this;
     }
 
+    /**
+     * The timestamp indicating when the response was generated.
+     */
+    public ResourceMetadata withResponseTimestamp(OffsetDateTime responseTimestamp) {
+        Utils.checkNotNull(responseTimestamp, "responseTimestamp");
+        this.responseTimestamp = JsonNullable.of(responseTimestamp);
+        return this;
+    }
+
+    /**
+     * The timestamp indicating when the response was generated.
+     */
+    public ResourceMetadata withResponseTimestamp(JsonNullable<OffsetDateTime> responseTimestamp) {
+        Utils.checkNotNull(responseTimestamp, "responseTimestamp");
+        this.responseTimestamp = responseTimestamp;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -307,16 +307,16 @@ public class ResourceMetadata {
             Utils.enhancedDeepEquals(this.modifiedAt, other.modifiedAt) &&
             Utils.enhancedDeepEquals(this.modifiedBy, other.modifiedBy) &&
             Utils.enhancedDeepEquals(this.requestId, other.requestId) &&
-            Utils.enhancedDeepEquals(this.responseTimestamp, other.responseTimestamp) &&
-            Utils.enhancedDeepEquals(this.responseDurationMs, other.responseDurationMs);
+            Utils.enhancedDeepEquals(this.responseDurationMs, other.responseDurationMs) &&
+            Utils.enhancedDeepEquals(this.responseTimestamp, other.responseTimestamp);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             createdAt, createdBy, modifiedAt,
-            modifiedBy, requestId, responseTimestamp,
-            responseDurationMs);
+            modifiedBy, requestId, responseDurationMs,
+            responseTimestamp);
     }
     
     @Override
@@ -327,8 +327,8 @@ public class ResourceMetadata {
                 "modifiedAt", modifiedAt,
                 "modifiedBy", modifiedBy,
                 "requestId", requestId,
-                "responseTimestamp", responseTimestamp,
-                "responseDurationMs", responseDurationMs);
+                "responseDurationMs", responseDurationMs,
+                "responseTimestamp", responseTimestamp);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -344,9 +344,9 @@ public class ResourceMetadata {
 
         private JsonNullable<String> requestId = JsonNullable.undefined();
 
-        private JsonNullable<OffsetDateTime> responseTimestamp = JsonNullable.undefined();
-
         private JsonNullable<Integer> responseDurationMs = JsonNullable.undefined();
+
+        private JsonNullable<OffsetDateTime> responseTimestamp = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -449,25 +449,6 @@ public class ResourceMetadata {
 
 
         /**
-         * The timestamp indicating when the response was generated.
-         */
-        public Builder responseTimestamp(OffsetDateTime responseTimestamp) {
-            Utils.checkNotNull(responseTimestamp, "responseTimestamp");
-            this.responseTimestamp = JsonNullable.of(responseTimestamp);
-            return this;
-        }
-
-        /**
-         * The timestamp indicating when the response was generated.
-         */
-        public Builder responseTimestamp(JsonNullable<OffsetDateTime> responseTimestamp) {
-            Utils.checkNotNull(responseTimestamp, "responseTimestamp");
-            this.responseTimestamp = responseTimestamp;
-            return this;
-        }
-
-
-        /**
          * The duration of time, in milliseconds, that the server took to process and respond
          * to the request. This is measured from the time the server received the request
          * until the time the response was sent.
@@ -489,12 +470,31 @@ public class ResourceMetadata {
             return this;
         }
 
+
+        /**
+         * The timestamp indicating when the response was generated.
+         */
+        public Builder responseTimestamp(OffsetDateTime responseTimestamp) {
+            Utils.checkNotNull(responseTimestamp, "responseTimestamp");
+            this.responseTimestamp = JsonNullable.of(responseTimestamp);
+            return this;
+        }
+
+        /**
+         * The timestamp indicating when the response was generated.
+         */
+        public Builder responseTimestamp(JsonNullable<OffsetDateTime> responseTimestamp) {
+            Utils.checkNotNull(responseTimestamp, "responseTimestamp");
+            this.responseTimestamp = responseTimestamp;
+            return this;
+        }
+
         public ResourceMetadata build() {
 
             return new ResourceMetadata(
                 createdAt, createdBy, modifiedAt,
-                modifiedBy, requestId, responseTimestamp,
-                responseDurationMs);
+                modifiedBy, requestId, responseDurationMs,
+                responseTimestamp);
         }
 
     }

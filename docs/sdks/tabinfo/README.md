@@ -1,5 +1,4 @@
-# TabInfo
-(*connectedFields().tabInfo()*)
+# ConnectedFields.TabInfo
 
 ## Overview
 

@@ -36,6 +36,7 @@ Developer Center](https://developers.docusign.com/).
   * [Retries](#retries)
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
+  * [Custom HTTP Client](#custom-http-client)
   * [Debugging](#debugging)
 * [Development](#development)
   * [Maturity](#maturity)
@@ -54,7 +55,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.docusign:iam-sdk:1.0.0-beta.7'
+implementation 'com.docusign:iam-sdk:1.0.0-beta.8'
 ```
 
 Maven:
@@ -62,7 +63,7 @@ Maven:
 <dependency>
     <groupId>com.docusign</groupId>
     <artifactId>iam-sdk</artifactId>
-    <version>1.0.0-beta.7</version>
+    <version>1.0.0-beta.8</version>
 </dependency>
 ```
 
@@ -279,7 +280,7 @@ var res = sdk.auth().getUserInfo().call();
 <details open>
 <summary>Available methods</summary>
 
-### [auth()](docs/sdks/auth/README.md)
+### [Auth](docs/sdks/auth/README.md)
 
 * [getTokenFromConfidentialAuthCode](docs/sdks/auth/README.md#gettokenfromconfidentialauthcode) - Obtains an access token from the Docusign API using an authorization code.
 * [getTokenFromPublicAuthCode](docs/sdks/auth/README.md#gettokenfrompublicauthcode) - Obtains an access token from the Docusign API using an authorization code.
@@ -287,17 +288,17 @@ var res = sdk.auth().getUserInfo().call();
 * [getTokenFromRefreshToken](docs/sdks/auth/README.md#gettokenfromrefreshtoken) - Obtains an access token from the Docusign API using an authorization code.
 * [getUserInfo](docs/sdks/auth/README.md#getuserinfo) - Get user information
 
-#### [connectedFields().tabInfo()](docs/sdks/tabinfo/README.md)
+### [ConnectedFields.TabInfo](docs/sdks/tabinfo/README.md)
 
 * [getConnectedFieldsTabGroups](docs/sdks/tabinfo/README.md#getconnectedfieldstabgroups) - Returns all tabs associated with the given account
 
-#### [maestro().workflowInstanceManagement()](docs/sdks/workflowinstancemanagement/README.md)
+### [Maestro.WorkflowInstanceManagement](docs/sdks/workflowinstancemanagement/README.md)
 
 * [getWorkflowInstancesList](docs/sdks/workflowinstancemanagement/README.md#getworkflowinstanceslist) - Retrieve All Workflow Instances
 * [getWorkflowInstance](docs/sdks/workflowinstancemanagement/README.md#getworkflowinstance) - Retrieve a Workflow Instance
 * [cancelWorkflowInstance](docs/sdks/workflowinstancemanagement/README.md#cancelworkflowinstance) - Cancel a Running Workflow Instance
 
-#### [maestro().workflows()](docs/sdks/workflows/README.md)
+### [Maestro.Workflows](docs/sdks/workflows/README.md)
 
 * [getWorkflowsList](docs/sdks/workflows/README.md#getworkflowslist) - Retrieve a list of available Maestro workflows
 * [getWorkflowTriggerRequirements](docs/sdks/workflows/README.md#getworkflowtriggerrequirements) - Retrieve trigger requirements for a specific Maestro workflow
@@ -305,19 +306,24 @@ var res = sdk.auth().getUserInfo().call();
 * [pauseNewWorkflowInstances](docs/sdks/workflows/README.md#pausenewworkflowinstances) - Pause an Active Workflow
 * [resumePausedWorkflow](docs/sdks/workflows/README.md#resumepausedworkflow) - Resume a Paused Workflow
 
-#### [navigator().agreements()](docs/sdks/agreements/README.md)
+### [Navigator.Agreements](docs/sdks/agreements/README.md)
 
 * [getAgreementsList](docs/sdks/agreements/README.md#getagreementslist) - Retrieve a list of agreements
 * [getAgreement](docs/sdks/agreements/README.md#getagreement) - Retrieve detailed information about a specific agreement
 * [deleteAgreement](docs/sdks/agreements/README.md#deleteagreement) - Delete a specific agreement
-* [createAgreementSummary](docs/sdks/agreements/README.md#createagreementsummary) - Create an AI-generated summary of an agreement document
 
-#### [workspaces().workspaceBrands()](docs/sdks/workspacebrands/README.md)
+### [Navigator.BulkJob](docs/sdks/bulkjob/README.md)
+
+* [createBulkUploadJob](docs/sdks/bulkjob/README.md#createbulkuploadjob) - Create new bulk job with presigned URLs direct to Azure Blob Store
+* [getBulkJobStatus](docs/sdks/bulkjob/README.md#getbulkjobstatus) - Get bulk job status
+* [uploadCompleteBulkJob](docs/sdks/bulkjob/README.md#uploadcompletebulkjob) - Mark bulk job upload as complete
+
+### [Workspaces.WorkspaceBrands](docs/sdks/workspacebrands/README.md)
 
 * [getWorkspaceBrand](docs/sdks/workspacebrands/README.md#getworkspacebrand) - Returns details about the brand set for a workspace
 * [updateWorkspaceBrand](docs/sdks/workspacebrands/README.md#updateworkspacebrand) - Updates brand for an existing workspace
 
-#### [workspaces().workspaceDocuments()](docs/sdks/workspacedocuments/README.md)
+### [Workspaces.WorkspaceDocuments](docs/sdks/workspacedocuments/README.md)
 
 * [getWorkspaceDocuments](docs/sdks/workspacedocuments/README.md#getworkspacedocuments) - Get documents in the workspace accessible to the calling user
 * [addWorkspaceDocument](docs/sdks/workspacedocuments/README.md#addworkspacedocument) - Add a document to a workspace via file contents upload
@@ -325,7 +331,7 @@ var res = sdk.auth().getUserInfo().call();
 * [deleteWorkspaceDocument](docs/sdks/workspacedocuments/README.md#deleteworkspacedocument) - Deletes a document in the workspace
 * [getWorkspaceDocumentContents](docs/sdks/workspacedocuments/README.md#getworkspacedocumentcontents) - Get the file contents of the document
 
-#### [workspaces().workspaces()](docs/sdks/workspaces2/README.md)
+### [Workspaces.Workspaces](docs/sdks/workspaces2/README.md)
 
 * [getWorkspaces](docs/sdks/workspaces2/README.md#getworkspaces) - Gets workspaces available to the calling user
 * [createWorkspace](docs/sdks/workspaces2/README.md#createworkspace) - Creates a new workspace
@@ -335,7 +341,7 @@ var res = sdk.auth().getUserInfo().call();
 * [createWorkspaceEnvelope](docs/sdks/workspaces2/README.md#createworkspaceenvelope) - Creates an envelope with the given documents. Returns the ID of the created envelope
 * [getWorkspaceEnvelopes](docs/sdks/workspaces2/README.md#getworkspaceenvelopes) - Returns the envelopes associated with the given workspace
 
-#### [workspaces().workspaceUploadRequest()](docs/sdks/workspaceuploadrequest/README.md)
+### [Workspaces.WorkspaceUploadRequest](docs/sdks/workspaceuploadrequest/README.md)
 
 * [createWorkspaceUploadRequest](docs/sdks/workspaceuploadrequest/README.md#createworkspaceuploadrequest) - Creates a new upload request within a workspace
 * [getWorkspaceUploadRequests](docs/sdks/workspaceuploadrequest/README.md#getworkspaceuploadrequests) - Gets upload requests within a workspace
@@ -345,7 +351,7 @@ var res = sdk.auth().getUserInfo().call();
 * [addWorkspaceUploadRequestDocument](docs/sdks/workspaceuploadrequest/README.md#addworkspaceuploadrequestdocument) - Add a document to an upload request via file upload
 * [completeWorkspaceUploadRequest](docs/sdks/workspaceuploadrequest/README.md#completeworkspaceuploadrequest) - Complete an upload request
 
-#### [workspaces().workspaceUsers()](docs/sdks/workspaceusers/README.md)
+### [Workspaces.WorkspaceUsers](docs/sdks/workspaceusers/README.md)
 
 * [getWorkspaceUsers](docs/sdks/workspaceusers/README.md#getworkspaceusers) - Retrieves the list of users in the given workspace
 * [addWorkspaceUser](docs/sdks/workspaceusers/README.md#addworkspaceuser) - Adds a user to the workspace by email address
@@ -485,10 +491,15 @@ package hello.world;
 
 import com.docusign.iam.sdk.IamClient;
 import com.docusign.iam.sdk.models.components.ConfidentialAuthCodeGrantRequestBody;
+import com.docusign.iam.sdk.models.errors.IamClientError;
 import com.docusign.iam.sdk.models.errors.OAuthErrorResponse;
 import com.docusign.iam.sdk.models.operations.GetTokenFromConfidentialAuthCodeResponse;
 import com.docusign.iam.sdk.models.operations.GetTokenFromConfidentialAuthCodeSecurity;
+import java.io.UncheckedIOException;
 import java.lang.Exception;
+import java.lang.String;
+import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 public class Application {
 
@@ -496,23 +507,56 @@ public class Application {
 
         IamClient sdk = IamClient.builder()
             .build();
+        try {
 
-        ConfidentialAuthCodeGrantRequestBody req = ConfidentialAuthCodeGrantRequestBody.builder()
-                .code("eyJ0eXAi.....QFsje43QVZ_gw")
-                .build();
+            ConfidentialAuthCodeGrantRequestBody req = ConfidentialAuthCodeGrantRequestBody.builder()
+                    .code("eyJ0eXAi.....QFsje43QVZ_gw")
+                    .build();
 
-        GetTokenFromConfidentialAuthCodeResponse res = sdk.auth().getTokenFromConfidentialAuthCode()
-                .request(req)
-                .security(GetTokenFromConfidentialAuthCodeSecurity.builder()
-                    .clientId("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79")
-                    .secretKey("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI")
-                    .build())
-                .call();
+            GetTokenFromConfidentialAuthCodeResponse res = sdk.auth().getTokenFromConfidentialAuthCode()
+                    .request(req)
+                    .security(GetTokenFromConfidentialAuthCodeSecurity.builder()
+                        .clientId("2da1cb14-xxxx-xxxx-xxxx-5b7b40829e79")
+                        .secretKey("MTIzNDU2Nzxxxxxxxxxxxxxxxxxxxxx0NTY3ODkwMTI")
+                        .build())
+                    .call();
 
-        if (res.authorizationCodeGrantResponse().isPresent()) {
-            // handle response
-        }
-    }
+            if (res.authorizationCodeGrantResponse().isPresent()) {
+                // handle response
+            }
+        } catch (IamClientError ex) { // all SDK exceptions inherit from IamClientError
+
+            // ex.ToString() provides a detailed error message including
+            // HTTP status code, headers, and error payload (if any)
+            System.out.println(ex);
+
+            // Base exception fields
+            var rawResponse = ex.rawResponse();
+            var headers = ex.headers();
+            var contentType = headers.first("Content-Type");
+            int statusCode = ex.code();
+            Optional<byte[]> responseBody = ex.body();
+
+            // different error subclasses may be thrown 
+            // depending on the service call
+            if (ex instanceof OAuthErrorResponse) {
+                var e = (OAuthErrorResponse) ex;
+                // Check error data fields
+                e.data().ifPresent(payload -> {
+                      JsonNullable<String> error = payload.error();
+                      JsonNullable<String> errorDescription = payload.errorDescription();
+                });
+            }
+
+            // An underlying cause may be provided. If the error payload 
+            // cannot be deserialized then the deserialization exception 
+            // will be set as the cause.
+            if (ex.getCause() != null) {
+                var cause = ex.getCause();
+            }
+        } catch (UncheckedIOException ex) {
+            // handle IO error (connection, timeout, etc)
+        }    }
 }
 ```
 
@@ -520,7 +564,7 @@ public class Application {
 **Primary error:**
 * [`IamClientError`](./src/main/java/models/errors/IamClientError.java): The base class for HTTP error responses.
 
-<details><summary>Less common errors (9)</summary>
+<details><summary>Less common errors (10)</summary>
 
 <br />
 
@@ -530,9 +574,10 @@ public class Application {
 many more subclasses in the JDK platform).
 
 **Inherit from [`IamClientError`](./src/main/java/models/errors/IamClientError.java)**:
-* [`com.docusign.iam.sdk.models.errors.ErrorDetails`](./src/main/java/models/errors/com.docusign.iam.sdk.models.errors.ErrorDetails.java): The error response object for the Workspaces API. Applicable to 26 of 44 methods.*
-* [`com.docusign.iam.sdk.models.errors.Error`](./src/main/java/models/errors/com.docusign.iam.sdk.models.errors.Error.java): Bad Request - The request could not be understood or was missing required parameters. Applicable to 11 of 44 methods.*
-* [`com.docusign.iam.sdk.models.errors.OAuthErrorResponse`](./src/main/java/models/errors/com.docusign.iam.sdk.models.errors.OAuthErrorResponse.java): Status code `400`. Applicable to 5 of 44 methods.*
+* [`com.docusign.iam.sdk.models.errors.ErrorDetails`](./src/main/java/models/errors/com.docusign.iam.sdk.models.errors.ErrorDetails.java): The error response object for the Workspaces API. Applicable to 26 of 46 methods.*
+* [`com.docusign.iam.sdk.models.errors.Error`](./src/main/java/models/errors/com.docusign.iam.sdk.models.errors.Error.java): Bad Request - The request could not be understood or was missing required parameters. Applicable to 10 of 46 methods.*
+* [`com.docusign.iam.sdk.models.errors.OAuthErrorResponse`](./src/main/java/models/errors/com.docusign.iam.sdk.models.errors.OAuthErrorResponse.java): Status code `400`. Applicable to 5 of 46 methods.*
+* [`com.docusign.iam.sdk.models.errors.ErrDetails`](./src/main/java/models/errors/com.docusign.iam.sdk.models.errors.ErrDetails.java): Applicable to 3 of 46 methods.*
 
 
 </details>
@@ -569,7 +614,7 @@ public class Application {
     public static void main(String[] args) throws OAuthErrorResponse, Exception {
 
         IamClient sdk = IamClient.builder()
-                .server(IamClient.AvailableServers.PROD)
+                .server(IamClient.AvailableServers.DEMO)
             .build();
 
         ConfidentialAuthCodeGrantRequestBody req = ConfidentialAuthCodeGrantRequestBody.builder()
@@ -672,13 +717,140 @@ public class Application {
 ```
 <!-- End Server Selection [server] -->
 
+<!-- Start Custom HTTP Client [http-client] -->
+## Custom HTTP Client
+
+The Java SDK makes API calls using an `HTTPClient` that wraps the native
+[HttpClient](https://docs.oracle.com/en/java/javase/11/docs/api/java.net.http/java/net/http/HttpClient.html). This
+client provides the ability to attach hooks around the request lifecycle that can be used to modify the request or handle
+errors and response.
+
+The `HTTPClient` interface allows you to either use the default `SpeakeasyHTTPClient` that comes with the SDK,
+or provide your own custom implementation with customized configuration such as custom executors, SSL context,
+connection pools, and other HTTP client settings.
+
+The interface provides synchronous (`send`) methods.
+
+The following example shows how to add a custom header and handle errors:
+
+```java
+import com.docusign.iam.sdk.IamClient;
+import com.docusign.iam.sdk.utils.HTTPClient;
+import com.docusign.iam.sdk.utils.SpeakeasyHTTPClient;
+import com.docusign.iam.sdk.utils.Utils;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.io.InputStream;
+import java.time.Duration;
+
+public class Application {
+    public static void main(String[] args) {
+        // Create a custom HTTP client with hooks
+        HTTPClient httpClient = new HTTPClient() {
+            private final HTTPClient defaultClient = new SpeakeasyHTTPClient();
+            
+            @Override
+            public HttpResponse<InputStream> send(HttpRequest request) throws IOException, URISyntaxException, InterruptedException {
+                // Add custom header and timeout using Utils.copy()
+                HttpRequest modifiedRequest = Utils.copy(request)
+                    .header("x-custom-header", "custom value")
+                    .timeout(Duration.ofSeconds(30))
+                    .build();
+                    
+                try {
+                    HttpResponse<InputStream> response = defaultClient.send(modifiedRequest);
+                    // Log successful response
+                    System.out.println("Request successful: " + response.statusCode());
+                    return response;
+                } catch (Exception error) {
+                    // Log error
+                    System.err.println("Request failed: " + error.getMessage());
+                    throw error;
+                }
+            }
+        };
+
+        IamClient sdk = IamClient.builder()
+            .client(httpClient)
+            .build();
+    }
+}
+```
+
+<details>
+<summary>Custom HTTP Client Configuration</summary>
+
+You can also provide a completely custom HTTP client with your own configuration:
+
+```java
+import com.docusign.iam.sdk.IamClient;
+import com.docusign.iam.sdk.utils.HTTPClient;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.io.InputStream;
+import java.time.Duration;
+import java.util.concurrent.Executors;
+
+public class Application {
+    public static void main(String[] args) {
+        // Custom HTTP client with custom configuration
+        HTTPClient customHttpClient = new HTTPClient() {
+            private final HttpClient client = HttpClient.newBuilder()
+                .executor(Executors.newFixedThreadPool(10))
+                .connectTimeout(Duration.ofSeconds(30))
+                // .sslContext(customSslContext) // Add custom SSL context if needed
+                .build();
+
+            @Override
+            public HttpResponse<InputStream> send(HttpRequest request) throws IOException, URISyntaxException, InterruptedException {
+                return client.send(request, HttpResponse.BodyHandlers.ofInputStream());
+            }
+        };
+
+        IamClient sdk = IamClient.builder()
+            .client(customHttpClient)
+            .build();
+    }
+}
+```
+
+</details>
+
+You can also enable debug logging on the default `SpeakeasyHTTPClient`:
+
+```java
+import com.docusign.iam.sdk.IamClient;
+import com.docusign.iam.sdk.utils.SpeakeasyHTTPClient;
+
+public class Application {
+    public static void main(String[] args) {
+        SpeakeasyHTTPClient httpClient = new SpeakeasyHTTPClient();
+        httpClient.enableDebugLogging(true);
+
+        IamClient sdk = IamClient.builder()
+            .client(httpClient)
+            .build();
+    }
+}
+```
+<!-- End Custom HTTP Client [http-client] -->
+
 <!-- Start Debugging [debug] -->
 ## Debugging
 
 ### Debug
+
 You can setup your SDK to emit debug logs for SDK requests and responses.
 
 For request and response logging (especially json bodies), call `enableHTTPDebugLogging(boolean)` on the SDK builder like so:
+
 ```java
 SDK.builder()
     .enableHTTPDebugLogging(true)
@@ -696,9 +868,10 @@ Response body:
   "token": "global"
 }
 ```
-__WARNING__: This should only used for temporary debugging purposes. Leaving this option on in a production system could expose credentials/secrets in logs. <i>Authorization</i> headers are redacted by default and there is the ability to specify redacted header names via `SpeakeasyHTTPClient.setRedactedHeaders`.
+__WARNING__: This logging should only be used for temporary debugging purposes. Leaving this option on in a production system could expose credentials/secrets in logs. <i>Authorization</i> headers are redacted by default and there is the ability to specify redacted header names via `SpeakeasyHTTPClient.setRedactedHeaders`.
 
 __NOTE__: This is a convenience method that calls `HTTPClient.enableDebugLogging()`. The `SpeakeasyHTTPClient` honors this setting. If you are using a custom HTTP client, it is up to the custom client to honor this setting.
+
 
 Another option is to set the System property `-Djdk.httpclient.HttpClient.log=all`. However, this second option does not log bodies.
 <!-- End Debugging [debug] -->

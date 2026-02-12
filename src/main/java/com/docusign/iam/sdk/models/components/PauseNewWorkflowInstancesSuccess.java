@@ -25,8 +25,7 @@ public class PauseNewWorkflowInstancesSuccess {
      * Represents the new state of a workflow's mechanism to permit new workflow instances from being
      * created.
      * Valid values include:
-     * 
-     * <p>- active
+     * - active
      * - paused
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -48,8 +47,7 @@ public class PauseNewWorkflowInstancesSuccess {
      * Represents the new state of a workflow's mechanism to permit new workflow instances from being
      * created.
      * Valid values include:
-     * 
-     * <p>- active
+     * - active
      * - paused
      */
     @JsonIgnore
@@ -66,8 +64,7 @@ public class PauseNewWorkflowInstancesSuccess {
      * Represents the new state of a workflow's mechanism to permit new workflow instances from being
      * created.
      * Valid values include:
-     * 
-     * <p>- active
+     * - active
      * - paused
      */
     public PauseNewWorkflowInstancesSuccess withStatus(String status) {
@@ -81,8 +78,7 @@ public class PauseNewWorkflowInstancesSuccess {
      * Represents the new state of a workflow's mechanism to permit new workflow instances from being
      * created.
      * Valid values include:
-     * 
-     * <p>- active
+     * - active
      * - paused
      */
     public PauseNewWorkflowInstancesSuccess withStatus(Optional<String> status) {
@@ -130,8 +126,7 @@ public class PauseNewWorkflowInstancesSuccess {
          * Represents the new state of a workflow's mechanism to permit new workflow instances from being
          * created.
          * Valid values include:
-         * 
-         * <p>- active
+         * - active
          * - paused
          */
         public Builder status(String status) {
@@ -144,8 +139,7 @@ public class PauseNewWorkflowInstancesSuccess {
          * Represents the new state of a workflow's mechanism to permit new workflow instances from being
          * created.
          * Valid values include:
-         * 
-         * <p>- active
+         * - active
          * - paused
          */
         public Builder status(Optional<String> status) {

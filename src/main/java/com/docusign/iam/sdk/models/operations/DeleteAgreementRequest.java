@@ -3,10 +3,12 @@
  */
 package com.docusign.iam.sdk.models.operations;
 
+import com.docusign.iam.sdk.utils.LazySingletonValue;
 import com.docusign.iam.sdk.utils.SpeakeasyMetadata;
 import com.docusign.iam.sdk.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Override;
 import java.lang.String;
 
@@ -110,10 +112,28 @@ public class DeleteAgreementRequest {
         }
 
         public DeleteAgreementRequest build() {
+            if (accountId == null) {
+                accountId = _SINGLETON_VALUE_AccountId.value();
+            }
+            if (agreementId == null) {
+                agreementId = _SINGLETON_VALUE_AgreementId.value();
+            }
 
             return new DeleteAgreementRequest(
                 accountId, agreementId);
         }
 
+
+        private static final LazySingletonValue<String> _SINGLETON_VALUE_AccountId =
+                new LazySingletonValue<>(
+                        "accountId",
+                        "\"00000000-0000-0000-0000-000000000000\"",
+                        new TypeReference<String>() {});
+
+        private static final LazySingletonValue<String> _SINGLETON_VALUE_AgreementId =
+                new LazySingletonValue<>(
+                        "agreementId",
+                        "\"00000000-0000-0000-0000-000000000000\"",
+                        new TypeReference<String>() {});
     }
 }

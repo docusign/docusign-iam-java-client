@@ -3,19 +3,23 @@
  */
 package com.docusign.iam.sdk.models.components;
 
+import com.docusign.iam.sdk.utils.LazySingletonValue;
 import com.docusign.iam.sdk.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Optional;
 
 
 public class RelatedAgreementDocuments {
-
+    /**
+     * ID of the parent agreement document, if related.
+     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("parent_agreement_document_id")
     private Optional<String> parentAgreementDocumentId;
@@ -31,6 +35,9 @@ public class RelatedAgreementDocuments {
         this(Optional.empty());
     }
 
+    /**
+     * ID of the parent agreement document, if related.
+     */
     @JsonIgnore
     public Optional<String> parentAgreementDocumentId() {
         return parentAgreementDocumentId;
@@ -41,6 +48,9 @@ public class RelatedAgreementDocuments {
     }
 
 
+    /**
+     * ID of the parent agreement document, if related.
+     */
     public RelatedAgreementDocuments withParentAgreementDocumentId(String parentAgreementDocumentId) {
         Utils.checkNotNull(parentAgreementDocumentId, "parentAgreementDocumentId");
         this.parentAgreementDocumentId = Optional.ofNullable(parentAgreementDocumentId);
@@ -48,6 +58,9 @@ public class RelatedAgreementDocuments {
     }
 
 
+    /**
+     * ID of the parent agreement document, if related.
+     */
     public RelatedAgreementDocuments withParentAgreementDocumentId(Optional<String> parentAgreementDocumentId) {
         Utils.checkNotNull(parentAgreementDocumentId, "parentAgreementDocumentId");
         this.parentAgreementDocumentId = parentAgreementDocumentId;
@@ -82,19 +95,25 @@ public class RelatedAgreementDocuments {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Optional<String> parentAgreementDocumentId = Optional.empty();
+        private Optional<String> parentAgreementDocumentId;
 
         private Builder() {
           // force use of static builder() method
         }
 
 
+        /**
+         * ID of the parent agreement document, if related.
+         */
         public Builder parentAgreementDocumentId(String parentAgreementDocumentId) {
             Utils.checkNotNull(parentAgreementDocumentId, "parentAgreementDocumentId");
             this.parentAgreementDocumentId = Optional.ofNullable(parentAgreementDocumentId);
             return this;
         }
 
+        /**
+         * ID of the parent agreement document, if related.
+         */
         public Builder parentAgreementDocumentId(Optional<String> parentAgreementDocumentId) {
             Utils.checkNotNull(parentAgreementDocumentId, "parentAgreementDocumentId");
             this.parentAgreementDocumentId = parentAgreementDocumentId;
@@ -102,10 +121,19 @@ public class RelatedAgreementDocuments {
         }
 
         public RelatedAgreementDocuments build() {
+            if (parentAgreementDocumentId == null) {
+                parentAgreementDocumentId = _SINGLETON_VALUE_ParentAgreementDocumentId.value();
+            }
 
             return new RelatedAgreementDocuments(
                 parentAgreementDocumentId);
         }
 
+
+        private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_ParentAgreementDocumentId =
+                new LazySingletonValue<>(
+                        "parent_agreement_document_id",
+                        "\"00000000-0000-0000-0000-000000000000\"",
+                        new TypeReference<Optional<String>>() {});
     }
 }

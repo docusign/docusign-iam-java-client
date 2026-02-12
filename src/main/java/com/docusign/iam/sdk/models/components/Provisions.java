@@ -14,11 +14,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Boolean;
 import java.lang.Double;
 import java.lang.Float;
-import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.time.OffsetDateTime;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -30,25 +28,25 @@ import org.openapitools.jackson.nullable.JsonNullable;
  */
 public class Provisions {
     /**
-     * The type of assignment rights in the agreement (e.g., transferability)
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("assignment_type")
-    private Optional<String> assignmentType;
-
-    /**
      * Provisions related to changes in control of the assigning party
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("assignment_change_of_control")
-    private Optional<String> assignmentChangeOfControl;
+    private JsonNullable<String> assignmentChangeOfControl;
 
     /**
      * Provisions for the termination of assignment rights
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("assignment_termination_rights")
-    private Optional<String> assignmentTerminationRights;
+    private JsonNullable<String> assignmentTerminationRights;
+
+    /**
+     * The type of assignment rights in the agreement (e.g., transferability)
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("assignment_type")
+    private JsonNullable<String> assignmentType;
 
     /**
      * A subset of ISO 8601 duration. Fractional or negative values are not supported.
@@ -88,8 +86,7 @@ public class Provisions {
     private JsonNullable<Double> annualAgreementValue;
 
     /**
-     * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
-     * https://www.currency-iso.org/en/home/tables/table-a1.html'
+     * Currency code (e.g., USD, EUR) for the agreement's annual value.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("annual_agreement_value_currency_code")
@@ -103,8 +100,7 @@ public class Provisions {
     private JsonNullable<Double> totalAgreementValue;
 
     /**
-     * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
-     * https://www.currency-iso.org/en/home/tables/table-a1.html'
+     * Currency code (e.g., USD, EUR) for the agreement's total value.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("total_agreement_value_currency_code")
@@ -129,7 +125,21 @@ public class Provisions {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("late_payment_fee_percent")
-    private JsonNullable<Long> latePaymentFeePercent;
+    private JsonNullable<Double> latePaymentFeePercent;
+
+    /**
+     * Currency code for the liability cap amount.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("liability_cap_currency_code")
+    private JsonNullable<? extends CurrencyCode> liabilityCapCurrencyCode;
+
+    /**
+     * Duration for the liability cap
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("liability_cap_duration")
+    private JsonNullable<String> liabilityCapDuration;
 
     /**
      * Maximum liability cap in the agreement
@@ -139,24 +149,11 @@ public class Provisions {
     private JsonNullable<Double> liabilityCapFixedAmount;
 
     /**
-     * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
-     * https://www.currency-iso.org/en/home/tables/table-a1.html'
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("liability_cap_currency_code")
-    private JsonNullable<? extends CurrencyCode> liabilityCapCurrencyCode;
-
-    /**
      * Multiplier applied to calculate the liability cap
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("liability_cap_multiplier")
     private JsonNullable<Double> liabilityCapMultiplier;
-
-
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("liability_cap_duration")
-    private JsonNullable<String> liabilityCapDuration;
 
     /**
      * Maximum allowed percentage increase in prices, limited between 0 and 100.
@@ -166,41 +163,11 @@ public class Provisions {
     private JsonNullable<Float> priceCapPercentIncrease;
 
     /**
-     * Specifies the type of renewal (e.g., automatic, manual).
+     * The duration of the auto-renewal period.
      */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("renewal_type")
-    private JsonNullable<String> renewalType;
-
-
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("renewal_notice_period")
-    private JsonNullable<String> renewalNoticePeriod;
-
-    /**
-     * Calculated field based on renewal notice period. (agreement expiration date - renewal notice period
-     * duration)
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("renewal_notice_date")
-    private JsonNullable<OffsetDateTime> renewalNoticeDate;
-
-
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("auto_renewal_term_length")
     private JsonNullable<String> autoRenewalTermLength;
-
-
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("renewal_extension_period")
-    private JsonNullable<String> renewalExtensionPeriod;
-
-    /**
-     * The userId parameter
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("renewal_process_owner")
-    private Optional<String> renewalProcessOwner;
 
     /**
      * Additional information related to the renewal process.
@@ -208,6 +175,43 @@ public class Provisions {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("renewal_additional_info")
     private JsonNullable<String> renewalAdditionalInfo;
+
+    /**
+     * The period an agreement has been extended after it has been renewed.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("renewal_extension_period")
+    private JsonNullable<String> renewalExtensionPeriod;
+
+    /**
+     * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+     * explicit offset (e.g., +05:30, -0800).
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("renewal_notice_date")
+    private Optional<String> renewalNoticeDate;
+
+    /**
+     * The period of time that a party is required to provide to indicate their intention to renew an
+     * agreement.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("renewal_notice_period")
+    private JsonNullable<String> renewalNoticePeriod;
+
+    /**
+     * User ID of the person responsible for managing the renewal process
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("renewal_process_owner")
+    private Optional<String> renewalProcessOwner;
+
+    /**
+     * Specifies the type of renewal (e.g., automatic, manual).
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("renewal_type")
+    private JsonNullable<String> renewalType;
 
     /**
      * The specific duration that a party has to give notice before terminating the agreement due to a
@@ -227,26 +231,28 @@ public class Provisions {
     private JsonNullable<String> terminationPeriodForConvenience;
 
     /**
-     * The date when the terms of the agreement start to apply and become legally binding.
+     * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+     * explicit offset (e.g., +05:30, -0800).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("effective_date")
-    private JsonNullable<OffsetDateTime> effectiveDate;
+    private Optional<String> effectiveDate;
 
     /**
-     * The date when the agreement ends and is no longer valid or enforceable.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("expiration_date")
-    private JsonNullable<OffsetDateTime> expirationDate;
-
-    /**
-     * The date when the agreement is signed by all parties, making it officially binding. This is not
-     * necessarily the same as the effective date.
+     * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+     * explicit offset (e.g., +05:30, -0800).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("execution_date")
-    private JsonNullable<OffsetDateTime> executionDate;
+    private Optional<String> executionDate;
+
+    /**
+     * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+     * explicit offset (e.g., +05:30, -0800).
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("expiration_date")
+    private Optional<String> expirationDate;
 
     /**
      * Overall duration of the agreement.
@@ -257,9 +263,9 @@ public class Provisions {
 
     @JsonCreator
     public Provisions(
-            @JsonProperty("assignment_type") Optional<String> assignmentType,
-            @JsonProperty("assignment_change_of_control") Optional<String> assignmentChangeOfControl,
-            @JsonProperty("assignment_termination_rights") Optional<String> assignmentTerminationRights,
+            @JsonProperty("assignment_change_of_control") JsonNullable<String> assignmentChangeOfControl,
+            @JsonProperty("assignment_termination_rights") JsonNullable<String> assignmentTerminationRights,
+            @JsonProperty("assignment_type") JsonNullable<String> assignmentType,
             @JsonProperty("confidentiality_obligation_period") JsonNullable<String> confidentialityObligationPeriod,
             @JsonProperty("governing_law") JsonNullable<String> governingLaw,
             @JsonProperty("jurisdiction") JsonNullable<String> jurisdiction,
@@ -270,28 +276,28 @@ public class Provisions {
             @JsonProperty("total_agreement_value_currency_code") JsonNullable<? extends CurrencyCode> totalAgreementValueCurrencyCode,
             @JsonProperty("payment_terms_due_date") Optional<? extends PaymentTermsDueDate> paymentTermsDueDate,
             @JsonProperty("can_charge_late_payment_fees") JsonNullable<Boolean> canChargeLatePaymentFees,
-            @JsonProperty("late_payment_fee_percent") JsonNullable<Long> latePaymentFeePercent,
-            @JsonProperty("liability_cap_fixed_amount") JsonNullable<Double> liabilityCapFixedAmount,
+            @JsonProperty("late_payment_fee_percent") JsonNullable<Double> latePaymentFeePercent,
             @JsonProperty("liability_cap_currency_code") JsonNullable<? extends CurrencyCode> liabilityCapCurrencyCode,
-            @JsonProperty("liability_cap_multiplier") JsonNullable<Double> liabilityCapMultiplier,
             @JsonProperty("liability_cap_duration") JsonNullable<String> liabilityCapDuration,
+            @JsonProperty("liability_cap_fixed_amount") JsonNullable<Double> liabilityCapFixedAmount,
+            @JsonProperty("liability_cap_multiplier") JsonNullable<Double> liabilityCapMultiplier,
             @JsonProperty("price_cap_percent_increase") JsonNullable<Float> priceCapPercentIncrease,
-            @JsonProperty("renewal_type") JsonNullable<String> renewalType,
-            @JsonProperty("renewal_notice_period") JsonNullable<String> renewalNoticePeriod,
-            @JsonProperty("renewal_notice_date") JsonNullable<OffsetDateTime> renewalNoticeDate,
             @JsonProperty("auto_renewal_term_length") JsonNullable<String> autoRenewalTermLength,
-            @JsonProperty("renewal_extension_period") JsonNullable<String> renewalExtensionPeriod,
-            @JsonProperty("renewal_process_owner") Optional<String> renewalProcessOwner,
             @JsonProperty("renewal_additional_info") JsonNullable<String> renewalAdditionalInfo,
+            @JsonProperty("renewal_extension_period") JsonNullable<String> renewalExtensionPeriod,
+            @JsonProperty("renewal_notice_date") Optional<String> renewalNoticeDate,
+            @JsonProperty("renewal_notice_period") JsonNullable<String> renewalNoticePeriod,
+            @JsonProperty("renewal_process_owner") Optional<String> renewalProcessOwner,
+            @JsonProperty("renewal_type") JsonNullable<String> renewalType,
             @JsonProperty("termination_period_for_cause") JsonNullable<String> terminationPeriodForCause,
             @JsonProperty("termination_period_for_convenience") JsonNullable<String> terminationPeriodForConvenience,
-            @JsonProperty("effective_date") JsonNullable<OffsetDateTime> effectiveDate,
-            @JsonProperty("expiration_date") JsonNullable<OffsetDateTime> expirationDate,
-            @JsonProperty("execution_date") JsonNullable<OffsetDateTime> executionDate,
+            @JsonProperty("effective_date") Optional<String> effectiveDate,
+            @JsonProperty("execution_date") Optional<String> executionDate,
+            @JsonProperty("expiration_date") Optional<String> expirationDate,
             @JsonProperty("term_length") JsonNullable<String> termLength) {
-        Utils.checkNotNull(assignmentType, "assignmentType");
         Utils.checkNotNull(assignmentChangeOfControl, "assignmentChangeOfControl");
         Utils.checkNotNull(assignmentTerminationRights, "assignmentTerminationRights");
+        Utils.checkNotNull(assignmentType, "assignmentType");
         Utils.checkNotNull(confidentialityObligationPeriod, "confidentialityObligationPeriod");
         Utils.checkNotNull(governingLaw, "governingLaw");
         Utils.checkNotNull(jurisdiction, "jurisdiction");
@@ -303,27 +309,27 @@ public class Provisions {
         Utils.checkNotNull(paymentTermsDueDate, "paymentTermsDueDate");
         Utils.checkNotNull(canChargeLatePaymentFees, "canChargeLatePaymentFees");
         Utils.checkNotNull(latePaymentFeePercent, "latePaymentFeePercent");
-        Utils.checkNotNull(liabilityCapFixedAmount, "liabilityCapFixedAmount");
         Utils.checkNotNull(liabilityCapCurrencyCode, "liabilityCapCurrencyCode");
-        Utils.checkNotNull(liabilityCapMultiplier, "liabilityCapMultiplier");
         Utils.checkNotNull(liabilityCapDuration, "liabilityCapDuration");
+        Utils.checkNotNull(liabilityCapFixedAmount, "liabilityCapFixedAmount");
+        Utils.checkNotNull(liabilityCapMultiplier, "liabilityCapMultiplier");
         Utils.checkNotNull(priceCapPercentIncrease, "priceCapPercentIncrease");
-        Utils.checkNotNull(renewalType, "renewalType");
-        Utils.checkNotNull(renewalNoticePeriod, "renewalNoticePeriod");
-        Utils.checkNotNull(renewalNoticeDate, "renewalNoticeDate");
         Utils.checkNotNull(autoRenewalTermLength, "autoRenewalTermLength");
-        Utils.checkNotNull(renewalExtensionPeriod, "renewalExtensionPeriod");
-        Utils.checkNotNull(renewalProcessOwner, "renewalProcessOwner");
         Utils.checkNotNull(renewalAdditionalInfo, "renewalAdditionalInfo");
+        Utils.checkNotNull(renewalExtensionPeriod, "renewalExtensionPeriod");
+        Utils.checkNotNull(renewalNoticeDate, "renewalNoticeDate");
+        Utils.checkNotNull(renewalNoticePeriod, "renewalNoticePeriod");
+        Utils.checkNotNull(renewalProcessOwner, "renewalProcessOwner");
+        Utils.checkNotNull(renewalType, "renewalType");
         Utils.checkNotNull(terminationPeriodForCause, "terminationPeriodForCause");
         Utils.checkNotNull(terminationPeriodForConvenience, "terminationPeriodForConvenience");
         Utils.checkNotNull(effectiveDate, "effectiveDate");
-        Utils.checkNotNull(expirationDate, "expirationDate");
         Utils.checkNotNull(executionDate, "executionDate");
+        Utils.checkNotNull(expirationDate, "expirationDate");
         Utils.checkNotNull(termLength, "termLength");
-        this.assignmentType = assignmentType;
         this.assignmentChangeOfControl = assignmentChangeOfControl;
         this.assignmentTerminationRights = assignmentTerminationRights;
+        this.assignmentType = assignmentType;
         this.confidentialityObligationPeriod = confidentialityObligationPeriod;
         this.governingLaw = governingLaw;
         this.jurisdiction = jurisdiction;
@@ -335,53 +341,45 @@ public class Provisions {
         this.paymentTermsDueDate = paymentTermsDueDate;
         this.canChargeLatePaymentFees = canChargeLatePaymentFees;
         this.latePaymentFeePercent = latePaymentFeePercent;
-        this.liabilityCapFixedAmount = liabilityCapFixedAmount;
         this.liabilityCapCurrencyCode = liabilityCapCurrencyCode;
-        this.liabilityCapMultiplier = liabilityCapMultiplier;
         this.liabilityCapDuration = liabilityCapDuration;
+        this.liabilityCapFixedAmount = liabilityCapFixedAmount;
+        this.liabilityCapMultiplier = liabilityCapMultiplier;
         this.priceCapPercentIncrease = priceCapPercentIncrease;
-        this.renewalType = renewalType;
-        this.renewalNoticePeriod = renewalNoticePeriod;
-        this.renewalNoticeDate = renewalNoticeDate;
         this.autoRenewalTermLength = autoRenewalTermLength;
-        this.renewalExtensionPeriod = renewalExtensionPeriod;
-        this.renewalProcessOwner = renewalProcessOwner;
         this.renewalAdditionalInfo = renewalAdditionalInfo;
+        this.renewalExtensionPeriod = renewalExtensionPeriod;
+        this.renewalNoticeDate = renewalNoticeDate;
+        this.renewalNoticePeriod = renewalNoticePeriod;
+        this.renewalProcessOwner = renewalProcessOwner;
+        this.renewalType = renewalType;
         this.terminationPeriodForCause = terminationPeriodForCause;
         this.terminationPeriodForConvenience = terminationPeriodForConvenience;
         this.effectiveDate = effectiveDate;
-        this.expirationDate = expirationDate;
         this.executionDate = executionDate;
+        this.expirationDate = expirationDate;
         this.termLength = termLength;
     }
     
     public Provisions() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(),
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(),
             Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined());
-    }
-
-    /**
-     * The type of assignment rights in the agreement (e.g., transferability)
-     */
-    @JsonIgnore
-    public Optional<String> assignmentType() {
-        return assignmentType;
+            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
+            Optional.empty(), JsonNullable.undefined());
     }
 
     /**
      * Provisions related to changes in control of the assigning party
      */
     @JsonIgnore
-    public Optional<String> assignmentChangeOfControl() {
+    public JsonNullable<String> assignmentChangeOfControl() {
         return assignmentChangeOfControl;
     }
 
@@ -389,8 +387,16 @@ public class Provisions {
      * Provisions for the termination of assignment rights
      */
     @JsonIgnore
-    public Optional<String> assignmentTerminationRights() {
+    public JsonNullable<String> assignmentTerminationRights() {
         return assignmentTerminationRights;
+    }
+
+    /**
+     * The type of assignment rights in the agreement (e.g., transferability)
+     */
+    @JsonIgnore
+    public JsonNullable<String> assignmentType() {
+        return assignmentType;
     }
 
     /**
@@ -436,8 +442,7 @@ public class Provisions {
     }
 
     /**
-     * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
-     * https://www.currency-iso.org/en/home/tables/table-a1.html'
+     * Currency code (e.g., USD, EUR) for the agreement's annual value.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -454,8 +459,7 @@ public class Provisions {
     }
 
     /**
-     * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
-     * https://www.currency-iso.org/en/home/tables/table-a1.html'
+     * Currency code (e.g., USD, EUR) for the agreement's total value.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -484,8 +488,25 @@ public class Provisions {
      * Percentage fee charged on late payments.
      */
     @JsonIgnore
-    public JsonNullable<Long> latePaymentFeePercent() {
+    public JsonNullable<Double> latePaymentFeePercent() {
         return latePaymentFeePercent;
+    }
+
+    /**
+     * Currency code for the liability cap amount.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<CurrencyCode> liabilityCapCurrencyCode() {
+        return (JsonNullable<CurrencyCode>) liabilityCapCurrencyCode;
+    }
+
+    /**
+     * Duration for the liability cap
+     */
+    @JsonIgnore
+    public JsonNullable<String> liabilityCapDuration() {
+        return liabilityCapDuration;
     }
 
     /**
@@ -497,26 +518,11 @@ public class Provisions {
     }
 
     /**
-     * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
-     * https://www.currency-iso.org/en/home/tables/table-a1.html'
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public JsonNullable<CurrencyCode> liabilityCapCurrencyCode() {
-        return (JsonNullable<CurrencyCode>) liabilityCapCurrencyCode;
-    }
-
-    /**
      * Multiplier applied to calculate the liability cap
      */
     @JsonIgnore
     public JsonNullable<Double> liabilityCapMultiplier() {
         return liabilityCapMultiplier;
-    }
-
-    @JsonIgnore
-    public JsonNullable<String> liabilityCapDuration() {
-        return liabilityCapDuration;
     }
 
     /**
@@ -528,43 +534,11 @@ public class Provisions {
     }
 
     /**
-     * Specifies the type of renewal (e.g., automatic, manual).
+     * The duration of the auto-renewal period.
      */
-    @JsonIgnore
-    public JsonNullable<String> renewalType() {
-        return renewalType;
-    }
-
-    @JsonIgnore
-    public JsonNullable<String> renewalNoticePeriod() {
-        return renewalNoticePeriod;
-    }
-
-    /**
-     * Calculated field based on renewal notice period. (agreement expiration date - renewal notice period
-     * duration)
-     */
-    @JsonIgnore
-    public JsonNullable<OffsetDateTime> renewalNoticeDate() {
-        return renewalNoticeDate;
-    }
-
     @JsonIgnore
     public JsonNullable<String> autoRenewalTermLength() {
         return autoRenewalTermLength;
-    }
-
-    @JsonIgnore
-    public JsonNullable<String> renewalExtensionPeriod() {
-        return renewalExtensionPeriod;
-    }
-
-    /**
-     * The userId parameter
-     */
-    @JsonIgnore
-    public Optional<String> renewalProcessOwner() {
-        return renewalProcessOwner;
     }
 
     /**
@@ -573,6 +547,48 @@ public class Provisions {
     @JsonIgnore
     public JsonNullable<String> renewalAdditionalInfo() {
         return renewalAdditionalInfo;
+    }
+
+    /**
+     * The period an agreement has been extended after it has been renewed.
+     */
+    @JsonIgnore
+    public JsonNullable<String> renewalExtensionPeriod() {
+        return renewalExtensionPeriod;
+    }
+
+    /**
+     * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+     * explicit offset (e.g., +05:30, -0800).
+     */
+    @JsonIgnore
+    public Optional<String> renewalNoticeDate() {
+        return renewalNoticeDate;
+    }
+
+    /**
+     * The period of time that a party is required to provide to indicate their intention to renew an
+     * agreement.
+     */
+    @JsonIgnore
+    public JsonNullable<String> renewalNoticePeriod() {
+        return renewalNoticePeriod;
+    }
+
+    /**
+     * User ID of the person responsible for managing the renewal process
+     */
+    @JsonIgnore
+    public Optional<String> renewalProcessOwner() {
+        return renewalProcessOwner;
+    }
+
+    /**
+     * Specifies the type of renewal (e.g., automatic, manual).
+     */
+    @JsonIgnore
+    public JsonNullable<String> renewalType() {
+        return renewalType;
     }
 
     /**
@@ -595,28 +611,30 @@ public class Provisions {
     }
 
     /**
-     * The date when the terms of the agreement start to apply and become legally binding.
+     * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+     * explicit offset (e.g., +05:30, -0800).
      */
     @JsonIgnore
-    public JsonNullable<OffsetDateTime> effectiveDate() {
+    public Optional<String> effectiveDate() {
         return effectiveDate;
     }
 
     /**
-     * The date when the agreement ends and is no longer valid or enforceable.
+     * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+     * explicit offset (e.g., +05:30, -0800).
      */
     @JsonIgnore
-    public JsonNullable<OffsetDateTime> expirationDate() {
-        return expirationDate;
+    public Optional<String> executionDate() {
+        return executionDate;
     }
 
     /**
-     * The date when the agreement is signed by all parties, making it officially binding. This is not
-     * necessarily the same as the effective date.
+     * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+     * explicit offset (e.g., +05:30, -0800).
      */
     @JsonIgnore
-    public JsonNullable<OffsetDateTime> executionDate() {
-        return executionDate;
+    public Optional<String> expirationDate() {
+        return expirationDate;
     }
 
     /**
@@ -633,38 +651,18 @@ public class Provisions {
 
 
     /**
-     * The type of assignment rights in the agreement (e.g., transferability)
-     */
-    public Provisions withAssignmentType(String assignmentType) {
-        Utils.checkNotNull(assignmentType, "assignmentType");
-        this.assignmentType = Optional.ofNullable(assignmentType);
-        return this;
-    }
-
-
-    /**
-     * The type of assignment rights in the agreement (e.g., transferability)
-     */
-    public Provisions withAssignmentType(Optional<String> assignmentType) {
-        Utils.checkNotNull(assignmentType, "assignmentType");
-        this.assignmentType = assignmentType;
-        return this;
-    }
-
-    /**
      * Provisions related to changes in control of the assigning party
      */
     public Provisions withAssignmentChangeOfControl(String assignmentChangeOfControl) {
         Utils.checkNotNull(assignmentChangeOfControl, "assignmentChangeOfControl");
-        this.assignmentChangeOfControl = Optional.ofNullable(assignmentChangeOfControl);
+        this.assignmentChangeOfControl = JsonNullable.of(assignmentChangeOfControl);
         return this;
     }
-
 
     /**
      * Provisions related to changes in control of the assigning party
      */
-    public Provisions withAssignmentChangeOfControl(Optional<String> assignmentChangeOfControl) {
+    public Provisions withAssignmentChangeOfControl(JsonNullable<String> assignmentChangeOfControl) {
         Utils.checkNotNull(assignmentChangeOfControl, "assignmentChangeOfControl");
         this.assignmentChangeOfControl = assignmentChangeOfControl;
         return this;
@@ -675,17 +673,34 @@ public class Provisions {
      */
     public Provisions withAssignmentTerminationRights(String assignmentTerminationRights) {
         Utils.checkNotNull(assignmentTerminationRights, "assignmentTerminationRights");
-        this.assignmentTerminationRights = Optional.ofNullable(assignmentTerminationRights);
+        this.assignmentTerminationRights = JsonNullable.of(assignmentTerminationRights);
         return this;
     }
-
 
     /**
      * Provisions for the termination of assignment rights
      */
-    public Provisions withAssignmentTerminationRights(Optional<String> assignmentTerminationRights) {
+    public Provisions withAssignmentTerminationRights(JsonNullable<String> assignmentTerminationRights) {
         Utils.checkNotNull(assignmentTerminationRights, "assignmentTerminationRights");
         this.assignmentTerminationRights = assignmentTerminationRights;
+        return this;
+    }
+
+    /**
+     * The type of assignment rights in the agreement (e.g., transferability)
+     */
+    public Provisions withAssignmentType(String assignmentType) {
+        Utils.checkNotNull(assignmentType, "assignmentType");
+        this.assignmentType = JsonNullable.of(assignmentType);
+        return this;
+    }
+
+    /**
+     * The type of assignment rights in the agreement (e.g., transferability)
+     */
+    public Provisions withAssignmentType(JsonNullable<String> assignmentType) {
+        Utils.checkNotNull(assignmentType, "assignmentType");
+        this.assignmentType = assignmentType;
         return this;
     }
 
@@ -784,8 +799,7 @@ public class Provisions {
     }
 
     /**
-     * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
-     * https://www.currency-iso.org/en/home/tables/table-a1.html'
+     * Currency code (e.g., USD, EUR) for the agreement's annual value.
      */
     public Provisions withAnnualAgreementValueCurrencyCode(CurrencyCode annualAgreementValueCurrencyCode) {
         Utils.checkNotNull(annualAgreementValueCurrencyCode, "annualAgreementValueCurrencyCode");
@@ -794,8 +808,7 @@ public class Provisions {
     }
 
     /**
-     * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
-     * https://www.currency-iso.org/en/home/tables/table-a1.html'
+     * Currency code (e.g., USD, EUR) for the agreement's annual value.
      */
     public Provisions withAnnualAgreementValueCurrencyCode(JsonNullable<? extends CurrencyCode> annualAgreementValueCurrencyCode) {
         Utils.checkNotNull(annualAgreementValueCurrencyCode, "annualAgreementValueCurrencyCode");
@@ -822,8 +835,7 @@ public class Provisions {
     }
 
     /**
-     * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
-     * https://www.currency-iso.org/en/home/tables/table-a1.html'
+     * Currency code (e.g., USD, EUR) for the agreement's total value.
      */
     public Provisions withTotalAgreementValueCurrencyCode(CurrencyCode totalAgreementValueCurrencyCode) {
         Utils.checkNotNull(totalAgreementValueCurrencyCode, "totalAgreementValueCurrencyCode");
@@ -832,8 +844,7 @@ public class Provisions {
     }
 
     /**
-     * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
-     * https://www.currency-iso.org/en/home/tables/table-a1.html'
+     * Currency code (e.g., USD, EUR) for the agreement's total value.
      */
     public Provisions withTotalAgreementValueCurrencyCode(JsonNullable<? extends CurrencyCode> totalAgreementValueCurrencyCode) {
         Utils.checkNotNull(totalAgreementValueCurrencyCode, "totalAgreementValueCurrencyCode");
@@ -881,7 +892,7 @@ public class Provisions {
     /**
      * Percentage fee charged on late payments.
      */
-    public Provisions withLatePaymentFeePercent(long latePaymentFeePercent) {
+    public Provisions withLatePaymentFeePercent(double latePaymentFeePercent) {
         Utils.checkNotNull(latePaymentFeePercent, "latePaymentFeePercent");
         this.latePaymentFeePercent = JsonNullable.of(latePaymentFeePercent);
         return this;
@@ -890,9 +901,45 @@ public class Provisions {
     /**
      * Percentage fee charged on late payments.
      */
-    public Provisions withLatePaymentFeePercent(JsonNullable<Long> latePaymentFeePercent) {
+    public Provisions withLatePaymentFeePercent(JsonNullable<Double> latePaymentFeePercent) {
         Utils.checkNotNull(latePaymentFeePercent, "latePaymentFeePercent");
         this.latePaymentFeePercent = latePaymentFeePercent;
+        return this;
+    }
+
+    /**
+     * Currency code for the liability cap amount.
+     */
+    public Provisions withLiabilityCapCurrencyCode(CurrencyCode liabilityCapCurrencyCode) {
+        Utils.checkNotNull(liabilityCapCurrencyCode, "liabilityCapCurrencyCode");
+        this.liabilityCapCurrencyCode = JsonNullable.of(liabilityCapCurrencyCode);
+        return this;
+    }
+
+    /**
+     * Currency code for the liability cap amount.
+     */
+    public Provisions withLiabilityCapCurrencyCode(JsonNullable<? extends CurrencyCode> liabilityCapCurrencyCode) {
+        Utils.checkNotNull(liabilityCapCurrencyCode, "liabilityCapCurrencyCode");
+        this.liabilityCapCurrencyCode = liabilityCapCurrencyCode;
+        return this;
+    }
+
+    /**
+     * Duration for the liability cap
+     */
+    public Provisions withLiabilityCapDuration(String liabilityCapDuration) {
+        Utils.checkNotNull(liabilityCapDuration, "liabilityCapDuration");
+        this.liabilityCapDuration = JsonNullable.of(liabilityCapDuration);
+        return this;
+    }
+
+    /**
+     * Duration for the liability cap
+     */
+    public Provisions withLiabilityCapDuration(JsonNullable<String> liabilityCapDuration) {
+        Utils.checkNotNull(liabilityCapDuration, "liabilityCapDuration");
+        this.liabilityCapDuration = liabilityCapDuration;
         return this;
     }
 
@@ -915,26 +962,6 @@ public class Provisions {
     }
 
     /**
-     * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
-     * https://www.currency-iso.org/en/home/tables/table-a1.html'
-     */
-    public Provisions withLiabilityCapCurrencyCode(CurrencyCode liabilityCapCurrencyCode) {
-        Utils.checkNotNull(liabilityCapCurrencyCode, "liabilityCapCurrencyCode");
-        this.liabilityCapCurrencyCode = JsonNullable.of(liabilityCapCurrencyCode);
-        return this;
-    }
-
-    /**
-     * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
-     * https://www.currency-iso.org/en/home/tables/table-a1.html'
-     */
-    public Provisions withLiabilityCapCurrencyCode(JsonNullable<? extends CurrencyCode> liabilityCapCurrencyCode) {
-        Utils.checkNotNull(liabilityCapCurrencyCode, "liabilityCapCurrencyCode");
-        this.liabilityCapCurrencyCode = liabilityCapCurrencyCode;
-        return this;
-    }
-
-    /**
      * Multiplier applied to calculate the liability cap
      */
     public Provisions withLiabilityCapMultiplier(double liabilityCapMultiplier) {
@@ -949,18 +976,6 @@ public class Provisions {
     public Provisions withLiabilityCapMultiplier(JsonNullable<Double> liabilityCapMultiplier) {
         Utils.checkNotNull(liabilityCapMultiplier, "liabilityCapMultiplier");
         this.liabilityCapMultiplier = liabilityCapMultiplier;
-        return this;
-    }
-
-    public Provisions withLiabilityCapDuration(String liabilityCapDuration) {
-        Utils.checkNotNull(liabilityCapDuration, "liabilityCapDuration");
-        this.liabilityCapDuration = JsonNullable.of(liabilityCapDuration);
-        return this;
-    }
-
-    public Provisions withLiabilityCapDuration(JsonNullable<String> liabilityCapDuration) {
-        Utils.checkNotNull(liabilityCapDuration, "liabilityCapDuration");
-        this.liabilityCapDuration = liabilityCapDuration;
         return this;
     }
 
@@ -983,95 +998,20 @@ public class Provisions {
     }
 
     /**
-     * Specifies the type of renewal (e.g., automatic, manual).
+     * The duration of the auto-renewal period.
      */
-    public Provisions withRenewalType(String renewalType) {
-        Utils.checkNotNull(renewalType, "renewalType");
-        this.renewalType = JsonNullable.of(renewalType);
-        return this;
-    }
-
-    /**
-     * Specifies the type of renewal (e.g., automatic, manual).
-     */
-    public Provisions withRenewalType(JsonNullable<String> renewalType) {
-        Utils.checkNotNull(renewalType, "renewalType");
-        this.renewalType = renewalType;
-        return this;
-    }
-
-    public Provisions withRenewalNoticePeriod(String renewalNoticePeriod) {
-        Utils.checkNotNull(renewalNoticePeriod, "renewalNoticePeriod");
-        this.renewalNoticePeriod = JsonNullable.of(renewalNoticePeriod);
-        return this;
-    }
-
-    public Provisions withRenewalNoticePeriod(JsonNullable<String> renewalNoticePeriod) {
-        Utils.checkNotNull(renewalNoticePeriod, "renewalNoticePeriod");
-        this.renewalNoticePeriod = renewalNoticePeriod;
-        return this;
-    }
-
-    /**
-     * Calculated field based on renewal notice period. (agreement expiration date - renewal notice period
-     * duration)
-     */
-    public Provisions withRenewalNoticeDate(OffsetDateTime renewalNoticeDate) {
-        Utils.checkNotNull(renewalNoticeDate, "renewalNoticeDate");
-        this.renewalNoticeDate = JsonNullable.of(renewalNoticeDate);
-        return this;
-    }
-
-    /**
-     * Calculated field based on renewal notice period. (agreement expiration date - renewal notice period
-     * duration)
-     */
-    public Provisions withRenewalNoticeDate(JsonNullable<OffsetDateTime> renewalNoticeDate) {
-        Utils.checkNotNull(renewalNoticeDate, "renewalNoticeDate");
-        this.renewalNoticeDate = renewalNoticeDate;
-        return this;
-    }
-
     public Provisions withAutoRenewalTermLength(String autoRenewalTermLength) {
         Utils.checkNotNull(autoRenewalTermLength, "autoRenewalTermLength");
         this.autoRenewalTermLength = JsonNullable.of(autoRenewalTermLength);
         return this;
     }
 
+    /**
+     * The duration of the auto-renewal period.
+     */
     public Provisions withAutoRenewalTermLength(JsonNullable<String> autoRenewalTermLength) {
         Utils.checkNotNull(autoRenewalTermLength, "autoRenewalTermLength");
         this.autoRenewalTermLength = autoRenewalTermLength;
-        return this;
-    }
-
-    public Provisions withRenewalExtensionPeriod(String renewalExtensionPeriod) {
-        Utils.checkNotNull(renewalExtensionPeriod, "renewalExtensionPeriod");
-        this.renewalExtensionPeriod = JsonNullable.of(renewalExtensionPeriod);
-        return this;
-    }
-
-    public Provisions withRenewalExtensionPeriod(JsonNullable<String> renewalExtensionPeriod) {
-        Utils.checkNotNull(renewalExtensionPeriod, "renewalExtensionPeriod");
-        this.renewalExtensionPeriod = renewalExtensionPeriod;
-        return this;
-    }
-
-    /**
-     * The userId parameter
-     */
-    public Provisions withRenewalProcessOwner(String renewalProcessOwner) {
-        Utils.checkNotNull(renewalProcessOwner, "renewalProcessOwner");
-        this.renewalProcessOwner = Optional.ofNullable(renewalProcessOwner);
-        return this;
-    }
-
-
-    /**
-     * The userId parameter
-     */
-    public Provisions withRenewalProcessOwner(Optional<String> renewalProcessOwner) {
-        Utils.checkNotNull(renewalProcessOwner, "renewalProcessOwner");
-        this.renewalProcessOwner = renewalProcessOwner;
         return this;
     }
 
@@ -1090,6 +1030,102 @@ public class Provisions {
     public Provisions withRenewalAdditionalInfo(JsonNullable<String> renewalAdditionalInfo) {
         Utils.checkNotNull(renewalAdditionalInfo, "renewalAdditionalInfo");
         this.renewalAdditionalInfo = renewalAdditionalInfo;
+        return this;
+    }
+
+    /**
+     * The period an agreement has been extended after it has been renewed.
+     */
+    public Provisions withRenewalExtensionPeriod(String renewalExtensionPeriod) {
+        Utils.checkNotNull(renewalExtensionPeriod, "renewalExtensionPeriod");
+        this.renewalExtensionPeriod = JsonNullable.of(renewalExtensionPeriod);
+        return this;
+    }
+
+    /**
+     * The period an agreement has been extended after it has been renewed.
+     */
+    public Provisions withRenewalExtensionPeriod(JsonNullable<String> renewalExtensionPeriod) {
+        Utils.checkNotNull(renewalExtensionPeriod, "renewalExtensionPeriod");
+        this.renewalExtensionPeriod = renewalExtensionPeriod;
+        return this;
+    }
+
+    /**
+     * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+     * explicit offset (e.g., +05:30, -0800).
+     */
+    public Provisions withRenewalNoticeDate(String renewalNoticeDate) {
+        Utils.checkNotNull(renewalNoticeDate, "renewalNoticeDate");
+        this.renewalNoticeDate = Optional.ofNullable(renewalNoticeDate);
+        return this;
+    }
+
+
+    /**
+     * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+     * explicit offset (e.g., +05:30, -0800).
+     */
+    public Provisions withRenewalNoticeDate(Optional<String> renewalNoticeDate) {
+        Utils.checkNotNull(renewalNoticeDate, "renewalNoticeDate");
+        this.renewalNoticeDate = renewalNoticeDate;
+        return this;
+    }
+
+    /**
+     * The period of time that a party is required to provide to indicate their intention to renew an
+     * agreement.
+     */
+    public Provisions withRenewalNoticePeriod(String renewalNoticePeriod) {
+        Utils.checkNotNull(renewalNoticePeriod, "renewalNoticePeriod");
+        this.renewalNoticePeriod = JsonNullable.of(renewalNoticePeriod);
+        return this;
+    }
+
+    /**
+     * The period of time that a party is required to provide to indicate their intention to renew an
+     * agreement.
+     */
+    public Provisions withRenewalNoticePeriod(JsonNullable<String> renewalNoticePeriod) {
+        Utils.checkNotNull(renewalNoticePeriod, "renewalNoticePeriod");
+        this.renewalNoticePeriod = renewalNoticePeriod;
+        return this;
+    }
+
+    /**
+     * User ID of the person responsible for managing the renewal process
+     */
+    public Provisions withRenewalProcessOwner(String renewalProcessOwner) {
+        Utils.checkNotNull(renewalProcessOwner, "renewalProcessOwner");
+        this.renewalProcessOwner = Optional.ofNullable(renewalProcessOwner);
+        return this;
+    }
+
+
+    /**
+     * User ID of the person responsible for managing the renewal process
+     */
+    public Provisions withRenewalProcessOwner(Optional<String> renewalProcessOwner) {
+        Utils.checkNotNull(renewalProcessOwner, "renewalProcessOwner");
+        this.renewalProcessOwner = renewalProcessOwner;
+        return this;
+    }
+
+    /**
+     * Specifies the type of renewal (e.g., automatic, manual).
+     */
+    public Provisions withRenewalType(String renewalType) {
+        Utils.checkNotNull(renewalType, "renewalType");
+        this.renewalType = JsonNullable.of(renewalType);
+        return this;
+    }
+
+    /**
+     * Specifies the type of renewal (e.g., automatic, manual).
+     */
+    public Provisions withRenewalType(JsonNullable<String> renewalType) {
+        Utils.checkNotNull(renewalType, "renewalType");
+        this.renewalType = renewalType;
         return this;
     }
 
@@ -1136,58 +1172,65 @@ public class Provisions {
     }
 
     /**
-     * The date when the terms of the agreement start to apply and become legally binding.
+     * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+     * explicit offset (e.g., +05:30, -0800).
      */
-    public Provisions withEffectiveDate(OffsetDateTime effectiveDate) {
+    public Provisions withEffectiveDate(String effectiveDate) {
         Utils.checkNotNull(effectiveDate, "effectiveDate");
-        this.effectiveDate = JsonNullable.of(effectiveDate);
+        this.effectiveDate = Optional.ofNullable(effectiveDate);
         return this;
     }
 
+
     /**
-     * The date when the terms of the agreement start to apply and become legally binding.
+     * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+     * explicit offset (e.g., +05:30, -0800).
      */
-    public Provisions withEffectiveDate(JsonNullable<OffsetDateTime> effectiveDate) {
+    public Provisions withEffectiveDate(Optional<String> effectiveDate) {
         Utils.checkNotNull(effectiveDate, "effectiveDate");
         this.effectiveDate = effectiveDate;
         return this;
     }
 
     /**
-     * The date when the agreement ends and is no longer valid or enforceable.
+     * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+     * explicit offset (e.g., +05:30, -0800).
      */
-    public Provisions withExpirationDate(OffsetDateTime expirationDate) {
-        Utils.checkNotNull(expirationDate, "expirationDate");
-        this.expirationDate = JsonNullable.of(expirationDate);
-        return this;
-    }
-
-    /**
-     * The date when the agreement ends and is no longer valid or enforceable.
-     */
-    public Provisions withExpirationDate(JsonNullable<OffsetDateTime> expirationDate) {
-        Utils.checkNotNull(expirationDate, "expirationDate");
-        this.expirationDate = expirationDate;
-        return this;
-    }
-
-    /**
-     * The date when the agreement is signed by all parties, making it officially binding. This is not
-     * necessarily the same as the effective date.
-     */
-    public Provisions withExecutionDate(OffsetDateTime executionDate) {
+    public Provisions withExecutionDate(String executionDate) {
         Utils.checkNotNull(executionDate, "executionDate");
-        this.executionDate = JsonNullable.of(executionDate);
+        this.executionDate = Optional.ofNullable(executionDate);
         return this;
     }
 
+
     /**
-     * The date when the agreement is signed by all parties, making it officially binding. This is not
-     * necessarily the same as the effective date.
+     * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+     * explicit offset (e.g., +05:30, -0800).
      */
-    public Provisions withExecutionDate(JsonNullable<OffsetDateTime> executionDate) {
+    public Provisions withExecutionDate(Optional<String> executionDate) {
         Utils.checkNotNull(executionDate, "executionDate");
         this.executionDate = executionDate;
+        return this;
+    }
+
+    /**
+     * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+     * explicit offset (e.g., +05:30, -0800).
+     */
+    public Provisions withExpirationDate(String expirationDate) {
+        Utils.checkNotNull(expirationDate, "expirationDate");
+        this.expirationDate = Optional.ofNullable(expirationDate);
+        return this;
+    }
+
+
+    /**
+     * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+     * explicit offset (e.g., +05:30, -0800).
+     */
+    public Provisions withExpirationDate(Optional<String> expirationDate) {
+        Utils.checkNotNull(expirationDate, "expirationDate");
+        this.expirationDate = expirationDate;
         return this;
     }
 
@@ -1219,9 +1262,9 @@ public class Provisions {
         }
         Provisions other = (Provisions) o;
         return 
-            Utils.enhancedDeepEquals(this.assignmentType, other.assignmentType) &&
             Utils.enhancedDeepEquals(this.assignmentChangeOfControl, other.assignmentChangeOfControl) &&
             Utils.enhancedDeepEquals(this.assignmentTerminationRights, other.assignmentTerminationRights) &&
+            Utils.enhancedDeepEquals(this.assignmentType, other.assignmentType) &&
             Utils.enhancedDeepEquals(this.confidentialityObligationPeriod, other.confidentialityObligationPeriod) &&
             Utils.enhancedDeepEquals(this.governingLaw, other.governingLaw) &&
             Utils.enhancedDeepEquals(this.jurisdiction, other.jurisdiction) &&
@@ -1233,48 +1276,48 @@ public class Provisions {
             Utils.enhancedDeepEquals(this.paymentTermsDueDate, other.paymentTermsDueDate) &&
             Utils.enhancedDeepEquals(this.canChargeLatePaymentFees, other.canChargeLatePaymentFees) &&
             Utils.enhancedDeepEquals(this.latePaymentFeePercent, other.latePaymentFeePercent) &&
-            Utils.enhancedDeepEquals(this.liabilityCapFixedAmount, other.liabilityCapFixedAmount) &&
             Utils.enhancedDeepEquals(this.liabilityCapCurrencyCode, other.liabilityCapCurrencyCode) &&
-            Utils.enhancedDeepEquals(this.liabilityCapMultiplier, other.liabilityCapMultiplier) &&
             Utils.enhancedDeepEquals(this.liabilityCapDuration, other.liabilityCapDuration) &&
+            Utils.enhancedDeepEquals(this.liabilityCapFixedAmount, other.liabilityCapFixedAmount) &&
+            Utils.enhancedDeepEquals(this.liabilityCapMultiplier, other.liabilityCapMultiplier) &&
             Utils.enhancedDeepEquals(this.priceCapPercentIncrease, other.priceCapPercentIncrease) &&
-            Utils.enhancedDeepEquals(this.renewalType, other.renewalType) &&
-            Utils.enhancedDeepEquals(this.renewalNoticePeriod, other.renewalNoticePeriod) &&
-            Utils.enhancedDeepEquals(this.renewalNoticeDate, other.renewalNoticeDate) &&
             Utils.enhancedDeepEquals(this.autoRenewalTermLength, other.autoRenewalTermLength) &&
-            Utils.enhancedDeepEquals(this.renewalExtensionPeriod, other.renewalExtensionPeriod) &&
-            Utils.enhancedDeepEquals(this.renewalProcessOwner, other.renewalProcessOwner) &&
             Utils.enhancedDeepEquals(this.renewalAdditionalInfo, other.renewalAdditionalInfo) &&
+            Utils.enhancedDeepEquals(this.renewalExtensionPeriod, other.renewalExtensionPeriod) &&
+            Utils.enhancedDeepEquals(this.renewalNoticeDate, other.renewalNoticeDate) &&
+            Utils.enhancedDeepEquals(this.renewalNoticePeriod, other.renewalNoticePeriod) &&
+            Utils.enhancedDeepEquals(this.renewalProcessOwner, other.renewalProcessOwner) &&
+            Utils.enhancedDeepEquals(this.renewalType, other.renewalType) &&
             Utils.enhancedDeepEquals(this.terminationPeriodForCause, other.terminationPeriodForCause) &&
             Utils.enhancedDeepEquals(this.terminationPeriodForConvenience, other.terminationPeriodForConvenience) &&
             Utils.enhancedDeepEquals(this.effectiveDate, other.effectiveDate) &&
-            Utils.enhancedDeepEquals(this.expirationDate, other.expirationDate) &&
             Utils.enhancedDeepEquals(this.executionDate, other.executionDate) &&
+            Utils.enhancedDeepEquals(this.expirationDate, other.expirationDate) &&
             Utils.enhancedDeepEquals(this.termLength, other.termLength);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            assignmentType, assignmentChangeOfControl, assignmentTerminationRights,
+            assignmentChangeOfControl, assignmentTerminationRights, assignmentType,
             confidentialityObligationPeriod, governingLaw, jurisdiction,
             ndaType, annualAgreementValue, annualAgreementValueCurrencyCode,
             totalAgreementValue, totalAgreementValueCurrencyCode, paymentTermsDueDate,
-            canChargeLatePaymentFees, latePaymentFeePercent, liabilityCapFixedAmount,
-            liabilityCapCurrencyCode, liabilityCapMultiplier, liabilityCapDuration,
-            priceCapPercentIncrease, renewalType, renewalNoticePeriod,
-            renewalNoticeDate, autoRenewalTermLength, renewalExtensionPeriod,
-            renewalProcessOwner, renewalAdditionalInfo, terminationPeriodForCause,
-            terminationPeriodForConvenience, effectiveDate, expirationDate,
-            executionDate, termLength);
+            canChargeLatePaymentFees, latePaymentFeePercent, liabilityCapCurrencyCode,
+            liabilityCapDuration, liabilityCapFixedAmount, liabilityCapMultiplier,
+            priceCapPercentIncrease, autoRenewalTermLength, renewalAdditionalInfo,
+            renewalExtensionPeriod, renewalNoticeDate, renewalNoticePeriod,
+            renewalProcessOwner, renewalType, terminationPeriodForCause,
+            terminationPeriodForConvenience, effectiveDate, executionDate,
+            expirationDate, termLength);
     }
     
     @Override
     public String toString() {
         return Utils.toString(Provisions.class,
-                "assignmentType", assignmentType,
                 "assignmentChangeOfControl", assignmentChangeOfControl,
                 "assignmentTerminationRights", assignmentTerminationRights,
+                "assignmentType", assignmentType,
                 "confidentialityObligationPeriod", confidentialityObligationPeriod,
                 "governingLaw", governingLaw,
                 "jurisdiction", jurisdiction,
@@ -1286,34 +1329,34 @@ public class Provisions {
                 "paymentTermsDueDate", paymentTermsDueDate,
                 "canChargeLatePaymentFees", canChargeLatePaymentFees,
                 "latePaymentFeePercent", latePaymentFeePercent,
-                "liabilityCapFixedAmount", liabilityCapFixedAmount,
                 "liabilityCapCurrencyCode", liabilityCapCurrencyCode,
-                "liabilityCapMultiplier", liabilityCapMultiplier,
                 "liabilityCapDuration", liabilityCapDuration,
+                "liabilityCapFixedAmount", liabilityCapFixedAmount,
+                "liabilityCapMultiplier", liabilityCapMultiplier,
                 "priceCapPercentIncrease", priceCapPercentIncrease,
-                "renewalType", renewalType,
-                "renewalNoticePeriod", renewalNoticePeriod,
-                "renewalNoticeDate", renewalNoticeDate,
                 "autoRenewalTermLength", autoRenewalTermLength,
-                "renewalExtensionPeriod", renewalExtensionPeriod,
-                "renewalProcessOwner", renewalProcessOwner,
                 "renewalAdditionalInfo", renewalAdditionalInfo,
+                "renewalExtensionPeriod", renewalExtensionPeriod,
+                "renewalNoticeDate", renewalNoticeDate,
+                "renewalNoticePeriod", renewalNoticePeriod,
+                "renewalProcessOwner", renewalProcessOwner,
+                "renewalType", renewalType,
                 "terminationPeriodForCause", terminationPeriodForCause,
                 "terminationPeriodForConvenience", terminationPeriodForConvenience,
                 "effectiveDate", effectiveDate,
-                "expirationDate", expirationDate,
                 "executionDate", executionDate,
+                "expirationDate", expirationDate,
                 "termLength", termLength);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Optional<String> assignmentType = Optional.empty();
+        private JsonNullable<String> assignmentChangeOfControl = JsonNullable.undefined();
 
-        private Optional<String> assignmentChangeOfControl = Optional.empty();
+        private JsonNullable<String> assignmentTerminationRights = JsonNullable.undefined();
 
-        private Optional<String> assignmentTerminationRights = Optional.empty();
+        private JsonNullable<String> assignmentType = JsonNullable.undefined();
 
         private JsonNullable<String> confidentialityObligationPeriod = JsonNullable.undefined();
 
@@ -1335,41 +1378,41 @@ public class Provisions {
 
         private JsonNullable<Boolean> canChargeLatePaymentFees = JsonNullable.undefined();
 
-        private JsonNullable<Long> latePaymentFeePercent = JsonNullable.undefined();
-
-        private JsonNullable<Double> liabilityCapFixedAmount = JsonNullable.undefined();
+        private JsonNullable<Double> latePaymentFeePercent = JsonNullable.undefined();
 
         private JsonNullable<? extends CurrencyCode> liabilityCapCurrencyCode = JsonNullable.undefined();
 
-        private JsonNullable<Double> liabilityCapMultiplier = JsonNullable.undefined();
-
         private JsonNullable<String> liabilityCapDuration = JsonNullable.undefined();
+
+        private JsonNullable<Double> liabilityCapFixedAmount = JsonNullable.undefined();
+
+        private JsonNullable<Double> liabilityCapMultiplier = JsonNullable.undefined();
 
         private JsonNullable<Float> priceCapPercentIncrease = JsonNullable.undefined();
 
-        private JsonNullable<String> renewalType = JsonNullable.undefined();
-
-        private JsonNullable<String> renewalNoticePeriod = JsonNullable.undefined();
-
-        private JsonNullable<OffsetDateTime> renewalNoticeDate = JsonNullable.undefined();
-
         private JsonNullable<String> autoRenewalTermLength = JsonNullable.undefined();
+
+        private JsonNullable<String> renewalAdditionalInfo = JsonNullable.undefined();
 
         private JsonNullable<String> renewalExtensionPeriod = JsonNullable.undefined();
 
+        private Optional<String> renewalNoticeDate = Optional.empty();
+
+        private JsonNullable<String> renewalNoticePeriod = JsonNullable.undefined();
+
         private Optional<String> renewalProcessOwner = Optional.empty();
 
-        private JsonNullable<String> renewalAdditionalInfo = JsonNullable.undefined();
+        private JsonNullable<String> renewalType = JsonNullable.undefined();
 
         private JsonNullable<String> terminationPeriodForCause = JsonNullable.undefined();
 
         private JsonNullable<String> terminationPeriodForConvenience = JsonNullable.undefined();
 
-        private JsonNullable<OffsetDateTime> effectiveDate = JsonNullable.undefined();
+        private Optional<String> effectiveDate = Optional.empty();
 
-        private JsonNullable<OffsetDateTime> expirationDate = JsonNullable.undefined();
+        private Optional<String> executionDate = Optional.empty();
 
-        private JsonNullable<OffsetDateTime> executionDate = JsonNullable.undefined();
+        private Optional<String> expirationDate = Optional.empty();
 
         private JsonNullable<String> termLength = JsonNullable.undefined();
 
@@ -1379,37 +1422,18 @@ public class Provisions {
 
 
         /**
-         * The type of assignment rights in the agreement (e.g., transferability)
-         */
-        public Builder assignmentType(String assignmentType) {
-            Utils.checkNotNull(assignmentType, "assignmentType");
-            this.assignmentType = Optional.ofNullable(assignmentType);
-            return this;
-        }
-
-        /**
-         * The type of assignment rights in the agreement (e.g., transferability)
-         */
-        public Builder assignmentType(Optional<String> assignmentType) {
-            Utils.checkNotNull(assignmentType, "assignmentType");
-            this.assignmentType = assignmentType;
-            return this;
-        }
-
-
-        /**
          * Provisions related to changes in control of the assigning party
          */
         public Builder assignmentChangeOfControl(String assignmentChangeOfControl) {
             Utils.checkNotNull(assignmentChangeOfControl, "assignmentChangeOfControl");
-            this.assignmentChangeOfControl = Optional.ofNullable(assignmentChangeOfControl);
+            this.assignmentChangeOfControl = JsonNullable.of(assignmentChangeOfControl);
             return this;
         }
 
         /**
          * Provisions related to changes in control of the assigning party
          */
-        public Builder assignmentChangeOfControl(Optional<String> assignmentChangeOfControl) {
+        public Builder assignmentChangeOfControl(JsonNullable<String> assignmentChangeOfControl) {
             Utils.checkNotNull(assignmentChangeOfControl, "assignmentChangeOfControl");
             this.assignmentChangeOfControl = assignmentChangeOfControl;
             return this;
@@ -1421,16 +1445,35 @@ public class Provisions {
          */
         public Builder assignmentTerminationRights(String assignmentTerminationRights) {
             Utils.checkNotNull(assignmentTerminationRights, "assignmentTerminationRights");
-            this.assignmentTerminationRights = Optional.ofNullable(assignmentTerminationRights);
+            this.assignmentTerminationRights = JsonNullable.of(assignmentTerminationRights);
             return this;
         }
 
         /**
          * Provisions for the termination of assignment rights
          */
-        public Builder assignmentTerminationRights(Optional<String> assignmentTerminationRights) {
+        public Builder assignmentTerminationRights(JsonNullable<String> assignmentTerminationRights) {
             Utils.checkNotNull(assignmentTerminationRights, "assignmentTerminationRights");
             this.assignmentTerminationRights = assignmentTerminationRights;
+            return this;
+        }
+
+
+        /**
+         * The type of assignment rights in the agreement (e.g., transferability)
+         */
+        public Builder assignmentType(String assignmentType) {
+            Utils.checkNotNull(assignmentType, "assignmentType");
+            this.assignmentType = JsonNullable.of(assignmentType);
+            return this;
+        }
+
+        /**
+         * The type of assignment rights in the agreement (e.g., transferability)
+         */
+        public Builder assignmentType(JsonNullable<String> assignmentType) {
+            Utils.checkNotNull(assignmentType, "assignmentType");
+            this.assignmentType = assignmentType;
             return this;
         }
 
@@ -1535,8 +1578,7 @@ public class Provisions {
 
 
         /**
-         * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
-         * https://www.currency-iso.org/en/home/tables/table-a1.html'
+         * Currency code (e.g., USD, EUR) for the agreement's annual value.
          */
         public Builder annualAgreementValueCurrencyCode(CurrencyCode annualAgreementValueCurrencyCode) {
             Utils.checkNotNull(annualAgreementValueCurrencyCode, "annualAgreementValueCurrencyCode");
@@ -1545,8 +1587,7 @@ public class Provisions {
         }
 
         /**
-         * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
-         * https://www.currency-iso.org/en/home/tables/table-a1.html'
+         * Currency code (e.g., USD, EUR) for the agreement's annual value.
          */
         public Builder annualAgreementValueCurrencyCode(JsonNullable<? extends CurrencyCode> annualAgreementValueCurrencyCode) {
             Utils.checkNotNull(annualAgreementValueCurrencyCode, "annualAgreementValueCurrencyCode");
@@ -1575,8 +1616,7 @@ public class Provisions {
 
 
         /**
-         * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
-         * https://www.currency-iso.org/en/home/tables/table-a1.html'
+         * Currency code (e.g., USD, EUR) for the agreement's total value.
          */
         public Builder totalAgreementValueCurrencyCode(CurrencyCode totalAgreementValueCurrencyCode) {
             Utils.checkNotNull(totalAgreementValueCurrencyCode, "totalAgreementValueCurrencyCode");
@@ -1585,8 +1625,7 @@ public class Provisions {
         }
 
         /**
-         * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
-         * https://www.currency-iso.org/en/home/tables/table-a1.html'
+         * Currency code (e.g., USD, EUR) for the agreement's total value.
          */
         public Builder totalAgreementValueCurrencyCode(JsonNullable<? extends CurrencyCode> totalAgreementValueCurrencyCode) {
             Utils.checkNotNull(totalAgreementValueCurrencyCode, "totalAgreementValueCurrencyCode");
@@ -1636,7 +1675,7 @@ public class Provisions {
         /**
          * Percentage fee charged on late payments.
          */
-        public Builder latePaymentFeePercent(long latePaymentFeePercent) {
+        public Builder latePaymentFeePercent(double latePaymentFeePercent) {
             Utils.checkNotNull(latePaymentFeePercent, "latePaymentFeePercent");
             this.latePaymentFeePercent = JsonNullable.of(latePaymentFeePercent);
             return this;
@@ -1645,9 +1684,47 @@ public class Provisions {
         /**
          * Percentage fee charged on late payments.
          */
-        public Builder latePaymentFeePercent(JsonNullable<Long> latePaymentFeePercent) {
+        public Builder latePaymentFeePercent(JsonNullable<Double> latePaymentFeePercent) {
             Utils.checkNotNull(latePaymentFeePercent, "latePaymentFeePercent");
             this.latePaymentFeePercent = latePaymentFeePercent;
+            return this;
+        }
+
+
+        /**
+         * Currency code for the liability cap amount.
+         */
+        public Builder liabilityCapCurrencyCode(CurrencyCode liabilityCapCurrencyCode) {
+            Utils.checkNotNull(liabilityCapCurrencyCode, "liabilityCapCurrencyCode");
+            this.liabilityCapCurrencyCode = JsonNullable.of(liabilityCapCurrencyCode);
+            return this;
+        }
+
+        /**
+         * Currency code for the liability cap amount.
+         */
+        public Builder liabilityCapCurrencyCode(JsonNullable<? extends CurrencyCode> liabilityCapCurrencyCode) {
+            Utils.checkNotNull(liabilityCapCurrencyCode, "liabilityCapCurrencyCode");
+            this.liabilityCapCurrencyCode = liabilityCapCurrencyCode;
+            return this;
+        }
+
+
+        /**
+         * Duration for the liability cap
+         */
+        public Builder liabilityCapDuration(String liabilityCapDuration) {
+            Utils.checkNotNull(liabilityCapDuration, "liabilityCapDuration");
+            this.liabilityCapDuration = JsonNullable.of(liabilityCapDuration);
+            return this;
+        }
+
+        /**
+         * Duration for the liability cap
+         */
+        public Builder liabilityCapDuration(JsonNullable<String> liabilityCapDuration) {
+            Utils.checkNotNull(liabilityCapDuration, "liabilityCapDuration");
+            this.liabilityCapDuration = liabilityCapDuration;
             return this;
         }
 
@@ -1672,27 +1749,6 @@ public class Provisions {
 
 
         /**
-         * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
-         * https://www.currency-iso.org/en/home/tables/table-a1.html'
-         */
-        public Builder liabilityCapCurrencyCode(CurrencyCode liabilityCapCurrencyCode) {
-            Utils.checkNotNull(liabilityCapCurrencyCode, "liabilityCapCurrencyCode");
-            this.liabilityCapCurrencyCode = JsonNullable.of(liabilityCapCurrencyCode);
-            return this;
-        }
-
-        /**
-         * 'ISO 4217 codes. From https://en.wikipedia.org/wiki/ISO_4217
-         * https://www.currency-iso.org/en/home/tables/table-a1.html'
-         */
-        public Builder liabilityCapCurrencyCode(JsonNullable<? extends CurrencyCode> liabilityCapCurrencyCode) {
-            Utils.checkNotNull(liabilityCapCurrencyCode, "liabilityCapCurrencyCode");
-            this.liabilityCapCurrencyCode = liabilityCapCurrencyCode;
-            return this;
-        }
-
-
-        /**
          * Multiplier applied to calculate the liability cap
          */
         public Builder liabilityCapMultiplier(double liabilityCapMultiplier) {
@@ -1707,19 +1763,6 @@ public class Provisions {
         public Builder liabilityCapMultiplier(JsonNullable<Double> liabilityCapMultiplier) {
             Utils.checkNotNull(liabilityCapMultiplier, "liabilityCapMultiplier");
             this.liabilityCapMultiplier = liabilityCapMultiplier;
-            return this;
-        }
-
-
-        public Builder liabilityCapDuration(String liabilityCapDuration) {
-            Utils.checkNotNull(liabilityCapDuration, "liabilityCapDuration");
-            this.liabilityCapDuration = JsonNullable.of(liabilityCapDuration);
-            return this;
-        }
-
-        public Builder liabilityCapDuration(JsonNullable<String> liabilityCapDuration) {
-            Utils.checkNotNull(liabilityCapDuration, "liabilityCapDuration");
-            this.liabilityCapDuration = liabilityCapDuration;
             return this;
         }
 
@@ -1744,99 +1787,20 @@ public class Provisions {
 
 
         /**
-         * Specifies the type of renewal (e.g., automatic, manual).
+         * The duration of the auto-renewal period.
          */
-        public Builder renewalType(String renewalType) {
-            Utils.checkNotNull(renewalType, "renewalType");
-            this.renewalType = JsonNullable.of(renewalType);
-            return this;
-        }
-
-        /**
-         * Specifies the type of renewal (e.g., automatic, manual).
-         */
-        public Builder renewalType(JsonNullable<String> renewalType) {
-            Utils.checkNotNull(renewalType, "renewalType");
-            this.renewalType = renewalType;
-            return this;
-        }
-
-
-        public Builder renewalNoticePeriod(String renewalNoticePeriod) {
-            Utils.checkNotNull(renewalNoticePeriod, "renewalNoticePeriod");
-            this.renewalNoticePeriod = JsonNullable.of(renewalNoticePeriod);
-            return this;
-        }
-
-        public Builder renewalNoticePeriod(JsonNullable<String> renewalNoticePeriod) {
-            Utils.checkNotNull(renewalNoticePeriod, "renewalNoticePeriod");
-            this.renewalNoticePeriod = renewalNoticePeriod;
-            return this;
-        }
-
-
-        /**
-         * Calculated field based on renewal notice period. (agreement expiration date - renewal notice period
-         * duration)
-         */
-        public Builder renewalNoticeDate(OffsetDateTime renewalNoticeDate) {
-            Utils.checkNotNull(renewalNoticeDate, "renewalNoticeDate");
-            this.renewalNoticeDate = JsonNullable.of(renewalNoticeDate);
-            return this;
-        }
-
-        /**
-         * Calculated field based on renewal notice period. (agreement expiration date - renewal notice period
-         * duration)
-         */
-        public Builder renewalNoticeDate(JsonNullable<OffsetDateTime> renewalNoticeDate) {
-            Utils.checkNotNull(renewalNoticeDate, "renewalNoticeDate");
-            this.renewalNoticeDate = renewalNoticeDate;
-            return this;
-        }
-
-
         public Builder autoRenewalTermLength(String autoRenewalTermLength) {
             Utils.checkNotNull(autoRenewalTermLength, "autoRenewalTermLength");
             this.autoRenewalTermLength = JsonNullable.of(autoRenewalTermLength);
             return this;
         }
 
+        /**
+         * The duration of the auto-renewal period.
+         */
         public Builder autoRenewalTermLength(JsonNullable<String> autoRenewalTermLength) {
             Utils.checkNotNull(autoRenewalTermLength, "autoRenewalTermLength");
             this.autoRenewalTermLength = autoRenewalTermLength;
-            return this;
-        }
-
-
-        public Builder renewalExtensionPeriod(String renewalExtensionPeriod) {
-            Utils.checkNotNull(renewalExtensionPeriod, "renewalExtensionPeriod");
-            this.renewalExtensionPeriod = JsonNullable.of(renewalExtensionPeriod);
-            return this;
-        }
-
-        public Builder renewalExtensionPeriod(JsonNullable<String> renewalExtensionPeriod) {
-            Utils.checkNotNull(renewalExtensionPeriod, "renewalExtensionPeriod");
-            this.renewalExtensionPeriod = renewalExtensionPeriod;
-            return this;
-        }
-
-
-        /**
-         * The userId parameter
-         */
-        public Builder renewalProcessOwner(String renewalProcessOwner) {
-            Utils.checkNotNull(renewalProcessOwner, "renewalProcessOwner");
-            this.renewalProcessOwner = Optional.ofNullable(renewalProcessOwner);
-            return this;
-        }
-
-        /**
-         * The userId parameter
-         */
-        public Builder renewalProcessOwner(Optional<String> renewalProcessOwner) {
-            Utils.checkNotNull(renewalProcessOwner, "renewalProcessOwner");
-            this.renewalProcessOwner = renewalProcessOwner;
             return this;
         }
 
@@ -1856,6 +1820,105 @@ public class Provisions {
         public Builder renewalAdditionalInfo(JsonNullable<String> renewalAdditionalInfo) {
             Utils.checkNotNull(renewalAdditionalInfo, "renewalAdditionalInfo");
             this.renewalAdditionalInfo = renewalAdditionalInfo;
+            return this;
+        }
+
+
+        /**
+         * The period an agreement has been extended after it has been renewed.
+         */
+        public Builder renewalExtensionPeriod(String renewalExtensionPeriod) {
+            Utils.checkNotNull(renewalExtensionPeriod, "renewalExtensionPeriod");
+            this.renewalExtensionPeriod = JsonNullable.of(renewalExtensionPeriod);
+            return this;
+        }
+
+        /**
+         * The period an agreement has been extended after it has been renewed.
+         */
+        public Builder renewalExtensionPeriod(JsonNullable<String> renewalExtensionPeriod) {
+            Utils.checkNotNull(renewalExtensionPeriod, "renewalExtensionPeriod");
+            this.renewalExtensionPeriod = renewalExtensionPeriod;
+            return this;
+        }
+
+
+        /**
+         * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+         * explicit offset (e.g., +05:30, -0800).
+         */
+        public Builder renewalNoticeDate(String renewalNoticeDate) {
+            Utils.checkNotNull(renewalNoticeDate, "renewalNoticeDate");
+            this.renewalNoticeDate = Optional.ofNullable(renewalNoticeDate);
+            return this;
+        }
+
+        /**
+         * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+         * explicit offset (e.g., +05:30, -0800).
+         */
+        public Builder renewalNoticeDate(Optional<String> renewalNoticeDate) {
+            Utils.checkNotNull(renewalNoticeDate, "renewalNoticeDate");
+            this.renewalNoticeDate = renewalNoticeDate;
+            return this;
+        }
+
+
+        /**
+         * The period of time that a party is required to provide to indicate their intention to renew an
+         * agreement.
+         */
+        public Builder renewalNoticePeriod(String renewalNoticePeriod) {
+            Utils.checkNotNull(renewalNoticePeriod, "renewalNoticePeriod");
+            this.renewalNoticePeriod = JsonNullable.of(renewalNoticePeriod);
+            return this;
+        }
+
+        /**
+         * The period of time that a party is required to provide to indicate their intention to renew an
+         * agreement.
+         */
+        public Builder renewalNoticePeriod(JsonNullable<String> renewalNoticePeriod) {
+            Utils.checkNotNull(renewalNoticePeriod, "renewalNoticePeriod");
+            this.renewalNoticePeriod = renewalNoticePeriod;
+            return this;
+        }
+
+
+        /**
+         * User ID of the person responsible for managing the renewal process
+         */
+        public Builder renewalProcessOwner(String renewalProcessOwner) {
+            Utils.checkNotNull(renewalProcessOwner, "renewalProcessOwner");
+            this.renewalProcessOwner = Optional.ofNullable(renewalProcessOwner);
+            return this;
+        }
+
+        /**
+         * User ID of the person responsible for managing the renewal process
+         */
+        public Builder renewalProcessOwner(Optional<String> renewalProcessOwner) {
+            Utils.checkNotNull(renewalProcessOwner, "renewalProcessOwner");
+            this.renewalProcessOwner = renewalProcessOwner;
+            return this;
+        }
+
+
+        /**
+         * Specifies the type of renewal (e.g., automatic, manual).
+         */
+        public Builder renewalType(String renewalType) {
+            Utils.checkNotNull(renewalType, "renewalType");
+            this.renewalType = JsonNullable.of(renewalType);
+            return this;
+        }
+
+        /**
+         * Specifies the type of renewal (e.g., automatic, manual).
+         */
+        public Builder renewalType(JsonNullable<String> renewalType) {
+            Utils.checkNotNull(renewalType, "renewalType");
+            this.renewalType = renewalType;
             return this;
         }
 
@@ -1905,18 +1968,20 @@ public class Provisions {
 
 
         /**
-         * The date when the terms of the agreement start to apply and become legally binding.
+         * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+         * explicit offset (e.g., +05:30, -0800).
          */
-        public Builder effectiveDate(OffsetDateTime effectiveDate) {
+        public Builder effectiveDate(String effectiveDate) {
             Utils.checkNotNull(effectiveDate, "effectiveDate");
-            this.effectiveDate = JsonNullable.of(effectiveDate);
+            this.effectiveDate = Optional.ofNullable(effectiveDate);
             return this;
         }
 
         /**
-         * The date when the terms of the agreement start to apply and become legally binding.
+         * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+         * explicit offset (e.g., +05:30, -0800).
          */
-        public Builder effectiveDate(JsonNullable<OffsetDateTime> effectiveDate) {
+        public Builder effectiveDate(Optional<String> effectiveDate) {
             Utils.checkNotNull(effectiveDate, "effectiveDate");
             this.effectiveDate = effectiveDate;
             return this;
@@ -1924,41 +1989,43 @@ public class Provisions {
 
 
         /**
-         * The date when the agreement ends and is no longer valid or enforceable.
+         * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+         * explicit offset (e.g., +05:30, -0800).
          */
-        public Builder expirationDate(OffsetDateTime expirationDate) {
-            Utils.checkNotNull(expirationDate, "expirationDate");
-            this.expirationDate = JsonNullable.of(expirationDate);
-            return this;
-        }
-
-        /**
-         * The date when the agreement ends and is no longer valid or enforceable.
-         */
-        public Builder expirationDate(JsonNullable<OffsetDateTime> expirationDate) {
-            Utils.checkNotNull(expirationDate, "expirationDate");
-            this.expirationDate = expirationDate;
-            return this;
-        }
-
-
-        /**
-         * The date when the agreement is signed by all parties, making it officially binding. This is not
-         * necessarily the same as the effective date.
-         */
-        public Builder executionDate(OffsetDateTime executionDate) {
+        public Builder executionDate(String executionDate) {
             Utils.checkNotNull(executionDate, "executionDate");
-            this.executionDate = JsonNullable.of(executionDate);
+            this.executionDate = Optional.ofNullable(executionDate);
             return this;
         }
 
         /**
-         * The date when the agreement is signed by all parties, making it officially binding. This is not
-         * necessarily the same as the effective date.
+         * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+         * explicit offset (e.g., +05:30, -0800).
          */
-        public Builder executionDate(JsonNullable<OffsetDateTime> executionDate) {
+        public Builder executionDate(Optional<String> executionDate) {
             Utils.checkNotNull(executionDate, "executionDate");
             this.executionDate = executionDate;
+            return this;
+        }
+
+
+        /**
+         * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+         * explicit offset (e.g., +05:30, -0800).
+         */
+        public Builder expirationDate(String expirationDate) {
+            Utils.checkNotNull(expirationDate, "expirationDate");
+            this.expirationDate = Optional.ofNullable(expirationDate);
+            return this;
+        }
+
+        /**
+         * ISO 8601 formatted date-time string. May be local (no timezone), UTC (Z suffix), or include an
+         * explicit offset (e.g., +05:30, -0800).
+         */
+        public Builder expirationDate(Optional<String> expirationDate) {
+            Utils.checkNotNull(expirationDate, "expirationDate");
+            this.expirationDate = expirationDate;
             return this;
         }
 
@@ -1987,17 +2054,17 @@ public class Provisions {
             }
 
             return new Provisions(
-                assignmentType, assignmentChangeOfControl, assignmentTerminationRights,
+                assignmentChangeOfControl, assignmentTerminationRights, assignmentType,
                 confidentialityObligationPeriod, governingLaw, jurisdiction,
                 ndaType, annualAgreementValue, annualAgreementValueCurrencyCode,
                 totalAgreementValue, totalAgreementValueCurrencyCode, paymentTermsDueDate,
-                canChargeLatePaymentFees, latePaymentFeePercent, liabilityCapFixedAmount,
-                liabilityCapCurrencyCode, liabilityCapMultiplier, liabilityCapDuration,
-                priceCapPercentIncrease, renewalType, renewalNoticePeriod,
-                renewalNoticeDate, autoRenewalTermLength, renewalExtensionPeriod,
-                renewalProcessOwner, renewalAdditionalInfo, terminationPeriodForCause,
-                terminationPeriodForConvenience, effectiveDate, expirationDate,
-                executionDate, termLength);
+                canChargeLatePaymentFees, latePaymentFeePercent, liabilityCapCurrencyCode,
+                liabilityCapDuration, liabilityCapFixedAmount, liabilityCapMultiplier,
+                priceCapPercentIncrease, autoRenewalTermLength, renewalAdditionalInfo,
+                renewalExtensionPeriod, renewalNoticeDate, renewalNoticePeriod,
+                renewalProcessOwner, renewalType, terminationPeriodForCause,
+                terminationPeriodForConvenience, effectiveDate, executionDate,
+                expirationDate, termLength);
         }
 
 

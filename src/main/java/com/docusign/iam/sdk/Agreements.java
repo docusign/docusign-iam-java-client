@@ -5,9 +5,6 @@ package com.docusign.iam.sdk;
 
 import static com.docusign.iam.sdk.operations.Operations.RequestOperation;
 
-import com.docusign.iam.sdk.models.operations.CreateAgreementSummaryRequest;
-import com.docusign.iam.sdk.models.operations.CreateAgreementSummaryRequestBuilder;
-import com.docusign.iam.sdk.models.operations.CreateAgreementSummaryResponse;
 import com.docusign.iam.sdk.models.operations.DeleteAgreementRequest;
 import com.docusign.iam.sdk.models.operations.DeleteAgreementRequestBuilder;
 import com.docusign.iam.sdk.models.operations.DeleteAgreementResponse;
@@ -17,7 +14,6 @@ import com.docusign.iam.sdk.models.operations.GetAgreementResponse;
 import com.docusign.iam.sdk.models.operations.GetAgreementsListRequest;
 import com.docusign.iam.sdk.models.operations.GetAgreementsListRequestBuilder;
 import com.docusign.iam.sdk.models.operations.GetAgreementsListResponse;
-import com.docusign.iam.sdk.operations.CreateAgreementSummary;
 import com.docusign.iam.sdk.operations.DeleteAgreement;
 import com.docusign.iam.sdk.operations.GetAgreement;
 import com.docusign.iam.sdk.operations.GetAgreementsList;
@@ -50,6 +46,8 @@ public class Agreements {
      * <p>The response also includes provisions that outline the key legal, financial, and lifecycle
      * conditions, along with custom user-defined fields, providing a comprehensive understanding of each
      * agreement.
+     * 
+     * <p>[Required scopes](/docs/navigator-api/auth/): `adm_store_unified_repo_read`
      * 
      * <p>### Use Cases:
      * - **Retrieving a list of agreements for integration into external systems**: Export or sync
@@ -98,6 +96,8 @@ public class Agreements {
      * <p>The response also includes provisions that outline the key legal, financial, and lifecycle
      * conditions, along with custom user-defined fields, providing a comprehensive understanding of each
      * agreement.
+     * 
+     * <p>[Required scopes](/docs/navigator-api/auth/): `adm_store_unified_repo_read`
      * 
      * <p>### Use Cases:
      * - **Retrieving a list of agreements for integration into external systems**: Export or sync
@@ -148,6 +148,8 @@ public class Agreements {
      * <p>The response also includes provisions that outline the key legal, financial, and lifecycle
      * conditions, along with custom user-defined fields, providing a comprehensive understanding of each
      * agreement.
+     * 
+     * <p>[Required scopes](/docs/navigator-api/auth/): `adm_store_unified_repo_read`
      * 
      * <p>### Use Cases:
      * - **Retrieving a list of agreements for integration into external systems**: Export or sync
@@ -201,6 +203,8 @@ public class Agreements {
      * <p>The operation is essential for retrieving the full context of an agreement, enabling users to
      * understand the contract's scope, key provisions, and the legal or financial obligations that have
      * been agreed upon.
+     * 
+     * <p>[Required scopes](/docs/navigator-api/auth/): `adm_store_unified_repo_read`
      * 
      * <p>### Use Cases:
      * - **Integrating agreement data into external systems**: Sync detailed agreement information, such as
@@ -256,6 +260,8 @@ public class Agreements {
      * <p>The operation is essential for retrieving the full context of an agreement, enabling users to
      * understand the contract's scope, key provisions, and the legal or financial obligations that have
      * been agreed upon.
+     * 
+     * <p>[Required scopes](/docs/navigator-api/auth/): `adm_store_unified_repo_read`
      * 
      * <p>### Use Cases:
      * - **Integrating agreement data into external systems**: Sync detailed agreement information, such as
@@ -314,6 +320,8 @@ public class Agreements {
      * <p>The operation is essential for retrieving the full context of an agreement, enabling users to
      * understand the contract's scope, key provisions, and the legal or financial obligations that have
      * been agreed upon.
+     * 
+     * <p>[Required scopes](/docs/navigator-api/auth/): `adm_store_unified_repo_read`
      * 
      * <p>### Use Cases:
      * - **Integrating agreement data into external systems**: Sync detailed agreement information, such as
@@ -374,6 +382,9 @@ public class Agreements {
      * <p>This operation safely deletes an agreement. This action conforms to GDPR and CCPA compliance
      * requirements.
      * 
+     * <p>[Required scopes](/docs/navigator-api/auth/): `adm_store_unified_repo_write`,
+     * `adm_store_unified_repo_read`
+     * 
      * @return The call builder
      */
     public DeleteAgreementRequestBuilder deleteAgreement() {
@@ -385,6 +396,9 @@ public class Agreements {
      * 
      * <p>This operation safely deletes an agreement. This action conforms to GDPR and CCPA compliance
      * requirements.
+     * 
+     * <p>[Required scopes](/docs/navigator-api/auth/): `adm_store_unified_repo_write`,
+     * `adm_store_unified_repo_read`
      * 
      * @param accountId 
      * @param agreementId 
@@ -400,6 +414,9 @@ public class Agreements {
      * 
      * <p>This operation safely deletes an agreement. This action conforms to GDPR and CCPA compliance
      * requirements.
+     * 
+     * <p>[Required scopes](/docs/navigator-api/auth/): `adm_store_unified_repo_write`,
+     * `adm_store_unified_repo_read`
      * 
      * @param accountId 
      * @param agreementId 
@@ -418,77 +435,6 @@ public class Agreements {
                 .build();
         RequestOperation<DeleteAgreementRequest, DeleteAgreementResponse> operation
               = new DeleteAgreement.Sync(sdkConfiguration, options, _headers);
-        return operation.handleResponse(operation.doRequest(request));
-    }
-
-    /**
-     * Create an AI-generated summary of an agreement document
-     * 
-     * <p>This operation request an AI-generated summary of the specified agreement document.
-     * The summary is intended to provide a concise overview of the original agreement’s content
-     * and key points; however, it may not capture all details or legal nuances.
-     * 
-     * <p>**Important**: By invoking this operation, you acknowledge and accept the
-     * [Docusign AI Terms and
-     * Conditions](https://www.docusign.com/legal/terms-and-conditions/ai-attachment-docusign-services).
-     * Please refer to the original agreement for any legally binding information.
-     * 
-     * @return The call builder
-     */
-    public CreateAgreementSummaryRequestBuilder createAgreementSummary() {
-        return new CreateAgreementSummaryRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Create an AI-generated summary of an agreement document
-     * 
-     * <p>This operation request an AI-generated summary of the specified agreement document.
-     * The summary is intended to provide a concise overview of the original agreement’s content
-     * and key points; however, it may not capture all details or legal nuances.
-     * 
-     * <p>**Important**: By invoking this operation, you acknowledge and accept the
-     * [Docusign AI Terms and
-     * Conditions](https://www.docusign.com/legal/terms-and-conditions/ai-attachment-docusign-services).
-     * Please refer to the original agreement for any legally binding information.
-     * 
-     * @param accountId 
-     * @param agreementId 
-     * @return The response from the API call
-     * @throws RuntimeException subclass if the API call fails
-     */
-    public CreateAgreementSummaryResponse createAgreementSummary(String accountId, String agreementId) {
-        return createAgreementSummary(accountId, agreementId, Optional.empty());
-    }
-
-    /**
-     * Create an AI-generated summary of an agreement document
-     * 
-     * <p>This operation request an AI-generated summary of the specified agreement document.
-     * The summary is intended to provide a concise overview of the original agreement’s content
-     * and key points; however, it may not capture all details or legal nuances.
-     * 
-     * <p>**Important**: By invoking this operation, you acknowledge and accept the
-     * [Docusign AI Terms and
-     * Conditions](https://www.docusign.com/legal/terms-and-conditions/ai-attachment-docusign-services).
-     * Please refer to the original agreement for any legally binding information.
-     * 
-     * @param accountId 
-     * @param agreementId 
-     * @param options additional options
-     * @return The response from the API call
-     * @throws RuntimeException subclass if the API call fails
-     */
-    public CreateAgreementSummaryResponse createAgreementSummary(
-            String accountId, String agreementId,
-            Optional<Options> options) {
-        CreateAgreementSummaryRequest request =
-            CreateAgreementSummaryRequest
-                .builder()
-                .accountId(accountId)
-                .agreementId(agreementId)
-                .build();
-        RequestOperation<CreateAgreementSummaryRequest, CreateAgreementSummaryResponse> operation
-              = new CreateAgreementSummary.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

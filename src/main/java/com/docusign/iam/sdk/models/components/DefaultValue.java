@@ -31,7 +31,7 @@ import java.util.Map;
 public class DefaultValue {
 
     @JsonValue
-    private TypedObject value;
+    private final TypedObject value;
     
     private DefaultValue(TypedObject value) {
         this.value = value;
@@ -39,27 +39,25 @@ public class DefaultValue {
 
     public static DefaultValue of(String value) {
         Utils.checkNotNull(value, "value");
-        return new DefaultValue(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<String>(){}));
+        return new DefaultValue(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
 
     public static DefaultValue of(double value) {
-        Utils.checkNotNull(value, "value");
-        return new DefaultValue(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<java.lang.Double>(){}));
+        return new DefaultValue(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
 
     public static DefaultValue of(boolean value) {
-        Utils.checkNotNull(value, "value");
-        return new DefaultValue(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<java.lang.Boolean>(){}));
+        return new DefaultValue(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
 
     public static DefaultValue of(Map<String, Object> value) {
         Utils.checkNotNull(value, "value");
-        return new DefaultValue(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<Map<String, Object>>(){}));
+        return new DefaultValue(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
 
     public static DefaultValue of(List<Object> value) {
         Utils.checkNotNull(value, "value");
-        return new DefaultValue(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<List<Object>>(){}));
+        return new DefaultValue(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
     
     /**
@@ -85,7 +83,7 @@ public class DefaultValue {
      **/ 
     public java.lang.Object value() {
         return value.value();
-    }    
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -96,7 +94,7 @@ public class DefaultValue {
             return false;
         }
         DefaultValue other = (DefaultValue) o;
-        return Utils.enhancedDeepEquals(this.value.value(), other.value.value()); 
+        return Utils.enhancedDeepEquals(this.value.value(), other.value.value());
     }
     
     @Override
@@ -109,11 +107,11 @@ public class DefaultValue {
 
         public _Deserializer() {
             super(DefaultValue.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<List<Object>>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<Map<String, Object>>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<Boolean>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<String>() {}, JsonShape.DEFAULT),
                   TypeReferenceWithShape.of(new TypeReference<Double>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<String>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<Boolean>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<Map<String, Object>>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<List<Object>>() {}, JsonShape.DEFAULT));
         }
     }
     
@@ -122,6 +120,6 @@ public class DefaultValue {
         return Utils.toString(DefaultValue.class,
                 "value", value);
     }
- 
+
 }
 

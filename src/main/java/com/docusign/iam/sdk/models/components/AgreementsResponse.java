@@ -14,13 +14,18 @@ import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
-/**
- * AgreementsResponse
- * 
- * <p>A collection of agreements.
- */
+
 public class AgreementsResponse {
+    /**
+     * Hypermedia controls (HATEOAS) for navigating between pages in a paginated collection of results.
+     * Links for the current page, next page, and previous page, with optional first and last page links.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("_links")
+    private JsonNullable<? extends PageLinks> links;
+
     /**
      * A list of agreements
      */
@@ -37,16 +42,29 @@ public class AgreementsResponse {
 
     @JsonCreator
     public AgreementsResponse(
+            @JsonProperty("_links") JsonNullable<? extends PageLinks> links,
             @JsonProperty("data") Optional<? extends List<Agreement>> data,
             @JsonProperty("response_metadata") Optional<? extends ResponseMetadata> responseMetadata) {
+        Utils.checkNotNull(links, "links");
         Utils.checkNotNull(data, "data");
         Utils.checkNotNull(responseMetadata, "responseMetadata");
+        this.links = links;
         this.data = data;
         this.responseMetadata = responseMetadata;
     }
     
     public AgreementsResponse() {
-        this(Optional.empty(), Optional.empty());
+        this(JsonNullable.undefined(), Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Hypermedia controls (HATEOAS) for navigating between pages in a paginated collection of results.
+     * Links for the current page, next page, and previous page, with optional first and last page links.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<PageLinks> links() {
+        return (JsonNullable<PageLinks>) links;
     }
 
     /**
@@ -71,6 +89,26 @@ public class AgreementsResponse {
         return new Builder();
     }
 
+
+    /**
+     * Hypermedia controls (HATEOAS) for navigating between pages in a paginated collection of results.
+     * Links for the current page, next page, and previous page, with optional first and last page links.
+     */
+    public AgreementsResponse withLinks(PageLinks links) {
+        Utils.checkNotNull(links, "links");
+        this.links = JsonNullable.of(links);
+        return this;
+    }
+
+    /**
+     * Hypermedia controls (HATEOAS) for navigating between pages in a paginated collection of results.
+     * Links for the current page, next page, and previous page, with optional first and last page links.
+     */
+    public AgreementsResponse withLinks(JsonNullable<? extends PageLinks> links) {
+        Utils.checkNotNull(links, "links");
+        this.links = links;
+        return this;
+    }
 
     /**
      * A list of agreements
@@ -120,6 +158,7 @@ public class AgreementsResponse {
         }
         AgreementsResponse other = (AgreementsResponse) o;
         return 
+            Utils.enhancedDeepEquals(this.links, other.links) &&
             Utils.enhancedDeepEquals(this.data, other.data) &&
             Utils.enhancedDeepEquals(this.responseMetadata, other.responseMetadata);
     }
@@ -127,12 +166,13 @@ public class AgreementsResponse {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            data, responseMetadata);
+            links, data, responseMetadata);
     }
     
     @Override
     public String toString() {
         return Utils.toString(AgreementsResponse.class,
+                "links", links,
                 "data", data,
                 "responseMetadata", responseMetadata);
     }
@@ -140,12 +180,35 @@ public class AgreementsResponse {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
+        private JsonNullable<? extends PageLinks> links = JsonNullable.undefined();
+
         private Optional<? extends List<Agreement>> data = Optional.empty();
 
         private Optional<? extends ResponseMetadata> responseMetadata = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
+        }
+
+
+        /**
+         * Hypermedia controls (HATEOAS) for navigating between pages in a paginated collection of results.
+         * Links for the current page, next page, and previous page, with optional first and last page links.
+         */
+        public Builder links(PageLinks links) {
+            Utils.checkNotNull(links, "links");
+            this.links = JsonNullable.of(links);
+            return this;
+        }
+
+        /**
+         * Hypermedia controls (HATEOAS) for navigating between pages in a paginated collection of results.
+         * Links for the current page, next page, and previous page, with optional first and last page links.
+         */
+        public Builder links(JsonNullable<? extends PageLinks> links) {
+            Utils.checkNotNull(links, "links");
+            this.links = links;
+            return this;
         }
 
 
@@ -189,7 +252,7 @@ public class AgreementsResponse {
         public AgreementsResponse build() {
 
             return new AgreementsResponse(
-                data, responseMetadata);
+                links, data, responseMetadata);
         }
 
     }

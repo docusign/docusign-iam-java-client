@@ -106,7 +106,7 @@ public class DeleteAgreement {
                     "/v1/accounts/{accountId}/agreements/{agreementId}",
                     request, null);
             HTTPRequest req = new HTTPRequest(url, "DELETE");
-            req.addHeader("Accept", "application/json")
+            req.addHeader("Accept", "application/problem+json")
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
             _headers.forEach((k, list) -> list.forEach(v -> req.addHeader(k, v)));
             Utils.configureSecurity(req, this.sdkConfiguration.securitySource().getSecurity());
@@ -188,14 +188,14 @@ public class DeleteAgreement {
                 return res;
             }
             if (Utils.statusCodeMatches(response.statusCode(), "400", "403", "404")) {
-                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                if (Utils.contentTypeMatches(contentType, "application/problem+json")) {
                     throw Error.from(response);
                 } else {
                     throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
             if (Utils.statusCodeMatches(response.statusCode(), "500")) {
-                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                if (Utils.contentTypeMatches(contentType, "application/problem+json")) {
                     throw Error.from(response);
                 } else {
                     throw APIException.from("Unexpected content-type received: " + contentType, response);

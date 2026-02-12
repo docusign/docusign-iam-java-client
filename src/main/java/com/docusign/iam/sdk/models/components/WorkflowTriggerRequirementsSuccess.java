@@ -3,12 +3,14 @@
  */
 package com.docusign.iam.sdk.models.components;
 
+import com.docusign.iam.sdk.utils.LazySingletonValue;
 import com.docusign.iam.sdk.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
@@ -68,34 +70,27 @@ public class WorkflowTriggerRequirementsSuccess {
     private JsonNullable<Integer> pageLimit;
 
     /**
-     * The continuation token used to retrieve a page in a paginated response.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("page_token_next")
-    private JsonNullable<String> pageTokenNext;
-
-    /**
      * Unique identifier for the request, useful for tracking and debugging.
      */
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("request_id")
-    private JsonNullable<String> requestId;
-
-    /**
-     * The timestamp indicating when the response was generated.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("response_timestamp")
-    private JsonNullable<OffsetDateTime> responseTimestamp;
+    private Optional<String> requestId;
 
     /**
      * The duration of time, in milliseconds, that the server took to process and respond
      * to the request. This is measured from the time the server received the request
      * until the time the response was sent.
      */
-    @JsonInclude(Include.NON_ABSENT)
+    @JsonInclude(Include.ALWAYS)
     @JsonProperty("response_duration_ms")
-    private JsonNullable<Integer> responseDurationMs;
+    private Optional<Integer> responseDurationMs;
+
+    /**
+     * The timestamp indicating when the response was generated.
+     */
+    @JsonInclude(Include.ALWAYS)
+    @JsonProperty("response_timestamp")
+    private Optional<OffsetDateTime> responseTimestamp;
 
     @JsonCreator
     public WorkflowTriggerRequirementsSuccess(
@@ -105,37 +100,33 @@ public class WorkflowTriggerRequirementsSuccess {
             @JsonProperty("trigger_input_schema") Optional<? extends List<TriggerInputSchema>> triggerInputSchema,
             @JsonProperty("metadata") Optional<? extends ResourceMetadata> metadata,
             @JsonProperty("page_limit") JsonNullable<Integer> pageLimit,
-            @JsonProperty("page_token_next") JsonNullable<String> pageTokenNext,
-            @JsonProperty("request_id") JsonNullable<String> requestId,
-            @JsonProperty("response_timestamp") JsonNullable<OffsetDateTime> responseTimestamp,
-            @JsonProperty("response_duration_ms") JsonNullable<Integer> responseDurationMs) {
+            @JsonProperty("request_id") Optional<String> requestId,
+            @JsonProperty("response_duration_ms") Optional<Integer> responseDurationMs,
+            @JsonProperty("response_timestamp") Optional<OffsetDateTime> responseTimestamp) {
         Utils.checkNotNull(triggerId, "triggerId");
         Utils.checkNotNull(triggerEventType, "triggerEventType");
         Utils.checkNotNull(triggerHttpConfig, "triggerHttpConfig");
         Utils.checkNotNull(triggerInputSchema, "triggerInputSchema");
         Utils.checkNotNull(metadata, "metadata");
         Utils.checkNotNull(pageLimit, "pageLimit");
-        Utils.checkNotNull(pageTokenNext, "pageTokenNext");
         Utils.checkNotNull(requestId, "requestId");
-        Utils.checkNotNull(responseTimestamp, "responseTimestamp");
         Utils.checkNotNull(responseDurationMs, "responseDurationMs");
+        Utils.checkNotNull(responseTimestamp, "responseTimestamp");
         this.triggerId = triggerId;
         this.triggerEventType = triggerEventType;
         this.triggerHttpConfig = triggerHttpConfig;
         this.triggerInputSchema = triggerInputSchema;
         this.metadata = metadata;
         this.pageLimit = pageLimit;
-        this.pageTokenNext = pageTokenNext;
         this.requestId = requestId;
-        this.responseTimestamp = responseTimestamp;
         this.responseDurationMs = responseDurationMs;
+        this.responseTimestamp = responseTimestamp;
     }
     
     public WorkflowTriggerRequirementsSuccess() {
         this(Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty(), JsonNullable.undefined(),
-            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
-            JsonNullable.undefined());
+            Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     @JsonIgnore
@@ -190,27 +181,11 @@ public class WorkflowTriggerRequirementsSuccess {
     }
 
     /**
-     * The continuation token used to retrieve a page in a paginated response.
-     */
-    @JsonIgnore
-    public JsonNullable<String> pageTokenNext() {
-        return pageTokenNext;
-    }
-
-    /**
      * Unique identifier for the request, useful for tracking and debugging.
      */
     @JsonIgnore
-    public JsonNullable<String> requestId() {
+    public Optional<String> requestId() {
         return requestId;
-    }
-
-    /**
-     * The timestamp indicating when the response was generated.
-     */
-    @JsonIgnore
-    public JsonNullable<OffsetDateTime> responseTimestamp() {
-        return responseTimestamp;
     }
 
     /**
@@ -219,8 +194,16 @@ public class WorkflowTriggerRequirementsSuccess {
      * until the time the response was sent.
      */
     @JsonIgnore
-    public JsonNullable<Integer> responseDurationMs() {
+    public Optional<Integer> responseDurationMs() {
         return responseDurationMs;
+    }
+
+    /**
+     * The timestamp indicating when the response was generated.
+     */
+    @JsonIgnore
+    public Optional<OffsetDateTime> responseTimestamp() {
+        return responseTimestamp;
     }
 
     public static Builder builder() {
@@ -340,56 +323,21 @@ public class WorkflowTriggerRequirementsSuccess {
     }
 
     /**
-     * The continuation token used to retrieve a page in a paginated response.
-     */
-    public WorkflowTriggerRequirementsSuccess withPageTokenNext(String pageTokenNext) {
-        Utils.checkNotNull(pageTokenNext, "pageTokenNext");
-        this.pageTokenNext = JsonNullable.of(pageTokenNext);
-        return this;
-    }
-
-    /**
-     * The continuation token used to retrieve a page in a paginated response.
-     */
-    public WorkflowTriggerRequirementsSuccess withPageTokenNext(JsonNullable<String> pageTokenNext) {
-        Utils.checkNotNull(pageTokenNext, "pageTokenNext");
-        this.pageTokenNext = pageTokenNext;
-        return this;
-    }
-
-    /**
      * Unique identifier for the request, useful for tracking and debugging.
      */
     public WorkflowTriggerRequirementsSuccess withRequestId(String requestId) {
         Utils.checkNotNull(requestId, "requestId");
-        this.requestId = JsonNullable.of(requestId);
+        this.requestId = Optional.ofNullable(requestId);
         return this;
     }
+
 
     /**
      * Unique identifier for the request, useful for tracking and debugging.
      */
-    public WorkflowTriggerRequirementsSuccess withRequestId(JsonNullable<String> requestId) {
+    public WorkflowTriggerRequirementsSuccess withRequestId(Optional<String> requestId) {
         Utils.checkNotNull(requestId, "requestId");
         this.requestId = requestId;
-        return this;
-    }
-
-    /**
-     * The timestamp indicating when the response was generated.
-     */
-    public WorkflowTriggerRequirementsSuccess withResponseTimestamp(OffsetDateTime responseTimestamp) {
-        Utils.checkNotNull(responseTimestamp, "responseTimestamp");
-        this.responseTimestamp = JsonNullable.of(responseTimestamp);
-        return this;
-    }
-
-    /**
-     * The timestamp indicating when the response was generated.
-     */
-    public WorkflowTriggerRequirementsSuccess withResponseTimestamp(JsonNullable<OffsetDateTime> responseTimestamp) {
-        Utils.checkNotNull(responseTimestamp, "responseTimestamp");
-        this.responseTimestamp = responseTimestamp;
         return this;
     }
 
@@ -400,18 +348,38 @@ public class WorkflowTriggerRequirementsSuccess {
      */
     public WorkflowTriggerRequirementsSuccess withResponseDurationMs(int responseDurationMs) {
         Utils.checkNotNull(responseDurationMs, "responseDurationMs");
-        this.responseDurationMs = JsonNullable.of(responseDurationMs);
+        this.responseDurationMs = Optional.ofNullable(responseDurationMs);
         return this;
     }
+
 
     /**
      * The duration of time, in milliseconds, that the server took to process and respond
      * to the request. This is measured from the time the server received the request
      * until the time the response was sent.
      */
-    public WorkflowTriggerRequirementsSuccess withResponseDurationMs(JsonNullable<Integer> responseDurationMs) {
+    public WorkflowTriggerRequirementsSuccess withResponseDurationMs(Optional<Integer> responseDurationMs) {
         Utils.checkNotNull(responseDurationMs, "responseDurationMs");
         this.responseDurationMs = responseDurationMs;
+        return this;
+    }
+
+    /**
+     * The timestamp indicating when the response was generated.
+     */
+    public WorkflowTriggerRequirementsSuccess withResponseTimestamp(OffsetDateTime responseTimestamp) {
+        Utils.checkNotNull(responseTimestamp, "responseTimestamp");
+        this.responseTimestamp = Optional.ofNullable(responseTimestamp);
+        return this;
+    }
+
+
+    /**
+     * The timestamp indicating when the response was generated.
+     */
+    public WorkflowTriggerRequirementsSuccess withResponseTimestamp(Optional<OffsetDateTime> responseTimestamp) {
+        Utils.checkNotNull(responseTimestamp, "responseTimestamp");
+        this.responseTimestamp = responseTimestamp;
         return this;
     }
 
@@ -431,10 +399,9 @@ public class WorkflowTriggerRequirementsSuccess {
             Utils.enhancedDeepEquals(this.triggerInputSchema, other.triggerInputSchema) &&
             Utils.enhancedDeepEquals(this.metadata, other.metadata) &&
             Utils.enhancedDeepEquals(this.pageLimit, other.pageLimit) &&
-            Utils.enhancedDeepEquals(this.pageTokenNext, other.pageTokenNext) &&
             Utils.enhancedDeepEquals(this.requestId, other.requestId) &&
-            Utils.enhancedDeepEquals(this.responseTimestamp, other.responseTimestamp) &&
-            Utils.enhancedDeepEquals(this.responseDurationMs, other.responseDurationMs);
+            Utils.enhancedDeepEquals(this.responseDurationMs, other.responseDurationMs) &&
+            Utils.enhancedDeepEquals(this.responseTimestamp, other.responseTimestamp);
     }
     
     @Override
@@ -442,8 +409,7 @@ public class WorkflowTriggerRequirementsSuccess {
         return Utils.enhancedHash(
             triggerId, triggerEventType, triggerHttpConfig,
             triggerInputSchema, metadata, pageLimit,
-            pageTokenNext, requestId, responseTimestamp,
-            responseDurationMs);
+            requestId, responseDurationMs, responseTimestamp);
     }
     
     @Override
@@ -455,16 +421,15 @@ public class WorkflowTriggerRequirementsSuccess {
                 "triggerInputSchema", triggerInputSchema,
                 "metadata", metadata,
                 "pageLimit", pageLimit,
-                "pageTokenNext", pageTokenNext,
                 "requestId", requestId,
-                "responseTimestamp", responseTimestamp,
-                "responseDurationMs", responseDurationMs);
+                "responseDurationMs", responseDurationMs,
+                "responseTimestamp", responseTimestamp);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Optional<String> triggerId = Optional.empty();
+        private Optional<String> triggerId;
 
         private Optional<? extends TriggerEventType> triggerEventType = Optional.empty();
 
@@ -474,15 +439,13 @@ public class WorkflowTriggerRequirementsSuccess {
 
         private Optional<? extends ResourceMetadata> metadata = Optional.empty();
 
-        private JsonNullable<Integer> pageLimit = JsonNullable.undefined();
+        private JsonNullable<Integer> pageLimit;
 
-        private JsonNullable<String> pageTokenNext = JsonNullable.undefined();
+        private Optional<String> requestId = Optional.empty();
 
-        private JsonNullable<String> requestId = JsonNullable.undefined();
+        private Optional<Integer> responseDurationMs = Optional.empty();
 
-        private JsonNullable<OffsetDateTime> responseTimestamp = JsonNullable.undefined();
-
-        private JsonNullable<Integer> responseDurationMs = JsonNullable.undefined();
+        private Optional<OffsetDateTime> responseTimestamp = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -602,58 +565,20 @@ public class WorkflowTriggerRequirementsSuccess {
 
 
         /**
-         * The continuation token used to retrieve a page in a paginated response.
-         */
-        public Builder pageTokenNext(String pageTokenNext) {
-            Utils.checkNotNull(pageTokenNext, "pageTokenNext");
-            this.pageTokenNext = JsonNullable.of(pageTokenNext);
-            return this;
-        }
-
-        /**
-         * The continuation token used to retrieve a page in a paginated response.
-         */
-        public Builder pageTokenNext(JsonNullable<String> pageTokenNext) {
-            Utils.checkNotNull(pageTokenNext, "pageTokenNext");
-            this.pageTokenNext = pageTokenNext;
-            return this;
-        }
-
-
-        /**
          * Unique identifier for the request, useful for tracking and debugging.
          */
         public Builder requestId(String requestId) {
             Utils.checkNotNull(requestId, "requestId");
-            this.requestId = JsonNullable.of(requestId);
+            this.requestId = Optional.ofNullable(requestId);
             return this;
         }
 
         /**
          * Unique identifier for the request, useful for tracking and debugging.
          */
-        public Builder requestId(JsonNullable<String> requestId) {
+        public Builder requestId(Optional<String> requestId) {
             Utils.checkNotNull(requestId, "requestId");
             this.requestId = requestId;
-            return this;
-        }
-
-
-        /**
-         * The timestamp indicating when the response was generated.
-         */
-        public Builder responseTimestamp(OffsetDateTime responseTimestamp) {
-            Utils.checkNotNull(responseTimestamp, "responseTimestamp");
-            this.responseTimestamp = JsonNullable.of(responseTimestamp);
-            return this;
-        }
-
-        /**
-         * The timestamp indicating when the response was generated.
-         */
-        public Builder responseTimestamp(JsonNullable<OffsetDateTime> responseTimestamp) {
-            Utils.checkNotNull(responseTimestamp, "responseTimestamp");
-            this.responseTimestamp = responseTimestamp;
             return this;
         }
 
@@ -665,7 +590,7 @@ public class WorkflowTriggerRequirementsSuccess {
          */
         public Builder responseDurationMs(int responseDurationMs) {
             Utils.checkNotNull(responseDurationMs, "responseDurationMs");
-            this.responseDurationMs = JsonNullable.of(responseDurationMs);
+            this.responseDurationMs = Optional.ofNullable(responseDurationMs);
             return this;
         }
 
@@ -674,20 +599,56 @@ public class WorkflowTriggerRequirementsSuccess {
          * to the request. This is measured from the time the server received the request
          * until the time the response was sent.
          */
-        public Builder responseDurationMs(JsonNullable<Integer> responseDurationMs) {
+        public Builder responseDurationMs(Optional<Integer> responseDurationMs) {
             Utils.checkNotNull(responseDurationMs, "responseDurationMs");
             this.responseDurationMs = responseDurationMs;
             return this;
         }
 
+
+        /**
+         * The timestamp indicating when the response was generated.
+         */
+        public Builder responseTimestamp(OffsetDateTime responseTimestamp) {
+            Utils.checkNotNull(responseTimestamp, "responseTimestamp");
+            this.responseTimestamp = Optional.ofNullable(responseTimestamp);
+            return this;
+        }
+
+        /**
+         * The timestamp indicating when the response was generated.
+         */
+        public Builder responseTimestamp(Optional<OffsetDateTime> responseTimestamp) {
+            Utils.checkNotNull(responseTimestamp, "responseTimestamp");
+            this.responseTimestamp = responseTimestamp;
+            return this;
+        }
+
         public WorkflowTriggerRequirementsSuccess build() {
+            if (triggerId == null) {
+                triggerId = _SINGLETON_VALUE_TriggerId.value();
+            }
+            if (pageLimit == null) {
+                pageLimit = _SINGLETON_VALUE_PageLimit.value();
+            }
 
             return new WorkflowTriggerRequirementsSuccess(
                 triggerId, triggerEventType, triggerHttpConfig,
                 triggerInputSchema, metadata, pageLimit,
-                pageTokenNext, requestId, responseTimestamp,
-                responseDurationMs);
+                requestId, responseDurationMs, responseTimestamp);
         }
 
+
+        private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_TriggerId =
+                new LazySingletonValue<>(
+                        "trigger_id",
+                        "\"00000000-0000-0000-0000-000000000000\"",
+                        new TypeReference<Optional<String>>() {});
+
+        private static final LazySingletonValue<JsonNullable<Integer>> _SINGLETON_VALUE_PageLimit =
+                new LazySingletonValue<>(
+                        "page_limit",
+                        "25",
+                        new TypeReference<JsonNullable<Integer>>() {});
     }
 }

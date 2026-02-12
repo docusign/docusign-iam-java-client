@@ -9,11 +9,11 @@ import static com.docusign.iam.sdk.utils.Exceptions.unchecked;
 
 import com.docusign.iam.sdk.SDKConfiguration;
 import com.docusign.iam.sdk.SecuritySource;
-import com.docusign.iam.sdk.models.components.AgreementSummary;
+import com.docusign.iam.sdk.models.components.BulkJob;
 import com.docusign.iam.sdk.models.errors.APIException;
-import com.docusign.iam.sdk.models.errors.Error;
-import com.docusign.iam.sdk.models.operations.CreateAgreementSummaryRequest;
-import com.docusign.iam.sdk.models.operations.CreateAgreementSummaryResponse;
+import com.docusign.iam.sdk.models.errors.ErrDetails;
+import com.docusign.iam.sdk.models.operations.CreateBulkUploadJobRequest;
+import com.docusign.iam.sdk.models.operations.CreateBulkUploadJobResponse;
 import com.docusign.iam.sdk.utils.BackoffStrategy;
 import com.docusign.iam.sdk.utils.HTTPClient;
 import com.docusign.iam.sdk.utils.HTTPRequest;
@@ -24,10 +24,14 @@ import com.docusign.iam.sdk.utils.Hook.BeforeRequestContextImpl;
 import com.docusign.iam.sdk.utils.Options;
 import com.docusign.iam.sdk.utils.Retries;
 import com.docusign.iam.sdk.utils.RetryConfig;
+import com.docusign.iam.sdk.utils.SerializedBody;
+import com.docusign.iam.sdk.utils.Utils.JsonShape;
 import com.docusign.iam.sdk.utils.Utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
 import java.lang.Exception;
+import java.lang.IllegalArgumentException;
+import java.lang.Object;
 import java.lang.String;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -36,7 +40,7 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
-public class CreateAgreementSummary {
+public class CreateBulkUploadJob {
 
     static abstract class Base {
         final SDKConfiguration sdkConfiguration;
@@ -79,7 +83,7 @@ public class CreateAgreementSummary {
             return new BeforeRequestContextImpl(
                     this.sdkConfiguration,
                     this.baseUrl,
-                    "CreateAgreementSummary",
+                    "createBulkUploadJob",
                     java.util.Optional.empty(),
                     securitySource());
         }
@@ -88,7 +92,7 @@ public class CreateAgreementSummary {
             return new AfterSuccessContextImpl(
                     this.sdkConfiguration,
                     this.baseUrl,
-                    "CreateAgreementSummary",
+                    "createBulkUploadJob",
                     java.util.Optional.empty(),
                     securitySource());
         }
@@ -97,17 +101,30 @@ public class CreateAgreementSummary {
             return new AfterErrorContextImpl(
                     this.sdkConfiguration,
                     this.baseUrl,
-                    "CreateAgreementSummary",
+                    "createBulkUploadJob",
                     java.util.Optional.empty(),
                     securitySource());
         }
-        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
+        <T, U>HttpRequest buildRequest(T request, Class<T> klass, TypeReference<U> typeReference) throws Exception {
             String url = Utils.generateURL(
                     klass,
                     this.baseUrl,
-                    "/v1/accounts/{accountId}/agreements/{agreementId}/ai/actions/summarize",
+                    "/v1/accounts/{accountId}/upload/jobs",
                     request, null);
             HTTPRequest req = new HTTPRequest(url, "POST");
+            Object convertedRequest = Utils.convertToShape(
+                    request,
+                    JsonShape.DEFAULT,
+                    typeReference);
+            SerializedBody serializedRequestBody = Utils.serializeRequestBody(
+                    convertedRequest,
+                    "createBulkJob",
+                    "json",
+                    false);
+            if (serializedRequestBody == null) {
+                throw new IllegalArgumentException("Request body is required");
+            }
+            req.setBody(Optional.ofNullable(serializedRequestBody));
             req.addHeader("Accept", "application/json")
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
             _headers.forEach((k, list) -> list.forEach(v -> req.addHeader(k, v)));
@@ -118,7 +135,7 @@ public class CreateAgreementSummary {
     }
 
     public static class Sync extends Base
-            implements RequestOperation<CreateAgreementSummaryRequest, CreateAgreementSummaryResponse> {
+            implements RequestOperation<CreateBulkUploadJobRequest, CreateBulkUploadJobResponse> {
         public Sync(
                 SDKConfiguration sdkConfiguration, Optional<Options> options,
                 Headers _headers) {
@@ -127,8 +144,8 @@ public class CreateAgreementSummary {
                   _headers);
         }
 
-        private HttpRequest onBuildRequest(CreateAgreementSummaryRequest request) throws Exception {
-            HttpRequest req = buildRequest(request, CreateAgreementSummaryRequest.class);
+        private HttpRequest onBuildRequest(CreateBulkUploadJobRequest request) throws Exception {
+            HttpRequest req = buildRequest(request, CreateBulkUploadJobRequest.class, new TypeReference<CreateBulkUploadJobRequest>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 
@@ -144,7 +161,7 @@ public class CreateAgreementSummary {
         }
 
         @Override
-        public HttpResponse<InputStream> doRequest(CreateAgreementSummaryRequest request) {
+        public HttpResponse<InputStream> doRequest(CreateBulkUploadJobRequest request) {
             Retries retries = Retries.builder()
                     .action(() -> {
                         HttpRequest r;
@@ -155,7 +172,7 @@ public class CreateAgreementSummary {
                         }
                         try {
                             HttpResponse<InputStream> httpRes = client.send(r);
-                            if (Utils.statusCodeMatches(httpRes.statusCode(), "400", "401", "403", "404", "4XX", "500", "5XX")) {
+                            if (Utils.statusCodeMatches(httpRes.statusCode(), "400", "401", "403", "429", "4XX", "500", "5XX")) {
                                 return onError(httpRes, null);
                             }
                             return httpRes;
@@ -171,42 +188,42 @@ public class CreateAgreementSummary {
 
 
         @Override
-        public CreateAgreementSummaryResponse handleResponse(HttpResponse<InputStream> response) {
+        public CreateBulkUploadJobResponse handleResponse(HttpResponse<InputStream> response) {
             String contentType = response
                     .headers()
                     .firstValue("Content-Type")
                     .orElse("application/octet-stream");
-            CreateAgreementSummaryResponse.Builder resBuilder =
-                    CreateAgreementSummaryResponse
+            CreateBulkUploadJobResponse.Builder resBuilder =
+                    CreateBulkUploadJobResponse
                             .builder()
                             .contentType(contentType)
                             .statusCode(response.statusCode())
                             .rawResponse(response);
 
-            CreateAgreementSummaryResponse res = resBuilder.build();
+            CreateBulkUploadJobResponse res = resBuilder.build();
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    return res.withAgreementSummary(Utils.unmarshal(response, new TypeReference<AgreementSummary>() {}));
+                    return res.withBulkJob(Utils.unmarshal(response, new TypeReference<BulkJob>() {}));
                 } else {
                     throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "400", "403", "404")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403", "429")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    throw Error.from(response);
+                    throw ErrDetails.from(response);
                 } else {
                     throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
             if (Utils.statusCodeMatches(response.statusCode(), "500")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    throw Error.from(response);
+                    throw ErrDetails.from(response);
                 } else {
                     throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "401", "4XX")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "4XX")) {
                 // no content
                 throw APIException.from("API error occurred", response);
             }
